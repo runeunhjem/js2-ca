@@ -85,7 +85,7 @@ p# js2-ca
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://js2-ca.netlify.app/)
+[![Product Name Screen Shot][product-screenshot]](https://js2-ca-js2-branch.netlify.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -140,7 +140,7 @@ In order to edit and work with the site locally, you need a code editor.
 
 A social media site where movielovers can share their thoughts about movies and series. The site is responsive and works on all devices.
 
-Find the latest and greatest version of the site at [https://js2-ca.netlify.app/](https://js2-ca.netlify.app/)
+Find the latest and greatest version of the site at [https://js2-ca-js2-branch.netlify.app/](https://js2-ca-js2-branch.netlify.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

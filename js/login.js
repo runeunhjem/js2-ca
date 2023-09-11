@@ -41,7 +41,8 @@ async function loginUser(url, userData) {
     } else {
       console.log("Login failed!");
     }
-
+    const accessToken = json.accessToken;
+    localStorage.setItem("accessToken", accessToken);
     return json;
   } catch (error) {
     console.error(error);
