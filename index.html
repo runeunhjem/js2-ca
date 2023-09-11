@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Welcome to movieTALK, a social media platform for movie lovers. Share your thoughts on movies and interact with other users.">
+  <link rel="stylesheet" href="dist/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  <title>movieTALK | Home</title>
+</head>
+<body>
+<header class="mx-auto">
+  <nav class="navbar navbar-expand-md pt-4 bg-dark align-items-center mx-auto">
+    <a class="navbar-brand header-logo mb-2 ms-5 ms-md-0 mx-md-auto" href="../index.html" alt="movieTALK Logo"><span class="visually-hidden">Home</span></a>
+    <div class="container mx-auto d-flex align-items-start justify-content-end">
+      <div class="row align-items-center">
+        <div class="col-4 justify-content-end col-sm-4 col-md-6 m-1">
+          <button class="btn-outline-warning navbar-toggler bg-warning mb-2 me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon justify-content-end"></span>
+          </button>
+          <div class="collapse navbar-collapse text-primary" id="navbarMenu">
+            <ul class="navbar-nav mb-lg-2">
+              <li class="nav-item me-2">
+                <a class="nav-link text-warning active rounded-2 ps-2" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item me-2">
+                <a class="nav-link text-warning rounded-2 ps-2" href="profile/index.html">Profile</a>
+              </li>
+              <li class="nav-item mb-3">
+                <a class="nav-link text-warning rounded-2 ps-2" href="feed/index.html">Feed</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+        <div class="col-8 col-sm-8 col-md-6 d-flex align-items-start justify-content-start">
+          <form class="d-flex mt-1" role="search">
+            <input class="form-control me-2 max-width-300" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-warning" type="submit">Search</button>
+          </form>
+      </div>
+    </div>
+  </nav>
+</header>
+<main class="mt-3 max-width-800 mx-auto">
+  <div class="container mb-5">
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col">
+          <h1>Welcome to movieTALK</span></h1>
+          <p class="mt-3 mb-0">movieTALK is a social media platform for movie lovers.</p>
+          <p class="mt-0">Come on in to share your thoughts on movies and interact with other users.</p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <ul class="nav nav-tabs " id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-tab-pane" type="button" role="tab" aria-controls="login-tab-pane" aria-selected="true">Log In</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup-tab-pane" type="button" role="tab" aria-controls="signup-tab-pane" aria-selected="false">Sign Up</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="login-tab-pane" role="tabpanel" aria-labelledby="login-tab" tabindex="0">
+              <div class="container my-5">
+                <div class="row justify-content-center md-6">
+                  <div class="col-md-6">
+                    <div class="card bg">
+                      <div class="card-header bg-dark text-warning">
+                          Login
+                      </div>
+                      <div class="card-body">
+                        <form action="/profile/index.html" class="needs-validation was-validated">
+                          <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" autocomplete="username" required>
+                            <div class="valid-feedback">
+                              Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter a username.
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                              <label for="password" class="form-label">Password</label>
+                              <input type="password" class="form-control" id="password" name="password" autocomplete="current-password" required minlength="8">
+                              <div class="valid-feedback">
+                                Looks good!
+                              </div>
+                              <div class="invalid-feedback">
+                                  Password must be at least 8 characters long.
+                              </div>
+                          </div>
+                          <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label" for="remember">Remember me</label>
+                          </div>
+                          <button type="submit" class="btn btn-warning">Login</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=" mb-6 tab-pane fade show" id="signup-tab-pane" role="tabpanel" aria-labelledby="signup-tab" tabindex="0">
+              <div class="container my-5">
+                <div class="row justify-content-center">
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-header bg-dark text-warning">
+                        Sign Up
+                      </div>
+                      <div class="card-body">
+                        <form action="/profile/index.html" class="needs-validation was-validated">
+                          <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                            <div class="valid-feedback">
+                              Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                              Please enter your name.
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="valid-feedback">
+                              Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter a valid email address.
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="signup-username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="signup-username" name="signup-username" autocomplete="username" required>
+                            <div class="valid-feedback">
+                              Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter a username.
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="signup-password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="signup-password" name="signup-password" autocomplete="new-password" required minlength="8">
+                            <div class="valid-feedback">
+                              Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Password must be at least 8 characters long.
+                            </div>
+                          </div>
+                          <button type="submit" class="btn btn-warning">Sign Up</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="mt-3 fixed-bottom">
+  <div class="container-fluid bg-dark mt-3">
+    <div class="row">
+      <div class="col">
+        <p class="text-center text-warning mt-2">movieTALK &copy; 2021</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

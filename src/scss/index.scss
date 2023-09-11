@@ -1,0 +1,51 @@
+@import "variables";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+// @import "../../node_modules/bootstrap-icons/font/bootstrap-icons";
+
+html, body {
+    min-height: 100%;
+}
+
+.header-logo {
+  background-image: url("../../img/logo-yellow.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100px;
+}
+
+.max-width-1200 {
+  max-width: 1200px;
+}
+.max-width-800 {
+  max-width: 800px;
+}
+.max-width-300 {
+  max-width: 300px;
+}
+
+.profile-image {
+  max-width: 200px;
+}
+.movie-poster {
+  max-width: 75px;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    max-width: 200px;
+  }
+}
+.profile-image {
+  max-width: 30px;
+}
+
+.nav-link {
+  &:hover {
+    background-color: $bg-warning;
+    color: $bg-danger;
+    border-radius: 8px;
+  }
+  .active {
+    color: $bg-danger;
+  }
+}

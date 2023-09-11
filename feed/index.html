@@ -1,0 +1,331 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your movieTALK feed, Share your thoughts on movies and interact with other users.">
+  <link rel="stylesheet" href="../dist/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  <title>movieTALK | Feed</title>
+</head>
+<body>
+  <header class="mx-auto container-fluid bg-dark">
+    <nav class="navbar navbar-expand-md pt-4 bg-dark align-items-center mx-auto max-width-1200">
+      <a class="navbar-brand header-logo mb-2 ms-5 ms-md-0 mx-md-auto justify-content-start" href="../index.html" alt="movieTALK Logo"><span class="visually-hidden">Home</span></a>
+      <div class="container mx-auto d-flex align-items-start justify-content-end">
+        <div class="row align-items-center">
+          <div class="col-4 justify-content-end col-sm-4 col-md-6 m-1">
+            <button class="btn-outline-warning navbar-toggler bg-warning mb-2 me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon justify-content-end"></span>
+            </button>
+            <div class="collapse navbar-collapse text-primary" id="navbarMenu">
+              <ul class="navbar-nav mb-lg-2">
+                <li class="nav-item me-2">
+                  <a class="nav-link text-warning active rounded-2 ps-2" aria-current="page" href="../index.html">Home</a>
+                </li>
+                <li class="nav-item me-2">
+                  <a class="nav-link text-warning rounded-2 ps-2" href="../profile/index.html">Profile</a>
+                </li>
+                <li class="nav-item mb-3">
+                  <a class="nav-link text-warning rounded-2 ps-2" href="index.html">Feed</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-8 col-sm-8 col-md-6 d-flex align-items-start justify-content-start">
+          <form class="d-flex mt-1" role="search">
+            <input class="form-control me-2 max-width-300" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-warning" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class="mt-3 mx-auto">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-3 col-lg-2">
+          <div class="card d-none d-md-block">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                  <span class="nav-link p-1 rounded-0">
+                      <a href="#" alt="Open Menu" class="text-dark text-decoration-none">
+                          <i class="me-1 bi bi-list"></i>
+                          <span class="icons">Feed</span>
+                      </a>
+                  </span>
+                  <h6 class="mx-0 align-items-center d-flex justify-content-start ms-3"><i class="justify-content-start bi-sort-down me-1"></i>Sort Feed</h6>
+                  <ul class="nav flex-column ml-3">
+                      <li class="nav-item">
+                          <a href="#" class="nav-link text-dark text-decoration-none ms-3 px-1 py-0 rounded-0">By Date</a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="#" class="nav-link text-dark text-decoration-none ms-3 px-1 py-0 rounded-0">By Name</a>
+                      </li>
+                      <li class="p-0 m-0">
+                        <select class="form-select border-0 me-0" aria-label="Select Category">
+                          <option selected>By Category</option>
+                          <option value="Sci-Fi">Sci-Fi</option>
+                          <option value="Action">Action</option>
+                          <option value="Fantasy">Fantasy</option>
+                        </select>
+                      </li>
+                      <hr>
+                  </ul>
+              </li>
+              <li class="nav-item">
+                <span class="nav-link p-1 rounded-0"><a href="#" alt="Movie News" class="text-dark text-decoration-none"><i class="me-1 bi bi-lightning"></i><span class="icons">News</span></span></a>
+              </li>
+              <li class="nav-item">
+                <span class="nav-link p-1 rounded-0"><a alt='View Profile' class='text-dark text-decoration-none' href='/profile/'><i class="me-1 bi bi-person"></i><span class="icons">Profile</span></a>
+              </li>
+              <li class="nav-item">
+                <span class="nav-link active text-danger shadow bg-warning p-1 p-1 rounded-0 text-decoration-none"><i class="me-1 bi bi-chat-dots"></i><span class="icons">Create Post</span><i class="ms-1 bi bi-chevron-up"></i></span>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+
+        <div class="col-12 col-md-9 col-lg-6 mb-5">
+
+          <div class="card">
+            <div class="align-items-center card-body d-flex justify-content-between bg-info shadow rounded-top px-1 px-sm-3">
+              <a alt='View Profile' class='d-flex align-items-center shadow rounded-circle me-1' href='/profile/'><span class="visually-hidden">View Profile</span><img src="../img/profile.jpg" alt="View Profile" class="profile-image rounded-circle"></a>
+              <span class="nav-link p-1 rounded"><a href="#" alt="Open Menu" class="text-dark text-decoration-none"><i class="me-1 bi bi-list"></i><span class="icons d-none d-sm-inline-flex">Feed</span></span></a>
+              <span class="nav-link p-1 rounded"><a href="#" alt="Movie News" class="text-dark text-decoration-none"><i class="me-1 bi bi-lightning"></i><span class="icons d-none d-sm-inline-flex">News</span></span></a>
+              <span class="nav-link active text-danger shadow bg-warning mb-1 p-1 rounded text-decoration-none"><i class="me-1 bi bi-chat-dots"></i><span class="icons">Create Post</span><i class="ms-1 bi bi-chevron-up"></i></span>
+              <span class="nav-link p-1 rounded"><a alt='View Profile' class='text-dark text-decoration-none' href='/profile/'><i class="me-1 bi bi-person"></i><span class="icons d-none d-sm-inline-flex">Profile</span></a>
+            </div>
+
+            <!-- Post new comment -->
+            <div class="mb-3">
+              <div class="card-body">
+                <h6 class="card-title">Share with us...</h6>
+                <form>
+                  <div class="mb-3">
+                    <label for="movieTitle" class="form-label">Movie Title</label>
+                    <input type="text" class="form-control" id="movieTitle" name="movieTitle" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="movieCover" class="form-label">Movie Cover URL</label>
+                    <input type="url" class="form-control" id="movieCover" name="movieCover" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="imdbLink" class="form-label">IMDb Link</label>
+                    <input type="url" class="form-control" id="imdbLink" name="imdbLink" required>
+                  </div>
+                  <div class="mb-3">
+                    <select class="form-select" aria-label="Multiple select example">
+                      <option selected>Category</option>
+                      <option value="Sci-Fi">Sci-Fi</option>
+                      <option value="Action">Action</option>
+                      <option value="Fantasy">Fantasy</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="postContent" class="form-label">Post Content</label>
+                    <textarea class="form-control" id="postContent" name="postContent" rows="4" required></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-warning">Create Post</button>
+                </form>
+              </div>
+             </div>
+
+          </div>
+          <div class="d-flex justify-content-between align-items-center mt-4">
+            <h1 class="text-center text-dark">Feed</h1>
+            <div class="dropdown">
+              <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort Feed
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end flex-column ml-3">
+                <li class="dropdown-item">
+                    <a href="#" class="text-dark text-decoration-none py-0 rounded-0">By Date</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="#" class="text-dark text-decoration-none py-0 rounded-0">By Name</a>
+                </li>
+                <li class="p-0 m-0">
+                  <select class="form-select border-0 me-0" aria-label="Select Category">
+                    <option selected>By Category</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Action">Action</option>
+                    <option value="Fantasy">Fantasy</option>
+                  </select>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="card mx-0 mb-3">
+            <div class="card-body container">
+              <div class="d-flex align-items-start justify-content-center">
+                <div class="col-4 col-sm-2 position-relative z-3">
+                  <img src="https://m.media-amazon.com/images/I/91ebheNmoUL._AC_UY218_.jpg" alt="Movie Poster" class="movie-poster img-fluid me-2 mb-0">
+                </div>
+                <div class="col-8 col-sm-10 justify-content-start">
+                  <div class="d-flex align-items-center">
+                    <h6 class="d-flex card-title mb-0 me-1 ps-1">Cine Man</h6>
+                    <a href="../profile/index.html" class="nav-link text-primary px-2 m-0 pt-1 pb-1"><i class="bi bi-person-fill"></i>View profile</a>
+                  </div>
+                  <p class="card-subtitle mb-1 text-muted ps-1">08.29.2023, 7:45 PM</p>
+                  <a class="nav-link text-primary py-0 m-0 ps-2" href="https://www.imdb.com/title/tt0468569"><i class="bi bi-film me-1"></i> The Dark Knight</a>
+                  <p class="card-text my-0 ps-2">Just rewatched The Dark Knight, a cinematic masterpiece! 🎬</p>
+                </div>
+              </div>
+              <div class="container px-0 mx-0">
+                <div class="row d-block d-sm-flex align-items-center justify-content-between">
+                  <div class="col-sm-7">
+                    <div class="card-text mt-3">
+                      <button class="btn btn-warning btn-sm">
+                          <i class="bi bi-hand-thumbs-up"></i> Like
+                      </button>
+                      <button class="btn btn-warning btn-sm">
+                          <i class="bi bi-share"></i> Share
+                      </button>
+                      <button class="btn btn-warning btn-sm">
+                          <i class="bi bi-chat-dots"></i> Comment
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-sm-5 d-flex ps-0 justify-content-sm-end">
+                    <div class="d-flex gap-3 ms-3 pt-2 align-items-center">
+                      <div class="card-text text-muted py-0">
+                        <i class="bi bi-hand-thumbs-up-fill text-primary"></i> 7 likes
+                      </div>
+                      <div class="card-text text-muted py-0">
+                        <i class="bi bi-chat-dots text-primary"></i> 2 replies
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mx-0 mb-3">
+            <div class="card-body container">
+              <div class="d-flex align-items-start justify-content-center">
+                <div class="col-4 col-sm-2 position-relative z-3">
+                  <img src="https://m.media-amazon.com/images/I/91do-w7KAJL._AC_UY218_.jpg" alt="Movie Poster" class="movie-poster img-fluid me-2 mb-0">
+                </div>
+                <div class="col-8 col-sm-10 justify-content-start">
+                  <div class="d-flex align-items-center">
+                    <h6 class="d-flex card-title mb-0 me-1 ps-1">Pamela</h6>
+                    <a href="../profile/index.html" class="nav-link text-primary px-2 m-0 pt-1 pb-1"><i class="bi bi-person-fill"></i>View profile</a>
+                  </div>
+                  <p class="card-subtitle mb-1 text-muted ps-1">08.28.2023, 2:13 PM</p>
+                  <a class="nav-link text-primary py-0 m-0 ps-2" href="https://www.imdb.com/title/tt9362930"><i class="bi bi-film me-1"></i>Blue Beetle</a>
+                  <p class="card-text my-0 ps-2">"Blue Beetle" delivers a fresh and exciting take on the superhero genre, with impressive visuals and a captivating story.</p>
+                </div>
+              </div>
+              <div class="container px-0 mx-0">
+                <div class="row d-block d-sm-flex align-items-center justify-content-between">
+                  <div class="col-sm-7">
+                    <div class="card-text mt-3">
+                      <button class="btn btn-warning btn-sm">
+                          <i class="bi bi-hand-thumbs-up"></i> Like
+                      </button>
+                      <button class="btn btn-warning btn-sm">
+                          <i class="bi bi-share"></i> Share
+                      </button>
+                      <button class="btn btn-warning btn-sm">
+                          <i class="bi bi-chat-dots"></i> Comment
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-sm-5 d-flex ps-0 justify-content-sm-end">
+                    <div class="d-flex gap-3 ms-3 pt-2 align-items-center">
+                      <div class="card-text text-muted py-0">
+                        <i class="bi bi-hand-thumbs-up-fill text-primary"></i> 14 likes
+                      </div>
+                      <div class="card-text text-muted py-0">
+                        <i class="bi bi-chat-dots text-primary"></i> 4 replies
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-5 pb-5">
+        </div>
+
+        <div class="d-none d-lg-block col-lg-4">
+
+          <div class="card mb-3">
+            <div class="card-body d-flex shadow">
+              <div class="col-8 ">
+                <div class="card-title">
+                  <a class="text-decoration-none" href="https://www.google.com/search?q=Barbie+breaks+box+office&sourceid=chrome&ie=UTF-8">
+                    <h6>Barbie breaks box office...</h6>
+                  </a>
+                  <p class="p-0 m-0 fs-6">29.08.2023</p>
+                </div>
+              </div>
+              <div class="col-4 p-0 m-0 d-flex align-items-center">
+                <img src="../img/news.svg" alt="News" class="img-fluid">
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body d-flex shadow">
+              <div class="col-8 ">
+                <div class="card-title">
+                  <a class="text-decoration-none" href="https://www.google.com/search?q=Adam+Driver+Talks+Ferrari+Biopic&sca_esv=561882886&sxsrf=AB5stBi0MZsit7_uqN7IM9UNj_dMUuA9yQ%3A1693559337260&ei=KarxZPavD-asxc8PvZ2DyAY&ved=0ahUKEwi26M-ViImBAxVmVvEDHb3OAGkQ4dUDCA4&uact=5&oq=Adam+Driver+Talks+Ferrari+Biopic&gs_lp=Egxnd3Mtd2l6LXNlcnAiIEFkYW0gRHJpdmVyIFRhbGtzIEZlcnJhcmkgQmlvcGljMgUQIRigATIFECEYoAFIoRhQpBBYpBBwAngBkAEAmAF1oAF1qgEDMC4xuAEDyAEA-AEB-AECqAIKwgIKEAAYRxjWBBiwA8ICBxAjGOoCGCfCAg0QLhjHARjRAxjqAhgnwgIHEC4Y6gIYJ-IDBBgAIEGIBgGQBgc&sclient=gws-wiz-serp">
+                    <h6>Adam Driver Talks Ferrari Biopic...</h6>
+                  </a>
+                  <p class="p-0 m-0 fs-6">28.08.2023</p>
+                </div>
+              </div>
+              <div class="col-4 p-0 m-0 d-flex align-items-center">
+                <img src="../img/news.svg" alt="News" class="img-fluid">
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body d-flex shadow">
+              <div class="col-8 ">
+                <div class="card-title">
+                  <a class="text-decoration-none" href="https://www.google.com/search?q=%27Gran+Turismo%27+Global+Box+Office+Races+Past+First+Major&sca_esv=561882886&sxsrf=AB5stBihbKeK9-CHHcZLQI9KgN7qGN5PtA%3A1693559497746&ei=yarxZLCRLYKVxc8P7sSr0A4&ved=0ahUKEwjwmZPiiImBAxWCSvEDHW7iCuoQ4dUDCA4&uact=5&oq=%27Gran+Turismo%27+Global+Box+Office+Races+Past+First+Major&gs_lp=Egxnd3Mtd2l6LXNlcnAiNydHcmFuIFR1cmlzbW8nIEdsb2JhbCBCb3ggT2ZmaWNlIFJhY2VzIFBhc3QgRmlyc3QgTWFqb3JIAFAAWABwAHgBkAEAmAEAoAEAqgEAuAEDyAEA-AEC-AEB4gMEGAAgQQ&sclient=gws-wiz-serp">
+                    <h6>'Gran Turismo' Global Box Office Races Past...</h6>
+                  </a>
+                  <p class="p-0 m-0 fs-6">26.08.2023</p>
+                </div>
+              </div>
+              <div class="col-4 p-0 m-0 d-flex align-items-center">
+                <img src="../img/news.svg" alt="News" class="img-fluid">
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body d-flex shadow">
+              <div class="col-8 ">
+                <div class="card-title">
+                  <a class="text-decoration-none" href="https://www.google.com/search?q=DC%27s+first+major+latino+superhero&sca_esv=561882886&sxsrf=AB5stBhSW74htRXsoWBTW_EoHfQBNEcBhQ%3A1693559669299&ei=davxZO3kEf6Mxc8Pvuql6As&ved=0ahUKEwit8_mziYmBAxV-RvEDHT51Cb0Q4dUDCA4&uact=5&oq=DC%27s+first+major+latino+superhero&gs_lp=Egxnd3Mtd2l6LXNlcnAiIURDJ3MgZmlyc3QgbWFqb3IgbGF0aW5vIHN1cGVyaGVybzIFECEYoAEyCBAhGBYYHhgdSMHcAVDo2gFY6NoBcAF4AZABAJgBf6ABf6oBAzAuMbgBA8gBAPgBAvgBAcICChAAGEcY1gQYsAPiAwQYACBBiAYBkAYI&sclient=gws-wiz-serp">
+                    <h6>DC's first major latino superhero...</h6>
+                  </a>
+                  <p class="p-0 m-0 fs-6">25.08.2023</p>
+                </div>
+              </div>
+              <div class="col-4 p-0 m-0 d-flex align-items-center">
+                <img src="../img/news.svg" alt="News" class="img-fluid">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+  </main>
+  <footer class="mt-3 fixed-bottom">
+    <div class="container-fluid bg-dark mt-3">
+      <div class="row">
+        <div class="col">
+          <p class="text-center text-warning mt-2">movieTALK &copy; 2021</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
