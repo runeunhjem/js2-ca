@@ -204,6 +204,7 @@ My music project on Spotify - [Rune Unhjem | -=ThE rUnIcOrN=-](https://open.spot
 - [Iconfinder.com](https://www.iconfinder.com/)
 - [Othneil Drew | README.md template](https://github.com/othneildrew)
 - [Bootstrap Icons](https://icons.getbootstrap.com/)
+- [Lorem Picsum](https://picsum.photos/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

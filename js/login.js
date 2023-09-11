@@ -43,6 +43,9 @@ async function loginUser(url, userData) {
     }
     const accessToken = json.accessToken;
     localStorage.setItem("accessToken", accessToken);
+    const loggedInUser = json.name;
+    localStorage.setItem("loggedInUser", loggedInUser);
+    console.log(`Name: ${localStorage.getItem("loggedInUser")}`);
     return json;
   } catch (error) {
     console.error(error);

@@ -20,4 +20,4 @@ async function getWithToken(url, options) {
   }
 }
 
-getWithToken(postsURL, fetchOptions);
+// getWithToken(postsURL, fetchOptions);

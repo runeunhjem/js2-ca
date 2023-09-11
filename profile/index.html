@@ -11,16 +11,18 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
+    <script src="../js/profile.js" type="module"></script>
+    <script src="../js/populate_profile.js" type="module"></script>
     <title>movieTALK | Profile</title>
   </head>
   <body>
-    <header class="mx-auto container-fluid bg-dark">
-      <nav class="navbar navbar-expand-md pt-4 bg-dark align-items-center mx-auto max-width-1200">
+    <header class="mx-auto container-fluid bannerImage" id="bannerImage">
+      <nav class="navbar navbar-expand-md pt-4 align-items-center mx-auto max-width-1200">
         <a
-          class="navbar-brand header-logo mb-2 ms-5 ms-md-0 mx-md-auto justify-content-start"
+          class="navbar-brand header-logo me-0 mb-2 ms-5 ms-md-0 mx-md-auto justify-content-start"
           href="../index.html"
           alt="movieTALK Logo"
-          ><span class="visually-hidden">Home</span></a
+          ><span class="visually-hidden">Log Out</span></a
         >
         <div class="container mx-auto d-flex align-items-start justify-content-end">
           <div class="row align-items-center">
@@ -39,7 +41,7 @@
               <div class="collapse navbar-collapse text-primary" id="navbarMenu">
                 <ul class="navbar-nav mb-lg-2">
                   <li class="nav-item me-2">
-                    <a class="nav-link text-warning rounded-2 ps-2" href="../index.html">Home</a>
+                    <a class="nav-link text-warning rounded-2 ps-2" href="../index.html">Logout</a>
                   </li>
                   <li class="nav-item me-2">
                     <a class="nav-link text-warning active rounded-2 ps-2" aria-current="page" href="index.html">Profile</a>
@@ -62,30 +64,33 @@
     </header>
     <main class="mx-auto mb-5">
       <div class="container mt-5">
-        <h1 class="text-center">Cine Man's Profile</h1>
-        <div class="row mt-5">
+        <div class="row bg-primary rounded bannerImage shadow py-3 px-0 m-0 bg-dark">
+          <h1 class="text-center text-warning rounded py-0 m-0"><span class="loggedInProfileName">Cine Man</span>'s Profile</h1>
+        </div>
+        <div class="row mt-5 bg-info py-3">
           <div class="col-md-5 mb-3">
             <div class="card">
               <div class="card-body text-center">
-                <img src="../img/profile.jpg" alt="User Profile Image" class="img-fluid rounded-circle mb-3 profile-image" />
-                <h2 class="card-title">Cine Man</h2>
-                <p class="card-text">Username: cineman</p>
+                <div alt="User Profile Image" class="mx-auto rounded-circle mb-3 avatarImage" id="avatarImage"></div>
+                <h2 class="card-title loggedInProfileName">Cine Man</h2>
+                <p class="card-text">Username: <span class="loggedInProfileName">cineman</p>
                 <hr />
-                <p class="card-text mb-0">Followers: 400</p>
-                <p class="card-text">Following: 50</p>
-                <button class="btn btn-warning"><i class="bi bi-star"></i> Follow</button>
+                <p class="card-text mb-0">Followers: <span class="loggedInProfileFollowers" id="loggedInProfileFollowers">400</span></p>
+                <p class="card-text">Following: <span class="loggedInProfileFollowing" id="loggedInProfileFollowing">50</span></p>
+                <button class="btn btn-warning loggedInProfileFollow" id="loggedInProfileFollow"><i class="bi bi-star"></i> Follow</button>
               </div>
             </div>
           </div>
           <div class="col-md-7">
             <div class="card mb-3">
               <div class="card-body">
-                <h5 class="card-title">Cine Man</h5>
+                <h5 class="card-title loggedInProfileName">Cine Man</h5>
                 <p class="card-subtitle mb-2 text-muted">Posted on August 29, 2023, 7:45 PM</p>
                 <img
                   src="https://m.media-amazon.com/images/I/91ebheNmoUL._AC_UY218_.jpg"
                   alt="Movie Poster"
-                  class="movie-poster img-fluid d-none d-md-block"
+                  class="movie-poster img-fluid d-none d-md-block loggedInProfilePoster"
+                  id="loggedInProfilePoster"
                 />
                 <div class="d-flex align-items-center">
                   <h5 class="card-title me-2 my-0">The Dark Knight</h5>
