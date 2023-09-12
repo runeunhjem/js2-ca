@@ -1,8 +1,11 @@
 const API_BASE_URL = "https://api.noroff.dev";
 
 let loggedInUser = localStorage.getItem("loggedInUser");
+loggedInUser = "tester_tester"; // For testing purposes
 let loggedInUserData;
-const profileURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}`;
+let reactionsData;
+const profileURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
+const reactionsURL = `${API_BASE_URL}/api/v1/social/posts/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
 
 const token = localStorage.getItem("accessToken");
 const fetchOptions = {
@@ -13,36 +16,57 @@ const fetchOptions = {
   },
 };
 
-async function profileWithToken(url, options) {
-  try {
-    const response = await fetch(url, options);
-    const json = await response.json();
+// async function profileWithToken(url, options) {
+  async function fetchProfileAndReactions() {
+    try {
+      // const response = await fetch(url, options);
+      // const json = await response.json();
 
-    localStorage.setItem("loggedInUserData", JSON.stringify(json));
+      // Fetch user profile data
+      const profileResponse = await fetch(profileURL, fetchOptions);
+      const profileJson = await profileResponse.json();
 
-    // console.log(`Name 1: ${json.name}`);
-    // console.log(`Name 2: ${loggedInUser}`);
+      // Fetch reactions data
+      const reactionsResponse = await fetch(reactionsURL, fetchOptions);
+      const reactionsJson = await reactionsResponse.json();
 
-    loggedInUserData = {
-      name: json.name,
-      email: json.email,
-      banner: json.banner,
-      avatar: json.avatar,
-      _count: {
-        followers: json._count.followers,
-        following: json._count.following,
-        posts: json._count.posts,
-      },
-    };
+      localStorage.setItem("loggedInUserData", JSON.stringify(profileJson));
+      localStorage.setItem("reactionsData", JSON.stringify(reactionsJson));
 
-    // console.log("1 :", loggedInUserData.email);
-    // console.log(loggedInUserData);
+      // console.log(`Name 1: ${profileJson.name}`);
+      // console.log(`Name 2: ${loggedInUser}`);
 
-  } catch (error) {
-    console.error(error);
+      loggedInUserData = {
+        name: profileJson.name,
+        email: profileJson.email,
+        banner: profileJson.banner,
+        avatar: profileJson.avatar,
+        following: profileJson.following,
+        followers: profileJson.followers,
+        posts: profileJson.posts,
+        _count: {
+          followers: profileJson._count.followers,
+          following: profileJson._count.following,
+          posts: profileJson._count.posts,
+        },
+      };
+
+      reactionsData = {
+        reactions: reactionsJson.reactions,
+        comments: reactionsJson.comments,
+        _count: {
+          reactions: reactionsJson._count.reactions,
+          comments: reactionsJson._count.comments,
+        },
+      };
+      console.log(reactionsData);
+      // console.log("1 :", loggedInUserData.email);
+      // console.log(loggedInUserData);
+    } catch (error) {
+      console.error(error);
+    }
+    // console.log(`loggedInUserData: `, loggedInUserData);
   }
-  // console.log(`loggedInUserData: `, loggedInUserData);
-}
 
-profileWithToken(profileURL, fetchOptions);
-
+// profileWithToken(profileURL, fetchOptions);
+fetchProfileAndReactions();

@@ -13,6 +13,8 @@
     ></script>
     <script src="../js/profile.js" type="module"></script>
     <script src="../js/populate_profile.js" type="module"></script>
+    <script src="../js/follow_profile.js" type="module"></script>
+    <script src="../js/profile_posts.js" type="module"></script>
     <title>movieTALK | Profile</title>
   </head>
   <body>
@@ -71,18 +73,20 @@
           <div class="col-md-5 mb-3">
             <div class="card">
               <div class="card-body text-center">
-                <div alt="User Profile Image" class="mx-auto rounded-circle mb-3 avatarImage" id="avatarImage"></div>
+                <div alt="User Profile Image" class="mx-auto rounded-circle shadow border mb-3 avatarImage" id="avatarImage"></div>
                 <h2 class="card-title loggedInProfileName">Cine Man</h2>
                 <p class="card-text">Username: <span class="loggedInProfileName">cineman</p>
                 <hr />
                 <p class="card-text mb-0">Followers: <span class="loggedInProfileFollowers" id="loggedInProfileFollowers">400</span></p>
-                <p class="card-text">Following: <span class="loggedInProfileFollowing" id="loggedInProfileFollowing">50</span></p>
+                <p class="card-text mb-0">Following: <span class="loggedInProfileFollowing" id="loggedInProfileFollowing">50</span></p>
+                <p class="card-text">Posts: <span class="loggedInProfilePosts" id="loggedInProfilePosts">50</span></p>
                 <button class="btn btn-warning loggedInProfileFollow" id="loggedInProfileFollow"><i class="bi bi-star"></i> Follow</button>
               </div>
             </div>
           </div>
           <div class="col-md-7">
-            <div class="card mb-3">
+            <div class="profilePosts" id="profilePosts"></div>
+            <!-- <div class="card mb-3">
               <div class="card-body">
                 <h5 class="card-title loggedInProfileName">Cine Man</h5>
                 <p class="card-subtitle mb-2 text-muted">Posted on August 29, 2023, 7:45 PM</p>
@@ -232,7 +236,7 @@
                   <button class="btn btn-warning btn-sm"><i class="bi bi-chat-dots"></i> Comment</button>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
