@@ -1,4 +1,3 @@
-// feed-get-posts.js
 import createPostCard from "./feed-post-card.js";
 
 const API_BASE_URL = "https://api.noroff.dev";
@@ -24,8 +23,43 @@ async function getFeedPostsWithToken(url, options) {
         const feedPosts = document.getElementById("feed-posts");
         posts.forEach((post) => {
           const postCard = createPostCard(post);
+
+          // Display comments
+          const comments = post.comments || {};
+          const commentsContainer = document.createElement("div");
+          commentsContainer.className = "post-comments";
+
+          for (const commentId in comments) {
+            if (comments.hasOwnProperty(commentId)) {
+              const comment = comments[commentId];
+              const commentElement = document.createElement("div");
+              commentElement.textContent = comment.text;
+              commentsContainer.appendChild(commentElement);
+            }
+          }
+
+          // Display reactions
+          const reactions = post.reactions || {};
+          const reactionsContainer = document.createElement("div");
+          reactionsContainer.className = "post-reactions";
+
+          for (const reactionId in reactions) {
+            if (reactions.hasOwnProperty(reactionId)) {
+              const reaction = reactions[reactionId];
+              const reactionElement = document.createElement("div");
+              reactionElement.textContent = reaction.type;
+              reactionsContainer.appendChild(reactionElement);
+            }
+          }
+
+          // Append comments and reactions to the postCard
+          postCard.appendChild(commentsContainer);
+          postCard.appendChild(reactionsContainer);
+
+          // Append the postCard to the feedPosts container
           feedPosts.appendChild(postCard);
         });
+
       } else {
         console.error("Data is not in the expected format.");
       }

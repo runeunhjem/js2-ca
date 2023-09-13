@@ -17,7 +17,7 @@ function createPostCard(post) {
   if (post.author.avatar) {
     avatarImg.src = post.author.avatar;
   } else {
-    // Use Picsum placeholder if 'avatar' is empty
+    // Use Picsum placeholder if avatar is'nt there
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
     avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
   }
@@ -43,7 +43,7 @@ function createPostCard(post) {
   const postDate = document.createElement("p");
   postDate.classList.add("card-subtitle", "mb-1", "text-muted", "ps-1");
   const createdDate = new Date(post.created);
-  postDate.textContent = createdDate.toLocaleString(); // Adjust the date format as needed
+  postDate.textContent = createdDate.toLocaleString();
 
   const imdbLink = document.createElement("a");
   imdbLink.classList.add("nav-link", "text-primary", "py-0", "m-0", "ps-2");
