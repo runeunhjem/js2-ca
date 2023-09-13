@@ -38,9 +38,9 @@ const followersCount = loggedInUserData._count.followers;
 const postsCount = loggedInUserData._count.posts;
 
 // If the logged in user is following the profile, change the button text to "Unfollow"
-if (loggedInUserData._count.following) {
-  profileFollowButton.textContent = "Unfollow"; // Change button text to "Unfollow"
-  profileFollowButton.classList.add("unfollow"); // Add the "unfollow" class to the button
-}
+// if (loggedInUserData._count.following) {
+//   profileFollowButton.textContent = "Unfollow"; // Change button text to "Unfollow"
+//   profileFollowButton.classList.add("unfollow"); // Add the "unfollow" class to the button
+// }
 
 
