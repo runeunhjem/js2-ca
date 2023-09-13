@@ -116,7 +116,6 @@ In order to edit and work with the site locally, you need a code editor.
     - Prettier
     - Emmet-JSS
     - Web Accessability
-    - GitHub Copilot
     - ESLint
     - Auto Rename Tag
     - Lorem Ipsum
