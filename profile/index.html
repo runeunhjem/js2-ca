@@ -11,7 +11,9 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
-    <script src="../js/profile.js" type="module"></script>
+    <script src="../js/loggedInUserToLocaleStorage.js" type="module"></script>
+    <!-- <script src="../js/profile.js" type="module"></script> -->
+    <!-- <script src="../js/posts.js" type="module"></script> -->
     <script src="../js/populate_profile.js" type="module"></script>
     <script src="../js/follow_profile.js" type="module"></script>
     <script src="../js/profile_posts.js" type="module"></script>
@@ -86,157 +88,6 @@
           </div>
           <div class="col-md-7">
             <div class="profilePosts" id="profilePosts"></div>
-            <!-- <div class="card mb-3">
-              <div class="card-body">
-                <h5 class="card-title loggedInProfileName">Cine Man</h5>
-                <p class="card-subtitle mb-2 text-muted">Posted on August 29, 2023, 7:45 PM</p>
-                <img
-                  src="https://m.media-amazon.com/images/I/91ebheNmoUL._AC_UY218_.jpg"
-                  alt="Movie Poster"
-                  class="movie-poster img-fluid d-none d-md-block loggedInProfilePoster"
-                  id="loggedInProfilePoster"
-                />
-                <div class="d-flex align-items-center">
-                  <h5 class="card-title me-2 my-0">The Dark Knight</h5>
-                  <a class="nav-link text-primary p-1" href="https://www.imdb.com/title/tt0468569"
-                    ><i class="bi bi-film me-1"></i>IMDb</a
-                  >
-                </div>
-                <p class="card-text">Just rewatched The Dark Knight, a cinematic masterpiece! 🎬</p>
-                <i class="bi bi-hand-thumbs-up-fill text-primary"></i> Movie Buff, Superhero Fan & 6 others like this
-                <hr />
-                <div class="card-text">
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-hand-thumbs-up"></i> Like</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-share"></i> Share</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-chat-dots"></i> Comment</button>
-                </div>
-              </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Cine Man</h5>
-                <p class="card-subtitle mb-2 text-muted">Posted on August 28, 2023, 5:30 PM</p>
-                <img
-                  src="https://m.media-amazon.com/images/I/91LBF+PST1L._AC_UY218_.jpg"
-                  alt="Movie Poster"
-                  class="movie-poster img-fluid d-none d-md-block"
-                />
-                <div class="d-flex align-items-center">
-                  <h5 class="card-title me-2 my-0">Pulp Fiction</h5>
-                  <a class="nav-link text-primary p-1" href="https://www.imdb.com/title/tt0110912"
-                    ><i class="bi bi-film me-1"></i>IMDb</a
-                  >
-                </div>
-                <p class="card-text">Just watched Pulp Fiction, Tarantino's masterpiece! 🎬</p>
-                <i class="bi bi-hand-thumbs-up-fill text-primary"></i> Cinephile, Movie Buff & 4 others like this
-                <hr />
-                <div class="card-text">
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-hand-thumbs-up"></i> Like</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-share"></i> Share</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-chat-dots"></i> Comment</button>
-                </div>
-              </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Cine Man</h5>
-                <p class="card-subtitle mb-2 text-muted">Posted on August 27, 2023, 4:15 PM</p>
-                <img
-                  src="https://m.media-amazon.com/images/I/81DLp4pu+JL._AC_UY218_.jpg"
-                  alt="Movie Poster"
-                  class="movie-poster img-fluid d-none d-md-block"
-                />
-                <div class="d-flex align-items-center">
-                  <h5 class="card-title me-2 my-0">Inception</h5>
-                  <a class="nav-link text-primary p-1" href="https://www.imdb.com/title/tt1375666"
-                    ><i class="bi bi-film me-1"></i>IMDb</a
-                  >
-                </div>
-                <p class="card-text">Just rewatched Inception, mind-bending brilliance! 🎬</p>
-                <i class="bi bi-hand-thumbs-up-fill text-primary"></i> Movie Buff, Sci-Fi Fan & 3 others like this
-                <hr />
-                <div class="card-text">
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-hand-thumbs-up"></i> Like</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-share"></i> Share</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-chat-dots"></i> Comment</button>
-                </div>
-              </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Cine Man</h5>
-                <p class="card-subtitle mb-2 text-muted">Posted on August 26, 2023, 2:45 PM</p>
-                <img
-                  src="https://m.media-amazon.com/images/I/81O1wR9ohtL._AC_UY218_.jpg"
-                  alt="Movie Poster"
-                  class="movie-poster img-fluid d-none d-md-block"
-                />
-                <div class="d-flex align-items-center">
-                  <h5 class="card-title me-2 my-0">The Shawshank Redemption</h5>
-                  <a class="nav-link text-primary p-1" href="https://www.imdb.com/title/tt0111161"
-                    ><i class="bi bi-film me-1"></i>IMDb</a
-                  >
-                </div>
-                <p class="card-text">Just rewatched The Shawshank Redemption, a timeless classic! 🎬</p>
-                <i class="bi bi-hand-thumbs-up-fill text-primary"></i> Cinephile, SuperX & 5 others like this
-                <hr />
-                <div class="card-text">
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-hand-thumbs-up"></i> Like</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-share"></i> Share</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-chat-dots"></i> Comment</button>
-                </div>
-              </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Cine Man</h5>
-                <p class="card-subtitle mb-2 text-muted">Posted on August 25, 2023, 10:30 AM</p>
-                <img
-                  src="https://m.media-amazon.com/images/I/81zsYe3WUgL._AC_UY218_.jpg"
-                  alt="Movie Poster"
-                  class="movie-poster img-fluid d-none d-md-block"
-                />
-                <div class="d-flex align-items-center">
-                  <h5 class="card-title me-2 my-0">Avatar</h5>
-                  <a class="nav-link text-primary p-1" href="https://www.imdb.com/title/tt0499549"
-                    ><i class="bi bi-film me-1"></i>IMDb</a
-                  >
-                </div>
-                <p class="card-text">Just watched an amazing movie last night! 🎬</p>
-                <i class="bi bi-hand-thumbs-up-fill text-primary"></i> Cinephile, Movie Buff & 2 others like this
-                <hr />
-                <div class="card-text">
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-hand-thumbs-up"></i> Like</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-share"></i> Share</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-chat-dots"></i> Comment</button>
-                </div>
-              </div>
-            </div>
-            <div class="card mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Cine Man</h5>
-                <p class="card-subtitle mb-2 text-muted">Posted on August 24, 2023, 8:45 PM</p>
-                <img
-                  src="https://m.media-amazon.com/images/I/91LjJBiDEQL._AC_UY218_.jpg"
-                  alt="Movie Poster"
-                  class="movie-poster img-fluid d-none d-md-block"
-                />
-                <div class="d-flex align-items-center">
-                  <h5 class="card-title me-2 my-0">Guardians of the Galaxy Vol. 3</h5>
-                  <a class="nav-link text-primary p-1" href="https://www.imdb.com/title/tt6791350"
-                    ><i class="bi bi-film me-1"></i>IMDb</a
-                  >
-                </div>
-                <p class="card-text">Just saw the latest blockbuster movie. It's a must-watch! 🍿🎥</p>
-                <i class="bi bi-hand-thumbs-up-fill text-primary"></i> Cinephile, SciFi Lover & 6 others like this
-                <hr />
-                <div class="card-text">
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-hand-thumbs-up"></i> Like</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-share"></i> Share</button>
-                  <button class="btn btn-warning btn-sm"><i class="bi bi-chat-dots"></i> Comment</button>
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
 let loggedInUser = localStorage.getItem("loggedInUser");
-console.log(`profilePosts: `, loggedInUserData.posts);
+
+
 if (Array.isArray(loggedInUserData.posts)) {
   const profilePosts = document.getElementById("profilePosts");
 
@@ -13,7 +14,25 @@ if (Array.isArray(loggedInUserData.posts)) {
 
     const cardTitle = document.createElement("h5");
     cardTitle.classList.add("card-title", "loggedInProfileName");
-    cardTitle.textContent = loggedInUserData.name;
+
+    if (post.id) {
+      const cardTitleContainer = document.createElement("div");
+      cardTitleContainer.classList.add("d-flex", "justify-content-between", "align-items-center");
+
+      const nameDiv = document.createElement("div");
+      nameDiv.textContent = loggedInUserData.name;
+
+      const postIdDiv = document.createElement("div");
+      postIdDiv.textContent = `Post ID: ${post.id}`;
+      postIdDiv.classList.add("text-end", "text-muted", "fs-6");
+
+      cardTitleContainer.appendChild(nameDiv);
+      cardTitleContainer.appendChild(postIdDiv);
+
+      cardTitle.appendChild(cardTitleContainer);
+    } else {
+      cardTitle.textContent = loggedInUserData.name;
+    }
 
     const cardSubtitle = document.createElement("p");
     cardSubtitle.classList.add("card-subtitle", "mb-2", "text-muted");
@@ -65,19 +84,33 @@ if (Array.isArray(loggedInUserData.posts)) {
 
     const hr = document.createElement("hr");
 
+    const reactionCountElement = document.createElement("div");
+    reactionCountElement.classList.add("reaction-count", "text-primary", "ms-1", "pb-1"); // Add a class for easy selection
+    // reactionCountElement.innerHTML = `<i class="me-1 bi bi-hand-thumbs-up"> 8 Likes</i> <i class="ms-5 me-1 bi bi-chat-dots"></i> 0 Comments `;
+    // console.log("post.reactions :", post.reactions);
+    // console.log("post.comments :", post.comments);
+    const commentsCount = post._count.comments;
+    // console.log("post._count.comments :", post._count.comments);
+    const reactionsCount = post._count.reactions;
+    // console.log("post._count.reactions :", post._count.reactions);
+    reactionCountElement.textContent = `${reactionsCount} Likes, ${commentsCount} Comments`;
+    reactionCountElement.innerHTML = `<i class="me-1 bi bi-hand-thumbs-up"></i> ${reactionsCount} Likes <i class="ms-5 me-1 bi bi-chat-dots"></i> ${commentsCount} Comments `;
+
+    const hr2 = document.createElement("hr2");
+
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("card-text");
 
     const likeButton = document.createElement("button");
-    likeButton.classList.add("btn", "btn-warning", "btn-sm", "mx-1");
+    likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
     likeButton.innerHTML = `<i class="bi bi-hand-thumbs-up"></i> Like`;
 
     const shareButton = document.createElement("button");
-    shareButton.classList.add("btn", "btn-warning", "btn-sm", "mx-1");
+    shareButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
     shareButton.innerHTML = `<i class="bi bi-share"></i> Share`;
 
     const commentButton = document.createElement("button");
-    commentButton.classList.add("btn", "btn-warning", "btn-sm", "mx-1");
+    commentButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
     commentButton.innerHTML = `<i class="bi bi-chat-dots"></i> Comment`;
 
     // Append elements to their respective parents
@@ -93,8 +126,10 @@ if (Array.isArray(loggedInUserData.posts)) {
     cardBody.appendChild(img);
     cardBody.appendChild(titleContainer);
     cardBody.appendChild(cardText);
-    cardBody.appendChild(likesInfo);
+    cardBody.appendChild(likesInfo); // Decide to keep this or the other one
     cardBody.appendChild(hr);
+    cardBody.appendChild(reactionCountElement); // Decide to keep this or the other one
+    cardBody.appendChild(hr2);
     cardBody.appendChild(buttonContainer);
 
     card.appendChild(cardBody);

@@ -1,7 +1,7 @@
 let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
 let loggedInUser = localStorage.getItem("loggedInUser");
-console.log(`loggedInUserData: `, loggedInUserData);
-console.log(`loggedInUser: `, loggedInUser);
+// console.log(`loggedInUserData: `, loggedInUserData);
+// console.log(`loggedInUser: `, loggedInUser);
 
 const profileNameElements = document.querySelectorAll(".loggedInProfileName");
 const profileFollowersElement = document.getElementById('loggedInProfileFollowers');
@@ -32,10 +32,6 @@ if (loggedInUserData.avatar) {
   // If no avatar exists, set the image source to the default URL (e.g., placeholder image)
   avatarImageElement.style.backgroundImage = 'url("https://picsum.photos/200/200")';
 }
-
-console.log(loggedInUserData._count.followers);
-console.log(loggedInUserData._count.following);
-console.log(loggedInUserData._count.posts);
 
 const followingCount = loggedInUserData._count.following;
 const followersCount = loggedInUserData._count.followers;
