@@ -1,16 +1,19 @@
-import createPostCard from "./feed-post-card.js";
+// import createPostCard from "./feed-post-card.js";
+import { createPostCard } from "./utils/feed.js";
+// import { API_BASE_URL } from "./consts.js";
+import { postsURL } from "./variables/consts.js";
+// import { token } from "./consts.js";
+import { fetchOptions } from "./variables/consts.js";
+// const postsURL = `${API_BASE_URL}/api/v1/social/posts?limit=10&offset=125&_comments=true&_author=true&_reactions=true&_count=true`;
+// const token = localStorage.getItem("accessToken");
 
-const API_BASE_URL = "https://api.noroff.dev";
-const postsURL = `${API_BASE_URL}/api/v1/social/posts?limit=10&offset=125&_comments=true&_author=true&_reactions=true&_count=true`;
-
-const token = localStorage.getItem("accessToken");
-const fetchOptions = {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  },
-};
+// const fetchOptions = {
+//   method: "GET",
+//   headers: {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${token}`,
+//   },
+// };
 
 async function getFeedPostsWithToken(url, options) {
   try {

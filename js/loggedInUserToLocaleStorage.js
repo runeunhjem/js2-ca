@@ -1,6 +1,11 @@
-const API_BASE_URL = "https://api.noroff.dev";
+// import { loggedInUser } from "./variables/lets.js";
+import { API_BASE_URL } from "./variables/consts.js";
+// import { profileURL } from "./variables/consts.js";
+// import { reactionsAndCommentsURL } from "./variables/consts.js";
+import { token } from "./variables/consts.js";
+import { fetchOptions } from "./variables/consts.js";
+// const API_BASE_URL = "https://api.noroff.dev";
 
-// Define the loggedInUser
 let loggedInUser;
 loggedInUser = localStorage.getItem("loggedInUser");
 // loggedInUser = "tester_tester"; // For testing purposes
@@ -12,7 +17,7 @@ loggedInUser = localStorage.getItem("loggedInUser");
 // Define the URLs
 const profileURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
 const reactionsAndCommentsURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
-
+// import { loggedInUserData } from "./variables/lets.js";
 let loggedInUserData;
 
 const token = localStorage.getItem("accessToken");
@@ -24,7 +29,7 @@ const fetchOptions = {
   },
 };
 
-async function fetchData() {
+async function fetchUserProfile() {
   try {
     // Fetch user profile and reactions/comments data in parallel
     const [profileResponse, reactionsAndCommentsResponse] = await Promise.all([
@@ -78,4 +83,4 @@ async function fetchData() {
   }
 }
 
-fetchData();
+fetchUserProfile();

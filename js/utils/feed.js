@@ -1,4 +1,18 @@
-function createPostCard(post) {
+export async function createNewPost(url, options) {
+  try {
+    const response = await fetch(url, options);
+    if (response.ok) {
+      const newPost = await response.json();
+      console.log("New Post Created: ", newPost);
+    } else {
+      console.error("Failed to create a new post");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export function createPostCard(post) {
   const card = document.createElement("div");
   card.classList.add("card", "mx-0", "my-3", "bg-info", "shadow-sm");
 
@@ -121,4 +135,4 @@ function createPostCard(post) {
   return card;
 }
 
-export default createPostCard;
+// export default createPostCard;
