@@ -1,19 +1,19 @@
 import { API_BASE_URL } from "./variables/consts.js";
 // const API_BASE_URL = "https://api.noroff.dev";
-// import { preFillFormFields } from "./utils/login.js";
+import { preFillFormFields } from "./utils/login.js";
 
-function preFillFormFields() {
-  const savedEmail = localStorage.getItem("savedEmail");
-  const rememberMe = localStorage.getItem("rememberMe");
+// function preFillFormFields() {
+//   const savedEmail = localStorage.getItem("savedEmail");
+//   const rememberMe = localStorage.getItem("rememberMe");
 
-  if (savedEmail) {
-    document.getElementById("loginEmail").value = savedEmail;
-  }
+//   if (savedEmail) {
+//     document.getElementById("loginEmail").value = savedEmail;
+//   }
 
-  if (rememberMe === "true") {
-    document.getElementById("remember").checked = true;
-  }
-}
+//   if (rememberMe === "true") {
+//     document.getElementById("remember").checked = true;
+//   }
+// }
 // import { loginUser } from "./utils/login.js";
 async function loginUser(url, userData) {
   try {

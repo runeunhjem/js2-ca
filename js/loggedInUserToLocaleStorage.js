@@ -1,4 +1,3 @@
-// import { loggedInUser } from "./variables/lets.js";
 import { API_BASE_URL } from "./variables/consts.js";
 // import { profileURL } from "./variables/consts.js";
 // import { reactionsAndCommentsURL } from "./variables/consts.js";
@@ -17,17 +16,17 @@ loggedInUser = localStorage.getItem("loggedInUser");
 // Define the URLs
 const profileURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
 const reactionsAndCommentsURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
-// import { loggedInUserData } from "./variables/lets.js";
+
 let loggedInUserData;
 
-const token = localStorage.getItem("accessToken");
-const fetchOptions = {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  },
-};
+// const token = localStorage.getItem("accessToken");
+// const fetchOptions = {
+//   method: "GET",
+//   headers: {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${token}`,
+//   },
+// };
 
 async function fetchUserProfile() {
   try {

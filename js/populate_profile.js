@@ -1,5 +1,3 @@
-// import { loggedInUser } from "./variables/lets.js";
-// import { loggedInUserData } from "./variables/lets.js";
 let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
 let loggedInUser = localStorage.getItem("loggedInUser");
 // console.log(`loggedInUserData: `, loggedInUserData);
