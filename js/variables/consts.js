@@ -25,6 +25,7 @@ export const addNewPostOptions = {
   },
   // body: JSON.stringify(newPostData),
 };
+
 export const editPostOptions = {
   method: "PUT",
   headers: {

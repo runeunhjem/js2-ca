@@ -1,4 +1,3 @@
-// import { loggedInUser } from "../index.js";
 export function preFillFormFields() {
   const savedEmail = localStorage.getItem("savedEmail");
   const rememberMe = localStorage.getItem("rememberMe");
@@ -26,8 +25,15 @@ export async function loginUser(url, userData) {
     const json = await response.json();
     console.log(json);
 
-    if (response.status === 200) {
+    if (response.status >= 200 && response.status <= 299) {
       console.log("Login successful!");
+
+      const accessToken = json.accessToken;
+      localStorage.setItem("accessToken", accessToken);
+      let loggedInUser = json.name;
+      localStorage.setItem("loggedInUser", loggedInUser);
+      console.log(`Name: ${localStorage.getItem("loggedInUser")}`);
+
       if (document.getElementById("remember").checked) {
         localStorage.setItem("rememberMe", "true");
         localStorage.setItem("savedEmail", userData.email);
@@ -40,11 +46,6 @@ export async function loginUser(url, userData) {
     } else {
       console.log("Login failed!");
     }
-    const accessToken = json.accessToken;
-    localStorage.setItem("accessToken", accessToken);
-    let loggedInUser = json.name;
-    localStorage.setItem("loggedInUser", loggedInUser);
-    console.log(`Name: ${localStorage.getItem("loggedInUser")}`);
     return json;
   } catch (error) {
     console.error(error);

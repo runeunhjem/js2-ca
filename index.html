@@ -81,7 +81,7 @@
                         <form id="login-form" action="https://api.noroff.dev/api/v1/social/auth/login" method="post" class="needs-validation was-validated">
                           <div class="mb-3">
                             <label for="loginEmail" class="form-label">Valid Noroff Email</label>
-                            <input type="email" class="form-control" id="loginEmail" name="loginEmail" autocomplete="email" required>
+                            <input type="email" class="form-control" id="loginEmail" name="email" autocomplete="email" required>
                             <div class="valid-feedback">
                               Looks good!
                             </div>
@@ -91,7 +91,7 @@
                           </div>
                           <div class="mb-3">
                             <label for="loginPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="loginPassword" name="loginPassword" autocomplete="current-password" required minlength="8">
+                            <input type="password" class="form-control" id="loginPassword" name="password" autocomplete="current-password" required minlength="8">
                             <div class="valid-feedback">
                               Looks good!
                             </div>
@@ -124,7 +124,7 @@
                         <form id="signup-form" action="https://api.noroff.dev/api/v1/social/auth/register" method="post" class="needs-validation was-validated" enctype="multipart/form-data">
                           <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="text" class="form-control" id="registerName" name="name" required aria-label="Choose Username">
                             <div class="valid-feedback">
                               Looks good!
                             </div>
@@ -134,7 +134,7 @@
                           </div>
                           <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" autocomplete="email" required>
+                            <input type="email" class="form-control" id="registerEmail" name="email" autocomplete="email" required aria-label="Valid Noroff Email Address">
                             <div class="valid-feedback">
                               Looks good!
                             </div>
