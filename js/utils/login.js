@@ -1,8 +1,5 @@
-import { API_BASE_URL } from "./variables/consts.js";
-// const API_BASE_URL = "https://api.noroff.dev";
-// import { preFillFormFields } from "./utils/login.js";
-
-function preFillFormFields() {
+// import { loggedInUser } from "../index.js";
+export function preFillFormFields() {
   const savedEmail = localStorage.getItem("savedEmail");
   const rememberMe = localStorage.getItem("rememberMe");
 
@@ -14,8 +11,8 @@ function preFillFormFields() {
     document.getElementById("remember").checked = true;
   }
 }
-// import { loginUser } from "./utils/login.js";
-async function loginUser(url, userData) {
+
+export async function loginUser(url, userData) {
   try {
     const postData = {
       method: "POST",
@@ -53,28 +50,3 @@ async function loginUser(url, userData) {
     console.error(error);
   }
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  const loginForm = document.getElementById("login-form");
-
-  preFillFormFields();
-
-  loginForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    try {
-      const loginEmail = document.getElementById("loginEmail").value;
-      const loginPassword = document.getElementById("loginPassword").value;
-
-      let userToLogin = {
-        email: loginEmail,
-        password: loginPassword,
-      };
-
-      const loginURL = `${API_BASE_URL}/api/v1/social/auth/login`;
-      await loginUser(loginURL, userToLogin);
-    } catch (error) {
-      console.error(error);
-    }
-  });
-});

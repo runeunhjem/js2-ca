@@ -6,6 +6,10 @@
   <link rel="stylesheet" href="../dist/css/index.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  <script src="../js/feed-get-posts.js" type="module"></script>
+  <!-- <script src="../js/feed-post-card.js" type="module"></script> -->
+  <script src="../js/feed-add-post.js" type="module"></script>
+  <!-- <script src="../js/consts.js" type="module"></script> -->
   <title>movieTALK | Feed</title>
 </head>
 <body>
@@ -21,7 +25,7 @@
             <div class="collapse navbar-collapse text-primary" id="navbarMenu">
               <ul class="navbar-nav mb-lg-2">
                 <li class="nav-item me-2">
-                  <a class="nav-link text-warning rounded-2 ps-2" href="../index.html">Home</a>
+                  <a class="nav-link text-warning rounded-2 ps-2" href="../index.html">Logout</a>
                 </li>
                 <li class="nav-item me-2">
                   <a class="nav-link text-warning rounded-2 ps-2" href="../profile/index.html">Profile</a>
@@ -158,96 +162,7 @@
               </ul>
             </div>
           </div>
-          <div class="card mx-0 mb-3">
-            <div class="card-body container">
-              <div class="d-flex align-items-start justify-content-center">
-                <div class="col-4 col-sm-2 position-relative z-3">
-                  <img src="https://m.media-amazon.com/images/I/91ebheNmoUL._AC_UY218_.jpg" alt="Movie Poster" class="movie-poster img-fluid me-2 mb-0">
-                </div>
-                <div class="col-8 col-sm-10 justify-content-start">
-                  <div class="d-flex align-items-center">
-                    <h6 class="d-flex card-title mb-0 me-1 ps-1">Cine Man</h6>
-                    <a href="../profile/index.html" class="nav-link text-primary px-2 m-0 pt-1 pb-1"><i class="bi bi-person-fill"></i>View profile</a>
-                  </div>
-                  <p class="card-subtitle mb-1 text-muted ps-1">08.29.2023, 7:45 PM</p>
-                  <a class="nav-link text-primary py-0 m-0 ps-2" href="https://www.imdb.com/title/tt0468569"><i class="bi bi-film me-1"></i> The Dark Knight</a>
-                  <p class="card-text my-0 ps-2">Just rewatched The Dark Knight, a cinematic masterpiece! 🎬</p>
-                </div>
-              </div>
-              <div class="container px-0 mx-0">
-                <div class="row d-block d-sm-flex align-items-center justify-content-between">
-                  <div class="col-sm-7">
-                    <div class="card-text mt-3">
-                      <button class="btn btn-warning btn-sm">
-                          <i class="bi bi-hand-thumbs-up"></i> Like
-                      </button>
-                      <button class="btn btn-warning btn-sm">
-                          <i class="bi bi-share"></i> Share
-                      </button>
-                      <button class="btn btn-warning btn-sm">
-                          <i class="bi bi-chat-dots"></i> Comment
-                      </button>
-                    </div>
-                  </div>
-                  <div class="col-sm-5 d-flex ps-0 justify-content-sm-end">
-                    <div class="d-flex gap-3 ms-3 pt-2 align-items-center">
-                      <div class="card-text text-muted py-0">
-                        <i class="bi bi-hand-thumbs-up-fill text-primary"></i> 7 likes
-                      </div>
-                      <div class="card-text text-muted py-0">
-                        <i class="bi bi-chat-dots text-primary"></i> 2 replies
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card mx-0 mb-3">
-            <div class="card-body container">
-              <div class="d-flex align-items-start justify-content-center">
-                <div class="col-4 col-sm-2 position-relative z-3">
-                  <img src="https://m.media-amazon.com/images/I/91do-w7KAJL._AC_UY218_.jpg" alt="Movie Poster" class="movie-poster img-fluid me-2 mb-0">
-                </div>
-                <div class="col-8 col-sm-10 justify-content-start">
-                  <div class="d-flex align-items-center">
-                    <h6 class="d-flex card-title mb-0 me-1 ps-1">Pamela</h6>
-                    <a href="../profile/index.html" class="nav-link text-primary px-2 m-0 pt-1 pb-1"><i class="bi bi-person-fill"></i>View profile</a>
-                  </div>
-                  <p class="card-subtitle mb-1 text-muted ps-1">08.28.2023, 2:13 PM</p>
-                  <a class="nav-link text-primary py-0 m-0 ps-2" href="https://www.imdb.com/title/tt9362930"><i class="bi bi-film me-1"></i>Blue Beetle</a>
-                  <p class="card-text my-0 ps-2">"Blue Beetle" delivers a fresh and exciting take on the superhero genre, with impressive visuals and a captivating story.</p>
-                </div>
-              </div>
-              <div class="container px-0 mx-0">
-                <div class="row d-block d-sm-flex align-items-center justify-content-between">
-                  <div class="col-sm-7">
-                    <div class="card-text mt-3">
-                      <button class="btn btn-warning btn-sm">
-                          <i class="bi bi-hand-thumbs-up"></i> Like
-                      </button>
-                      <button class="btn btn-warning btn-sm">
-                          <i class="bi bi-share"></i> Share
-                      </button>
-                      <button class="btn btn-warning btn-sm">
-                          <i class="bi bi-chat-dots"></i> Comment
-                      </button>
-                    </div>
-                  </div>
-                  <div class="col-sm-5 d-flex ps-0 justify-content-sm-end">
-                    <div class="d-flex gap-3 ms-3 pt-2 align-items-center">
-                      <div class="card-text text-muted py-0">
-                        <i class="bi bi-hand-thumbs-up-fill text-primary"></i> 14 likes
-                      </div>
-                      <div class="card-text text-muted py-0">
-                        <i class="bi bi-chat-dots text-primary"></i> 4 replies
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="feed-posts" id="feed-posts"></div>
           <hr class="my-5 pb-5">
         </div>
 
