@@ -107,30 +107,34 @@
             <div class="mb-3">
               <div class="card-body">
                 <h6 class="card-title">Share with us...</h6>
-                <form>
+                <form id="postForm">
                   <div class="mb-3">
                     <label for="movieTitle" class="form-label">Movie Title</label>
-                    <input type="text" class="form-control" id="movieTitle" name="movieTitle" required>
+                    <input type="text" class="form-control" id="title" name="title" required aria-label="Title" placeholder="Title of the movie">
                   </div>
                   <div class="mb-3">
                     <label for="movieCover" class="form-label">Movie Cover URL</label>
-                    <input type="url" class="form-control" id="movieCover" name="movieCover" required>
+                    <input type="url" class="form-control" id="media" name="media" required aria-label="Cover Image URL" placeholder="Valid image URL">
                   </div>
                   <div class="mb-3">
+                    <label for="tags" class="form-label">Movie Categories</label>
+                    <input type="text" class="form-control" id="tags" name="tags" required placeholder="Separate them with a comma">
+                  </div>
+                  <!-- <div class="mb-3">
                     <label for="imdbLink" class="form-label">IMDb Link</label>
                     <input type="url" class="form-control" id="imdbLink" name="imdbLink" required>
-                  </div>
-                  <div class="mb-3">
+                  </div> -->
+                  <!-- <div class="mb-3">
                     <select class="form-select" aria-label="Multiple select example">
                       <option selected>Category</option>
                       <option value="Sci-Fi">Sci-Fi</option>
                       <option value="Action">Action</option>
                       <option value="Fantasy">Fantasy</option>
                     </select>
-                  </div>
+                  </div> -->
                   <div class="mb-3">
                     <label for="postContent" class="form-label">Post Content</label>
-                    <textarea class="form-control" id="postContent" name="postContent" rows="4" required></textarea>
+                    <textarea class="form-control" id="newPostBody" name="newPostBody" rows="4" required placeholder="Write something"></textarea>
                   </div>
                   <button type="submit" class="btn btn-warning">Create Post</button>
                 </form>

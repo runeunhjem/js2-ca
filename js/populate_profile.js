@@ -1,7 +1,9 @@
-let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
-let loggedInUser = localStorage.getItem("loggedInUser");
-// console.log(`loggedInUserData: `, loggedInUserData);
-// console.log(`loggedInUser: `, loggedInUser);
+import { loggedInUser } from "./variables/consts.js";
+import { loggedInUserData } from "./variables/consts.js";
+// let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
+// let loggedInUser = localStorage.getItem("loggedInUser");
+console.log(`loggedInUserData: `, loggedInUserData);
+console.log(`loggedInUser: `, loggedInUser);
 
 const profileNameElements = document.querySelectorAll(".loggedInProfileName");
 const profileFollowersElement = document.getElementById('loggedInProfileFollowers');
@@ -33,9 +35,9 @@ if (loggedInUserData.avatar) {
   avatarImageElement.style.backgroundImage = 'url("https://picsum.photos/200/200")';
 }
 
-const followingCount = loggedInUserData._count.following;
-const followersCount = loggedInUserData._count.followers;
-const postsCount = loggedInUserData._count.posts;
+// const followingCount = loggedInUserData._count.following;
+// const followersCount = loggedInUserData._count.followers;
+// const postsCount = loggedInUserData._count.posts;
 
 // If the logged in user is following the profile, change the button text to "Unfollow"
 // if (loggedInUserData._count.following) {

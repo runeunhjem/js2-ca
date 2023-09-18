@@ -1,7 +1,7 @@
 import { API_BASE_URL } from "./variables/consts.js";
 // const API_BASE_URL = "https://api.noroff.dev";
 import { preFillFormFields } from "./utils/login.js";
-
+// import { validateEmail } from "./utils/validation.js";
 // function preFillFormFields() {
 //   const savedEmail = localStorage.getItem("savedEmail");
 //   const rememberMe = localStorage.getItem("rememberMe");
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const loginEmail = document.getElementById("loginEmail").value;
       const loginPassword = document.getElementById("loginPassword").value;
 
-      let userToLogin = {
+      const userToLogin = {
         email: loginEmail,
         password: loginPassword,
       };

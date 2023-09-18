@@ -77,6 +77,7 @@
                           Login
                       </div>
                       <div class="card-body">
+
                         <form id="login-form" action="https://api.noroff.dev/api/v1/social/auth/login" method="post" class="needs-validation was-validated">
                           <div class="mb-3">
                             <label for="loginEmail" class="form-label">Valid Noroff Email</label>
@@ -84,7 +85,7 @@
                             <div class="valid-feedback">
                               Looks good!
                             </div>
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback" id="invalid-login-email">
                               Please enter a valid noroff mail address.
                             </div>
                           </div>
@@ -94,7 +95,7 @@
                             <div class="valid-feedback">
                               Looks good!
                             </div>
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback"  id="invalid-login-password">
                               Password must be at least 8 characters long.
                             </div>
                           </div>

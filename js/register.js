@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "./variables/consts.js";
 document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.getElementById("signup-form");
 
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const json = await response.json();
       if (response.status >= 200 && response.status <= 299) {
+        localStorage.setItem("loggedInUser", userData.name);
         console.log("Registration successful!");
         window.location.href = "/profile/index.html";
       } else {

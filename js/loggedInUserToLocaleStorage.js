@@ -1,12 +1,12 @@
 import { API_BASE_URL } from "./variables/consts.js";
 // import { profileURL } from "./variables/consts.js";
 // import { reactionsAndCommentsURL } from "./variables/consts.js";
-import { token } from "./variables/consts.js";
+// import { token } from "./variables/consts.js";
 import { fetchOptions } from "./variables/consts.js";
 // const API_BASE_URL = "https://api.noroff.dev";
-
-let loggedInUser;
-loggedInUser = localStorage.getItem("loggedInUser");
+import { loggedInUser } from "./variables/consts.js";
+// let loggedInUser;
+// loggedInUser = localStorage.getItem("loggedInUser");
 // loggedInUser = "tester_tester"; // For testing purposes
 // loggedInUser = "xyxy"; // For testing purposes
 // loggedInUser = "Jarle"; // For testing purposes

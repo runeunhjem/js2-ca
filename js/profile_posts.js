@@ -1,6 +1,7 @@
-let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
-let loggedInUser = localStorage.getItem("loggedInUser");
-
+// let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
+// let loggedInUser = localStorage.getItem("loggedInUser");
+// import { loggedInUser } from "./variables/consts.js";
+import { loggedInUserData } from "./variables/consts.js";
 
 if (Array.isArray(loggedInUserData.posts)) {
   const profilePosts = document.getElementById("profilePosts");

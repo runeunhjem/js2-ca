@@ -1,41 +1,34 @@
-// import { API_BASE_URL, createPostURL } from "./consts.js";
-import { createPostURL } from "./variables/consts.js";
-// import { token } from "./consts.js";
-import { addNewPosthOptions } from "./variables/consts.js";
-// const API_BASE_URL = "https://api.noroff.dev";
-// const createPostURL = `${API_BASE_URL}/api/v1/social/posts`;
+import { createPostURL, postForm, addNewPostOptions } from "./variables/consts.js";
+import { createNewPost } from "./utils/feed.js";
+import { postsURL, fetchOptions } from "./variables/consts.js";
+import { getFeedPostsWithToken } from "./feed-get-posts.js";
 
-// const newPostData = {
-//   title: "My New Post", // Required
-//   body: "This is the body of my new post.", // Optional
-//   tags: ["Movies", "Actors"], // Optional
-//   media: "https://url.comhttps://picsum.photos/id/237/200/300", // Optional
-// };
+postForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
 
-// const token = localStorage.getItem("accessToken");
-// const addNewPosthOptions = {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json",
-//     Authorization: `Bearer ${token}`,
-//   },
-//   body: JSON.stringify(newPostData),
-// };
-import  { createNewPost } from "../js/utils/feed.js";
-// async function createNewPost(url, options) {
-//   try {
-//     const response = await fetch(url, options);
-//     if (response.ok) {
-//       const newPost = await response.json();
-//       console.log("New Post Created: ", newPost);
-//     } else {
-//       console.error("Failed to create a new post");
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+  const movieTitle = document.getElementById("title").value;
+  const movieCover = document.getElementById("media").value;
+  const tags = document.getElementById("tags").value;
+  const newPostBody = document.getElementById("newPostBody").value;
 
-// ************** Create a new post **************
-// ****************** ON CLICK *******************
-// createNewPost(createPostURL, addNewPosthOptions);
+  const newPostData = {
+    title: movieTitle,
+    body: newPostBody,
+    tags: tags.split(",").map(tag => tag.trim()), // Split tags into an array if they are comma-separated and remove whitespace
+    media: movieCover,
+  };
+
+  addNewPostOptions.body = JSON.stringify(newPostData);
+
+  console.log("Form submitted!");
+
+  // Wait for new post to complete before fetching posts again
+  await createNewPost(createPostURL, addNewPostOptions);
+
+  // Refresh the feed posts to include the newly added postv
+  getFeedPostsWithToken(postsURL, fetchOptions); // Fungerer ikke som jeg vil - Må gjøre om på dette - feed blir ikke refreshet
+
+  postForm.reset();
+
+
+});

@@ -134,5 +134,3 @@ export function createPostCard(post) {
 
   return card;
 }
-
-// export default createPostCard;
