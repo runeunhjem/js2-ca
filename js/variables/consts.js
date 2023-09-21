@@ -9,6 +9,7 @@ export const postsURL = `${API_BASE_URL}/api/v1/social/posts?limit=10&_comments=
 export const token = localStorage.getItem("accessToken");
 export const loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
 
+
 export const fetchOptions = {
   method: "GET",
   headers: {

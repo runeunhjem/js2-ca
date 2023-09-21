@@ -2,8 +2,10 @@ import { loggedInUser } from "./variables/consts.js";
 import { loggedInUserData } from "./variables/consts.js";
 // let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
 // let loggedInUser = localStorage.getItem("loggedInUser");
-console.log(`loggedInUserData: `, loggedInUserData);
-console.log(`loggedInUser: `, loggedInUser);
+
+
+  console.log(`loggedInUserData: `, loggedInUserData);
+  console.log(`loggedInUser: `, loggedInUser);
 
 const profileNameElements = document.querySelectorAll(".loggedInProfileName");
 const profileFollowersElement = document.getElementById('loggedInProfileFollowers');
@@ -44,5 +46,3 @@ if (loggedInUserData.avatar) {
 //   profileFollowButton.textContent = "Unfollow"; // Change button text to "Unfollow"
 //   profileFollowButton.classList.add("unfollow"); // Add the "unfollow" class to the button
 // }
-
-
