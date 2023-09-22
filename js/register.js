@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       console.log("userData:", userData);
 
-      const registerURL = `${API_BASE_URL}/api/v1/social/auth/register`;
+      const registerURL = `${API_BASE_URL}/social/auth/register`;
 
       const response = await fetch(registerURL, {
         method: "POST",
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //       console.log("userData:", userData);
 
-//       const registerURL = `${API_BASE_URL}/api/v1/social/auth/register`;
+//       const registerURL = `${API_BASE_URL}/social/auth/register`;
 
 //       const response = await fetch(registerURL, {
 //         method: "POST",

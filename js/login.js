@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(`formDataObject: ${formDataObject}`);
       console.log(`loginForm: ${loginForm}`);
 
-      const loginURL = `${API_BASE_URL}/api/v1/social/auth/login`;
+      const loginURL = `${API_BASE_URL}/social/auth/login`;
       await loginUser(loginURL, formDataObject);
     } catch (error) {
       console.error(error);

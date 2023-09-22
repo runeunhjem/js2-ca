@@ -2,10 +2,10 @@ const API_BASE_URL = "https://api.noroff.dev";
 
 let loggedInUser = localStorage.getItem("loggedInUser");
 console.log(`loggedInUser: ${loggedInUser}`);
-// const followURL = `${API_BASE_URL}/api/v1/social/profiles/fridlo/follow`;
-// const unfollowURL = `${API_BASE_URL}/api/v1/social/profiles/fridlo/unfollow`;
-const followURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}/follow`;
-const unfollowURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}/unfollow`;
+// const followURL = `${API_BASE_URL}/social/profiles/fridlo/follow`;
+// const unfollowURL = `${API_BASE_URL}/social/profiles/fridlo/unfollow`;
+const followURL = `${API_BASE_URL}/social/profiles/${loggedInUser}/follow`;
+const unfollowURL = `${API_BASE_URL}/social/profiles/${loggedInUser}/unfollow`;
 const profileFollowButton = document.getElementById("loggedInProfileFollow");
 
 const token = localStorage.getItem("accessToken");
@@ -18,7 +18,6 @@ const followOptions = {
 };
 
 profileFollowButton.addEventListener("click", () => {
-
   if (profileFollowButton.innerHTML === "Follow") {
     fetch(followURL, followOptions)
       .then((response) => response.json())
@@ -40,5 +39,4 @@ profileFollowButton.addEventListener("click", () => {
         console.error("Error:", error);
       });
   }
-
 });

@@ -14,8 +14,8 @@ import { loggedInUser } from "./variables/consts.mjs";
 // loggedInUser = "Tonje"; // For testing purposes
 
 // Define the URLs
-const profileURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
-const reactionsAndCommentsURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
+const profileURL = `${API_BASE_URL}/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
+const reactionsAndCommentsURL = `${API_BASE_URL}/social/profiles/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
 
 let loggedInUserData;
 
