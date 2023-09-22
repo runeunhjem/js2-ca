@@ -1,3 +1,5 @@
+// js/variables/consts.js
+import { generateProfileURL } from "../utils/generateProfileURL.js";
 export const API_BASE_URL = "https://api.noroff.dev";
 export const loggedInUser = localStorage.getItem("loggedInUser");
 export const postForm = document.getElementById("postForm");
@@ -8,6 +10,10 @@ export const postsURL = `${API_BASE_URL}/api/v1/social/posts?limit=10&_comments=
 // export const reactionsAndCommentsURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
 export const token = localStorage.getItem("accessToken");
 export const loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
+export const viewedProfileName = localStorage.getItem("viewedProfileName");
+export const viewedProfileNameDetails = JSON.parse(localStorage.getItem("viewedProfileNameDetails"));
+export const profileURL = generateProfileURL(viewedProfileName, loggedInUser);
+
 
 
 export const fetchOptions = {

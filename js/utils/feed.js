@@ -1,3 +1,5 @@
+import { transformPostData } from "./transform_post_data_to_object.js";
+
 export async function createNewPost(url, options) {
   try {
     const response = await fetch(url, options);
@@ -13,6 +15,10 @@ export async function createNewPost(url, options) {
 }
 
 export function createPostCard(post) {
+  // Transform the post data to a usable object
+  const transformedPost = transformPostData(post); // If not needed, delete the file as well.
+  // console.log("transformedPost: ", transformedPost);
+
   const card = document.createElement("div");
   card.classList.add("card", "mx-0", "my-3", "bg-info", "shadow-sm");
 
@@ -48,8 +54,18 @@ export function createPostCard(post) {
   authorName.classList.add("d-sm-flex", "card-title", "mb-0", "me-1", "ps-1");
   authorName.textContent = post.author.name;
   const viewProfileLink = document.createElement("a");
-  viewProfileLink.classList.add("nav-link", "text-primary", "px-2", "m-0", "pt-1", "pb-1", "text-nowrap");
-  viewProfileLink.href = "../profile/index.html";
+  viewProfileLink.classList.add(
+    "nav-link",
+    "text-primary",
+    "px-2",
+    "m-0",
+    "pt-1",
+    "pb-1",
+    "text-nowrap",
+    "view-profile-link"
+  );
+  viewProfileLink.href = `../profile/index.html?authorName=${encodeURIComponent(post.author.name)}`;
+  viewProfileLink.dataset.authorName = post.author.name;
   viewProfileLink.innerHTML = '<i class="bi bi-person-fill"></i> View profile';
   authorInfoDiv.appendChild(authorName);
   authorInfoDiv.appendChild(viewProfileLink);
@@ -132,5 +148,25 @@ export function createPostCard(post) {
 
   card.appendChild(cardBody);
 
+
   return card;
 }
+
+const postContainer = document.querySelector(".feed-posts");
+postContainer.addEventListener("click", (event) => {
+  if (event.target.classList.contains("view-profile-link")) {
+    event.preventDefault(); // Prevent the default link behavior
+
+    const authorName = event.target.dataset.authorName;
+    localStorage.setItem("viewedProfileName", authorName);
+    // Encode the author's name for URL
+    const encodedAuthorName = encodeURIComponent(authorName);
+
+    // Set the author's name in localStorage
+    localStorage.setItem("viewedProfileName", authorName);
+    console.log(`viewedProfileName: ${authorName}`);
+
+    // Redirect to the author's profile page with the encoded name
+    window.location.href = `../profile/index.html?authorName=${encodedAuthorName}`;
+  }
+});

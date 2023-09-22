@@ -1,32 +1,24 @@
-import { API_BASE_URL } from "./variables/consts.js";
-// import { profileURL } from "./variables/consts.js";
-// import { reactionsAndCommentsURL } from "./variables/consts.js";
-// import { token } from "./variables/consts.js";
-import { fetchOptions } from "./variables/consts.js";
-// const API_BASE_URL = "https://api.noroff.dev";
-import { loggedInUser } from "./variables/consts.js";
-// let loggedInUser;
-// loggedInUser = localStorage.getItem("loggedInUser");
-// loggedInUser = "tester_tester"; // For testing purposes
-// loggedInUser = "xyxy"; // For testing purposes
-// loggedInUser = "Jarle"; // For testing purposes
-// loggedInUser = "fridlo"; // For testing purposes
-// loggedInUser = "Tonje"; // For testing purposes
+// loggedInUserToLocaleStorage.js
+
+// Import the viewedProfileName from your consts.js
+import { API_BASE_URL, fetchOptions, loggedInUser, viewedProfileName } from "./variables/consts.js";
+console.log(`typeof viewedProfileName: ${typeof viewedProfileName}`);
+let loggedInUserData;
+let reactionsAndCommentsURL;
+let profileURL; // Define profileURL here
 
 // Define the URLs
-const profileURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
-const reactionsAndCommentsURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
-
-let loggedInUserData;
-
-// const token = localStorage.getItem("accessToken");
-// const fetchOptions = {
-//   method: "GET",
-//   headers: {
-//     "Content-Type": "application/json",
-//     Authorization: `Bearer ${token}`,
-//   },
-// };
+if (viewedProfileName !== "invalid") {
+  profileURL = `${API_BASE_URL}/api/v1/social/profiles/${viewedProfileName}?_following=true&_followers=true&_posts=true`;
+  // profileURL = `${API_BASE_URL}/api/v1/social/profiles/runeunhjem?_following=true&_followers=true&_posts=true`;
+  reactionsAndCommentsURL = `${API_BASE_URL}/api/v1/social/profiles/${viewedProfileName}?_reactions=true&_comments=true&_count=true`;
+  // reactionsAndCommentsURL = `${API_BASE_URL}/api/v1/social/profiles/runeunhjem?_reactions=true&_comments=true&_count=true`;
+} else {
+  profileURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
+  reactionsAndCommentsURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
+}
+console.log(`profileURL: ${profileURL}`);
+console.log(`reactionsAndCommentsURL: ${reactionsAndCommentsURL}`);
 
 async function fetchUserProfile() {
   try {
@@ -38,17 +30,20 @@ async function fetchUserProfile() {
 
     // Parse the responses
     const profileJson = await profileResponse.json();
+    console.log("profileResponse:", profileResponse);
+    console.log("profileJson:", profileJson);
+
     const reactionsAndCommentsJson = await reactionsAndCommentsResponse.json();
 
-    // Store the data in localStorage
-    localStorage.setItem("loggedInUserData", JSON.stringify(profileJson));
-    localStorage.setItem("reactionsAndComments", JSON.stringify(reactionsAndCommentsJson));
+    // Check if profileJson is valid
+    if (!profileJson || !profileJson.posts) {
+      console.error("Profile data is missing or invalid.");
+      return;
+    }
 
     // Organize reactions and comments under the respective posts
     const postsWithReactionsAndComments = profileJson.posts.map((post) => {
-      // console.log("post:", post);
-      const postID = post.id; // Assuming post.name represents the unique post ID
-      // console.log(`postID: ${postID}`);
+      const postID = post.id;
       const postReactionsAndComments = reactionsAndCommentsJson[postID];
 
       return {
@@ -61,6 +56,7 @@ async function fetchUserProfile() {
         },
       };
     });
+    console.log(`postsWithReactionsAndComments: ${postsWithReactionsAndComments}`);
 
     // Update the loggedInUserData with organized data
     loggedInUserData = {
@@ -68,15 +64,15 @@ async function fetchUserProfile() {
       posts: postsWithReactionsAndComments,
     };
 
-    // console.log("post:", post);
-    // console.log("loggedInUserData:", loggedInUserData);
-    // console.log("loggedInUserData.posts.id:", loggedInUserData.post); // THIS DON'T WORK ****************************************************
-    // console.log("loggedInUserData.posts.reactions:", loggedInUserData.posts.reactions); // THIS DON'T WORK ****************************************************
-    // Now you can work with the updated loggedInUserData
-    // console.log("Updated loggedInUserData: ", loggedInUserData);
-
     // Store the updated loggedInUserData in localStorage
-    localStorage.setItem("loggedInUserData", JSON.stringify(loggedInUserData));
+
+    // Store viewedProfileNameDetails separately in localStorage
+    if (viewedProfileName !== "invalid") {
+      localStorage.setItem("loggedInUserData", JSON.stringify(loggedInUserData));
+      localStorage.setItem("viewedProfileNameDetails", JSON.stringify(profileJson));
+    } else {
+      localStorage.setItem("viewedProfileNameDetails", JSON.stringify(loggedInUserData));
+    }
   } catch (error) {
     console.error(error);
   }

@@ -1,48 +1,33 @@
-import { loggedInUser } from "./variables/consts.js";
-import { loggedInUserData } from "./variables/consts.js";
-// let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
-// let loggedInUser = localStorage.getItem("loggedInUser");
+// populate_profile.js
+
+import { loggedInUser, loggedInUserData, viewedProfileName } from "./variables/consts.js";
+import { fetchAuthorProfile, updateProfileDetails } from "./utils/get_post_author_details.js";
 
 
-  console.log(`loggedInUserData: `, loggedInUserData);
-  console.log(`loggedInUser: `, loggedInUser);
+// Import necessary modules and constants here
 
-const profileNameElements = document.querySelectorAll(".loggedInProfileName");
-const profileFollowersElement = document.getElementById('loggedInProfileFollowers');
-const profileFollowingElement = document.getElementById('loggedInProfileFollowing');
-const profilePostsElement = document.getElementById('loggedInProfilePosts');
-const profileFollowButton = document.getElementById('loggedInProfileFollow');
-const bannerImageElement = document.getElementById("bannerImage");
-const avatarImageElement = document.getElementById("avatarImage");
+document.addEventListener("DOMContentLoaded", async function () {
+  // Get the viewed profile name from localStorage
+  // const viewedProfileName = localStorage.getItem("viewedProfileName");
 
-profileNameElements.forEach((element) => {
-  element.textContent = loggedInUserData.name;
+  // Get the logged-in user from localStorage
+  // const loggedInUser = localStorage.getItem("loggedInUser");
+
+  if (viewedProfileName !== loggedInUser) {
+    // Fetch author data using the viewedProfileName
+    const authorData = await fetchAuthorProfile(viewedProfileName);
+
+    if (authorData) {
+      // Display the viewed profile based on authorData
+      updateProfileDetails(authorData);
+    } else {
+      // Handle the case where authorData is null (error occurred during fetch)
+      console.error("Error fetching author's profile data.");
+    }
+  } else {
+    // Display the logged-in user's profile here
+    updateProfileDetails(loggedInUserData);
+  }
 });
-profileFollowersElement.textContent = loggedInUserData._count.followers;
-profileFollowingElement.textContent = loggedInUserData._count.following;
-profilePostsElement.textContent = loggedInUserData._count.posts;
 
-if (loggedInUserData.banner) {
-  // If a banner exists, set the background image to the banner URL
-  bannerImageElement.style.backgroundImage = `url(${loggedInUserData.banner})`;
-} else {
-  // If no banner exists, set the background image to the Lorem Picsum URL
-  bannerImageElement.style.backgroundImage = 'url("https://picsum.photos/id/857/1600/200")';
-}
-if (loggedInUserData.avatar) {
-  // If an avatar exists, set the image source to the avatar URL
-  avatarImageElement.style.backgroundImage = `url(${loggedInUserData.avatar})`;
-} else {
-  // If no avatar exists, set the image source to the default URL (e.g., placeholder image)
-  avatarImageElement.style.backgroundImage = 'url("https://picsum.photos/200/200")';
-}
 
-// const followingCount = loggedInUserData._count.following;
-// const followersCount = loggedInUserData._count.followers;
-// const postsCount = loggedInUserData._count.posts;
-
-// If the logged in user is following the profile, change the button text to "Unfollow"
-// if (loggedInUserData._count.following) {
-//   profileFollowButton.textContent = "Unfollow"; // Change button text to "Unfollow"
-//   profileFollowButton.classList.add("unfollow"); // Add the "unfollow" class to the button
-// }

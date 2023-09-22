@@ -1,6 +1,6 @@
+// feed-get-posts
 import { createPostCard } from "./utils/feed.js";
-import { postsURL } from "./variables/consts.js";
-import { fetchOptions } from "./variables/consts.js";
+import { postsURL, fetchOptions } from "./variables/consts.js";
 
 export async function getFeedPostsWithToken(url, options) {
   try {

@@ -33,6 +33,8 @@ export async function loginUser(url, userData) {
       let loggedInUser = json.name;
       localStorage.setItem("loggedInUser", loggedInUser);
       console.log(`Name: ${localStorage.getItem("loggedInUser")}`);
+      localStorage.setItem("viewedProfileName", "invalid");
+      localStorage.setItem("viewedProfileNameDetails", JSON.stringify(null));
 
       if (document.getElementById("remember").checked) {
         localStorage.setItem("rememberMe", "true");
