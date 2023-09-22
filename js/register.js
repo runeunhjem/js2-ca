@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "./variables/consts.js";
+import { API_BASE_URL } from "./variables/consts.mjs";
 
 document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.getElementById("signup-form");
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// import { API_BASE_URL } from "./variables/consts.js";
+// import { API_BASE_URL } from "./variables/consts.mjs";
 
 // document.addEventListener("DOMContentLoaded", function () {
 //   const registerForm = document.getElementById("signup-form");

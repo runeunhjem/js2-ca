@@ -1,6 +1,6 @@
-import { createPostCard } from "./utils/feed.js";
-import { postsURL } from "./variables/consts.js";
-import { fetchOptions } from "./variables/consts.js";
+import { createPostCard } from "./utils/feed.mjs";
+import { postsURL } from "./variables/consts.mjs";
+import { fetchOptions } from "./variables/consts.mjs";
 
 export async function getFeedPostsWithToken(url, options) {
   try {
@@ -49,7 +49,6 @@ export async function getFeedPostsWithToken(url, options) {
           // Append the postCard to the feedPosts container
           feedPosts.appendChild(postCard);
         });
-
       } else {
         console.error("Data is not in the expected format.");
       }

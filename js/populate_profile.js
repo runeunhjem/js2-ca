@@ -1,17 +1,16 @@
-import { loggedInUser } from "./variables/consts.js";
-import { loggedInUserData } from "./variables/consts.js";
+import { loggedInUser } from "./variables/consts.mjs";
+import { loggedInUserData } from "./variables/consts.mjs";
 // let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
 // let loggedInUser = localStorage.getItem("loggedInUser");
 
-
-  console.log(`loggedInUserData: `, loggedInUserData);
-  console.log(`loggedInUser: `, loggedInUser);
+console.log(`loggedInUserData: `, loggedInUserData);
+console.log(`loggedInUser: `, loggedInUser);
 
 const profileNameElements = document.querySelectorAll(".loggedInProfileName");
-const profileFollowersElement = document.getElementById('loggedInProfileFollowers');
-const profileFollowingElement = document.getElementById('loggedInProfileFollowing');
-const profilePostsElement = document.getElementById('loggedInProfilePosts');
-const profileFollowButton = document.getElementById('loggedInProfileFollow');
+const profileFollowersElement = document.getElementById("loggedInProfileFollowers");
+const profileFollowingElement = document.getElementById("loggedInProfileFollowing");
+const profilePostsElement = document.getElementById("loggedInProfilePosts");
+const profileFollowButton = document.getElementById("loggedInProfileFollow");
 const bannerImageElement = document.getElementById("bannerImage");
 const avatarImageElement = document.getElementById("avatarImage");
 

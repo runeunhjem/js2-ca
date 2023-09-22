@@ -1,6 +1,6 @@
-import { createPostURL, postForm, addNewPostOptions } from "./variables/consts.js";
-import { createNewPost } from "./utils/feed.js";
-import { postsURL, fetchOptions } from "./variables/consts.js";
+import { createPostURL, postForm, addNewPostOptions } from "./variables/consts.mjs";
+import { createNewPost } from "./utils/feed.mjs";
+import { postsURL, fetchOptions } from "./variables/consts.mjs";
 import { getFeedPostsWithToken } from "./feed-get-posts.js";
 
 postForm.addEventListener("submit", async function (event) {
@@ -14,7 +14,7 @@ postForm.addEventListener("submit", async function (event) {
   const newPostData = {
     title: movieTitle,
     body: newPostBody,
-    tags: tags.split(",").map(tag => tag.trim()), // Split tags into an array if they are comma-separated and remove whitespace
+    tags: tags.split(",").map((tag) => tag.trim()), // Split tags into an array if they are comma-separated and remove whitespace
     media: movieCover,
   };
 
@@ -29,6 +29,4 @@ postForm.addEventListener("submit", async function (event) {
   getFeedPostsWithToken(postsURL, fetchOptions); // Fungerer ikke som jeg vil - Må gjøre om på dette - feed blir ikke refreshet
 
   postForm.reset();
-
-
 });
