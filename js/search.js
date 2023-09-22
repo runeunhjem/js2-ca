@@ -47,6 +47,10 @@ function displaySearchResults(results) {
 // Event listener for the search form
 const searchForm = document.getElementById("searchForm");
 searchForm.addEventListener("submit", (search) => {
-   search.preventDefault();
-   handleSearch(search);
+  search.preventDefault();
+
+  const searchInput = document.getElementById("searchInput");
+  handleSearch(search);
+  
+  searchInput.value = "";
 });
