@@ -28,13 +28,20 @@ export function createPostCard(post) {
   avatarImg.alt = "Author Avatar";
   avatarImg.classList.add("movie-poster", "img-fluid", "me-2", "mb-0", "rounded", "shadow");
 
-  if (post.author.avatar) {
-    avatarImg.src = post.author.avatar;
-  } else {
-    // Use Picsum placeholder if avatar is'nt there
-    const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
-    avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
-  }
+avatarImg.onerror = () => {
+  // Replace the failed image with a default placeholder image
+  const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
+  avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+};
+
+// Check if the author's avatar exists and set the src attribute
+if (post.author && post.author.avatar) {
+  avatarImg.src = post.author.avatar;
+} else {
+  // Use Picsum placeholder if avatar isn't there
+  const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
+  avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+}
 
   avatarDiv.appendChild(avatarImg);
 
