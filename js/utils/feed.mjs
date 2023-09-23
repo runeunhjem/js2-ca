@@ -71,15 +71,42 @@ export function createPostCard(post) {
   imdbLink.href = post.imdbLink;
   imdbLink.innerHTML = `<i class="bi bi-film me-1"></i> ${post.title}`;
 
+  // const postText = document.createElement("p");
+  // postText.classList.add("card-text", "my-0", "ps-2");
+  // postText.textContent = post.body;
+
   const postText = document.createElement("p");
   postText.classList.add("card-text", "my-0", "ps-2");
-  postText.textContent = post.body;
+
+  const maxWords = 10; // Adjust the maximum number of words to display
+
+  const words = post.body.split(" ");
+  const visibleContent = words.slice(0, maxWords).join(" ");
+  const hiddenContent = words.slice(maxWords).join(" ");
+
+  postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
+
+  const showMoreButton = document.createElement("button");
+  showMoreButton.classList.add("btn", "btn-warning", "btn-sm", "m-0", "show-more-button");
+  showMoreButton.textContent = "Show More";
+  showMoreButton.addEventListener("click", function () {
+    const hiddenContentElement = postText.querySelector(".hidden-content");
+    if (hiddenContentElement.style.display === "none" || hiddenContentElement.style.display === "") {
+      hiddenContentElement.style.display = "inline";
+      showMoreButton.textContent = "Show Less";
+    } else {
+      hiddenContentElement.style.display = "none";
+      showMoreButton.textContent = "Show More";
+    }
+  });
 
   authorDiv.appendChild(avatarDiv);
   authorDiv.appendChild(postContentDiv);
   postContentDiv.appendChild(authorInfoDiv);
   postContentDiv.appendChild(postDate);
   postContentDiv.appendChild(imdbLink);
+  // postContentDiv.appendChild(postText);
+  postText.appendChild(showMoreButton);
   postContentDiv.appendChild(postText);
 
   const hr = document.createElement("hr");
