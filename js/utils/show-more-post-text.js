@@ -7,18 +7,12 @@ export function togglePostContent(event) {
   if (postContent.style.maxHeight) {
     // Content is currently hidden, so show it
     postContent.style.maxHeight = null;
-    showMoreButton.textContent = "... Show Less";
-    postContent.classList.add("d-none");
-  } else {
-    // Content is currently visible, so hide it
-    postContent.style.maxHeight = "100%"; // Expand to full height
     showMoreButton.textContent = "... Show More";
     postContent.classList.remove("d-none");
+  } else {
+    // Content is currently visible, so hide it
+    showMoreButton.textContent = "... Show Less";
+    postContent.classList.add("d-none");
+    postContent.style.maxHeight = "100%"; // Expand to full height
   }
 }
-
-// // Add click event listener to the "Show More" button in each card
-// const showMoreButtons = document.querySelectorAll(".show-more-button");
-// showMoreButtons.forEach((button) => {
-//   button.addEventListener("click", togglePostContent);
-// });

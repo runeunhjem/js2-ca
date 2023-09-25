@@ -57,7 +57,7 @@ export function createPostCard(post) {
   authorName.textContent = post.author.name;
   const viewProfileLink = document.createElement("a");
   viewProfileLink.classList.add("nav-link", "text-primary", "px-2", "m-0", "pt-1", "pb-1", "text-nowrap");
-  viewProfileLink.href = "../profile/index.html";
+  viewProfileLink.href = "../profile/";
   viewProfileLink.innerHTML = '<i class="bi bi-person-fill"></i> View profile';
   authorInfoDiv.appendChild(authorName);
   authorInfoDiv.appendChild(viewProfileLink);
@@ -101,15 +101,15 @@ export function createPostCard(post) {
       "fw-semibold"
     );
     showMoreButton.setAttribute("id", "show-more-button");
-    showMoreButton.textContent = "... Show More";
+    showMoreButton.textContent = "... Show Less";
     showMoreButton.addEventListener("click", function () {
       const hiddenContentElement = postText.querySelector(".hidden-content");
       if (hiddenContentElement.style.display === "none" || hiddenContentElement.style.display === "") {
         hiddenContentElement.style.display = "inline";
-        showMoreButton.textContent = "... Show More";
+        showMoreButton.textContent = "... Show Less";
       } else {
         hiddenContentElement.style.display = "none";
-        showMoreButton.textContent = "... Show Less";
+        showMoreButton.textContent = "... Show More";
       }
     });
 
@@ -149,7 +149,7 @@ export function createPostCard(post) {
 
   // The button dropdown menu
   const dropdownMenu = document.createElement("ul");
-  dropdownMenu.classList.add("dropdown-menu");
+  dropdownMenu.classList.add("dropdown-menu", "bg-info", "shadow", "border-0");
 
   // Menu items
   const menuItems = ["Edit", "Delete", "Share"];
