@@ -39,7 +39,9 @@ export async function fetchUserProfile() {
 
     // Parse the responses
     const profileJson = await profileResponse.json();
+    console.log(`profileJson: `, profileJson);
     const reactionsAndCommentsJson = await reactionsAndCommentsResponse.json();
+    console.log(`reactionsAndCommentsJson: `, reactionsAndCommentsJson);
 
     // Organize reactions and comments under the respective posts
     const postsWithReactionsAndComments = profileJson.posts.map((post) => {
