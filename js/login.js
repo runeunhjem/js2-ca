@@ -1,6 +1,6 @@
-import { API_BASE_URL } from "./variables/consts.js";
-import { preFillFormFields } from "./utils/login.js";
-import { loginUser } from "./utils/login.js";
+import { API_BASE_URL } from "./variables/consts.mjs";
+import { preFillFormFields } from "./utils/login.mjs";
+import { loginUser } from "./utils/login.mjs";
 
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("login-form");
@@ -16,9 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(`formDataObject: ${formDataObject}`);
       console.log(`loginForm: ${loginForm}`);
 
-      const loginURL = `${API_BASE_URL}/api/v1/social/auth/login`;
+      const loginURL = `${API_BASE_URL}/social/auth/login`;
       await loginUser(loginURL, formDataObject);
-
     } catch (error) {
       console.error(error);
     }

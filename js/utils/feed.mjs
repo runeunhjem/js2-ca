@@ -13,6 +13,7 @@ export async function createNewPost(url, options) {
 }
 
 export function createPostCard(post) {
+
   const card = document.createElement("div");
   card.classList.add("card", "mx-0", "my-3", "bg-info", "shadow-sm");
 
@@ -28,10 +29,17 @@ export function createPostCard(post) {
   avatarImg.alt = "Author Avatar";
   avatarImg.classList.add("movie-poster", "img-fluid", "me-2", "mb-0", "rounded", "shadow");
 
-  if (post.author.avatar) {
+  avatarImg.onerror = () => {
+    // Replace the failed image with a default placeholder image
+    const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
+    avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+  };
+
+  // Check if the author's avatar exists and set the src attribute
+  if (post.author && post.author.avatar) {
     avatarImg.src = post.author.avatar;
   } else {
-    // Use Picsum placeholder if avatar is'nt there
+    // Use Picsum placeholder if avatar isn't there
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
     avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
   }
@@ -64,16 +72,55 @@ export function createPostCard(post) {
   imdbLink.href = post.imdbLink;
   imdbLink.innerHTML = `<i class="bi bi-film me-1"></i> ${post.title}`;
 
-  const postText = document.createElement("p");
-  postText.classList.add("card-text", "my-0", "ps-2");
-  postText.textContent = post.body;
+  // const postText = document.createElement("p");
+  // postText.classList.add("card-text", "my-0", "ps-2");
+  // postText.textContent = post.body;
 
-  authorDiv.appendChild(avatarDiv);
-  authorDiv.appendChild(postContentDiv);
-  postContentDiv.appendChild(authorInfoDiv);
-  postContentDiv.appendChild(postDate);
-  postContentDiv.appendChild(imdbLink);
-  postContentDiv.appendChild(postText);
+    const postText = document.createElement("p");
+    postText.classList.add("card-text", "my-0", "ps-2", "hidden-content");
+
+    const maxWords = 4; // Adjust the maximum number of words to display
+
+    const words = post.body.split(" ");
+    const visibleContent = words.slice(0, maxWords).join(" ");
+    // console.log(`Visible Content: ${visibleContent}`);
+    const hiddenContent = words.slice(maxWords).join(" ");
+
+    postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
+
+    const showMoreButton = document.createElement("button");
+    showMoreButton.classList.add(
+      "btn",
+      "btn-none",
+      "btn-sm",
+      "m-0",
+      "shadow-sm",
+      "show-more-button",
+      "border-0",
+      "text-primary",
+      "fw-semibold"
+    );
+    showMoreButton.setAttribute("id", "show-more-button");
+    showMoreButton.textContent = "... Show More";
+    showMoreButton.addEventListener("click", function () {
+      const hiddenContentElement = postText.querySelector(".hidden-content");
+      if (hiddenContentElement.style.display === "none" || hiddenContentElement.style.display === "") {
+        hiddenContentElement.style.display = "inline";
+        showMoreButton.textContent = "... Show More";
+      } else {
+        hiddenContentElement.style.display = "none";
+        showMoreButton.textContent = "... Show Less";
+      }
+    });
+
+    authorDiv.appendChild(avatarDiv);
+    authorDiv.appendChild(postContentDiv);
+    postContentDiv.appendChild(authorInfoDiv);
+    postContentDiv.appendChild(postDate);
+    postContentDiv.appendChild(imdbLink);
+    // postContentDiv.appendChild(postText);
+    postText.appendChild(showMoreButton);
+    postContentDiv.appendChild(postText);
 
   const hr = document.createElement("hr");
 
@@ -94,16 +141,37 @@ export function createPostCard(post) {
   likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
   likeButton.innerHTML = `<i class="bi bi-hand-thumbs-up"></i> Like`;
 
-  const shareButton = document.createElement("button");
-  shareButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
-  shareButton.innerHTML = `<i class="bi bi-share"></i> Share`;
+  const moreButton = document.createElement("button");
+  moreButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1", "dropdown-toggle");
+  moreButton.setAttribute("data-bs-toggle", "dropdown");
+  moreButton.setAttribute("aria-expanded", "false");
+  moreButton.innerHTML = `<i class="bi bi-three-dots-vertical"></i> More`;
+
+  // The button dropdown menu
+  const dropdownMenu = document.createElement("ul");
+  dropdownMenu.classList.add("dropdown-menu");
+
+  // Menu items
+  const menuItems = ["Edit", "Delete", "Share"];
+
+  menuItems.forEach((itemText) => {
+    const menuItem = document.createElement("li");
+    const button = document.createElement("button");
+    button.classList.add("dropdown-item");
+    button.type = "button";
+    button.textContent = itemText;
+    menuItem.appendChild(button);
+    dropdownMenu.appendChild(menuItem);
+  });
+
+  moreButton.appendChild(dropdownMenu);
 
   const commentButton = document.createElement("button");
   commentButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
   commentButton.innerHTML = `<i class="bi bi-chat-dots"></i> Comment`;
 
   buttonContainer.appendChild(likeButton);
-  buttonContainer.appendChild(shareButton);
+  buttonContainer.appendChild(moreButton);
   buttonContainer.appendChild(commentButton);
 
   const likesRepliesContainer = document.createElement("div");
@@ -118,7 +186,7 @@ export function createPostCard(post) {
 
   const repliesCount = document.createElement("div");
   repliesCount.classList.add("card-text", "text-muted", "py-0");
-  repliesCount.innerHTML = `<i class="bi bi-chat-dots text-primary"></i> ${commentsCount} replies`;
+  repliesCount.innerHTML = `<i class="bi bi-chat-dots text-primary"></i> ${commentsCount} comments`;
 
   likesRepliesDiv.appendChild(likesCount);
   likesRepliesDiv.appendChild(repliesCount);

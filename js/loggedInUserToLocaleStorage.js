@@ -1,10 +1,10 @@
-import { API_BASE_URL } from "./variables/consts.js";
-// import { profileURL } from "./variables/consts.js";
-// import { reactionsAndCommentsURL } from "./variables/consts.js";
-// import { token } from "./variables/consts.js";
-import { fetchOptions } from "./variables/consts.js";
+import { API_BASE_URL } from "./variables/consts.mjs";
+// import { profileURL } from "./variables/consts.mjs";
+// import { reactionsAndCommentsURL } from "./variables/consts.mjs";
+// import { token } from "./variables/consts.mjs";
+import { fetchOptions } from "./variables/consts.mjs";
 // const API_BASE_URL = "https://api.noroff.dev";
-import { loggedInUser } from "./variables/consts.js";
+import { loggedInUser } from "./variables/consts.mjs";
 // let loggedInUser;
 // loggedInUser = localStorage.getItem("loggedInUser");
 // loggedInUser = "tester_tester"; // For testing purposes
@@ -14,8 +14,8 @@ import { loggedInUser } from "./variables/consts.js";
 // loggedInUser = "Tonje"; // For testing purposes
 
 // Define the URLs
-const profileURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
-const reactionsAndCommentsURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
+const profileURL = `${API_BASE_URL}/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
+const reactionsAndCommentsURL = `${API_BASE_URL}/social/profiles/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
 
 let loggedInUserData;
 

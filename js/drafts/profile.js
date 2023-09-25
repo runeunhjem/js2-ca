@@ -7,8 +7,8 @@ let loggedInUser = localStorage.getItem("loggedInUser");
 // loggedInUser = "fridlo"; // For testing purposes
 loggedInUser = "Tonje"; // For testing purposes
 let loggedInUserData;
-const profileURL = `${API_BASE_URL}/api/v1/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
-const reactionsURL = `${API_BASE_URL}/api/v1/social/posts/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
+const profileURL = `${API_BASE_URL}/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
+const reactionsURL = `${API_BASE_URL}/social/posts/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
 
 const token = localStorage.getItem("accessToken");
 const fetchOptions = {
@@ -41,7 +41,6 @@ async function profileWithToken(url, options) {
         posts: json._count.posts,
       },
     };
-
   } catch (error) {
     console.error(error);
   }
