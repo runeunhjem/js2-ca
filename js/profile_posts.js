@@ -3,7 +3,7 @@
 // import { loggedInUser } from "./variables/consts.mjs";
 import { loggedInUserData } from "./variables/consts.mjs";
 document.addEventListener("DOMContentLoaded", function () {
-  if (Array.isArray(loggedInUserData.posts)) {
+  if (loggedInUserData && Array.isArray(loggedInUserData.posts)) {
     const profilePosts = document.getElementById("profilePosts");
 
     loggedInUserData.posts.forEach((post) => {
@@ -90,9 +90,18 @@ document.addEventListener("DOMContentLoaded", function () {
       // reactionCountElement.innerHTML = `<i class="me-1 bi bi-hand-thumbs-up"> 8 Likes</i> <i class="ms-5 me-1 bi bi-chat-dots"></i> 0 Comments `;
       // console.log("post.reactions :", post.reactions);
       // console.log("post.comments :", post.comments);
-      const commentsCount = post._count.comments;
+      let commentsCount = 0;
+      if (post._count && post._count.comments) {
+        commentsCount = post._count.comments;
+      }
+
+      let reactionsCount = 0;
+      if (post._count && post._count.reactions) {
+        reactionsCount = post._count.reactions;
+      }
+      // const commentsCount = post._count.comments;
       // console.log("post._count.comments :", post._count.comments);
-      const reactionsCount = post._count.reactions;
+      // const reactionsCount = post._count.reactions;
       // console.log("post._count.reactions :", post._count.reactions);
       reactionCountElement.textContent = `${reactionsCount} Likes, ${commentsCount} Comments`;
       reactionCountElement.innerHTML = `<i class="me-1 bi bi-hand-thumbs-up"></i> ${reactionsCount} Likes <i class="ms-5 me-1 bi bi-chat-dots"></i> ${commentsCount} Comments `;
@@ -137,5 +146,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       profilePosts.appendChild(card);
     });
+  } else {
+    // fetchUserProfile();
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   }
 });
