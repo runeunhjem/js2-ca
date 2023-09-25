@@ -2,8 +2,8 @@ import { loggedInUser } from "./variables/consts.mjs";
 import { loggedInUserData } from "./variables/consts.mjs";
 // let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
 // let loggedInUser = localStorage.getItem("loggedInUser");
-
 console.log(`loggedInUserData: `, loggedInUserData);
+// console.log(`loggedInUserData: `, loggedInUserData);
 console.log(`loggedInUser: `, loggedInUser);
 
 const profileNameElements = document.querySelectorAll(".loggedInProfileName");
@@ -13,28 +13,29 @@ const profilePostsElement = document.getElementById("loggedInProfilePosts");
 const profileFollowButton = document.getElementById("loggedInProfileFollow");
 const bannerImageElement = document.getElementById("bannerImage");
 const avatarImageElement = document.getElementById("avatarImage");
+// document.addEventListener("DOMContentLoaded", function () {
+  profileNameElements.forEach((element) => {
+    element.textContent = loggedInUserData.name;
+  });
+  profileFollowersElement.textContent = loggedInUserData._count.followers;
+  profileFollowingElement.textContent = loggedInUserData._count.following;
+  profilePostsElement.textContent = loggedInUserData._count.posts;
 
-profileNameElements.forEach((element) => {
-  element.textContent = loggedInUserData.name;
-});
-profileFollowersElement.textContent = loggedInUserData._count.followers;
-profileFollowingElement.textContent = loggedInUserData._count.following;
-profilePostsElement.textContent = loggedInUserData._count.posts;
-
-if (loggedInUserData.banner) {
-  // If a banner exists, set the background image to the banner URL
-  bannerImageElement.style.backgroundImage = `url(${loggedInUserData.banner})`;
-} else {
-  // If no banner exists, set the background image to the Lorem Picsum URL
-  bannerImageElement.style.backgroundImage = 'url("https://picsum.photos/id/857/1600/200")';
-}
-if (loggedInUserData.avatar) {
-  // If an avatar exists, set the image source to the avatar URL
-  avatarImageElement.style.backgroundImage = `url(${loggedInUserData.avatar})`;
-} else {
-  // If no avatar exists, set the image source to the default URL (e.g., placeholder image)
-  avatarImageElement.style.backgroundImage = 'url("https://picsum.photos/200/200")';
-}
+  if (loggedInUserData.banner) {
+    // If a banner exists, set the background image to the banner URL
+    bannerImageElement.style.backgroundImage = `url(${loggedInUserData.banner})`;
+  } else {
+    // If no banner exists, set the background image to the Lorem Picsum URL
+    bannerImageElement.style.backgroundImage = 'url("https://picsum.photos/id/857/1600/200")';
+  }
+  if (loggedInUserData.avatar) {
+    // If an avatar exists, set the image source to the avatar URL
+    avatarImageElement.style.backgroundImage = `url(${loggedInUserData.avatar})`;
+  } else {
+    // If no avatar exists, set the image source to the default URL (e.g., placeholder image)
+    avatarImageElement.style.backgroundImage = 'url("https://picsum.photos/200/200")';
+  }
+// });
 
 // const followingCount = loggedInUserData._count.following;
 // const followersCount = loggedInUserData._count.followers;
