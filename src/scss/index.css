@@ -10754,7 +10754,8 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-html, body {
+html,
+body {
   min-height: 100%;
 }
 
@@ -10788,7 +10789,7 @@ html, body {
   transition: all 0.3s ease-in-out;
 }
 .movie-poster:hover {
-  max-width: 200px;
+  max-width: 150px;
 }
 
 .profile-image {

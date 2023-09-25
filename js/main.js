@@ -24,3 +24,8 @@ showMoreButtons.forEach((button) => {
   button.addEventListener("click", togglePostContent);
 });
 
+// document.addEventListener("click", function (event) {
+//   if (event.target.classList.contains("show-more-button")) {
+//     togglePostContent(event);
+//   }
+// });
