@@ -1,155 +1,163 @@
-// let loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
-// let loggedInUser = localStorage.getItem("loggedInUser");
-// import { loggedInUser } from "./variables/consts.mjs";
-import { loggedInUserData } from "./variables/consts.mjs";
-document.addEventListener("DOMContentLoaded", function () {
-  if (loggedInUserData && Array.isArray(loggedInUserData.posts)) {
-    const profilePosts = document.getElementById("profilePosts");
+import { urlParams } from "./variables/consts.mjs";
+import { getProfilePosts } from "./populate_profile.js";
+// import { loggedInUserData } from "./variables/consts.mjs";
+const currentUserName = urlParams.get("name");
 
-    loggedInUserData.posts.forEach((post) => {
-      const card = document.createElement("div");
-      card.classList.add("card", "mb-3");
+document.addEventListener("DOMContentLoaded", async function () {
+  // Display a loading indicator while data is being fetched
+  const loadingIndicator = document.getElementById("loadingIndicator");
+  loadingIndicator.textContent = "Loading...";
 
-      const cardBody = document.createElement("div");
-      cardBody.classList.add("card-body");
+  try {
+    // Await the data loading functions
+    const profilePostsData = await getProfilePosts(); // Assuming you have a function to fetch posts data
+    // console.log(`profilePostsData: ${JSON.stringify(profilePostsData, null, 2)}`);
+    // console.log("profilePostsData: ", profilePostsData, null, 2);
+    // console.log(`profilePostsData.posts is: ${JSON.stringify(profilePostsData, null, 2)}`);
+    // Once the data is loaded, clear the loading indicator
+    loadingIndicator.textContent = "";
+    console.log(profilePostsData.length);
+    // Check if data is available and has posts
+    if (profilePostsData && Array.isArray(profilePostsData) && profilePostsData.length > 0) {
+      const profilePosts = document.getElementById("profilePosts");
 
-      const cardTitle = document.createElement("h5");
-      cardTitle.classList.add("card-title", "loggedInProfileName");
+      profilePostsData.forEach((post) => {
+        const card = document.createElement("div");
+        card.classList.add("card", "mb-3");
 
-      if (post.id) {
-        const cardTitleContainer = document.createElement("div");
-        cardTitleContainer.classList.add("d-flex", "justify-content-between", "align-items-center");
+        const cardBody = document.createElement("div");
+        cardBody.classList.add("card-body");
 
-        const nameDiv = document.createElement("div");
-        nameDiv.textContent = loggedInUserData.name;
+        const cardTitle = document.createElement("h5");
+        cardTitle.classList.add("card-title", "loggedInProfileName");
 
-        const postIdDiv = document.createElement("div");
-        postIdDiv.textContent = `Post ID: ${post.id}`;
-        postIdDiv.classList.add("text-end", "text-muted", "fs-6");
+        if (post.id) {
+          const cardTitleContainer = document.createElement("div");
+          cardTitleContainer.classList.add("d-flex", "justify-content-between", "align-items-center");
 
-        cardTitleContainer.appendChild(nameDiv);
-        cardTitleContainer.appendChild(postIdDiv);
+          const nameDiv = document.createElement("div");
+          nameDiv.textContent = post.author.name || currentUserName;
 
-        cardTitle.appendChild(cardTitleContainer);
-      } else {
-        cardTitle.textContent = loggedInUserData.name;
-      }
+          const postIdDiv = document.createElement("div");
+          postIdDiv.textContent = `Post ID: ${post.id}`;
+          postIdDiv.classList.add("text-end", "text-muted", "fs-6");
 
-      const cardSubtitle = document.createElement("p");
-      cardSubtitle.classList.add("card-subtitle", "mb-2", "text-muted");
-      const postDate = new Date(post.created);
-      cardSubtitle.textContent = `Posted ${postDate.toLocaleDateString()} ${postDate.toLocaleTimeString()}`;
+          cardTitleContainer.appendChild(nameDiv);
+          cardTitleContainer.appendChild(postIdDiv);
 
-      const img = document.createElement("img");
-      img.classList.add("movie-poster", "img-fluid", "rounded", "shadow", "d-md-block", "loggedInProfilePoster");
-      img.id = "loggedInProfilePoster";
-      const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
-      if (post.media) {
-        img.src = post.media;
-        img.alt = "Movie Poster";
-      } else {
-        // Use Picsum placeholder if 'media' is empty
-        img.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
-        img.alt = "Post Image";
-      }
+          cardTitle.appendChild(cardTitleContainer);
+        } else {
+          cardTitle.textContent = post.name || currentUserName;
+        }
 
-      const titleContainer = document.createElement("div");
-      titleContainer.classList.add("d-flex", "py-2", "align-items-center");
+        const cardSubtitle = document.createElement("p");
+        cardSubtitle.classList.add("card-subtitle", "mb-2", "text-muted");
+        const postDate = new Date(post.created);
+        cardSubtitle.textContent = `Posted ${postDate.toLocaleDateString()} ${postDate.toLocaleTimeString()}`;
 
-      const postTitle = document.createElement("h5");
-      postTitle.classList.add("card-title", "me-2", "my-0");
-      if (post.title) {
-        postTitle.textContent = post.title;
-      } else {
-        postTitle.textContent = "Test Movie Title Because Post Title is Empty";
-      }
+        const img = document.createElement("img");
+        img.classList.add("movie-poster", "img-fluid", "rounded", "shadow", "d-md-block", "loggedInProfilePoster");
+        img.id = "loggedInProfilePoster";
+        const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
+        if (post.media) {
+          img.src = post.media;
+          img.alt = "Movie Poster";
+        } else {
+          // Use Picsum placeholder if 'media' is empty
+          img.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+          img.alt = "Post Image";
+        }
 
-      const imdbLink = document.createElement("a");
-      imdbLink.classList.add("nav-link", "text-primary", "mx-0", "p-2", "text-nowrap");
-      imdbLink.target = "_blank";
-      const randomImdbNumber = Math.floor(Math.random() * (10160976 - 7160976 + 1) + 100);
-      if (post.imdbLink) {
-        imdbLink.href = post.imdbLink;
-      } else {
-        imdbLink.href = `https://www.imdb.com/title/tt${randomImdbNumber}/`;
-      }
-      imdbLink.innerHTML = `<i class="bi bi-film me-1"></i>IMDb`;
+        const titleContainer = document.createElement("div");
+        titleContainer.classList.add("d-flex", "py-2", "align-items-center");
 
-      const cardText = document.createElement("p");
-      cardText.classList.add("card-text");
-      cardText.textContent = post.body;
+        const postTitle = document.createElement("h5");
+        postTitle.classList.add("card-title", "me-2", "my-0");
+        if (post.title) {
+          postTitle.textContent = post.title;
+        } else {
+          postTitle.textContent = "Test Movie Title Because Post Title is Empty";
+        }
 
-      const likesInfo = document.createElement("i");
-      likesInfo.classList.add("bi", "bi-hand-thumbs-up-fill", "text-primary");
-      likesInfo.textContent = " Movie Buff, Superhero Fan & 6 others like this";
+        const imdbLink = document.createElement("a");
+        imdbLink.classList.add("nav-link", "text-primary", "mx-0", "p-2", "text-nowrap");
+        imdbLink.target = "_blank";
+        const randomImdbNumber = Math.floor(Math.random() * (10160976 - 7160976 + 1) + 100);
+        if (post.imdbLink) {
+          imdbLink.href = post.imdbLink;
+        } else {
+          imdbLink.href = `https://www.imdb.com/title/tt${randomImdbNumber}/`;
+        }
+        imdbLink.innerHTML = `<i class="bi bi-film me-1"></i>IMDb`;
 
-      const hr = document.createElement("hr");
+        const cardText = document.createElement("p");
+        cardText.classList.add("card-text");
+        cardText.textContent = post.body;
 
-      const reactionCountElement = document.createElement("div");
-      reactionCountElement.classList.add("reaction-count", "text-primary", "ms-1", "pb-1"); // Add a class for easy selection
-      // reactionCountElement.innerHTML = `<i class="me-1 bi bi-hand-thumbs-up"> 8 Likes</i> <i class="ms-5 me-1 bi bi-chat-dots"></i> 0 Comments `;
-      // console.log("post.reactions :", post.reactions);
-      // console.log("post.comments :", post.comments);
-      let commentsCount = 0;
-      if (post._count && post._count.comments) {
-        commentsCount = post._count.comments;
-      }
+        const likesInfo = document.createElement("i");
+        likesInfo.classList.add("bi", "bi-hand-thumbs-up-fill", "text-primary");
+        likesInfo.textContent = " Movie Buff, Superhero Fan & 6 others like this";
 
-      let reactionsCount = 0;
-      if (post._count && post._count.reactions) {
-        reactionsCount = post._count.reactions;
-      }
-      // const commentsCount = post._count.comments;
-      // console.log("post._count.comments :", post._count.comments);
-      // const reactionsCount = post._count.reactions;
-      // console.log("post._count.reactions :", post._count.reactions);
-      reactionCountElement.textContent = `${reactionsCount} Likes, ${commentsCount} Comments`;
-      reactionCountElement.innerHTML = `<i class="me-1 bi bi-hand-thumbs-up"></i> ${reactionsCount} Likes <i class="ms-5 me-1 bi bi-chat-dots"></i> ${commentsCount} Comments `;
+        const hr = document.createElement("hr");
 
-      const hr2 = document.createElement("hr2");
+        const reactionCountElement = document.createElement("div");
+        reactionCountElement.classList.add("reaction-count", "text-primary", "ms-1", "pb-1"); // Add a class for easy selection
+        let commentsCount = 0;
+        if (post._count && post._count.comments) {
+          commentsCount = post._count.comments;
+        }
 
-      const buttonContainer = document.createElement("div");
-      buttonContainer.classList.add("card-text");
+        let reactionsCount = 0;
+        if (post._count && post._count.reactions) {
+          reactionsCount = post._count.reactions;
+        }
+        reactionCountElement.textContent = `${reactionsCount} Likes, ${commentsCount} Comments`;
 
-      const likeButton = document.createElement("button");
-      likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
-      likeButton.innerHTML = `<i class="bi bi-hand-thumbs-up"></i> Like`;
+        const hr2 = document.createElement("hr2");
 
-      const shareButton = document.createElement("button");
-      shareButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
-      shareButton.innerHTML = `<i class="bi bi-share"></i> Share`;
+        const buttonContainer = document.createElement("div");
+        buttonContainer.classList.add("card-text");
 
-      const commentButton = document.createElement("button");
-      commentButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
-      commentButton.innerHTML = `<i class="bi bi-chat-dots"></i> Comment`;
+        const likeButton = document.createElement("button");
+        likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
+        likeButton.innerHTML = `<i class="bi bi-hand-thumbs-up"></i> Like`;
 
-      // Append elements to their respective parents
-      titleContainer.appendChild(postTitle);
-      titleContainer.appendChild(imdbLink);
+        const shareButton = document.createElement("button");
+        shareButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
+        shareButton.innerHTML = `<i class="bi bi-share"></i> Share`;
 
-      buttonContainer.appendChild(likeButton);
-      buttonContainer.appendChild(shareButton);
-      buttonContainer.appendChild(commentButton);
+        const commentButton = document.createElement("button");
+        commentButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
+        commentButton.innerHTML = `<i class="bi bi-chat-dots"></i> Comment`;
 
-      cardBody.appendChild(cardTitle);
-      cardBody.appendChild(cardSubtitle);
-      cardBody.appendChild(img);
-      cardBody.appendChild(titleContainer);
-      cardBody.appendChild(cardText);
-      cardBody.appendChild(likesInfo); // Decide to keep this or the other one
-      cardBody.appendChild(hr);
-      cardBody.appendChild(reactionCountElement); // Decide to keep this or the other one
-      cardBody.appendChild(hr2);
-      cardBody.appendChild(buttonContainer);
+        // Append elements to their respective parents
+        titleContainer.appendChild(postTitle);
+        titleContainer.appendChild(imdbLink);
 
-      card.appendChild(cardBody);
+        buttonContainer.appendChild(likeButton);
+        buttonContainer.appendChild(shareButton);
+        buttonContainer.appendChild(commentButton);
 
-      profilePosts.appendChild(card);
-    });
-  } else {
-    // fetchUserProfile();
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardSubtitle);
+        cardBody.appendChild(img);
+        cardBody.appendChild(titleContainer);
+        cardBody.appendChild(cardText);
+        cardBody.appendChild(likesInfo); // Decide to keep this or the other one
+        cardBody.appendChild(hr);
+        cardBody.appendChild(reactionCountElement); // Decide to keep this or the other one
+        cardBody.appendChild(hr2);
+        cardBody.appendChild(buttonContainer);
+
+        card.appendChild(cardBody);
+
+        profilePosts.appendChild(card);
+      });
+    } else {
+      // Handle the case when there are no posts to display or an error occurred.
+      // You can add code here to show a message or take appropriate action.
+    }
+  } catch (error) {
+    console.error("Error initializing the profile page:", error);
   }
 });

@@ -9,9 +9,10 @@ logoutLinks.forEach(function (logoutLink) {
     localStorage.removeItem("loggedInUser");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("loggedInUserData");
-    localStorage.removeItem("viewedProfileNameDetails");
-    localStorage.removeItem("viewedProfileName");
+    localStorage.removeItem("currentProfileNameDetails");
+    localStorage.removeItem("currentProfileName");
     localStorage.removeItem("reactionsAndComments");
+    localStorage.removeItem("profilePostsData");
 
     window.location.href = "../index.html";
   });
@@ -24,8 +25,3 @@ showMoreButtons.forEach((button) => {
   button.addEventListener("click", togglePostContent);
 });
 
-// document.addEventListener("click", function (event) {
-//   if (event.target.classList.contains("show-more-button")) {
-//     togglePostContent(event);
-//   }
-// });

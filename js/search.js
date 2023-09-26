@@ -13,6 +13,7 @@ async function handleSearch(event) {
     }
 
     const postData = await response.json();
+    console.log(postData);
     const searchResults = postData.filter((post) => {
       // Customize this search logic based on your data structure
       const searchString = post.title + post.body + post.tags.join(" ") + post.author.name;
@@ -50,7 +51,8 @@ searchForm.addEventListener("submit", (search) => {
   search.preventDefault();
 
   const searchInput = document.getElementById("searchInput");
+  console.log("searchInput: ", searchInput);
   handleSearch(search);
-  
+
   searchInput.value = "";
 });

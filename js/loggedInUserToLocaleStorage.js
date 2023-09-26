@@ -1,102 +1,32 @@
-// import { API_BASE_URL } from "./variables/consts.mjs";
-// import { profileURL } from "./variables/consts.mjs";
-// import { reactionsAndCommentsURL } from "./variables/consts.mjs";
-// import { token } from "./variables/consts.mjs";
-// import { fetchOptions } from "./variables/consts.mjs";
-// const API_BASE_URL = "https://api.noroff.dev";
-// import { loggedInUser } from "./variables/consts.mjs";
-// let loggedInUser;
-// loggedInUser = localStorage.getItem("loggedInUser");
-// loggedInUser = "tester_tester"; // For testing purposes
-// loggedInUser = "xyxy"; // For testing purposes
-// loggedInUser = "Jarle"; // For testing purposes
-// loggedInUser = "fridlo"; // For testing purposes
-// loggedInUser = "Tonje"; // For testing purposes
+// import { API_BASE_URL, fetchOptions, reactionsAndCommentsURL, profilePostsURL } from "./variables/consts.mjs";
+// const urlParams = new URLSearchParams(window.location.search);
+// const userName = urlParams.get("name");
+// const profileURL = `${API_BASE_URL}/social/profiles/${userName}?_following=true&_followers=true&_posts=true`;
 
-// Define the URLs
-// const profileURL = `${API_BASE_URL}/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
-// const reactionsAndCommentsURL = `${API_BASE_URL}/social/profiles/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
-
-// let loggedInUserData;
-
-// const token = localStorage.getItem("accessToken");
-// const fetchOptions = {
-//   method: "GET",
-//   headers: {
-//     "Content-Type": "application/json",
-//     Authorization: `Bearer ${token}`,
-//   },
-// };
-import { profileURL, fetchOptions, reactionsAndCommentsURL } from "./variables/consts.mjs";
-
-export async function fetchUserProfile() {
-  try {
-    // Fetch user profile and reactions/comments data in parallel
-    const [profileResponse, reactionsAndCommentsResponse] = await Promise.all([
-      fetch(profileURL, fetchOptions),
-      fetch(reactionsAndCommentsURL, fetchOptions),
-    ]);
-
-    // Parse the responses
-    const profileJson = await profileResponse.json();
-    console.log(`profileJson: `, profileJson);
-    const reactionsAndCommentsJson = await reactionsAndCommentsResponse.json();
-    console.log(`reactionsAndCommentsJson: `, reactionsAndCommentsJson);
-
-    // Organize reactions and comments under the respective posts
-    const postsWithReactionsAndComments = profileJson.posts.map((post) => {
-      const postID = post.id; // Assuming post.id represents the unique post ID
-      const postReactionsAndComments = reactionsAndCommentsJson[postID];
-
-      return {
-        ...post,
-        reactions: postReactionsAndComments ? postReactionsAndComments.reactions : [],
-        comments: postReactionsAndComments ? postReactionsAndComments.comments : [],
-        _count: {
-          reactions: postReactionsAndComments ? postReactionsAndComments._count.reactions : 0,
-          comments: postReactionsAndComments ? postReactionsAndComments._count.comments : 0,
-        },
-      };
-    });
-
-    // Update the loggedInUserData with organized data
-    const loggedInUserData = {
-      ...profileJson,
-      posts: postsWithReactionsAndComments,
-    };
-
-    // Store the data in localStorage
-    localStorage.setItem("loggedInUserData", JSON.stringify(loggedInUserData));
-
-    // Return the organized data if needed
-    return loggedInUserData;
-  } catch (error) {
-    console.error(error);
-    throw error; // Rethrow the error for error handling in the calling function
-  }
-}
-
-// async function fetchUserProfile() {
+// export async function fetchUserProfile() {
 //   try {
-//     // Fetch user profile and reactions/comments data in parallel
-//     const [profileResponse, reactionsAndCommentsResponse] = await Promise.all([
+//     // Fetch user profile, reactions/comments, and profile posts data in parallel
+//     const [profileResponse, reactionsAndCommentsResponse, profilePostsResponse] = await Promise.all([
 //       fetch(profileURL, fetchOptions),
 //       fetch(reactionsAndCommentsURL, fetchOptions),
+//       fetch(profilePostsURL, fetchOptions),
 //     ]);
 
 //     // Parse the responses
 //     const profileJson = await profileResponse.json();
 //     const reactionsAndCommentsJson = await reactionsAndCommentsResponse.json();
+//     const profilePostsJson = await profilePostsResponse.json(); // Parse profile posts data
 
 //     // Store the data in localStorage
-//     localStorage.setItem("loggedInUserData", JSON.stringify(profileJson));
+//     if (!userName) {
+//       localStorage.setItem("loggedInUserData", JSON.stringify(profileJson));
+//     }
 //     localStorage.setItem("reactionsAndComments", JSON.stringify(reactionsAndCommentsJson));
+//     localStorage.setItem("profilePostsData", JSON.stringify(profilePostsJson)); // Store profile posts data
 
 //     // Organize reactions and comments under the respective posts
 //     const postsWithReactionsAndComments = profileJson.posts.map((post) => {
-//       // console.log("post:", post);
-//       const postID = post.id; // Assuming post.name represents the unique post ID
-//       // console.log(`postID: ${postID}`);
+//       const postID = post.id; // Assuming post.id represents the unique post ID
 //       const postReactionsAndComments = reactionsAndCommentsJson[postID];
 
 //       return {
@@ -111,23 +41,17 @@ export async function fetchUserProfile() {
 //     });
 
 //     // Update the loggedInUserData with organized data
-//     loggedInUserData = {
+//     const loggedInUserData = {
 //       ...profileJson,
 //       posts: postsWithReactionsAndComments,
 //     };
 
-//     // console.log("post:", post);
-//     // console.log("loggedInUserData:", loggedInUserData);
-//     // console.log("loggedInUserData.posts.id:", loggedInUserData.post); // THIS DON'T WORK ****************************************************
-//     // console.log("loggedInUserData.posts.reactions:", loggedInUserData.posts.reactions); // THIS DON'T WORK ****************************************************
-//     // Now you can work with the updated loggedInUserData
-//     // console.log("Updated loggedInUserData: ", loggedInUserData);
-
-//     // Store the updated loggedInUserData in localStorage
-//     localStorage.setItem("loggedInUserData", JSON.stringify(loggedInUserData));
+//     // Return the organized data if needed
+//     return loggedInUserData;
 //   } catch (error) {
 //     console.error(error);
+//     throw error; // Rethrow the error for error handling in the calling function
 //   }
 // }
 
-fetchUserProfile();
+// fetchUserProfile();

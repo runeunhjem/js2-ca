@@ -1,3 +1,7 @@
+// import { urlParams } from "../variables/consts.mjs";
+// export const urlParams = new URLSearchParams(window.location.search);
+// const userName = urlParams.get("name");
+
 export async function createNewPost(url, options) {
   try {
     const response = await fetch(url, options);
@@ -54,11 +58,42 @@ export function createPostCard(post) {
 
   const authorName = document.createElement("h6");
   authorName.classList.add("d-sm-flex", "card-title", "mb-0", "me-1", "ps-1");
+  authorName.setAttribute("data-authorname", post.author.name); // Set the actual author's name as the attribute value
   authorName.textContent = post.author.name;
+
   const viewProfileLink = document.createElement("a");
-  viewProfileLink.classList.add("nav-link", "text-primary", "px-2", "m-0", "pt-1", "pb-1", "text-nowrap");
-  viewProfileLink.href = "../profile/";
+  viewProfileLink.classList.add(
+    "nav-link",
+    "text-primary",
+    "px-2",
+    "m-0",
+    "pt-1",
+    "pb-1",
+    "text-nowrap",
+    "view-profile-link"
+  );
+  viewProfileLink.setAttribute("data-authorname", post.author.name); // Set the actual author's name as the attribute value
+  const currentProfileURL = `../profile/index.html?name=${encodeURIComponent(post.author.name)}`;
+  viewProfileLink.href = currentProfileURL;
   viewProfileLink.innerHTML = '<i class="bi bi-person-fill"></i> View profile';
+
+  viewProfileLink.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    // Get author's name in the link's data attribute
+    const authorName = viewProfileLink.dataset.authorname;
+    console.log(authorName);
+
+    // Store the author's name in localStorage
+    localStorage.setItem("currentProfileName", authorName);
+    console.log(`currentProfileName: ${authorName}`);
+
+    // Redirect to the profile page
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const userName = urlParams.get("name");
+    window.location.href = `../profile/index.html?name=${encodeURIComponent(post.author.name)}`;
+  });
+
   authorInfoDiv.appendChild(authorName);
   authorInfoDiv.appendChild(viewProfileLink);
 
@@ -72,55 +107,51 @@ export function createPostCard(post) {
   imdbLink.href = post.imdbLink;
   imdbLink.innerHTML = `<i class="bi bi-film me-1"></i> ${post.title}`;
 
-  // const postText = document.createElement("p");
-  // postText.classList.add("card-text", "my-0", "ps-2");
-  // postText.textContent = post.body;
+  const postText = document.createElement("p");
+  postText.classList.add("card-text", "my-0", "ps-2", "hidden-content");
 
-    const postText = document.createElement("p");
-    postText.classList.add("card-text", "my-0", "ps-2", "hidden-content");
+  const maxWords = 4; // Adjust the maximum number of words to display
 
-    const maxWords = 4; // Adjust the maximum number of words to display
+  const words = post.body.split(" ");
+  const visibleContent = words.slice(0, maxWords).join(" ");
+  // console.log(`Visible Content: ${visibleContent}`);
+  const hiddenContent = words.slice(maxWords).join(" ");
 
-    const words = post.body.split(" ");
-    const visibleContent = words.slice(0, maxWords).join(" ");
-    // console.log(`Visible Content: ${visibleContent}`);
-    const hiddenContent = words.slice(maxWords).join(" ");
+  postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
 
-    postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
+  const showMoreButton = document.createElement("button");
+  showMoreButton.classList.add(
+    "btn",
+    "btn-none",
+    "btn-sm",
+    "m-0",
+    "shadow-sm",
+    "show-more-button",
+    "border-0",
+    "text-primary",
+    "fw-semibold"
+  );
+  showMoreButton.setAttribute("id", "show-more-button");
+  showMoreButton.textContent = "... Show Less";
+  showMoreButton.addEventListener("click", function () {
+    const hiddenContentElement = postText.querySelector(".hidden-content");
+    if (hiddenContentElement.style.display === "none" || hiddenContentElement.style.display === "") {
+      hiddenContentElement.style.display = "inline";
+      showMoreButton.textContent = "... Show Less";
+    } else {
+      hiddenContentElement.style.display = "none";
+      showMoreButton.textContent = "... Show More";
+    }
+  });
 
-    const showMoreButton = document.createElement("button");
-    showMoreButton.classList.add(
-      "btn",
-      "btn-none",
-      "btn-sm",
-      "m-0",
-      "shadow-sm",
-      "show-more-button",
-      "border-0",
-      "text-primary",
-      "fw-semibold"
-    );
-    showMoreButton.setAttribute("id", "show-more-button");
-    showMoreButton.textContent = "... Show Less";
-    showMoreButton.addEventListener("click", function () {
-      const hiddenContentElement = postText.querySelector(".hidden-content");
-      if (hiddenContentElement.style.display === "none" || hiddenContentElement.style.display === "") {
-        hiddenContentElement.style.display = "inline";
-        showMoreButton.textContent = "... Show Less";
-      } else {
-        hiddenContentElement.style.display = "none";
-        showMoreButton.textContent = "... Show More";
-      }
-    });
-
-    authorDiv.appendChild(avatarDiv);
-    authorDiv.appendChild(postContentDiv);
-    postContentDiv.appendChild(authorInfoDiv);
-    postContentDiv.appendChild(postDate);
-    postContentDiv.appendChild(imdbLink);
-    // postContentDiv.appendChild(postText);
-    postText.appendChild(showMoreButton);
-    postContentDiv.appendChild(postText);
+  authorDiv.appendChild(avatarDiv);
+  authorDiv.appendChild(postContentDiv);
+  postContentDiv.appendChild(authorInfoDiv);
+  postContentDiv.appendChild(postDate);
+  postContentDiv.appendChild(imdbLink);
+  // postContentDiv.appendChild(postText);
+  postText.appendChild(showMoreButton);
+  postContentDiv.appendChild(postText);
 
   const hr = document.createElement("hr");
 

@@ -1,15 +1,24 @@
 
 export const API_BASE_URL = "https://api.noroff.dev/api/v1";
 export const loggedInUser = localStorage.getItem("loggedInUser");
+
 export const postForm = document.getElementById("postForm");
 export const createPostURL = `${API_BASE_URL}/social/posts`;
-export const postsURL = `${API_BASE_URL}/social/posts?limit=10&_comments=true&_author=true&_reactions=true&_count=true`;
+export const postsURL = `${API_BASE_URL}/social/posts?limit=10&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
 // export const postsURL = `${API_BASE_URL}/social/posts?limit=10&offset=113&_comments=true&_author=true&_reactions=true&_count=true`;
-export const profileURL = `${API_BASE_URL}/social/profiles/${loggedInUser}?_following=true&_followers=true&_posts=true`;
-export const reactionsAndCommentsURL = `${API_BASE_URL}/social/profiles/${loggedInUser}?_reactions=true&_comments=true&_count=true`;
+
+export const urlParams = new URLSearchParams(window.location.search);
+export const userName = urlParams.get("name");
+export const profileURL = `${API_BASE_URL}/social/profiles/${userName}?_following=true&_followers=true&_posts=true`;
+export const profilePostsURL = `${API_BASE_URL}/social/profiles/${userName}/posts?_following=true&_followers=true&_posts=true&_comments=true&_author=true&_reactions=true`;
+export const reactionsAndCommentsURL = `${API_BASE_URL}/social/profiles/${userName}?_reactions=true&_comments=true&_count=true`;
 export const token = localStorage.getItem("accessToken");
-export const loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
-export const searchURL = `${API_BASE_URL}/social/posts?&limit=10&offset=95&_comments=true&_author=true&_reactions=true&_count=true`;
+export const currentProfileName = localStorage.getItem("currentProfileName");
+// export const loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
+export const currentProfilePosts = JSON.parse(localStorage.getItem("profilePostsData"));
+// export const searchURL = `${API_BASE_URL}/social/posts?&limit=10&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
+export const searchURL = `${API_BASE_URL}/social/posts?_comments=true&_author=true&_reactions=true&_count=true`;
+export const profilePostsData = JSON.parse(localStorage.getItem("profilePostsData"));
 
 export const fetchOptions = {
   method: "GET",
