@@ -51,7 +51,7 @@ searchForm.addEventListener("submit", (search) => {
   search.preventDefault();
 
   const searchInput = document.getElementById("searchInput");
-  console.log("searchInput: ", searchInput);
+  // console.log("searchInput: ", searchInput);
   handleSearch(search);
 
   searchInput.value = "";

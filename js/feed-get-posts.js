@@ -1,6 +1,5 @@
 import { createPostCard } from "./utils/feed.mjs";
-import { postsURL } from "./variables/consts.mjs";
-import { fetchOptions } from "./variables/consts.mjs";
+import { postsURL, fetchOptions } from "./variables/consts.mjs";
 
 export async function getFeedPostsWithToken(url, options) {
   try {
@@ -14,37 +13,37 @@ export async function getFeedPostsWithToken(url, options) {
         posts.forEach((post) => {
           const postCard = createPostCard(post);
 
-          // Display comments
-          const comments = post.comments || {};
-          const commentsContainer = document.createElement("div");
-          commentsContainer.className = "post-comments";
+          // // Display comments
+          // const comments = post.comments || {};
+          // const commentsContainer = document.createElement("div");
+          // commentsContainer.className = "post-comments";
 
-          for (const commentId in comments) {
-            if (comments.hasOwnProperty(commentId)) {
-              const comment = comments[commentId];
-              const commentElement = document.createElement("div");
-              commentElement.textContent = comment.text;
-              commentsContainer.appendChild(commentElement);
-            }
-          }
+          // for (const commentId in comments) {
+          //   if (comments.hasOwnProperty(commentId)) {
+          //     const comment = comments[commentId];
+          //     const commentElement = document.createElement("div");
+          //     commentElement.textContent = comment.text;
+          //     commentsContainer.appendChild(commentElement);
+          //   }
+          // }
 
-          // Display reactions
-          const reactions = post.reactions || {};
-          const reactionsContainer = document.createElement("div");
-          reactionsContainer.className = "post-reactions";
+          // // Display reactions
+          // const reactions = post.reactions || {};
+          // const reactionsContainer = document.createElement("div");
+          // reactionsContainer.className = "post-reactions";
 
-          for (const reactionId in reactions) {
-            if (reactions.hasOwnProperty(reactionId)) {
-              const reaction = reactions[reactionId];
-              const reactionElement = document.createElement("div");
-              reactionElement.textContent = reaction.type;
-              reactionsContainer.appendChild(reactionElement);
-            }
-          }
+          // for (const reactionId in reactions) {
+          //   if (reactions.hasOwnProperty(reactionId)) {
+          //     const reaction = reactions[reactionId];
+          //     const reactionElement = document.createElement("div");
+          //     reactionElement.textContent = reaction.type;
+          //     reactionsContainer.appendChild(reactionElement);
+          //   }
+          // }
 
-          // Append comments and reactions to the postCard
-          postCard.appendChild(commentsContainer);
-          postCard.appendChild(reactionsContainer);
+          // // Append comments and reactions to the postCard
+          // postCard.appendChild(commentsContainer);
+          // postCard.appendChild(reactionsContainer);
 
           // Append the postCard to the feedPosts container
           feedPosts.appendChild(postCard);

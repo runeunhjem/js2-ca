@@ -37,8 +37,44 @@ export const addNewPostOptions = {
   // body: JSON.stringify(newPostData),
 };
 
+export const commentOptions = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  body: "What an awesome movie! Recommended", // Required
+  // "replyToId": 0 // Optional - Only required if replying to another comment
+};
+
 export const editPostOptions = {
   method: "PUT",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  body: { //Get these values from the form (postForm? edit in addNewPost?)
+    title: "string",
+    body: "string",
+    tags: ["string"],
+    media: "https://url.com/image.jpg",
+    // body: JSON.stringify(postData),
+  },
+};
+export const reactionOptions = {
+  method: "PUT",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  body: {
+    body: "", // Required - remember the 👍 in the put url
+    replyToId: 0, // Optional - Only required if replying to another comment
+  },
+};
+
+export const deletePostOptions = {
+  method: "DELETE",
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,

@@ -1,4 +1,5 @@
-import { togglePostContent } from "./utils/show-more-post-text.js";
+import { togglePostContent } from "./utils/show-more-post-text.mjs";
+
 
 const logoutLinks = document.querySelectorAll(".logout-link");
 
