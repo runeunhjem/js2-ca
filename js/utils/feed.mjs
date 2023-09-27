@@ -1,21 +1,13 @@
-export async function createNewPost(url, options) {
-  try {
-    const response = await fetch(url, options);
-    if (response.ok) {
-      const newPost = await response.json();
-      console.log("New Post Created: ", newPost);
-    } else {
-      console.error("Failed to create a new post");
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
+import { postsURL, reactToPostURL, reactionOptions } from "../variables/consts.mjs";
+// export const urlParams = new URLSearchParams(window.location.search);
+// const userName = urlParams.get("name");
+import { deletePost } from "./delete-posts.mjs";
 
 export function createPostCard(post) {
-
   const card = document.createElement("div");
   card.classList.add("card", "mx-0", "my-3", "bg-info", "shadow-sm");
+  card.setAttribute("data-post-id", post.id);
+  card.addEventListener("click", handlePostCardClick);
 
   const cardBody = document.createElement("div");
   cardBody.classList.add("card-body", "container");
@@ -54,11 +46,51 @@ export function createPostCard(post) {
 
   const authorName = document.createElement("h6");
   authorName.classList.add("d-sm-flex", "card-title", "mb-0", "me-1", "ps-1");
+  authorName.setAttribute("data-authorname", post.author.name); // Set the actual author's name as the attribute value
   authorName.textContent = post.author.name;
+
+  // Create an element for the post ID
+  const postIdElement = document.createElement("div");
+  postIdElement.setAttribute("data-post-id", post.id);
+  postIdElement.classList.add("post-id", "position-absolute", "top-0", "end-0", "p-2", "text-muted", "fs-0");
+  postIdElement.textContent = `ID: ${post.id}`;
+
+  // Append the post ID element to the card
+  card.appendChild(postIdElement);
+
   const viewProfileLink = document.createElement("a");
-  viewProfileLink.classList.add("nav-link", "text-primary", "px-2", "m-0", "pt-1", "pb-1", "text-nowrap");
-  viewProfileLink.href = "../profile/";
+  viewProfileLink.classList.add(
+    "nav-link",
+    "text-primary",
+    "px-2",
+    "m-0",
+    "pt-1",
+    "pb-1",
+    "text-nowrap",
+    "view-profile-link"
+  );
+  viewProfileLink.setAttribute("data-authorname", post.author.name); // Set the actual author's name as the attribute value
+  const currentProfileURL = `../profile/index.html?name=${encodeURIComponent(post.author.name)}`;
+  viewProfileLink.href = currentProfileURL;
   viewProfileLink.innerHTML = '<i class="bi bi-person-fill"></i> View profile';
+
+  viewProfileLink.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    // Get author's name in the link's data attribute
+    const authorName = viewProfileLink.dataset.authorname;
+    console.log(authorName);
+
+    // Store the author's name in localStorage
+    localStorage.setItem("currentProfileName", authorName);
+    console.log(`currentProfileName: ${authorName}`);
+
+    // Redirect to the profile page
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const userName = urlParams.get("name");
+    window.location.href = `../profile/index.html?name=${encodeURIComponent(post.author.name)}`;
+  });
+
   authorInfoDiv.appendChild(authorName);
   authorInfoDiv.appendChild(viewProfileLink);
 
@@ -67,67 +99,77 @@ export function createPostCard(post) {
   const createdDate = new Date(post.created);
   postDate.textContent = createdDate.toLocaleString();
 
-  const imdbLink = document.createElement("a");
-  imdbLink.classList.add("nav-link", "text-primary", "py-0", "m-0", "ps-2");
-  imdbLink.href = post.imdbLink;
-  imdbLink.innerHTML = `<i class="bi bi-film me-1"></i> ${post.title}`;
+  const viewPostLink = document.createElement("a");
+  viewPostLink.classList.add("nav-link", "text-primary", "py-0", "m-0", "ps-2");
+  const postPageURL = `./post.html?postId=${post.id}`;
+  viewPostLink.href = postPageURL;
+  viewPostLink.innerHTML = `<i class="bi bi-film me-1"></i> ${post.title}`;
 
-  // const postText = document.createElement("p");
-  // postText.classList.add("card-text", "my-0", "ps-2");
-  // postText.textContent = post.body;
-
-    const postText = document.createElement("p");
-    postText.classList.add("card-text", "my-0", "ps-2", "hidden-content");
-
-    const maxWords = 4; // Adjust the maximum number of words to display
-
-    const words = post.body.split(" ");
-    const visibleContent = words.slice(0, maxWords).join(" ");
-    // console.log(`Visible Content: ${visibleContent}`);
-    const hiddenContent = words.slice(maxWords).join(" ");
-
-    postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
-
-    const showMoreButton = document.createElement("button");
-    showMoreButton.classList.add(
-      "btn",
-      "btn-none",
-      "btn-sm",
-      "m-0",
-      "shadow-sm",
-      "show-more-button",
-      "border-0",
-      "text-primary",
-      "fw-semibold"
-    );
-    showMoreButton.setAttribute("id", "show-more-button");
-    showMoreButton.textContent = "... Show Less";
-    showMoreButton.addEventListener("click", function () {
-      const hiddenContentElement = postText.querySelector(".hidden-content");
-      if (hiddenContentElement.style.display === "none" || hiddenContentElement.style.display === "") {
-        hiddenContentElement.style.display = "inline";
-        showMoreButton.textContent = "... Show Less";
-      } else {
-        hiddenContentElement.style.display = "none";
-        showMoreButton.textContent = "... Show More";
-      }
+  // Check if the current page is 'post.html'
+  if (window.location.pathname.includes("post.html")) {
+    viewPostLink.classList.add("disabled-link", "text-muted", "fw-bold");
+    viewPostLink.removeAttribute("href");
+    viewPostLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      console.log("You are already on the post page.");
     });
+  }
 
-    authorDiv.appendChild(avatarDiv);
-    authorDiv.appendChild(postContentDiv);
-    postContentDiv.appendChild(authorInfoDiv);
-    postContentDiv.appendChild(postDate);
-    postContentDiv.appendChild(imdbLink);
-    // postContentDiv.appendChild(postText);
-    postText.appendChild(showMoreButton);
-    postContentDiv.appendChild(postText);
+  const postText = document.createElement("p");
+  postText.classList.add("card-text", "my-0", "ps-2", "hidden-content");
+
+  const maxWords = 4; // Adjust the maximum number of words to display
+
+  const words = post.body.split(" ");
+  const visibleContent = words.slice(0, maxWords).join(" ");
+  // console.log(`Visible Content: ${visibleContent}`);
+  const hiddenContent = words.slice(maxWords).join(" ");
+
+  postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
+
+  const showMoreButton = document.createElement("button");
+  showMoreButton.classList.add(
+    "btn",
+    "btn-none",
+    "btn-sm",
+    "m-0",
+    "shadow-sm",
+    "show-more-button",
+    "border-0",
+    "text-primary",
+    "fw-semibold"
+  );
+  showMoreButton.setAttribute("id", "show-more-button");
+  showMoreButton.textContent = "... Show Less";
+  showMoreButton.addEventListener("click", function () {
+    const hiddenContentElement = postText.querySelector(".hidden-content");
+    if (hiddenContentElement.style.display === "none" || hiddenContentElement.style.display === "") {
+      hiddenContentElement.style.display = "inline";
+      showMoreButton.textContent = "... Show Less";
+    } else {
+      hiddenContentElement.style.display = "none";
+      showMoreButton.textContent = "... Show More";
+    }
+  });
+
+  authorDiv.appendChild(avatarDiv);
+  authorDiv.appendChild(postContentDiv);
+  postContentDiv.appendChild(authorInfoDiv);
+  postContentDiv.appendChild(postDate);
+  postContentDiv.appendChild(viewPostLink);
+  // postContentDiv.appendChild(postText);
+  postText.appendChild(showMoreButton);
+  postContentDiv.appendChild(postText);
 
   const hr = document.createElement("hr");
 
   const reactionCountElement = document.createElement("div");
   reactionCountElement.classList.add("reaction-count", "text-primary", "ms-1", "pb-1");
   const commentsCount = post._count.comments;
-  const reactionsCount = post._count.reactions;
+  let reactionsCount = 0;
+  if (post.reactions && post.reactions.length > 0) {
+    reactionsCount = post.reactions[0].count;
+  }
   reactionCountElement.textContent = `${reactionsCount} Likes, ${commentsCount} Comments`;
   reactionCountElement.innerHTML = `<i class="me-1 bi bi-hand-thumbs-up"></i> ${reactionsCount} Likes <i class="ms-5 me-1 bi bi-chat-dots"></i> ${commentsCount} Comments `;
 
@@ -137,17 +179,52 @@ export function createPostCard(post) {
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("card-text");
 
+  // const likeButton = document.createElement("button");
+  // likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
+  // likeButton.innerHTML = `<i class="bi bi-hand-thumbs-up"></i> Like`;
+
   const likeButton = document.createElement("button");
   likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
   likeButton.innerHTML = `<i class="bi bi-hand-thumbs-up"></i> Like`;
 
+  // Add an event listener to the "Like" button
+  likeButton.addEventListener("click", async () => {
+    try {
+      console.log(`postId: ${post.id}`);
+      // Make an API request to add the reaction
+      const response = await fetch(reactToPostURL, reactionOptions);
+      // console.log("response: ", response);
+      // console.log(`reactToPostURL: ${reactToPostURL}`);
+      // console.log(`reactionOptions: ${reactionOptions}`);
+      if (response.ok) {
+        reactionsCount++; // Increment the reactions count
+        likesCount.innerHTML = `<i class="bi bi-hand-thumbs-up-fill text-primary"></i> ${reactionsCount} Likes`; // Update the UI
+        likeButton.disabled = true;
+      } else {
+        // Handle error response from the API
+        console.error("Failed to add like to the post.");
+      }
+    } catch (error) {
+      // Handle any network or API request errors
+      console.error("An error occurred while adding a like:", error);
+    }
+  });
+
   const moreButton = document.createElement("button");
-  moreButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1", "dropdown-toggle");
+  moreButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1", "dropdown-toggle", "more-button");
   moreButton.setAttribute("data-bs-toggle", "dropdown");
   moreButton.setAttribute("aria-expanded", "false");
   moreButton.innerHTML = `<i class="bi bi-three-dots-vertical"></i> More`;
-
   // The button dropdown menu
+
+  // Attach event listener to the "More" button
+  moreButton.addEventListener("click", (event) => {
+    event.stopPropagation(); // Prevent the event from reaching the document click event
+
+    const dropdownMenu = event.target.nextElementSibling; // Get the dropdown menu
+    dropdownMenu.classList.toggle("show"); // Toggle the dropdown menu's visibility
+  });
+
   const dropdownMenu = document.createElement("ul");
   dropdownMenu.classList.add("dropdown-menu", "bg-info", "shadow", "border-0");
 
@@ -202,3 +279,52 @@ export function createPostCard(post) {
 
   return card;
 }
+
+// Attach a click event listener to the document to handle clicks on dropdown items
+document.addEventListener("click", (event) => {
+  if (!event.target.classList.contains("more-button")) {
+    // Check if the clicked element is not the "More" button
+    const dropdownMenus = document.querySelectorAll(".dropdown-menu");
+    dropdownMenus.forEach((menu) => {
+      menu.classList.remove("show"); // Close all open dropdown menus
+    });
+  }
+});
+
+// Function to handle the "Delete" action
+function handleDeleteClick(event) {
+  console.log(event);
+  const menuItem = event.target.textContent;
+  if (menuItem === "Delete") {
+    const postElement = event.target.closest(".post");
+    if (postElement) {
+      const postId = postElement.getAttribute("data-post-id");
+      localStorage.setItem("postId", postId);
+      // Call your deletePost function here if needed
+      deletePost(postId);
+    }
+  }
+}
+// handleDeleteClick();
+
+function handlePostCardClick(event) {
+  const card = event.currentTarget; // Get the clicked postCard element
+  const postId = card.getAttribute("data-post-id"); // Extract postId from data attribute
+  const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author's name from the data attribute
+  // Store postId in localStorage
+  localStorage.setItem("postId", postId);
+  localStorage.setItem("authorName", authorName);
+}
+
+// // Attach the event listener to a common parent element or document
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("dropdown-item")) {
+    handleDeleteClick(event);
+  }
+});
+
+// Attach click event listener to post cards
+const postCards = document.querySelectorAll(".more-button"); // Adjust the selector as needed
+postCards.forEach((card) => {
+  card.addEventListener("click", handlePostCardClick);
+});

@@ -35,7 +35,7 @@
 //   authorName.textContent = post.author.name;
 //   const viewProfileLink = document.createElement("a");
 //   viewProfileLink.classList.add("nav-link", "text-primary", "px-2", "m-0", "pt-1", "pb-1", "text-nowrap");
-//   viewProfileLink.href = "../profile/index.html";
+//   viewProfileLink.href = "../profile/";
 //   viewProfileLink.innerHTML = '<i class="bi bi-person-fill"></i> View profile';
 //   authorInfoDiv.appendChild(authorName);
 //   authorInfoDiv.appendChild(viewProfileLink);

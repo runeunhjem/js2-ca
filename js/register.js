@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (response.status >= 200 && response.status <= 299) {
         localStorage.setItem("loggedInUser", userData.name);
         console.log("Registration successful!");
-        window.location.href = "/profile/index.html";
+        window.location.href = "/profile/";
       } else {
         console.log("Registration failed!");
       }
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //       if (response.status >= 200 && response.status <= 299) {
 //         localStorage.setItem("loggedInUser", userData.name);
 //         console.log("Registration successful!");
-//         window.location.href = "/profile/index.html";
+//         window.location.href = "/profile/";
 //       } else {
 //         console.log("Registration failed!");
 //       }
