@@ -1,4 +1,4 @@
-import { reactToPostURL, reactionOptions } from "../variables/consts.mjs";
+import { postsURL, reactToPostURL, reactionOptions } from "../variables/consts.mjs";
 // export const urlParams = new URLSearchParams(window.location.search);
 // const userName = urlParams.get("name");
 import { deletePost } from "./delete-posts.mjs";
@@ -166,8 +166,10 @@ export function createPostCard(post) {
   const reactionCountElement = document.createElement("div");
   reactionCountElement.classList.add("reaction-count", "text-primary", "ms-1", "pb-1");
   const commentsCount = post._count.comments;
-  let reactionsCount = post.reactions[0].count;
-  // const reactionsCount = post._count.reactions;
+  let reactionsCount = 0;
+  if (post.reactions && post.reactions.length > 0) {
+    reactionsCount = post.reactions[0].count;
+  }
   reactionCountElement.textContent = `${reactionsCount} Likes, ${commentsCount} Comments`;
   reactionCountElement.innerHTML = `<i class="me-1 bi bi-hand-thumbs-up"></i> ${reactionsCount} Likes <i class="ms-5 me-1 bi bi-chat-dots"></i> ${commentsCount} Comments `;
 
@@ -188,6 +190,7 @@ export function createPostCard(post) {
   // Add an event listener to the "Like" button
   likeButton.addEventListener("click", async () => {
     try {
+      console.log(`postId: ${post.id}`);
       // Make an API request to add the reaction
       const response = await fetch(reactToPostURL, reactionOptions);
       // console.log("response: ", response);

@@ -6,16 +6,17 @@ export async function getFeedPostsWithToken(url, options) {
     const response = await fetch(url, options);
     if (response.ok) {
       const posts = await response.json();
-      // console.log("Posts: ", posts);
+      console.log("Posts: ", posts);
 
       if (Array.isArray(posts)) {
         const feedPosts = document.getElementById("feed-posts");
         posts.forEach((post) => {
 
           if (post.reactions && post.reactions.length > 0) {
-            const reactionsCount = post.reactions[0].count;
-            // Now you can use reactionsCount as needed
+          // if (post.reactions && post.reactions.length > 0) {
+          // Now you can use reactionsCount as needed
             const postCard = createPostCard(post);
+            // let reactionsCount = post.reactions[0].count;
 
             // // Display comments
             // const comments = post.comments || {};
@@ -50,6 +51,10 @@ export async function getFeedPostsWithToken(url, options) {
             // postCard.appendChild(reactionsContainer);
 
             // Append the postCard to the feedPosts container
+            feedPosts.appendChild(postCard);
+          } else {
+            const postCard = createPostCard(post);
+            let reactionsCount = 0;
             feedPosts.appendChild(postCard);
           }
         });

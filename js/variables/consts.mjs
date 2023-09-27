@@ -1,10 +1,10 @@
 
 export const API_BASE_URL = "https://api.noroff.dev/api/v1";
 export const loggedInUser = localStorage.getItem("loggedInUser");
-
+export const host = "api.noroff.dev";
 export const postForm = document.getElementById("postForm");
 export const createPostURL = `${API_BASE_URL}/social/posts`;
-export const postsURL = `${API_BASE_URL}/social/posts?limit=10&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
+export const postsURL = `${API_BASE_URL}/social/posts?limit=20&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
 // export const postsURL = `${API_BASE_URL}/social/posts?limit=10&offset=113&_comments=true&_author=true&_reactions=true&_count=true`;
 
 export const urlParams = new URLSearchParams(window.location.search);
@@ -27,15 +27,15 @@ export const fetchOptions = {
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
-  },
+  }
 };
 
 export const addNewPostOptions = {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  },
+    Authorization: `Bearer ${token}`
+  }
   // body: JSON.stringify(newPostData),
 };
 
@@ -44,9 +44,9 @@ export const newCommentOptions = {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${token}`
   },
-  body: "What an awesome movie! Recommended", // Required
+  body: "What an awesome movie! Recommended" // Required
   // "replyToId": 0 // Optional - Only required if replying to another comment
 };
 
@@ -54,23 +54,23 @@ export const editPostOptions = {
   method: "PUT",
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${token}`
   },
   body: { //Get these values from the form (postForm? edit in addNewPost?)
     title: "string",
     body: "string",
     tags: ["string"],
-    media: "https://url.com/image.jpg",
+    media: "https://url.com/image.jpg"
     // body: JSON.stringify(postData),
-  },
+  }
 };
 
 export const reactToPostURL = `${API_BASE_URL}/social/posts/${postId}/react/👍`;
 export const reactionOptions = {
   method: "PUT",
   headers: {
-    host: "api.noroff.dev",
-    Authorization: `Bearer ${token}`,
+    host: host, // Gave error without this
+    Authorization: `Bearer ${token}`
   }
   // body: {
   //   // body: "", // Required - remember the 👍 in the put url
@@ -82,8 +82,21 @@ export const deletePostURL = `${API_BASE_URL}/social/posts/${postId}`;
 export const deletePostOptions = {
   method: "DELETE",
   headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  },
+    // "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`
+  }
   // body: JSON.stringify(newPostData),
 };
+
+export const followUserURL = `${API_BASE_URL}/social/posts/${authorName}/follow`;
+export const unFollowUserURL = `${API_BASE_URL}/social/posts/${authorName}/unfollow`;
+export const followOptions = {
+  method: "PUT",
+  headers: {
+    host: host,// Nescessary ???
+    // "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`
+  }
+  // body: JSON.stringify(newPostData),
+};
+
