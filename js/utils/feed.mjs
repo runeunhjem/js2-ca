@@ -1,4 +1,4 @@
-// import { urlParams } from "../variables/consts.mjs";
+import { reactToPostURL, reactionOptions } from "../variables/consts.mjs";
 // export const urlParams = new URLSearchParams(window.location.search);
 // const userName = urlParams.get("name");
 import { deletePost } from "./delete-posts.mjs";
@@ -105,6 +105,16 @@ export function createPostCard(post) {
   viewPostLink.href = postPageURL;
   viewPostLink.innerHTML = `<i class="bi bi-film me-1"></i> ${post.title}`;
 
+  // Check if the current page is 'post.html'
+  if (window.location.pathname.includes("post.html")) {
+    viewPostLink.classList.add("disabled-link", "text-muted", "fw-bold");
+    viewPostLink.removeAttribute("href");
+    viewPostLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      console.log("You are already on the post page.");
+    });
+  }
+
   const postText = document.createElement("p");
   postText.classList.add("card-text", "my-0", "ps-2", "hidden-content");
 
@@ -156,7 +166,8 @@ export function createPostCard(post) {
   const reactionCountElement = document.createElement("div");
   reactionCountElement.classList.add("reaction-count", "text-primary", "ms-1", "pb-1");
   const commentsCount = post._count.comments;
-  const reactionsCount = post._count.reactions;
+  let reactionsCount = post.reactions[0].count;
+  // const reactionsCount = post._count.reactions;
   reactionCountElement.textContent = `${reactionsCount} Likes, ${commentsCount} Comments`;
   reactionCountElement.innerHTML = `<i class="me-1 bi bi-hand-thumbs-up"></i> ${reactionsCount} Likes <i class="ms-5 me-1 bi bi-chat-dots"></i> ${commentsCount} Comments `;
 
@@ -166,9 +177,35 @@ export function createPostCard(post) {
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("card-text");
 
+  // const likeButton = document.createElement("button");
+  // likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
+  // likeButton.innerHTML = `<i class="bi bi-hand-thumbs-up"></i> Like`;
+
   const likeButton = document.createElement("button");
   likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
   likeButton.innerHTML = `<i class="bi bi-hand-thumbs-up"></i> Like`;
+
+  // Add an event listener to the "Like" button
+  likeButton.addEventListener("click", async () => {
+    try {
+      // Make an API request to add the reaction
+      const response = await fetch(reactToPostURL, reactionOptions);
+      // console.log("response: ", response);
+      // console.log(`reactToPostURL: ${reactToPostURL}`);
+      // console.log(`reactionOptions: ${reactionOptions}`);
+      if (response.ok) {
+        reactionsCount++; // Increment the reactions count
+        likesCount.innerHTML = `<i class="bi bi-hand-thumbs-up-fill text-primary"></i> ${reactionsCount} Likes`; // Update the UI
+        likeButton.disabled = true;
+      } else {
+        // Handle error response from the API
+        console.error("Failed to add like to the post.");
+      }
+    } catch (error) {
+      // Handle any network or API request errors
+      console.error("An error occurred while adding a like:", error);
+    }
+  });
 
   const moreButton = document.createElement("button");
   moreButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1", "dropdown-toggle", "more-button");

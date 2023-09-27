@@ -14,6 +14,8 @@ logoutLinks.forEach(function (logoutLink) {
     localStorage.removeItem("currentProfileName");
     localStorage.removeItem("reactionsAndComments");
     localStorage.removeItem("profilePostsData");
+    localStorage.removeItem("authorName");
+    localStorage.removeItem("postId");
 
     window.location.href = "../index.html";
   });

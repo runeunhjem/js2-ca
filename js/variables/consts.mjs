@@ -19,6 +19,8 @@ export const currentProfilePosts = JSON.parse(localStorage.getItem("profilePosts
 // export const searchURL = `${API_BASE_URL}/social/posts?&limit=10&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
 export const searchURL = `${API_BASE_URL}/social/posts?_comments=true&_author=true&_reactions=true&_count=true`;
 export const profilePostsData = JSON.parse(localStorage.getItem("profilePostsData"));
+export const postId = localStorage.getItem("postId");
+export const authorName = localStorage.getItem("authorName");
 
 export const fetchOptions = {
   method: "GET",
@@ -37,7 +39,8 @@ export const addNewPostOptions = {
   // body: JSON.stringify(newPostData),
 };
 
-export const commentOptions = {
+export const addNewCommentURL = `${API_BASE_URL}/social/posts/${postId}/comment`;
+export const newCommentOptions = {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -61,18 +64,21 @@ export const editPostOptions = {
     // body: JSON.stringify(postData),
   },
 };
+
+export const reactToPostURL = `${API_BASE_URL}/social/posts/${postId}/react/👍`;
 export const reactionOptions = {
   method: "PUT",
   headers: {
-    "Content-Type": "application/json",
+    host: "api.noroff.dev",
     Authorization: `Bearer ${token}`,
-  },
-  body: {
-    body: "", // Required - remember the 👍 in the put url
-    replyToId: 0, // Optional - Only required if replying to another comment
-  },
+  }
+  // body: {
+  //   // body: "", // Required - remember the 👍 in the put url
+  //   // replyToId: 0, // Optional - Only required if replying to another comment
+  // },
 };
 
+export const deletePostURL = `${API_BASE_URL}/social/posts/${postId}`;
 export const deletePostOptions = {
   method: "DELETE",
   headers: {

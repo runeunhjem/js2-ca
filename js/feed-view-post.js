@@ -4,7 +4,7 @@ import { createPostURL, fetchOptions } from "./variables/consts.mjs";
 const urlParams = new URLSearchParams(window.location.search);
 const postIdToDisplay = urlParams.get("postId");
 
-console.log("postIdToDisplay is a", typeof postIdToDisplay); // Should be a string
+// console.log("postIdToDisplay is a", typeof postIdToDisplay); // Should be a string
 
 export async function getSinglePost(url, options, id) {
   try {
@@ -20,7 +20,7 @@ export async function getSinglePost(url, options, id) {
       if (post) {
         const feedPosts = document.getElementById("feed-posts");
         const postCard = createPostCard(post);
-        console.log("postCard: ", postCard);
+        // console.log("postCard: ", postCard);
         feedPosts.innerHTML = ""; // Clear the existing content
         feedPosts.appendChild(postCard);
       } else {
