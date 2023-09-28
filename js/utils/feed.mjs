@@ -120,7 +120,7 @@ export function createPostCard(post) {
 
   const maxWords = 4; // Adjust the maximum number of words to display
 
-  const words = post.body.split(" ");
+  const words = post.body ? post.body.split(" ") : [];
   const visibleContent = words.slice(0, maxWords).join(" ");
   // console.log(`Visible Content: ${visibleContent}`);
   const hiddenContent = words.slice(maxWords).join(" ");
