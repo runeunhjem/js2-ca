@@ -1,7 +1,7 @@
 const API_BASE_URL = "https://api.noroff.dev";
 
 let loggedInUser = localStorage.getItem("loggedInUser");
-console.log(`loggedInUser: ${loggedInUser}`);
+// console.log(`loggedInUser: ${loggedInUser}`);
 // const followURL = `${API_BASE_URL}/social/profiles/fridlo/follow`;
 // const unfollowURL = `${API_BASE_URL}/social/profiles/fridlo/unfollow`;
 const followURL = `${API_BASE_URL}/social/profiles/${loggedInUser}/follow`;

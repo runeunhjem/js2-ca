@@ -19,9 +19,9 @@ export async function getSinglePost(url, options, id) {
 
       if (post) {
         const feedPosts = document.getElementById("feed-posts");
+        feedPosts.innerHTML = ""; // Clear the existing content
         const postCard = createPostCard(post);
         // console.log("postCard: ", postCard);
-        feedPosts.innerHTML = ""; // Clear the existing content
         feedPosts.appendChild(postCard);
       } else {
         console.error("Post with ID not found.");

@@ -12,9 +12,9 @@ async function handleSearch(event) {
       throw new Error("Network response was not ok");
     }
 
-    const postData = await response.json();
-    console.log(postData);
-    const searchResults = postData.filter((post) => {
+    const postsResult = await response.json();
+    console.log("postsResult:", postsResult);
+    const searchResults = postsResult.filter((post) => {
       // Customize this search logic based on your data structure
       const searchString = post.title + post.body + post.tags.join(" ") + post.author.name;
       return searchString.toLowerCase().includes(query.toLowerCase());
@@ -51,7 +51,6 @@ searchForm.addEventListener("submit", (search) => {
   search.preventDefault();
 
   const searchInput = document.getElementById("searchInput");
-  // console.log("searchInput: ", searchInput);
   handleSearch(search);
 
   searchInput.value = "";

@@ -30,7 +30,7 @@
                   <a class="nav-link text-warning rounded-2 ps-2 logout-link" href="../index.html">Logout</a>
                 </li>
                 <li class="nav-item me-2">
-                  <a class="nav-link text-warning rounded-2 ps-2 profile-link" href="../profile/">Profile</a>
+                  <a class="nav-link text-warning rounded-2 ps-2 profile-link" data-original-href="../profile/index.html" href="../profile/index.html">Profile</a>
                 </li>
                 <li class="nav-item mb-3">
                   <a class="nav-link text-warning active rounded-2 ps-2" aria-current="page" href="index.html">Feed</a>
@@ -84,7 +84,7 @@
                 <span class="nav-link p-1 rounded-0"><a href="#" alt="Movie News" class="text-dark text-decoration-none"><i class="me-1 bi bi-lightning"></i><span class="icons">News</span></span></a>
               </li>
               <li class="nav-item">
-                <span class="nav-link p-1 rounded-0"><a alt='View Profile' class='text-dark text-decoration-none profile-link' href='/profile/'><i class="me-1 bi bi-person"></i><span class="icons">Profile</span></a>
+                <span class="nav-link p-1 rounded-0"><a alt="View Profile" class="text-dark text-decoration-none profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><i class="me-1 bi bi-person"></i><span class="icons">Profile</span></a>
               </li>
               <li class="nav-item">
                 <span class="nav-link active text-danger shadow bg-warning p-1 p-1 rounded-0 text-decoration-none"><i class="me-1 bi bi-chat-dots"></i><span class="icons">Create Post</span><i class="ms-1 bi bi-chevron-up"></i></span>
@@ -98,11 +98,33 @@
 
           <div class="card">
             <div class="align-items-center card-body d-flex justify-content-between bg-info shadow rounded-top px-1 px-sm-3">
-              <a alt='View Profile' class='d-flex align-items-center shadow rounded-circle me-1 profile-link' href='/profile/'><span class="visually-hidden">View Profile</span><img src="../img/profile.jpg" alt="View Profile" class="profile-image rounded-circle"></a>
+              <a alt="View Profile" class="d-flex align-items-center shadow rounded-circle me-1 profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><span class="visually-hidden">View Profile</span><img src="../img/profile.jpg" alt="View Profile" class="profile-image rounded-circle"></a>
               <span class="nav-link p-1 rounded"><a href="#" alt="Open Menu" class="text-dark text-decoration-none"><i class="me-1 bi bi-list"></i><span class="icons d-none d-sm-inline-flex">Feed</span></span></a>
               <span class="nav-link p-1 rounded"><a href="#" alt="Movie News" class="text-dark text-decoration-none"><i class="me-1 bi bi-lightning"></i><span class="icons d-none d-sm-inline-flex">News</span></span></a>
               <span class="nav-link active text-danger shadow bg-warning mb-1 p-1 rounded text-decoration-none"><i class="me-1 bi bi-chat-dots"></i><span class="icons">Create Post</span><i class="ms-1 bi bi-chevron-up"></i></span>
-              <span class="nav-link p-1 rounded"><a alt='View Profile' class='text-dark text-decoration-none profile-link' href='/profile/'><i class="me-1 bi bi-person"></i><span class="icons d-none d-sm-inline-flex">Profile</span></a>
+              <span class="nav-link p-1 rounded"><a alt="View Profile" class="text-dark text-decoration-none profile-link" href="/profile/"><i class="me-1 bi bi-person"></i><span class="icons d-none d-sm-inline-flex">Profile</span></a>
+
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active bg-warning" aria-current="page" href="#">Active</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                </li>
+              </ul>
             </div>
 
             <!-- Post new comment -->
@@ -214,7 +236,7 @@
               <div class="col-8 ">
                 <div class="card-title">
                   <a class="text-decoration-none" href="https://www.google.com/search?q=%27Gran+Turismo%27+Global+Box+Office+Races+Past+First+Major&sca_esv=561882886&sxsrf=AB5stBihbKeK9-CHHcZLQI9KgN7qGN5PtA%3A1693559497746&ei=yarxZLCRLYKVxc8P7sSr0A4&ved=0ahUKEwjwmZPiiImBAxWCSvEDHW7iCuoQ4dUDCA4&uact=5&oq=%27Gran+Turismo%27+Global+Box+Office+Races+Past+First+Major&gs_lp=Egxnd3Mtd2l6LXNlcnAiNydHcmFuIFR1cmlzbW8nIEdsb2JhbCBCb3ggT2ZmaWNlIFJhY2VzIFBhc3QgRmlyc3QgTWFqb3JIAFAAWABwAHgBkAEAmAEAoAEAqgEAuAEDyAEA-AEC-AEB4gMEGAAgQQ&sclient=gws-wiz-serp">
-                    <h6>'Gran Turismo' Global Box Office Races Past...</h6>
+                    <h6>"Gran Turismo" Global Box Office Races Past...</h6>
                   </a>
                   <p class="p-0 m-0 fs-6">26.08.2023</p>
                 </div>
@@ -229,7 +251,7 @@
               <div class="col-8 ">
                 <div class="card-title">
                   <a class="text-decoration-none" href="https://www.google.com/search?q=DC%27s+first+major+latino+superhero&sca_esv=561882886&sxsrf=AB5stBhSW74htRXsoWBTW_EoHfQBNEcBhQ%3A1693559669299&ei=davxZO3kEf6Mxc8Pvuql6As&ved=0ahUKEwit8_mziYmBAxV-RvEDHT51Cb0Q4dUDCA4&uact=5&oq=DC%27s+first+major+latino+superhero&gs_lp=Egxnd3Mtd2l6LXNlcnAiIURDJ3MgZmlyc3QgbWFqb3IgbGF0aW5vIHN1cGVyaGVybzIFECEYoAEyCBAhGBYYHhgdSMHcAVDo2gFY6NoBcAF4AZABAJgBf6ABf6oBAzAuMbgBA8gBAPgBAvgBAcICChAAGEcY1gQYsAPiAwQYACBBiAYBkAYI&sclient=gws-wiz-serp">
-                    <h6>DC's first major latino superhero...</h6>
+                    <h6>DC"s first major latino superhero...</h6>
                   </a>
                   <p class="p-0 m-0 fs-6">25.08.2023</p>
                 </div>

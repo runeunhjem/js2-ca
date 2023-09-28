@@ -8,6 +8,7 @@ async function getProfileData(profileURL, fetchOptions) {
     const response = await fetch(profileURL, fetchOptions);
     const json = await response.json();
     // console.log("profileData is:", JSON.stringify(json, null, 2));
+    console.log("profileData is:", await json);
 
     if (response.status >= 200 && response.status <= 299) {
       console.log("Profile data fetched successfully!");
@@ -23,17 +24,17 @@ async function getProfileData(profileURL, fetchOptions) {
 async function initProfilePage() {
   try {
     // Fetch the profile data and await the result
-    const profileData = await getProfileData(profileURL, fetchOptions);
+    const profilePosts = await getProfileData(profileURL, fetchOptions);
 
     // Update the profile page based on the fetched data
-    updateProfilePage(profileData);
+    await updateProfilePage(profilePosts);
 
     if (userName) {
       localStorage.setItem("currentProfileName", userName);
     }
 
-    console.log(`loggedInUser: `, loggedInUser);
-    // console.log(`loggedInUserData: `, loggedInUserData);
+    // console.log(`loggedInUser: `, loggedInUser);
+    // console.log(`loggedInUserPosts: `, loggedInUserPosts);
     // console.log(`currentProfilePosts: `, currentProfilePosts);
   } catch (error) {
     console.error("Error initializing the profile page:", error);
@@ -57,7 +58,7 @@ export async function getProfilePosts() {
 async function updateProfilePage(profileData) {
   // Check if profileData exists
   if (profileData) {
-    console.log(profileData);
+    // console.log("profileData populate: ", profileData);
     const profileNameElements = document.querySelectorAll(".loggedInProfileName");
     const profileFollowersElement = document.getElementById("loggedInProfileFollowers");
     const profileFollowingElement = document.getElementById("loggedInProfileFollowing");
@@ -73,17 +74,15 @@ async function updateProfilePage(profileData) {
       element.textContent = authorName;
     });
 
-    // Check if _count property exists in the profileData object
-    if (profileData._count) {
-      profileFollowersElement.textContent = profileData._count.followers || 0;
-      profileFollowingElement.textContent = profileData._count.following || 0;
-      profilePostsElement.textContent = profileData._count.posts || 0;
-    } else {
-      // Handle the case where _count doesn't exist in profileData
-      profileFollowersElement.textContent = 0;
-      profileFollowingElement.textContent = 0;
-      profilePostsElement.textContent = 0;
-    }
+    setTimeout(() => {
+      // Check if _count property exists in the profileData object
+      if (profileData._count) {
+        // Update count values with actual counts from the API
+        profileFollowersElement.textContent = profileData._count.followers;
+        profileFollowingElement.textContent = profileData._count.following;
+        profilePostsElement.textContent = profileData._count.posts;
+      } 
+    }, 1000);
 
     if (profileData.banner) {
       bannerImageElement.style.backgroundImage = `url(${profileData.banner})`;
@@ -102,16 +101,16 @@ async function updateProfilePage(profileData) {
 }
 
 getProfilePosts(profilePostsURL, fetchOptions)
-  .then((loggedInUserData) => {
-    localStorage.setItem("loggedInUserData", JSON.stringify(loggedInUserData));
-    updateProfilePage(loggedInUserData);
+  .then((loggedInUserPosts) => {
+    localStorage.setItem("loggedInUserPosts", JSON.stringify(loggedInUserPosts));
+    updateProfilePage(loggedInUserPosts);
 
     if (userName) {
       localStorage.setItem("currentProfileName", userName);
     }
 
-    console.log(`loggedInUser: `, loggedInUser);
-    console.log(`loggedInUserData: `, loggedInUserData);
+    // console.log(`loggedInUser: `, loggedInUser);
+    // console.log(`loggedInUserPosts: `, loggedInUserPosts);
     // console.log(`currentProfilePosts: `, currentProfilePosts);
   })
   .catch((error) => {
@@ -120,4 +119,3 @@ getProfilePosts(profilePostsURL, fetchOptions)
 
 // Call the initProfilePage function to initialize the profile page
 initProfilePage();
-

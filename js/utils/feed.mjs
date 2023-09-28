@@ -27,11 +27,11 @@ export function createPostCard(post) {
     avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
   };
 
-  // Check if the author's avatar exists and set the src attribute
+  // Check if the author"s avatar exists and set the src attribute
   if (post.author && post.author.avatar) {
     avatarImg.src = post.author.avatar;
   } else {
-    // Use Picsum placeholder if avatar isn't there
+    // Use Picsum placeholder if avatar isn"t there
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
     avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
   }
@@ -39,15 +39,62 @@ export function createPostCard(post) {
   avatarDiv.appendChild(avatarImg);
 
   const postContentDiv = document.createElement("div");
-  postContentDiv.classList.add("col-8", "col-sm-10", "justify-content-start");
+  postContentDiv.classList.add("col-8", "col-sm-10", "ms-sm-2", "justify-content-start");
 
   const authorInfoDiv = document.createElement("div");
   authorInfoDiv.classList.add("d-block", "d-sm-flex", "align-items-center");
 
   const authorName = document.createElement("h6");
   authorName.classList.add("d-sm-flex", "card-title", "mb-0", "me-1", "ps-1");
-  authorName.setAttribute("data-authorname", post.author.name); // Set the actual author's name as the attribute value
+  authorName.setAttribute("data-authorname", post.author.name); // Set the actual author"s name as the attribute value
   authorName.textContent = post.author.name;
+
+  const moreButton = document.createElement("button");
+  moreButton.classList.add(
+    "btn",
+    "btn-warning",
+    "btn-sm",
+    "my-1",
+    "mx-1",
+    "dropdown-toggle",
+    "more-button",
+    "justify-content-start"
+    // "position-absolute",
+    // "top-0",
+    // "start-0"
+  );
+  moreButton.style.textAlign = "left";
+  moreButton.setAttribute("data-bs-toggle", "dropdown");
+  moreButton.setAttribute("aria-expanded", "false");
+  moreButton.innerHTML = `<i class="bi bi-three-dots-vertical"></i> More`;
+  // The button dropdown menu
+
+  // Attach event listener to the "More" button
+  moreButton.addEventListener("click", (event) => {
+    event.stopPropagation(); // Prevent the event from reaching the document click event
+
+    const dropdownMenu = event.target.nextElementSibling; // Get the dropdown menu
+    dropdownMenu.classList.toggle("show"); // Toggle the dropdown menu"s visibility
+  });
+
+  const dropdownMenu = document.createElement("ul");
+  dropdownMenu.classList.add("dropdown-menu", "bg-info", "shadow", "border-0");
+
+  // Menu items
+  const menuItems = ["Edit", "Delete", "Share"];
+
+  menuItems.forEach((itemText) => {
+    const menuItem = document.createElement("li");
+    const button = document.createElement("button");
+    button.classList.add("dropdown-item");
+    button.type = "button";
+    button.textContent = itemText;
+    menuItem.appendChild(button);
+    dropdownMenu.appendChild(menuItem);
+  });
+
+  moreButton.appendChild(dropdownMenu);
+  card.appendChild(moreButton);
 
   // Create an element for the post ID
   const postIdElement = document.createElement("div");
@@ -69,19 +116,19 @@ export function createPostCard(post) {
     "text-nowrap",
     "view-profile-link"
   );
-  viewProfileLink.setAttribute("data-authorname", post.author.name); // Set the actual author's name as the attribute value
+  viewProfileLink.setAttribute("data-authorname", post.author.name); // Set the actual author"s name as the attribute value
   const currentProfileURL = `../profile/index.html?name=${encodeURIComponent(post.author.name)}`;
   viewProfileLink.href = currentProfileURL;
-  viewProfileLink.innerHTML = '<i class="bi bi-person-fill"></i> View profile';
+  viewProfileLink.innerHTML = "<i class='bi bi-person-fill'></i> View profile";
 
   viewProfileLink.addEventListener("click", function (event) {
     event.preventDefault();
 
-    // Get author's name in the link's data attribute
+    // Get author"s name in the link"s data attribute
     const authorName = viewProfileLink.dataset.authorname;
     console.log(authorName);
 
-    // Store the author's name in localStorage
+    // Store the author"s name in localStorage
     localStorage.setItem("currentProfileName", authorName);
     console.log(`currentProfileName: ${authorName}`);
 
@@ -101,11 +148,11 @@ export function createPostCard(post) {
 
   const viewPostLink = document.createElement("a");
   viewPostLink.classList.add("nav-link", "text-primary", "py-0", "m-0", "ps-2");
-  const postPageURL = `./post.html?postId=${post.id}`;
+  const postPageURL = `../feed/post.html?postId=${post.id}`;
   viewPostLink.href = postPageURL;
   viewPostLink.innerHTML = `<i class="bi bi-film me-1"></i> ${post.title}`;
 
-  // Check if the current page is 'post.html'
+  // Check if the current page is "post.html"
   if (window.location.pathname.includes("post.html")) {
     viewPostLink.classList.add("disabled-link", "text-muted", "fw-bold");
     viewPostLink.removeAttribute("href");
@@ -210,45 +257,45 @@ export function createPostCard(post) {
     }
   });
 
-  const moreButton = document.createElement("button");
-  moreButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1", "dropdown-toggle", "more-button");
-  moreButton.setAttribute("data-bs-toggle", "dropdown");
-  moreButton.setAttribute("aria-expanded", "false");
-  moreButton.innerHTML = `<i class="bi bi-three-dots-vertical"></i> More`;
-  // The button dropdown menu
+  // const moreButton = document.createElement("button");
+  // moreButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1", "dropdown-toggle", "more-button");
+  // moreButton.setAttribute("data-bs-toggle", "dropdown");
+  // moreButton.setAttribute("aria-expanded", "false");
+  // moreButton.innerHTML = `<i class="bi bi-three-dots-vertical"></i> More`;
+  // // The button dropdown menu
 
-  // Attach event listener to the "More" button
-  moreButton.addEventListener("click", (event) => {
-    event.stopPropagation(); // Prevent the event from reaching the document click event
+  // // Attach event listener to the "More" button
+  // moreButton.addEventListener("click", (event) => {
+  //   event.stopPropagation(); // Prevent the event from reaching the document click event
 
-    const dropdownMenu = event.target.nextElementSibling; // Get the dropdown menu
-    dropdownMenu.classList.toggle("show"); // Toggle the dropdown menu's visibility
-  });
+  //   const dropdownMenu = event.target.nextElementSibling; // Get the dropdown menu
+  //   dropdownMenu.classList.toggle("show"); // Toggle the dropdown menu"s visibility
+  // });
 
-  const dropdownMenu = document.createElement("ul");
-  dropdownMenu.classList.add("dropdown-menu", "bg-info", "shadow", "border-0");
+  // const dropdownMenu = document.createElement("ul");
+  // dropdownMenu.classList.add("dropdown-menu", "bg-info", "shadow", "border-0");
 
-  // Menu items
-  const menuItems = ["Edit", "Delete", "Share"];
+  // // Menu items
+  // const menuItems = ["Edit", "Delete", "Share"];
 
-  menuItems.forEach((itemText) => {
-    const menuItem = document.createElement("li");
-    const button = document.createElement("button");
-    button.classList.add("dropdown-item");
-    button.type = "button";
-    button.textContent = itemText;
-    menuItem.appendChild(button);
-    dropdownMenu.appendChild(menuItem);
-  });
+  // menuItems.forEach((itemText) => {
+  //   const menuItem = document.createElement("li");
+  //   const button = document.createElement("button");
+  //   button.classList.add("dropdown-item");
+  //   button.type = "button";
+  //   button.textContent = itemText;
+  //   menuItem.appendChild(button);
+  //   dropdownMenu.appendChild(menuItem);
+  // });
 
-  moreButton.appendChild(dropdownMenu);
+  // moreButton.appendChild(dropdownMenu);
 
   const commentButton = document.createElement("button");
   commentButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
   commentButton.innerHTML = `<i class="bi bi-chat-dots"></i> Comment`;
 
   buttonContainer.appendChild(likeButton);
-  buttonContainer.appendChild(moreButton);
+  // buttonContainer.appendChild(moreButton);
   buttonContainer.appendChild(commentButton);
 
   const likesRepliesContainer = document.createElement("div");
@@ -310,7 +357,7 @@ function handleDeleteClick(event) {
 function handlePostCardClick(event) {
   const card = event.currentTarget; // Get the clicked postCard element
   const postId = card.getAttribute("data-post-id"); // Extract postId from data attribute
-  const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author's name from the data attribute
+  const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author"s name from the data attribute
   // Store postId in localStorage
   localStorage.setItem("postId", postId);
   localStorage.setItem("authorName", authorName);

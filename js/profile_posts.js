@@ -1,6 +1,6 @@
 import { urlParams } from "./variables/consts.mjs";
 import { getProfilePosts } from "./populate_profile.js";
-// import { loggedInUserData } from "./variables/consts.mjs";
+// import { loggedInUserPosts } from "./variables/consts.mjs";
 const currentUserName = urlParams.get("name");
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -10,16 +10,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   try {
     // Await the data loading functions
-    const profilePostsData = await getProfilePosts(); // Assuming you have a function to fetch posts data
-    // console.log(`profilePostsData: ${JSON.stringify(profilePostsData, null, 2)}`);
-    // console.log("profilePostsData: ", profilePostsData, null, 2);
-    // console.log(`profilePostsData.posts is: ${JSON.stringify(profilePostsData, null, 2)}`);
-    // Once the data is loaded, clear the loading indicator
+    const profilePostsData = await getProfilePosts();
     loadingIndicator.textContent = "";
-    console.log(profilePostsData.length);
+    // console.log(profilePostsData.length);
     // Check if data is available and has posts
     if (profilePostsData && Array.isArray(profilePostsData) && profilePostsData.length > 0) {
-      const profilePosts = document.getElementById("profilePosts");
+      const profilePosts = document.getElementById("feed-posts");
+      // const profilePosts = document.getElementById("profilePosts");
 
       profilePostsData.forEach((post) => {
         const card = document.createElement("div");

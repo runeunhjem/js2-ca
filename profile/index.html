@@ -48,7 +48,7 @@
                     <a class="nav-link text-warning rounded-2 ps-2 logout-link" href="../index.html">Logout</a>
                   </li>
                   <li class="nav-item me-2">
-                    <a class="nav-link text-warning active rounded-2 ps-2" aria-current="page" href="index.html">Profile</a>
+                    <a class="nav-link text-dark bg-warning active rounded-2 ps-2 profile-link" aria-current="page" href="index.html">Profile</a>
                   </li>
                   <li class="nav-item mb-3">
                     <a class="nav-link text-warning rounded-2 ps-2" href="../feed/index.html">Feed</a>
@@ -58,7 +58,7 @@
             </div>
           </div>
           <div class="col-8 col-sm-8 col-md-6 d-flex align-items-start justify-content-start">
-            <form class="d-flex mt-1" role="search" action="/search" method="GET" id="searchForm">
+            <form class="d-flex mt-1" role="search" action="../feed/index.html" method="GET" id="searchForm">
               <input class="form-control me-2 max-width-300" type="search" name="searchQuery" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-warning" type="submit">Search</button>
             </form>
@@ -79,9 +79,9 @@
                 <h2 class="card-title loggedInProfileName">Cine Man</h2>
                 <p class="card-text">Username: <span class="loggedInProfileName">cineman</p>
                 <hr />
-                <p class="card-text mb-0">Followers: <span class="loggedInProfileFollowers" id="loggedInProfileFollowers">400</span></p>
-                <p class="card-text mb-0">Following: <span class="loggedInProfileFollowing" id="loggedInProfileFollowing">50</span></p>
-                <p class="card-text">Posts: <span class="loggedInProfilePosts" id="loggedInProfilePosts">50</span></p>
+                <p class="card-text mb-0">Followers: <span class="loggedInProfileFollowers" id="loggedInProfileFollowers">Loading...</span></p>
+                <p class="card-text mb-0">Following: <span class="loggedInProfileFollowing" id="loggedInProfileFollowing">Loading...</span></p>
+                <p class="card-text">Posts: <span class="loggedInProfilePosts" id="loggedInProfilePosts">Loading...</span></p>
                 <button class="btn btn-warning loggedInProfileFollow" id="loggedInProfileFollow"><i class="bi bi-star"></i> Follow</button>
               </div>
             </div>
@@ -91,7 +91,8 @@
             <a href="#" aria-label="Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
               <div class="back-to-top-button"></div>
             </a>
-            <div class="profilePosts" id="profilePosts"></div>
+            <div class="feed-posts" id="feed-posts"></div>
+            <!-- <div class="profilePosts" id="profilePosts"></div> -->
           </div>
         </div>
       </div>
