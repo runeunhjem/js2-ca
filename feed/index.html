@@ -86,8 +86,14 @@
               <li class="nav-item">
                 <span class="nav-link p-1 rounded-0"><a alt="View Profile" class="text-dark text-decoration-none profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><i class="me-1 bi bi-person"></i><span class="icons">Profile</span></a>
               </li>
-              <li class="nav-item">
-                <span class="nav-link active text-danger shadow bg-warning p-1 p-1 rounded-0 text-decoration-none"><i class="me-1 bi bi-chat-dots"></i><span class="icons">Create Post</span><i class="ms-1 bi bi-chevron-up"></i></span>
+              <li class="nav-item" data-bs-target="#createPostForm" id="createButtonLeft">
+                <span class="nav-link shadow p-1 p-1 rounded-0 text-decoration-none">
+                <a href="#" class="nav-link p-1 p-1 rounded text-dark text-decoration-none create-button" data-bs-toggle="collapse" data-bs-target="#createPostForm" aria-expanded="false">
+                    <i class="me-1 bi bi-chat-dots"></i><span class="icons">Create Post</span>
+                    <i class="ms-1 bi bi-chevron-down"></i>
+                    <i class="ms-1 bi bi-chevron-up"></i>
+                  </a>
+                </span>
               </li>
             </ul>
 
@@ -96,20 +102,21 @@
 
         <div class="col-12 col-md-9 col-lg-6 mb-5">
 
-          <div class="card">
-            <div class="align-items-center card-body d-flex justify-content-between bg-info shadow rounded-top px-1 px-sm-3">
-              <a alt="View Profile" class="d-flex align-items-center shadow rounded-circle me-1 profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><span class="visually-hidden">View Profile</span><img src="../img/profile.jpg" alt="View Profile" class="profile-image rounded-circle"></a>
-              <span class="nav-link p-1 rounded"><a href="#" alt="Open Menu" class="text-dark text-decoration-none"><i class="me-1 bi bi-list"></i><span class="icons d-none d-sm-inline-flex">Feed</span></span></a>
-              <span class="nav-link p-1 rounded"><a href="#" alt="Movie News" class="text-dark text-decoration-none"><i class="me-1 bi bi-lightning"></i><span class="icons d-none d-sm-inline-flex">News</span></span></a>
-              <span class="nav-link active text-danger shadow bg-warning mb-1 p-1 rounded text-decoration-none"><i class="me-1 bi bi-chat-dots"></i><span class="icons">Create Post</span><i class="ms-1 bi bi-chevron-up"></i></span>
-              <span class="nav-link p-1 rounded"><a alt="View Profile" class="text-dark text-decoration-none profile-link" href="/profile/"><i class="me-1 bi bi-person"></i><span class="icons d-none d-sm-inline-flex">Profile</span></a>
+          <div class="card border-0">
+            <div class="align-items-center card-body bg-info shadow rounded-top p-1">
+              <!-- <span class="nav-link p-1 rounded"><a href="#" alt="Open Menu" class="text-dark text-decoration-none"><i class="me-1 bi bi-list"></i><span class="icons d-none d-sm-inline-flex">Feed</span></span></a> -->
+              <!-- <span class="nav-link p-1 rounded"><a href="#" alt="Movie News" class="text-dark text-decoration-none"><i class="me-1 bi bi-lightning"></i><span class="icons d-none d-sm-inline-flex">News</span></span></a> -->
+              <!-- <span class="nav-link active text-danger shadow bg-warning mb-1 p-1 rounded text-decoration-none"><i class="me-1 bi bi-chat-dots"></i><span class="icons">Create Post</span><i class="ms-1 bi bi-chevron-up"></i></span> -->
+              <!-- <span class="nav-link p-1 rounded"><a alt="View Profile" class="text-dark text-decoration-none profile-link" href="/profile/"><i class="me-1 bi bi-person"></i><span class="icons d-none d-sm-inline-flex">Profile</span></a> -->
 
-              <ul class="nav nav-tabs">
+              <ul class="nav bg-info container-fluid justify-content-between p-0 m-auto align-items-center">
                 <li class="nav-item">
-                  <a class="nav-link active bg-warning" aria-current="page" href="#">Active</a>
+                  <a alt="rounded View Profile" class="nav-link d-flex align-items-center shadow rounded-circle p-0 mt-1 profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><span class="visually-hidden">View Profile</span><img src="../img/profile.jpg" alt="View Profile" class="img-fluid p-0 m-0 profile-image rounded-circle"></a>
+                  <!-- <a class="active bg-warning" aria-current="page" href="#">Active</a> -->
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+                  <a class="rounded nav-link active dropdown-toggle text-dark text-decoration-none" data-bs-toggle="dropdown" href="#" alt="Open Menu" role="button" aria-expanded="false"><i class="me-1 bi bi-list"></i><span class="icons d-none d-sm-inline-flex">Feed</span></a>
+                  <!-- <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a> -->
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Action</a></li>
                     <li><a class="dropdown-item" href="#">Another action</a></li>
@@ -119,17 +126,27 @@
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a href="#" class="rounded nav-link rounded text-dark text-decoration-none create-button" id="createButton" data-bs-toggle="collapse" data-bs-target="#createPostForm" aria-expanded="false">
+                    <i class="me-1 bi bi-chat-dots"></i><span class="icons">Create Post</span>
+                    <!-- <i class="ms-1 bi bi-chevron-down"></i>
+                    <i class="ms-1 bi bi-chevron-up"></i> -->
+                  </a>
+                  <!-- <a class="nav-link" href="#">Link</a> -->
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                  <a href="#" alt="Movie News" class="rounded nav-link text-dark text-decoration-none"><i class="me-1 bi bi-lightning"></i><span class="icons d-none d-sm-inline-flex">News</span></a>
+                  <!-- <a class="active bg-warning" aria-current="page" href="#">Active</a> -->
+                </li>
+                <li class="nav-item">
+                  <a alt="View Profile" class="rounded nav-link text-dark text-decoration-none profile-link" href="/profile/"><i class="me-1 bi bi-person"></i><span class="icons d-none d-sm-inline-flex">Profile</span></a>
+                  <!-- <a class="nav-link disabled" aria-disabled="true">Disabled</a> -->
                 </li>
               </ul>
             </div>
 
-            <!-- Post new comment -->
+            <!-- Create new post -->
             <div class="mb-3">
-              <div class="card-body">
+              <div class="card-body dropdown collapse" id="createPostForm">
                 <h6 class="card-title">Share with us...</h6>
                 <form id="postForm">
                   <div class="mb-3">

@@ -10849,4 +10849,8 @@ body {
 .out-of-view-menu-text {
   position: absolute;
   left: -10000px;
+}
+
+.bi-chevron-up {
+  display: none;
 }/*# sourceMappingURL=index.css.map */

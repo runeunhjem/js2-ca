@@ -22,7 +22,9 @@ async function handleSearch(event) {
 
     displaySearchResults(searchResults);
   } catch (error) {
-    console.error("Error:", error);
+    if (!error.message.includes("https://picsum.photos")) {
+      console.error("Error:", error);
+    }
   }
 }
 

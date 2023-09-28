@@ -376,3 +376,41 @@ document.addEventListener("click", (event) => {
 // postCards.forEach((card) => {
 //   card.addEventListener("click", handlePostCardClick);
 // });
+
+/**
+ ** Function to toggle the "Create Post" form
+ */
+  document.addEventListener("DOMContentLoaded", function () {
+    const createPostForm = document.getElementById("createPostForm");
+    const createPostLink = document.querySelector('[data-bs-target="#createPostForm"]');
+    const createButton = document.getElementById("createButton");
+    const createButtonLeft = document.getElementById("createButtonLeft");
+    const chevronUp = createPostLink.querySelector(".bi-chevron-up");
+    const chevronDown = createPostLink.querySelector(".bi-chevron-down");
+
+    let isFormExpanded = false;
+
+    // Toggle the collapse state when the link is clicked
+    createPostLink.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent the link from navigating
+
+      if (isFormExpanded) {
+        // Form is currently open, so hide it
+        createButton.classList.remove("bg-warning");
+        createButtonLeft.classList.remove("bg-warning");
+        createPostForm.classList.remove("show");
+        chevronUp.style.display = "none";
+        chevronDown.style.display = "inline"; // Show the down chevron
+      } else {
+        // Form is closed, so show it
+        createButton.classList.add("bg-warning");
+        createButtonLeft.classList.add("bg-warning");
+        createPostForm.classList.add("show");
+        chevronUp.style.display = "inline"; // Show the up chevron
+        chevronDown.style.display = "none";
+      }
+
+      isFormExpanded = !isFormExpanded;
+    });
+  });
+

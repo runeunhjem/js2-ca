@@ -30,7 +30,9 @@ export async function getSinglePost(url, options, id) {
       console.error("Failed to fetch data");
     }
   } catch (error) {
-    console.error(error);
+    if (!error.message.includes("https://picsum.photos")) {
+      console.error("Error:", error);
+    }
   }
 }
 
