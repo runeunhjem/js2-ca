@@ -3,7 +3,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Your movieTALK feed, Share your thoughts on movies and interact with other users.">
-  <link rel="stylesheet" href="../dist/css/index.css">
+  <link rel="stylesheet" href="../src/scss/index.css">
+  <!-- <link rel="stylesheet" href="../dist/css/index.css"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   <script src="../js/feed-get-posts.js" type="module"></script>
@@ -167,9 +168,12 @@
               </ul>
             </div>
           </div>
+          <a href="#" aria-label="Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
+            <div class="back-to-top-button bg-warning text-dark pt-1 pb-2 px-3 fs-3"></div>
+          </a>
           <div class="feed-posts" id="feed-posts"></div>
 
-          
+
           <hr class="my-5 pb-5">
         </div>
 

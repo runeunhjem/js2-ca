@@ -1,4 +1,7 @@
 import { togglePostContent } from "./utils/show-more-post-text.mjs";
+import { toTopButton } from "./utils/back-to-top-button.js";
+
+toTopButton();
 
 
 const logoutLinks = document.querySelectorAll(".logout-link");

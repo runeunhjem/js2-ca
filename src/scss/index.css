@@ -10818,4 +10818,35 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: right center;
+}
+
+.back-to-top-button {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  z-index: 9;
+  color: var(--color-gold);
+  border: var(--border-1px-gold);
+  cursor: pointer;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.back-to-top-button::before {
+  content: "▲";
+}
+
+.back-to-top-button:hover {
+  background-color: var(--color-gold);
+  color: var(--color-burgundy);
+}
+
+.back-to-top-button-show {
+  opacity: 0.8;
+}
+
+.out-of-view-menu-text {
+  position: absolute;
+  left: -10000px;
 }/*# sourceMappingURL=index.css.map */
