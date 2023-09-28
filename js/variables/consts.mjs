@@ -13,8 +13,8 @@ export const profilePostsURL = `${API_BASE_URL}/social/profiles/${userName}/post
 export const reactionsAndCommentsURL = `${API_BASE_URL}/social/profiles/${userName}?_reactions=true&_comments=true&_count=true`;
 export const token = localStorage.getItem("accessToken");
 export const currentProfileName = localStorage.getItem("currentProfileName");
-// export const loggedInUserPosts = JSON.parse(localStorage.getItem("loggedInUserPosts"));
-export const currentProfilePosts = JSON.parse(localStorage.getItem("profilePostsData"));
+// export const currentProfilePosts = JSON.parse(localStorage.getItem("currentProfilePosts"));
+export const currentProfilePosts = JSON.parse(localStorage.getItem("currentProfilePosts"));
 // export const searchURL = `${API_BASE_URL}/social/posts?&limit=10&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
 export const searchURL = `${API_BASE_URL}/social/posts?_comments=true&_author=true&_reactions=true&_count=true`;
 export const profilePostsData = JSON.parse(localStorage.getItem("profilePostsData"));

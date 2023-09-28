@@ -16,7 +16,7 @@ logoutLinks.forEach(function (logoutLink) {
 
     localStorage.removeItem("loggedInUser");
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("loggedInUserPosts");
+    localStorage.removeItem("currentProfilePosts");
     localStorage.removeItem("currentProfileNameDetails");
     localStorage.removeItem("currentProfileName");
     localStorage.removeItem("reactionsAndComments");

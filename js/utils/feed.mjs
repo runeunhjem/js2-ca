@@ -7,6 +7,7 @@ export function createPostCard(post) {
   const card = document.createElement("div");
   card.classList.add("card", "mx-0", "my-3", "bg-info", "shadow-sm");
   card.setAttribute("data-post-id", post.id);
+  card.addEventListener("mouseover", handlePostCardClick);
   card.addEventListener("click", handlePostCardClick);
 
   const cardBody = document.createElement("div");
@@ -370,8 +371,8 @@ document.addEventListener("click", (event) => {
   }
 });
 
-// Attach click event listener to post cards
-const postCards = document.querySelectorAll(".more-button"); // Adjust the selector as needed
-postCards.forEach((card) => {
-  card.addEventListener("click", handlePostCardClick);
-});
+// // Attach click event listener to post cards
+// const postCards = document.querySelectorAll(".more-button"); // Adjust the selector as needed
+// postCards.forEach((card) => {
+//   card.addEventListener("click", handlePostCardClick);
+// });

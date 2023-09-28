@@ -1,4 +1,4 @@
-import { loggedInUser, profilePostsURL, fetchOptions, profileURL } from "./variables/consts.mjs";
+import { loggedInUser, currentProfileName, profilePostsURL, fetchOptions, profileURL } from "./variables/consts.mjs";
 // import { handleSearch } from "./search.js";
 const urlParams = new URLSearchParams(window.location.search);
 const userName = urlParams.get("name");
@@ -34,7 +34,7 @@ async function initProfilePage() {
     }
 
     // console.log(`loggedInUser: `, loggedInUser);
-    // console.log(`loggedInUserPosts: `, loggedInUserPosts);
+    // console.log(`currentProfilePosts: `, currentProfilePosts);
     // console.log(`currentProfilePosts: `, currentProfilePosts);
   } catch (error) {
     console.error("Error initializing the profile page:", error);
@@ -81,7 +81,7 @@ async function updateProfilePage(profileData) {
         profileFollowersElement.textContent = profileData._count.followers;
         profileFollowingElement.textContent = profileData._count.following;
         profilePostsElement.textContent = profileData._count.posts;
-      } 
+      }
     }, 1000);
 
     if (profileData.banner) {
@@ -101,16 +101,16 @@ async function updateProfilePage(profileData) {
 }
 
 getProfilePosts(profilePostsURL, fetchOptions)
-  .then((loggedInUserPosts) => {
-    localStorage.setItem("loggedInUserPosts", JSON.stringify(loggedInUserPosts));
-    updateProfilePage(loggedInUserPosts);
+  .then((currentProfilePosts) => {
+    localStorage.setItem("currentProfilePosts", JSON.stringify(currentProfilePosts));
+    updateProfilePage(currentProfilePosts);
 
     if (userName) {
       localStorage.setItem("currentProfileName", userName);
     }
 
     // console.log(`loggedInUser: `, loggedInUser);
-    // console.log(`loggedInUserPosts: `, loggedInUserPosts);
+    // console.log(`currentProfilePosts: `, currentProfilePosts);
     // console.log(`currentProfilePosts: `, currentProfilePosts);
   })
   .catch((error) => {
@@ -119,3 +119,14 @@ getProfilePosts(profilePostsURL, fetchOptions)
 
 // Call the initProfilePage function to initialize the profile page
 initProfilePage();
+
+const followButton = document.getElementById("loggedInProfileFollow");
+if (loggedInUser === currentProfileName) {
+  // If the logged-in user is the same as the current profile, disable the button
+  followButton.textContent = "Can't follow you...";
+  followButton.disabled = true;
+} else {
+  // If the logged-in user is different, you can leave the button as it is
+  followButton.textContent = "Follow";
+  followButton.disabled = false;
+}
