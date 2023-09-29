@@ -380,7 +380,9 @@ document.addEventListener("click", (event) => {
 /**
  ** Function to toggle the "Create Post" form
  */
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
+  // Check if the current page is within the /feed/ folder
+  if (window.location.pathname.includes("/feed/")) {
     const createPostForm = document.getElementById("createPostForm");
     const createPostLink = document.querySelector('[data-bs-target="#createPostForm"]');
     const createButton = document.getElementById("createButton");
@@ -412,5 +414,7 @@ document.addEventListener("click", (event) => {
 
       isFormExpanded = !isFormExpanded;
     });
-  });
+  }
+});
+
 

@@ -17,7 +17,9 @@ async function getProfileData(profileURL, fetchOptions) {
       console.log("Profile data fetching failed!");
     }
   } catch (error) {
-    console.error(error);
+    if (!error.message.includes("https://picsum.photos")) {
+      console.error("Error:", error);
+    }
   }
 }
 
@@ -50,7 +52,9 @@ export async function getProfilePosts() {
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error(error);
+    if (!error.message.includes("https://picsum.photos")) {
+      console.error("Error:", error);
+    }
     throw error; // Rethrow the error to handle it where you call getProfilePosts
   }
 }

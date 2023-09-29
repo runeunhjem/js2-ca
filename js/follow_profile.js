@@ -26,7 +26,9 @@ profileFollowButton.addEventListener("click", () => {
         profileFollowButton.innerHTML = "Unfollow";
       })
       .catch((error) => {
-        console.error("Error:", error);
+        if (!error.message.includes("https://picsum.photos")) {
+          console.error("Error:", error);
+        }
       });
   } else if (profileFollowButton.innerHTML === "Unfollow") {
     fetch(unfollowURL, followOptions)
@@ -36,7 +38,9 @@ profileFollowButton.addEventListener("click", () => {
         profileFollowButton.innerHTML = "Follow";
       })
       .catch((error) => {
-        console.error("Error:", error);
+        if (!error.message.includes("https://picsum.photos")) {
+          console.error("Error:", error);
+        }
       });
   }
 });

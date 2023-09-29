@@ -13,16 +13,7 @@ const logoutLinks = document.querySelectorAll(".logout-link");
 logoutLinks.forEach(function (logoutLink) {
   logoutLink.addEventListener("click", function (logout) {
     logout.preventDefault();
-
-    localStorage.removeItem("loggedInUser");
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("currentProfilePosts");
-    localStorage.removeItem("currentProfileNameDetails");
-    localStorage.removeItem("currentProfileName");
-    localStorage.removeItem("reactionsAndComments");
-    localStorage.removeItem("profilePostsData");
-    localStorage.removeItem("authorName");
-    localStorage.removeItem("postId");
+    localStorage.clear();
 
     window.location.href = "../index.html";
   });
