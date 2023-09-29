@@ -4,6 +4,9 @@ import { postsURL, reactToPostURL, reactionOptions } from "../variables/consts.m
 import { deletePost } from "./delete-posts.mjs";
 
 export function createPostCard(post) {
+  const spinner = document.querySelector(".spinner-border");
+  spinner.classList.add("d-none");
+
   const card = document.createElement("div");
   card.classList.add("card", "mx-0", "my-3", "bg-info", "shadow-sm");
   card.setAttribute("data-post-id", post.id);
