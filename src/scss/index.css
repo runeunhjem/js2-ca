@@ -10853,4 +10853,8 @@ body {
 
 .bi-chevron-up {
   display: none;
+}
+
+.hidden-content {
+  display: none;
 }/*# sourceMappingURL=index.css.map */

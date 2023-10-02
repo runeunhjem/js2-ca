@@ -1,82 +1,94 @@
 import {
   loggedInUser,
   currentProfileName,
+  currentUserData,
   profilePostsURL,
   fetchOptions,
   profileURL,
   followText,
   loggedInUserData,
+  isFollowing,
 } from "./variables/consts.mjs";
 // import { handleSearch } from "./search.js";
 const urlParams = new URLSearchParams(window.location.search);
-const userName = urlParams.get("name");
+const URLProfilename = urlParams.get("name");
+
 
 async function getProfileData(profileURL, fetchOptions) {
   try {
     const response = await fetch(profileURL, fetchOptions);
     const json = await response.json();
     console.log("profileData is:", json);
-    const followButton = document.getElementById("loggedInProfileFollow");
-    if (loggedInUser === json.name) {
-      followText.textContent = "Can't follow you...";
-      followButton.disabled = true;
+      const followButton = document.getElementById("loggedInProfileFollow");
+      // const followText = document.getElementById("button-text");
+
+      if (!json) {
+        window.location.reload();
     }
 
-    if (!json) {
-      window.location.reload;
-    }
-
-    if (!loggedInUserData) {
-      localStorage.setItem("loggedInUserData", JSON.stringify(json));
-      localStorage.setItem("currentUserData", JSON.stringify(json));
-      localStorage.setItem("loggedInUser", json.name);
-      localStorage.setItem("currentProfileName", json.name);
-
-      // console.log("currentUserData =", JSON.stringify(json));
-    } else {
-      window.location.reload;
-      localStorage.setItem("currentProfileName", json.name);
-      localStorage.setItem("currentUserData", JSON.stringify(json));
-      console.log("currentUserData =", JSON.stringify(json));
-
-    }
-
-    // Check if loggedInUserData.following includes the current user's name
-    const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
-
-    if (loggedInUserData && loggedInUserData.following) {
-      const isCurrentUserFollowing = loggedInUserData.following.some((item) => item.name === currentUserData.name);
-      const isLoggedInUserFollowingCurrentProfile = currentUserData.followers.some(
-        (item) => item.name === loggedInUserData.name
-      );
-      localStorage.setItem("isFollowing", isLoggedInUserFollowingCurrentProfile);
-
-      if (isCurrentUserFollowing || isLoggedInUserFollowingCurrentProfile) {
-        const isFollowing = localStorage.getItem("isFollowing");
-        if (isFollowing === "true") {
-          followText.textContent = "Unfollow";
-          followButton.disabled = false;
-        } else {
-          console.log("Current user is not being followed by loggedInUser.");
-          followText.textContent = "Follow";
-          followButton.disabled = false;
-        }
+      if (loggedInUser === URLProfilename) {
+        followText.textContent = "Can't follow you...";
+        followButton.disabled = true;
+      } else if (loggedInUserData && loggedInUserData.following && loggedInUserData.following.includes(URLProfilename)) {
+        followText.textContent = "Unfollow";
+        followButton.disabled = false;
+        console.log("currentUserData.followers =", currentUserData.followers);
+        console.log("currentUserData.following =", currentUserData.following);
+      } else {
+        followText.textContent = "Follow";
+        followButton.disabled = false;
       }
-      console.log("currentUserData.followers =", currentUserData.followers);
-    }
 
-    if (response.status >= 200 && response.status <= 299) {
-      console.log("Profile data fetched successfully!");
-      return json;
-    } else {
-      console.log("Profile data fetching failed!");
+
+      // // Check if loggedInUserData.following includes the current user's name
+      // // const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
+      // console.log("currentUserData:", currentUserData);
+
+      // if (loggedInUserData && loggedInUserData.following) {
+      //   const isCurrentUserFollowing = loggedInUserData.following.some((item) => item.name === currentUserData.name);
+      //   console.log(`isCurrentUserFollowing = ${isCurrentUserFollowing}`);
+      //   localStorage.setItem("isFollowing", isCurrentUserFollowing);
+
+      //   // const isFollowing = localStorage.getItem("isFollowing");
+      //   console.log(`isFollowing = ${isFollowing}`);
+
+      //   if (isFollowing === "true") {
+      //     followText.textContent = "Unfollow";
+      //     followButton.disabled = false;
+      //   } else {
+      //     console.log("Current user is not being followed by loggedInUser.");
+      //     followText.textContent = "Follow";
+      //     followButton.disabled = false;
+      //   }
+
+
+      if (!loggedInUserData) {
+        localStorage.setItem("loggedInUserData", JSON.stringify(json));
+        localStorage.setItem("currentUserData", JSON.stringify(json));
+        localStorage.setItem("loggedInUser", json.name);
+        localStorage.setItem("currentProfileName", json.name);
+      } else {
+        // window.location.reload();
+        localStorage.setItem("currentProfileName", json.name);
+        localStorage.setItem("currentUserData", JSON.stringify(json));
+      }
+
+      if (response.status >= 200 && response.status <= 299) {
+        console.log("Profile data fetched successfully!");
+        return json;
+      } else {
+        console.log("Profile data fetching failed!");
+      }
+    } catch (error) {
+      if (!error.message.includes("https://picsum.photos")) {
+        console.error("Error:", error);
+      }
+      console.error(error);
     }
-  } catch (error) {
-    if (!error.message.includes("https://picsum.photos")) {
-      console.error("Error:", error);
-    }
-  }
 }
+// document.addEventListener("DOMContentLoaded", function () {
+//     //
+//   });
 
 async function initProfilePage() {
   try {
@@ -86,8 +98,8 @@ async function initProfilePage() {
     // Update the profile page based on the fetched data
     await updateProfilePage(profilePosts);
 
-    if (userName) {
-      localStorage.setItem("currentProfileName", userName);
+    if (URLProfilename) {
+      localStorage.setItem("currentProfileName", URLProfilename);
     }
 
     // console.log(`loggedInUser: `, loggedInUser);
@@ -127,13 +139,13 @@ async function updateProfilePage(profileData) {
     const avatarImageElement = document.getElementById("avatarImage");
 
     // Access the 'name' property of the profileData object if it exists, otherwise display a default value
-    const authorName = userName || "Author Name Not Found";
+    const authorName = URLProfilename || "Author Name Not Found";
 
     profileNameElements.forEach((element) => {
       element.textContent = authorName;
     });
 
-    setTimeout(() => {
+    // setTimeout(() => {
       // Check if _count property exists in the profileData object
       if (profileData._count) {
         // Update count values with actual counts from the API
@@ -141,7 +153,7 @@ async function updateProfilePage(profileData) {
         profileFollowingElement.textContent = profileData._count.following;
         profilePostsElement.textContent = profileData._count.posts;
       }
-    }, 1000);
+    // }, 1000);
 
     if (profileData.banner) {
       bannerImageElement.style.backgroundImage = `url(${profileData.banner})`;
@@ -164,8 +176,8 @@ getProfilePosts(profilePostsURL, fetchOptions)
     localStorage.setItem("currentProfilePosts", JSON.stringify(currentProfilePosts));
     updateProfilePage(currentProfilePosts);
 
-    if (userName) {
-      localStorage.setItem("currentProfileName", userName);
+    if (URLProfilename) {
+      localStorage.setItem("currentProfileName", URLProfilename);
     }
 
     // console.log(`loggedInUser: `, loggedInUser);

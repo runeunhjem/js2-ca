@@ -1,6 +1,6 @@
 import { postsURL, reactToPostURL, reactionOptions } from "../variables/consts.mjs";
 // export const urlParams = new URLSearchParams(window.location.search);
-// const userName = urlParams.get("name");
+// const URLProfilename = urlParams.get("name");
 import { deletePost } from "./delete-posts.mjs";
 
 export function createPostCard(post) {
@@ -138,7 +138,7 @@ export function createPostCard(post) {
 
     // Redirect to the profile page
     // const urlParams = new URLSearchParams(window.location.search);
-    // const userName = urlParams.get("name");
+    // const URLProfilename = urlParams.get("name");
     window.location.href = `../profile/index.html?name=${encodeURIComponent(post.author.name)}`;
   });
 
@@ -167,7 +167,7 @@ export function createPostCard(post) {
   }
 
   const postText = document.createElement("p");
-  postText.classList.add("card-text", "my-0", "ps-2", "hidden-content");
+  postText.classList.add("card-text", "my-0", "ps-2", "visible-content");
 
   const maxWords = 4; // Adjust the maximum number of words to display
 
@@ -177,6 +177,8 @@ export function createPostCard(post) {
   const hiddenContent = words.slice(maxWords).join(" ");
 
   postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
+
+  
 
   const showMoreButton = document.createElement("button");
   showMoreButton.classList.add(
@@ -191,7 +193,7 @@ export function createPostCard(post) {
     "fw-semibold"
   );
   showMoreButton.setAttribute("id", "show-more-button");
-  showMoreButton.textContent = "... Show Less";
+  showMoreButton.textContent = "... Show More";
   showMoreButton.addEventListener("click", function () {
     const hiddenContentElement = postText.querySelector(".hidden-content");
     if (hiddenContentElement.style.display === "none" || hiddenContentElement.style.display === "") {
@@ -419,5 +421,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-
-

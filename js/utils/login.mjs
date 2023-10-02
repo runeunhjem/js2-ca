@@ -11,7 +11,6 @@ export function preFillFormFields() {
   }
 }
 
-
 export async function loginUser(url, userData) {
   try {
     const postData = {
@@ -35,8 +34,8 @@ export async function loginUser(url, userData) {
       localStorage.setItem("loggedInUser", json.name);
 
       console.log(`Name: ${localStorage.getItem("loggedInUser")}`);
-      const userName = json.name;
-      const currentProfileURL = `../profile/index.html?name=${encodeURIComponent(userName)}`;
+      const URLProfilename = json.name;
+      const currentProfileURL = `../profile/index.html?name=${encodeURIComponent(URLProfilename)}`;
 
       if (document.getElementById("remember").checked) {
         localStorage.setItem("rememberMe", "true");
