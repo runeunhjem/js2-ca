@@ -20,7 +20,7 @@
     <title>movieTALK | Profile</title>
   </head>
   <body>
-    <header class="mx-auto container-fluid bannerImage" id="bannerImage">
+    <header class="mx-auto container-fluid bg-dark">
       <nav class="navbar navbar-expand-md pt-4 align-items-center mx-auto max-width-1200">
         <a
           class="navbar-brand header-logo me-0 mb-2 ms-5 ms-md-0 mx-md-auto justify-content-start"
@@ -68,7 +68,7 @@
     </header>
     <main class="mx-auto mb-5">
       <div class="container mt-5">
-        <div class="row bg-primary rounded bannerImage shadow py-3 px-0 m-0 bg-dark">
+        <div class="row bg-primary rounded bannerImage shadow py-3 px-0 m-0 bg-dark" id="bannerImage">
           <h1 class="text-center text-warning rounded py-0 m-0"><span class="loggedInProfileName">Loading...</span>'s Profile</h1>
         </div>
         <div class="row mt-5 bg-info py-3">
@@ -78,7 +78,7 @@
                 <div alt="User Profile Image" class="mx-auto rounded-circle shadow border mb-3 avatarImage" id="avatarImage"></div>
                 <h2 class="card-title loggedInProfileName">Loading...</h2>
                 <p class="card-text">Username: <span class="loggedInProfileName">Loading...</p>
-                <hr />
+                <hr>
                 <p class="card-text mb-0">Followers: <span class="loggedInProfileFollowers" id="loggedInProfileFollowers">Loading...</span></p>
                 <p class="card-text mb-0">Following: <span class="loggedInProfileFollowing" id="loggedInProfileFollowing">Loading...</span></p>
                 <p class="card-text">Posts: <span class="loggedInProfilePosts" id="loggedInProfilePosts">Loading...</span></p>
@@ -89,7 +89,7 @@
           <div class="col-md-7">
             <div class="loadingIndicator" id="loadingIndicator"></div>
             <a href="#" aria-label="Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
-              <div class="back-to-top-button"></div>
+              <div class="back-to-top-button bg-warning text-dark pt-1 px-3 pb-2"></div>
             </a>
             <div class="d-flex justify-content-center">
             <div class="spinner-border text-warning" role="status">

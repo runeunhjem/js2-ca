@@ -33,7 +33,9 @@ export function createPostCard(post) {
 
   // Check if the author"s avatar exists and set the src attribute
   if (post.author && post.author.avatar) {
+    // avatarImg.src = post.author.avatar;
     avatarImg.src = post.author.avatar;
+    console.log(`post.media (Avatar): ${post.media}`);
   } else {
     // Use Picsum placeholder if avatar isn"t there
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
@@ -178,7 +180,20 @@ export function createPostCard(post) {
 
   postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
 
-  
+  // Create an image element
+  const postMedia = document.createElement("img");
+  postMedia.classList.add("card-media", "my-0", "ps-2", "visible-content");
+  postMedia.src = post.media; // Set the image source URL
+  console.log(`post.media: ${post.media}`);
+  postMedia.alt = "Post Image"; // Set the image alt attribute
+  postMedia.onerror = () => {
+    // Replace the failed image with a default placeholder image
+    const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
+    postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+  };
+
+  // Append the image element just underneath postText
+  postText.insertAdjacentElement("afterend", postMedia);
 
   const showMoreButton = document.createElement("button");
   showMoreButton.classList.add(
