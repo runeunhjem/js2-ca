@@ -9,19 +9,20 @@ const postIdToDisplay = urlParams.get("postId");
 export async function getSinglePost(url, options, id) {
   try {
     // Construct the URL with the id and query parameters
+
     const fetchURL = `${url}/${id}?_comments=true&_author=true&_reactions=true`;
 
     const response = await fetch(fetchURL, options);
-
+    console.log("response: ", response);
     if (response.ok) {
       const post = await response.json();
       console.log("Post: ", post);
 
       if (post) {
         const feedPosts = document.getElementById("feed-posts");
-        feedPosts.innerHTML = ""; // Clear the existing content
         const postCard = createPostCard(post);
-        // console.log("postCard: ", postCard);
+        feedPosts.innerHTML = ""; // Clear the existing content
+        console.log("postCard: ", postCard);
         feedPosts.appendChild(postCard);
       } else {
         console.error("Post with ID not found.");
