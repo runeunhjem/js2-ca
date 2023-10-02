@@ -1,41 +1,40 @@
-const API_BASE_URL = "https://api.noroff.dev";
-
-let loggedInUser = localStorage.getItem("loggedInUser");
-// console.log(`loggedInUser: ${loggedInUser}`);
-// const followURL = `${API_BASE_URL}/social/profiles/fridlo/follow`;
-// const unfollowURL = `${API_BASE_URL}/social/profiles/fridlo/unfollow`;
-const followURL = `${API_BASE_URL}/social/profiles/${loggedInUser}/follow`;
-const unfollowURL = `${API_BASE_URL}/social/profiles/${loggedInUser}/unfollow`;
-const profileFollowButton = document.getElementById("loggedInProfileFollow");
-
-const token = localStorage.getItem("accessToken");
-const followOptions = {
-  method: "PUT",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  },
-};
+import {
+  API_BASE_URL,
+  loggedInUser,
+  followURL,
+  unfollowURL,
+  profileFollowButton,
+  followText,
+  followOptions,
+} from "./variables/consts.mjs";
 
 profileFollowButton.addEventListener("click", () => {
-  if (profileFollowButton.innerHTML === "Follow") {
+  if (followText.textContent === "Follow") {
     fetch(followURL, followOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        profileFollowButton.innerHTML = "Unfollow";
+        followText.textContent = "Unfollow";
+
+        // Increment the followers count by 1 when following
+        const profileFollowersElement = document.getElementById("loggedInProfileFollowers");
+        profileFollowersElement.textContent = parseInt(profileFollowersElement.textContent) + 1;
       })
       .catch((error) => {
         if (!error.message.includes("https://picsum.photos")) {
           console.error("Error:", error);
         }
       });
-  } else if (profileFollowButton.innerHTML === "Unfollow") {
+  } else if (followText.textContent === "Unfollow") {
     fetch(unfollowURL, followOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        profileFollowButton.innerHTML = "Follow";
+        followText.textContent = "Follow";
+
+        // Decrement the followers count by 1 when unfollowing
+        const profileFollowersElement = document.getElementById("loggedInProfileFollowers");
+        profileFollowersElement.textContent = parseInt(profileFollowersElement.textContent) - 1;
       })
       .catch((error) => {
         if (!error.message.includes("https://picsum.photos")) {

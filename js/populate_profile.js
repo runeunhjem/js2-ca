@@ -1,4 +1,12 @@
-import { loggedInUser, currentProfileName, profilePostsURL, fetchOptions, profileURL } from "./variables/consts.mjs";
+import {
+  loggedInUser,
+  currentProfileName,
+  profilePostsURL,
+  fetchOptions,
+  profileURL,
+  followText,
+  loggedInUserData,
+} from "./variables/consts.mjs";
 // import { handleSearch } from "./search.js";
 const urlParams = new URLSearchParams(window.location.search);
 const userName = urlParams.get("name");
@@ -7,8 +15,55 @@ async function getProfileData(profileURL, fetchOptions) {
   try {
     const response = await fetch(profileURL, fetchOptions);
     const json = await response.json();
-    // console.log("profileData is:", JSON.stringify(json, null, 2));
-    console.log("profileData is:", await json);
+    console.log("profileData is:", json);
+    const followButton = document.getElementById("loggedInProfileFollow");
+    if (loggedInUser === json.name) {
+      followText.textContent = "Can't follow you...";
+      followButton.disabled = true;
+    }
+
+    if (!json) {
+      window.location.reload;
+    }
+
+    if (!loggedInUserData) {
+      localStorage.setItem("loggedInUserData", JSON.stringify(json));
+      localStorage.setItem("currentUserData", JSON.stringify(json));
+      localStorage.setItem("loggedInUser", json.name);
+      localStorage.setItem("currentProfileName", json.name);
+
+      // console.log("currentUserData =", JSON.stringify(json));
+    } else {
+      window.location.reload;
+      localStorage.setItem("currentProfileName", json.name);
+      localStorage.setItem("currentUserData", JSON.stringify(json));
+      console.log("currentUserData =", JSON.stringify(json));
+
+    }
+
+    // Check if loggedInUserData.following includes the current user's name
+    const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
+
+    if (loggedInUserData && loggedInUserData.following) {
+      const isCurrentUserFollowing = loggedInUserData.following.some((item) => item.name === currentUserData.name);
+      const isLoggedInUserFollowingCurrentProfile = currentUserData.followers.some(
+        (item) => item.name === loggedInUserData.name
+      );
+      localStorage.setItem("isFollowing", isLoggedInUserFollowingCurrentProfile);
+
+      if (isCurrentUserFollowing || isLoggedInUserFollowingCurrentProfile) {
+        const isFollowing = localStorage.getItem("isFollowing");
+        if (isFollowing === "true") {
+          followText.textContent = "Unfollow";
+          followButton.disabled = false;
+        } else {
+          console.log("Current user is not being followed by loggedInUser.");
+          followText.textContent = "Follow";
+          followButton.disabled = false;
+        }
+      }
+      console.log("currentUserData.followers =", currentUserData.followers);
+    }
 
     if (response.status >= 200 && response.status <= 299) {
       console.log("Profile data fetched successfully!");
@@ -123,14 +178,3 @@ getProfilePosts(profilePostsURL, fetchOptions)
 
 // Call the initProfilePage function to initialize the profile page
 initProfilePage();
-
-const followButton = document.getElementById("loggedInProfileFollow");
-if (loggedInUser === currentProfileName) {
-  // If the logged-in user is the same as the current profile, disable the button
-  followButton.textContent = "Can't follow you...";
-  followButton.disabled = true;
-} else {
-  // If the logged-in user is different, you can leave the button as it is
-  followButton.textContent = "Follow";
-  followButton.disabled = false;
-}

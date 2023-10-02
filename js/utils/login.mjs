@@ -31,8 +31,8 @@ export async function loginUser(url, userData) {
 
       const accessToken = json.accessToken;
       localStorage.setItem("accessToken", accessToken);
-      let loggedInUser = json.name;
-      localStorage.setItem("loggedInUser", loggedInUser);
+      // let loggedInUser = json.name;
+      localStorage.setItem("loggedInUser", json.name);
 
       console.log(`Name: ${localStorage.getItem("loggedInUser")}`);
       const userName = json.name;

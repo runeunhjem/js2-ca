@@ -1,18 +1,25 @@
 export const API_BASE_URL = "https://api.noroff.dev/api/v1";
+// export const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 export const loggedInUser = localStorage.getItem("loggedInUser");
+export const loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
+export const currentProfileName = localStorage.getItem("currentProfileName");
+export const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
+
 export const host = "api.noroff.dev";
 export const postForm = document.getElementById("postForm");
 export const createPostURL = `${API_BASE_URL}/social/posts`;
 export const postsURL = `${API_BASE_URL}/social/posts?limit=20&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
 // export const postsURL = `${API_BASE_URL}/social/posts?limit=10&offset=113&_comments=true&_author=true&_reactions=true&_count=true`;
-
+export const followURL = `${API_BASE_URL}/social/profiles/${currentProfileName}/follow`;
+export const unfollowURL = `${API_BASE_URL}/social/profiles/${currentProfileName}/unfollow`;
+export const profileFollowButton = document.getElementById("loggedInProfileFollow");
+export const followText = document.getElementById("follow-text");
 export const urlParams = new URLSearchParams(window.location.search);
 export const userName = urlParams.get("name");
 export const profileURL = `${API_BASE_URL}/social/profiles/${userName}?_following=true&_followers=true&_posts=true`;
 export const profilePostsURL = `${API_BASE_URL}/social/profiles/${userName}/posts?_following=true&_followers=true&_posts=true&_comments=true&_author=true&_reactions=true`;
 export const reactionsAndCommentsURL = `${API_BASE_URL}/social/profiles/${userName}?_reactions=true&_comments=true&_count=true`;
 export const token = localStorage.getItem("accessToken");
-export const currentProfileName = localStorage.getItem("currentProfileName");
 // export const currentProfilePosts = JSON.parse(localStorage.getItem("currentProfilePosts"));
 export const currentProfilePosts = JSON.parse(localStorage.getItem("currentProfilePosts"));
 // export const searchURL = `${API_BASE_URL}/social/posts?&limit=10&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
