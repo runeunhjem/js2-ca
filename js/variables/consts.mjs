@@ -5,6 +5,7 @@ export const loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserDat
 export const currentProfileName = localStorage.getItem("currentProfileName");
 export const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
 export const isFollowing = localStorage.getItem("isFollowing");
+export const isLoggedIn = localStorage.getItem("isLoggedIn");
 export const host = "api.noroff.dev";
 export const postForm = document.getElementById("postForm");
 export const createPostURL = `${API_BASE_URL}/social/posts`;
@@ -109,7 +110,7 @@ export const deletePostOptions = {
 
 export const followUserURL = `${API_BASE_URL}/social/posts/${authorName}/follow`;
 export const unFollowUserURL = `${API_BASE_URL}/social/posts/${authorName}/unfollow`;
-if (!authorName) {
+if (!authorName && currentProfileName) {
   localStorage.setItem("authorName", currentProfileName);
 }
 export const followOptions = {

@@ -32,6 +32,8 @@ export async function loginUser(url, userData) {
       localStorage.setItem("accessToken", accessToken);
       // let loggedInUser = json.name;
       localStorage.setItem("loggedInUser", json.name);
+      localStorage.setItem("isFollowing", false);
+      localStorage.setItem("isLoggedIn", true);
 
       console.log(`Name: ${localStorage.getItem("loggedInUser")}`);
       const URLProfilename = json.name;

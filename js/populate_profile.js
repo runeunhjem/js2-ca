@@ -24,19 +24,21 @@ async function getProfileData(profileURL, fetchOptions) {
 
       if (!json) {
         window.location.reload();
-    }
-
-      if (loggedInUser === URLProfilename) {
-        followText.textContent = "Can't follow you...";
-        followButton.disabled = true;
-      } else if (loggedInUserData && loggedInUserData.following && loggedInUserData.following.includes(URLProfilename)) {
-        followText.textContent = "Unfollow";
-        followButton.disabled = false;
-        console.log("currentUserData.followers =", currentUserData.followers);
-        console.log("currentUserData.following =", currentUserData.following);
       } else {
-        followText.textContent = "Follow";
-        followButton.disabled = false;
+
+
+        if (loggedInUser === URLProfilename) {
+          followText.textContent = "Can't follow you...";
+          followButton.disabled = true;
+        } else if (loggedInUserData && loggedInUserData.following && loggedInUserData.following.includes(URLProfilename)) {
+          followText.textContent = "Unfollow";
+          followButton.disabled = false;
+          console.log("currentUserData.followers =", currentUserData.followers);
+          console.log("currentUserData.following =", currentUserData.following);
+        } else {
+          followText.textContent = "Follow";
+          followButton.disabled = false;
+        }
       }
 
 
@@ -163,11 +165,22 @@ async function updateProfilePage(profileData) {
     if (profileData.avatar) {
       avatarImageElement.style.backgroundImage = `url(${profileData.avatar})`;
     } else {
-      avatarImageElement.style.backgroundImage = 'url("https://picsum.photos/200/200")';
+      avatarImageElement.style.backgroundImage = 'url("https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg")';
     }
   } else {
     // Handle the case where profileData is not found
     console.error("Profile data not found");
+    if (currentUserData.banner) {
+      bannerImageElement.style.backgroundImage = `url(${currentUserData.banner})`;
+    } else {
+      bannerImageElement.style.backgroundImage = 'url("https://picsum.photos/id/857/1600/200")';
+    }
+    if (currentUserData.avatar) {
+      avatarImageElement.style.backgroundImage = `url(${currentUserData.avatar})`;
+    } else {
+      avatarImageElement.style.backgroundImage =
+        'url("https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg")';
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-import { postsURL, reactToPostURL, reactionOptions } from "../variables/consts.mjs";
+import { currentProfileName, loggedInUser, postsURL, reactToPostURL, reactionOptions } from "../variables/consts.mjs";
 // export const urlParams = new URLSearchParams(window.location.search);
 // const URLProfilename = urlParams.get("name");
 import { deletePost } from "./delete-posts.mjs";
@@ -11,6 +11,7 @@ export function createPostCard(post) {
   card.classList.add("card", "mx-0", "my-3", "bg-info", "shadow-sm");
   card.setAttribute("data-post-id", post.id);
   card.addEventListener("mouseover", handlePostCardClick);
+  card.addEventListener("mouseleave", handlePostCardMouseLeave);
   card.addEventListener("click", handlePostCardClick);
 
   const cardBody = document.createElement("div");
@@ -27,19 +28,21 @@ export function createPostCard(post) {
 
   avatarImg.onerror = () => {
     // Replace the failed image with a default placeholder image
-    const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
-    avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+    // const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
+    avatarImg.src = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
+    // avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
   };
 
   // Check if the author"s avatar exists and set the src attribute
   if (post.author && post.author.avatar) {
     // avatarImg.src = post.author.avatar;
     avatarImg.src = post.author.avatar;
-    console.log(`post.media (Avatar): ${post.media}`);
+    // console.log(`post.media (Avatar): ${post.media}`);
   } else {
     // Use Picsum placeholder if avatar isn"t there
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
-    avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+    avatarImg.src = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
+    // avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
   }
 
   avatarDiv.appendChild(avatarImg);
@@ -185,7 +188,7 @@ export function createPostCard(post) {
   const postMedia = document.createElement("img");
   postMedia.classList.add("card-media", "m-0", "p-2", "rounded", "shadow");
   postMedia.src = post.media; // Set the image source URL
-  console.log(`post.media: ${post.media}`);
+  // console.log(`post.media: ${post.media}`);
   postMedia.alt = "Post Image"; // Set the image alt attribute
   postMedia.style.width = "100%"; // Set the image width
   // postMedia.style.height = "50%"; // Set the image width
@@ -396,6 +399,28 @@ function handlePostCardClick(event) {
   // Store postId in localStorage
   localStorage.setItem("postId", postId);
   localStorage.setItem("authorName", authorName);
+
+  if (authorName !== loggedInUser) {
+    localStorage.setItem("isLoggedIn", false);
+  } else if (authorName === loggedInUser) {
+    localStorage.setItem("isLoggedIn", true);
+  }
+
+}
+function handlePostCardMouseLeave(event) {
+  const card = event.currentTarget; // Get the clicked postCard element
+  const postId = card.getAttribute("data-post-id"); // Extract postId from data attribute
+  const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author"s name from the data attribute
+  // Store postId in localStorage
+  localStorage.removeItem("postId");
+  localStorage.removeItem("authorName");
+
+  if (authorName !== loggedInUser) {
+    localStorage.setItem("isLoggedIn", false);
+  } else if (authorName === loggedInUser) {
+    localStorage.setItem("isLoggedIn", true);
+  }
+
 }
 
 // // Attach the event listener to a common parent element or document
@@ -406,7 +431,7 @@ document.addEventListener("click", (event) => {
 });
 
 // // Attach click event listener to post cards
-// const postCards = document.querySelectorAll(".more-button"); // Adjust the selector as needed
+// const postCards = document.querySelectorAll(".more-button");
 // postCards.forEach((card) => {
 //   card.addEventListener("click", handlePostCardClick);
 // });

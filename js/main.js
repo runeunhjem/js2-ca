@@ -29,9 +29,17 @@ showMoreButtons.forEach((button) => {
 
 // Select the element with the "profile-image" class
 const profileImageElement = document.querySelector(".profile-image"); // Adjust the selector as needed
+
 if (profileImageElement) {
-  // Set the "src" attribute to the avatar URL from loggedInUserData
-  profileImageElement.src = loggedInUserData.avatar;
-} else {
-  console.error("Element with class 'profile-image' not found on the page.");
+  // Check if loggedInUserData is defined and contains the 'avatar' property
+  if (loggedInUserData && loggedInUserData.avatar) {
+    // Set the "src" attribute to the avatar URL from loggedInUserData
+    profileImageElement.src = loggedInUserData.avatar;
+  } else {
+    // Set a default avatar URL if loggedInUserData or 'avatar' property is missing
+    setTimeout(() => {
+      profileImageElement.src = loggedInUserData.avatar;
+      // profileImageElement.src = "https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg";
+    }, 1000);
+  }
 }
