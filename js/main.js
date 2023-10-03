@@ -25,8 +25,6 @@ showMoreButtons.forEach((button) => {
   button.addEventListener("click", togglePostContent);
 });
 
-
-
 // Select the element with the "profile-image" class
 const profileImageElement = document.querySelector(".profile-image"); // Adjust the selector as needed
 
@@ -37,13 +35,8 @@ if (profileImageElement) {
     profileImageElement.src = loggedInUserData.avatar;
   } else {
     // Set a default avatar URL if loggedInUserData or 'avatar' property is missing
-    setTimeout(() => {
-      if (loggedInUserData && loggedInUserData.avatar) {
-        // Set the "src" attribute to the avatar URL from loggedInUserData
-        profileImageElement.src = loggedInUserData.avatar;
-      } else {
-        profileImageElement.src = "https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg";
-      }
-    }, 1000);
+
+    // profileImageElement.src = loggedInUserData.avatar;
+    profileImageElement.src = "https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg";
   }
 }
