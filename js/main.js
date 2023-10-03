@@ -1,6 +1,6 @@
 import { togglePostContent } from "./utils/show-more-post-text.mjs";
 import { toTopButton } from "./utils/back-to-top-button.js";
-import { clickHandler, profileLinks } from "./variables/consts.mjs";
+import { clickHandler, profileLinks, loggedInUserData } from "./variables/consts.mjs";
 
 toTopButton();
 
@@ -24,3 +24,14 @@ const showMoreButtons = document.querySelectorAll(".show-more-button");
 showMoreButtons.forEach((button) => {
   button.addEventListener("click", togglePostContent);
 });
+
+
+
+// Select the element with the "profile-image" class
+const profileImageElement = document.querySelector(".profile-image"); // Adjust the selector as needed
+if (profileImageElement) {
+  // Set the "src" attribute to the avatar URL from loggedInUserData
+  profileImageElement.src = loggedInUserData.avatar;
+} else {
+  console.error("Element with class 'profile-image' not found on the page.");
+}

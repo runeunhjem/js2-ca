@@ -10780,10 +10780,6 @@ body {
   max-width: 300px;
 }
 
-.profile-image {
-  max-width: 200px;
-}
-
 .movie-poster {
   max-width: 75px;
   transition: all 0.3s ease-in-out;
@@ -10793,7 +10789,8 @@ body {
 }
 
 .profile-image {
-  max-width: 30px;
+  width: 50px;
+  max-width: 100%;
 }
 
 .nav-link:hover {

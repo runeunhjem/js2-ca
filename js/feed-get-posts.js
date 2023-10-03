@@ -1,6 +1,9 @@
 import { createPostCard } from "./utils/feed.mjs";
 import { postsURL, fetchOptions } from "./variables/consts.mjs";
 
+const urlParams = new URLSearchParams(window.location.search);
+const postIdParam = urlParams.get("postId");
+
 export async function getFeedPostsWithToken(url, options) {
   try {
     const response = await fetch(url, options);
@@ -10,20 +13,16 @@ export async function getFeedPostsWithToken(url, options) {
 
       if (Array.isArray(posts)) {
         const feedPosts = document.getElementById("feed-posts");
-        // Check if the URL includes "post"
-        const urlIncludesPost = window.location.href.includes("post");
+
         posts.forEach((post) => {
 
-          if (urlIncludesPost && index === 0) {
-            // Display only the first post when the URL includes "post"
-            const postCard = createPostCard(post);
-            feedPosts.appendChild(postCard);
-          } else if (!urlIncludesPost) {
-            // Display all posts when the URL does not include "post"
+          if (postIdParam && post.id === postIdParam) {
+            // Display only the post with the matching postId
             const postCard = createPostCard(post);
             feedPosts.appendChild(postCard);
           }
-          
+
+
           if (post.reactions && post.reactions.length > 0) {
             // if (post.reactions && post.reactions.length > 0) {
             // Now you can use reactionsCount as needed

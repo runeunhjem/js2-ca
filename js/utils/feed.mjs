@@ -153,10 +153,11 @@ export function createPostCard(post) {
   postDate.textContent = createdDate.toLocaleString();
 
   const viewPostLink = document.createElement("a");
-  viewPostLink.classList.add("nav-link", "text-primary", "py-0", "m-0", "ps-2");
+  viewPostLink.classList.add("nav-link", "text-primary", "m-0", "p-2", "view-post-link");
+  viewPostLink.style.setProperty("class", "align-items-start", "important");
   const postPageURL = `../feed/post.html?postId=${post.id}`;
   viewPostLink.href = postPageURL;
-  viewPostLink.innerHTML = `<i class="bi bi-film me-1"></i> ${post.title}`;
+  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-1"></i> ${post.title}`;
 
   // Check if the current page is "post.html"
   if (window.location.pathname.includes("post.html")) {
@@ -182,18 +183,30 @@ export function createPostCard(post) {
 
   // Create an image element
   const postMedia = document.createElement("img");
-  postMedia.classList.add("card-media", "my-0", "ps-2", "visible-content");
+  postMedia.classList.add("card-media", "m-0", "p-2", "rounded", "shadow");
   postMedia.src = post.media; // Set the image source URL
   console.log(`post.media: ${post.media}`);
   postMedia.alt = "Post Image"; // Set the image alt attribute
+  postMedia.style.width = "100%"; // Set the image width
+  // postMedia.style.height = "50%"; // Set the image width
+  // postMedia.style.maxHeight = "200px"; // Set the image width
   postMedia.onerror = () => {
     // Replace the failed image with a default placeholder image
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
     postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
   };
 
+  if (window.location.href.includes("/feed/index.html")) {
+    postMedia.style.width = "100px";
+    postMedia.classList.add("ms-3");
+    viewPostLink.style.setProperty("class", "align-items-start", "important");
+    viewPostLink.classList.add("d-flex", "align-items-start", "ps-2");
+  }
+
   // Append the image element just underneath postText
-  postText.insertAdjacentElement("afterend", postMedia);
+  // postText.insertAdjacentElement("beforebegin", postMedia);
+  // postText.insertAdjacentElement("afterend", postMedia);
+  // postText.appendChild(postMedia);
 
   const showMoreButton = document.createElement("button");
   showMoreButton.classList.add(
@@ -206,10 +219,10 @@ export function createPostCard(post) {
     "border-0",
     "text-primary",
     "fw-semibold"
-  );
-  showMoreButton.setAttribute("id", "show-more-button");
-  showMoreButton.textContent = "... Show More";
-  showMoreButton.addEventListener("click", function () {
+    );
+    showMoreButton.setAttribute("id", "show-more-button");
+    showMoreButton.textContent = "... Show More";
+    showMoreButton.addEventListener("click", function () {
     const hiddenContentElement = postText.querySelector(".hidden-content");
     if (hiddenContentElement.style.display === "none" || hiddenContentElement.style.display === "") {
       hiddenContentElement.style.display = "inline";
@@ -224,8 +237,9 @@ export function createPostCard(post) {
   authorDiv.appendChild(postContentDiv);
   postContentDiv.appendChild(authorInfoDiv);
   postContentDiv.appendChild(postDate);
+  viewPostLink.appendChild(postMedia);
   postContentDiv.appendChild(viewPostLink);
-  // postContentDiv.appendChild(postText);
+  postContentDiv.appendChild(postText);
   postText.appendChild(showMoreButton);
   postContentDiv.appendChild(postText);
 
