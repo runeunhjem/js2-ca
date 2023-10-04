@@ -214,29 +214,35 @@ export function createPostCard(post) {
   }
 
   const showMoreButton = document.createElement("button");
-  showMoreButton.classList.add(
-    "btn",
-    "btn-none",
-    "btn-sm",
-    "m-0",
-    "shadow-sm",
-    "show-more-button",
-    "border-0",
-    "text-primary",
-    "fw-semibold"
+  if (words.length > maxWords) {
+    // const showMoreButton = document.createElement("button");
+    showMoreButton.classList.add(
+      "btn",
+      "btn-none",
+      "btn-sm",
+      "m-0",
+      // "shadow-sm",
+      "show-more-button",
+      "border-0",
+      "text-primary",
+      "fw-semibold"
     );
     showMoreButton.setAttribute("id", "show-more-button");
     showMoreButton.textContent = "... Show More";
     showMoreButton.addEventListener("click", function () {
-    const hiddenContentElement = postText.querySelector(".hidden-content");
-    if (hiddenContentElement.style.display === "none" || hiddenContentElement.style.display === "") {
-      hiddenContentElement.style.display = "inline";
-      showMoreButton.textContent = "... Show Less";
-    } else {
-      hiddenContentElement.style.display = "none";
-      showMoreButton.textContent = "... Show More";
-    }
-  });
+      const hiddenContentElement = postText.querySelector(".hidden-content");
+      if (hiddenContentElement.style.display === "none" || hiddenContentElement.style.display === "") {
+        hiddenContentElement.style.display = "inline";
+        showMoreButton.textContent = "... Show Less";
+      } else {
+        hiddenContentElement.style.display = "none";
+        showMoreButton.textContent = "... Show More";
+      }
+    });
+    postText.appendChild(showMoreButton);
+  } else {
+    showMoreButton.classList.add("d-none");
+  }
 
   authorDiv.appendChild(avatarDiv);
   authorDiv.appendChild(postContentDiv);
