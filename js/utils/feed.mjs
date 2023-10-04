@@ -1,4 +1,4 @@
-import { API_BASE_URL, currentProfileName, authorUserData, loggedInUser, postsURL, reactToPostURL, reactionOptions } from "../variables/consts.mjs";
+import { API_BASE_URL, currentProfileName, authorUserData, loggedInUser, postsURL, reactionOptions } from "../variables/consts.mjs";
 // export const urlParams = new URLSearchParams(window.location.search);
 // const URLProfilename = urlParams.get("name");
 import { deletePost } from "./delete-posts.mjs";
@@ -213,11 +213,6 @@ export function createPostCard(post) {
     viewPostLink.classList.add("align-items-start", "ps-2");
   }
 
-  // Append the image element just underneath postText
-  // postText.insertAdjacentElement("beforebegin", postMedia);
-  // postText.insertAdjacentElement("afterend", postMedia);
-  // postText.appendChild(postMedia);
-
   const showMoreButton = document.createElement("button");
   showMoreButton.classList.add(
     "btn",
@@ -271,10 +266,6 @@ export function createPostCard(post) {
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("card-text");
 
-  // const likeButton = document.createElement("button");
-  // likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
-  // likeButton.innerHTML = `<i class="bi bi-hand-thumbs-up"></i> Like`;
-
   const likeButton = document.createElement("button");
   likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
   likeButton.innerHTML = `<i class="bi bi-hand-thumbs-up"></i> Like`;
@@ -283,14 +274,10 @@ export function createPostCard(post) {
   likeButton.addEventListener("click", async () => {
     try {
       console.log(`postId: ${post.id}`);
-      // console.log(`reactToPostURL: ${reactToPostURL}`);
-      const reactToPostURL = `${API_BASE_URL}/social/posts/${post.id}/react/👍`;
+      const reactToPostURL = `${API_BASE_URL}/social/posts/${post.id}/react/👍`; // REMEMBER the icon itself
       console.log(`reactToPostURL: ${reactToPostURL}`);
       // Make an API request to add the reaction
       const response = await fetch(reactToPostURL, reactionOptions);
-      // console.log("response: ", response);
-      // console.log(`reactToPostURL: ${reactToPostURL}`);
-      // console.log(`reactionOptions: ${reactionOptions}`);
       if (response.ok) {
         reactionsCount++; // Increment the reactions count
         likesCount.innerHTML = `<i class="bi bi-hand-thumbs-up-fill text-primary"></i> ${reactionsCount} Likes`; // Update the UI
@@ -310,7 +297,6 @@ export function createPostCard(post) {
   commentButton.innerHTML = `<i class="bi bi-chat-dots"></i> Comment`;
 
   buttonContainer.appendChild(likeButton);
-  // buttonContainer.appendChild(moreButton);
   buttonContainer.appendChild(commentButton);
 
   const likesRepliesContainer = document.createElement("div");
@@ -390,9 +376,9 @@ async function handlePostCardClick(event) {
 }
 function handlePostCardMouseLeave(event) {
   const card = event.currentTarget; // Get the clicked postCard element
-  const postId = card.getAttribute("data-post-id"); // Extract postId from data attribute
   const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author"s name from the data attribute
-  // Store postId in localStorage
+  // const postId = card.getAttribute("data-post-id"); // Extract postId from data attribute
+  // Remove postId in localStorage
   // localStorage.removeItem("postId");
   // localStorage.removeItem("authorName");
 
@@ -411,15 +397,6 @@ document.addEventListener("click", (event) => {
   }
 });
 
-// // Attach click event listener to post cards
-// const postCards = document.querySelectorAll(".more-button");
-// postCards.forEach((card) => {
-//   card.addEventListener("click", handlePostCardClick);
-// });
-
-/**
- ** Function to toggle the "Create Post" form
- */
 document.addEventListener("DOMContentLoaded", function () {
   // Check if the current page is within the /feed/ folder
   if (window.location.pathname.includes("/feed/")) {

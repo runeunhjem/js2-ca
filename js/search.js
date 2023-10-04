@@ -21,12 +21,6 @@ async function fetchAllSearchResults(url, query) {
         break; // No more results to fetch
       }
 
-      // // Filter and append results that match the query
-      // const searchResults = result.filter((post) => {
-      //   const searchString = post.title + post.body + post.tags.join(" ") + post.author.name;
-      //   return searchString.toLowerCase().includes(query.toLowerCase());
-      // });
-
       // Filter and append results that match the query and are not duplicates
       const searchResults = result.filter((post) => {
         const searchString = post.title + post.body + post.tags.join(" ") + post.author.name;

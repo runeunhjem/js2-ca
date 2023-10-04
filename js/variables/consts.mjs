@@ -1,7 +1,6 @@
 export const API_BASE_URL = "https://api.noroff.dev/api/v1";
 export const registerURL = `${API_BASE_URL}/social/auth/register`;
 export const loginURL = `${API_BASE_URL}/social/auth/login`;
-// export const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 export const loggedInUser = localStorage.getItem("loggedInUser");
 export const loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
 export const currentProfileName = localStorage.getItem("currentProfileName");
@@ -21,22 +20,17 @@ export const followText = document.getElementById("follow-text");
 export const urlParams = new URLSearchParams(window.location.search);
 export const URLProfilename = urlParams.get("name");
 export const profileURL = `${API_BASE_URL}/social/profiles/${URLProfilename}?_following=true&_followers=true&_posts=true`;
-
 export const profilePostsURL = `${API_BASE_URL}/social/profiles/${URLProfilename}/posts?_following=true&_followers=true&_posts=true&_comments=true&_author=true&_reactions=true`;
 export const reactionsAndCommentsURL = `${API_BASE_URL}/social/profiles/${URLProfilename}?_reactions=true&_comments=true&_count=true`;
 export const token = localStorage.getItem("accessToken");
-// export const currentProfilePosts = JSON.parse(localStorage.getItem("currentProfilePosts"));
 export const currentProfilePosts = JSON.parse(localStorage.getItem("currentProfilePosts"));
 // export const searchURL = `${API_BASE_URL}/social/posts?&limit=100&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
 export const searchURL = `${API_BASE_URL}/social/posts?_comments=true&_author=true&_reactions=true&_count=true`;
 export const profilePostsData = JSON.parse(localStorage.getItem("profilePostsData"));
 export const postId = localStorage.getItem("postId");
-
 export const getSinglePostURL = `https://api.noroff.dev/api/v1/social/posts/${postId}?_comments=true&_author=true&_reactions=true`;
 export const authorName = localStorage.getItem("authorName");
-
 export const profileLinks = document.querySelectorAll(".profile-link");
-// console.log(profileLinks.length);
 export const clickHandler = (event) => {
   event.preventDefault();
   const originalHref = `../profile/index.html?name=${loggedInUser}`;
