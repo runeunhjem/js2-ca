@@ -1,4 +1,6 @@
 export const API_BASE_URL = "https://api.noroff.dev/api/v1";
+export const registerURL = `${API_BASE_URL}/social/auth/register`;
+export const loginURL = `${API_BASE_URL}/social/auth/login`;
 // export const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 export const loggedInUser = localStorage.getItem("loggedInUser");
 export const loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
@@ -18,6 +20,7 @@ export const followText = document.getElementById("follow-text");
 export const urlParams = new URLSearchParams(window.location.search);
 export const URLProfilename = urlParams.get("name");
 export const profileURL = `${API_BASE_URL}/social/profiles/${URLProfilename}?_following=true&_followers=true&_posts=true`;
+
 export const profilePostsURL = `${API_BASE_URL}/social/profiles/${URLProfilename}/posts?_following=true&_followers=true&_posts=true&_comments=true&_author=true&_reactions=true`;
 export const reactionsAndCommentsURL = `${API_BASE_URL}/social/profiles/${URLProfilename}?_reactions=true&_comments=true&_count=true`;
 export const token = localStorage.getItem("accessToken");
@@ -47,6 +50,7 @@ export const fetchOptions = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   },
+  // body: JSON.stringify(newPostData),
 };
 
 export const addNewPostOptions = {

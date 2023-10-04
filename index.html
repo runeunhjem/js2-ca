@@ -78,20 +78,20 @@
                       </div>
                       <div class="card-body">
 
-                        <form id="login-form" action="https://api.noroff.dev/social/auth/login" method="post" class="needs-validation was-validated">
+                        <form id="login-form" action="https://api.noroff.dev/social/auth/login" method="post" class="needs-validation" novalidate>
                           <div class="mb-3">
                             <label for="loginEmail" class="form-label">Valid Noroff Email</label>
-                            <input type="email" class="form-control" id="loginEmail" name="email" autocomplete="email" required>
+                            <input type="email" class="form-control" id="loginEmail" name="email" autocomplete="email" required pattern="^[a-zA-Z0-9._%+\-]+@(noroff\.no|stud\.noroff\.no)$" placeholder="@noroff.no/@stud.noroff.no" >
                             <div class="valid-feedback">
                               Looks good!
                             </div>
                             <div class="invalid-feedback" id="invalid-login-email">
-                              Please enter a valid noroff mail address.
+                              Please enter a valid Noroff mail address.
                             </div>
                           </div>
                           <div class="mb-3">
                             <label for="loginPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="loginPassword" name="password" autocomplete="current-password" required minlength="8">
+                            <input type="password" class="form-control" id="loginPassword" name="password" autocomplete="current-password" required placeholder="Minimum 8 characters" minlength="8">
                             <div class="valid-feedback">
                               Looks good!
                             </div>
@@ -103,7 +103,7 @@
                             <input type="checkbox" class="form-check-input" id="remember">
                             <label class="form-check-label" for="remember">Remember me</label>
                           </div>
-                          <button type="submit" class="btn btn-warning">Login</button>
+                          <button type="submit" class="btn btn-warning" id="login-button">Login</button>
                         </form>
 
                       </div>
@@ -121,30 +121,30 @@
                         Sign Up
                       </div>
                       <div class="card-body">
-                        <form id="signup-form" action="https://api.noroff.dev/social/auth/register" method="post" class="needs-validation was-validated" enctype="multipart/form-data">
+                        <form id="signup-form" action="https://api.noroff.dev/social/auth/register" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
                           <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="registerName" name="name" required aria-label="Choose Username">
+                            <label for="registerName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="registerName" name="name" required pattern="[a-zA-Z0-9_]+" placeholder="Name or Nickname" aria-label="Choose Username">
                             <div class="valid-feedback">
                               Looks good!
                             </div>
                             <div class="invalid-feedback">
-                              Please enter your name.
+                              No symbols apart from underscore (_).
                             </div>
                           </div>
                           <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="registerEmail" name="email" autocomplete="email" required aria-label="Valid Noroff Email Address">
+                            <label for="registerEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="registerEmail" name="email" autocomplete="email" required pattern="^[a-zA-Z0-9._%+\-]+@(noroff\.no|stud\.noroff\.no)$" placeholder="@noroff.no/@stud.noroff.no" aria-label="Valid Noroff Email Address">
                             <div class="valid-feedback">
                               Looks good!
                             </div>
                             <div class="invalid-feedback">
-                              Please enter a valid email address.
+                              Please enter a valid Noroff email address.
                             </div>
                           </div>
                           <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" autocomplete="new-password" required minlength="8">
+                            <input type="password" class="form-control" id="password" name="password" autocomplete="new-password" required placeholder="Minimum 8 characters" minlength="8">
                             <div class="valid-feedback">
                               Looks good!
                             </div>
@@ -166,7 +166,7 @@
                             </div>
                           </div>
 
-                          <button type="submit" class="btn btn-warning">Sign Up</button>
+                          <button type="submit" class="btn btn-warning" id="registerButton">Sign Up</button>
                         </form>
                       </div>
                     </div>

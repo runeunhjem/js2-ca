@@ -160,7 +160,7 @@ async function updateProfilePage(profileData) {
     if (profileData.banner) {
       bannerImageElement.style.backgroundImage = `url(${profileData.banner})`;
     } else {
-      bannerImageElement.style.backgroundImage = 'url("https://picsum.photos/id/857/1600/200")';
+      bannerImageElement.style.backgroundImage = 'url("../img/banner.jpg")';
     }
     if (profileData.avatar) {
       avatarImageElement.style.backgroundImage = `url(${profileData.avatar})`;
@@ -173,7 +173,7 @@ async function updateProfilePage(profileData) {
     if (currentUserData.banner) {
       bannerImageElement.style.backgroundImage = `url(${currentUserData.banner})`;
     } else {
-      bannerImageElement.style.backgroundImage = 'url("https://picsum.photos/id/857/1600/200")';
+      bannerImageElement.style.backgroundImage = 'url("../img/banner.jpg")';
     }
     if (currentUserData.avatar) {
       avatarImageElement.style.backgroundImage = `url(${currentUserData.avatar})`;

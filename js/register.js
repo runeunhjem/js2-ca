@@ -1,11 +1,11 @@
-import { API_BASE_URL } from "./variables/consts.mjs";
+import { API_BASE_URL, registerURL } from "./variables/consts.mjs";
 
 document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.getElementById("signup-form");
 
   registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-
+    registerForm.classList.add("was-validated");
     try {
       const formData = new FormData(registerForm);
 
@@ -19,21 +19,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
       console.log("userData:", userData);
 
-      const registerURL = `${API_BASE_URL}/social/auth/register`;
+      // const registerURL = `${API_BASE_URL}/social/auth/register`;
 
       const response = await fetch(registerURL, {
         method: "POST",
-        body: JSON.stringify(userData), // Convert userData object to JSON
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(userData), // Convert userData object to JSON
       });
 
       const json = await response.json();
       if (response.status >= 200 && response.status <= 299) {
-        localStorage.setItem("loggedInUser", userData.name);
+        // localStorage.setItem("loggedInUser", userData.name);
         console.log("Registration successful!");
-        window.location.href = "/profile/";
+        localStorage.setItem("loggedInUser", json.name);
+        // localStorage.setItem("currentProfileName", json.name);
+        // localStorage.setItem("authorName", json.name);
+        // localStorage.setItem("URLProfilename", json.name);
+        // localStorage.setItem("loggedInUserData", JSON.stringify(json));
+        // localStorage.setItem("currentUserData", JSON.stringify(json));
+        console.log("Registration successful!");
+        // localStorage.setItem("isFollowing", false);
+        // localStorage.setItem("isLoggedIn", true);
+
+        console.log(`Name: ${localStorage.getItem("loggedInUser")}`);
+        // const URLProfilename = json.name;
+        // const currentProfileURL = `../profile/index.html?name=${encodeURIComponent(URLProfilename)}`;
+        const registerButton = document.getElementById("registerButton");
+        registerButton.classList.remove("btn-warning");
+        registerButton.textContent = "Registration successful!";
+        registerButton.classList.add("btn-success", "text-light", "fw-bold");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       } else {
         console.log("Registration failed!");
       }

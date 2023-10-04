@@ -32,6 +32,9 @@ export async function loginUser(url, userData) {
       localStorage.setItem("accessToken", accessToken);
       // let loggedInUser = json.name;
       localStorage.setItem("loggedInUser", json.name);
+      localStorage.setItem("currentProfileName", json.name);
+      localStorage.setItem("authorName", json.name);
+      localStorage.setItem("URLProfilename", json.name);
       localStorage.setItem("isFollowing", false);
       localStorage.setItem("isLoggedIn", true);
 
@@ -46,8 +49,13 @@ export async function loginUser(url, userData) {
         localStorage.removeItem("rememberMe");
         localStorage.removeItem("savedEmail");
       }
-
-      window.location.href = currentProfileURL;
+      const loginButton = document.getElementById("login-button");
+      loginButton.classList.remove("btn-warning");
+      loginButton.textContent = "Success";
+      loginButton.classList.add("btn-success", "text-light", "fw-bold");
+      setTimeout(() => {
+        window.location.href = currentProfileURL;
+      }, 300);
     } else {
       console.log("Login failed!");
     }

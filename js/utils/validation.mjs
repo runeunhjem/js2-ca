@@ -1,4 +1,5 @@
 export function validateLoginForm() {
+
   const registerForm = document.getElementById("signup-form");
   const registerButton = document.getElementById("register-button");
   const userName = document.getElementById("registerName");
