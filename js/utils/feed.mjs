@@ -1,4 +1,4 @@
-import { currentProfileName, loggedInUser, postsURL, reactToPostURL, reactionOptions } from "../variables/consts.mjs";
+import { currentProfileName, authorUserData, loggedInUser, postsURL, reactToPostURL, reactionOptions } from "../variables/consts.mjs";
 // export const urlParams = new URLSearchParams(window.location.search);
 // const URLProfilename = urlParams.get("name");
 import { deletePost } from "./delete-posts.mjs";
@@ -54,7 +54,7 @@ export function createPostCard(post) {
   authorInfoDiv.classList.add("d-block", "d-sm-flex", "align-items-center");
 
   const authorName = document.createElement("h6");
-  authorName.classList.add("d-sm-flex", "card-title", "mb-0", "me-1", "ps-1");
+  authorName.classList.add("d-block", "d-sm-flex", "card-title", "mb-0", "me-1", "ps-1");
   authorName.setAttribute("data-authorname", post.author.name); // Set the actual author"s name as the attribute value
   authorName.textContent = post.author.name;
 
@@ -156,7 +156,7 @@ export function createPostCard(post) {
   postDate.textContent = createdDate.toLocaleString();
 
   const viewPostLink = document.createElement("a");
-  viewPostLink.classList.add("nav-link", "text-primary", "m-0", "p-2", "view-post-link");
+  viewPostLink.classList.add("nav-link", "text-primary", "m-0", "p-2", "view-post-link", "d-block", "d-sm-flex");
   viewPostLink.style.setProperty("class", "align-items-start", "important");
   const postPageURL = `../feed/post.html?postId=${post.id}`;
   viewPostLink.href = postPageURL;
@@ -186,7 +186,7 @@ export function createPostCard(post) {
 
   // Create an image element
   const postMedia = document.createElement("img");
-  postMedia.classList.add("card-media", "m-0", "p-2", "rounded", "shadow");
+  postMedia.classList.add("card-media", "m-1", "p-2", "rounded", "shadow");
   postMedia.src = post.media; // Set the image source URL
   // console.log(`post.media: ${post.media}`);
   postMedia.alt = "Post Image"; // Set the image alt attribute
@@ -203,7 +203,7 @@ export function createPostCard(post) {
     postMedia.style.width = "100px";
     postMedia.classList.add("ms-3");
     viewPostLink.style.setProperty("class", "align-items-start", "important");
-    viewPostLink.classList.add("d-flex", "align-items-start", "ps-2");
+    viewPostLink.classList.add("align-items-start", "ps-2");
   }
 
   // Append the image element just underneath postText
@@ -392,10 +392,14 @@ function handleDeleteClick(event) {
 }
 // handleDeleteClick();
 
-function handlePostCardClick(event) {
+async function handlePostCardClick(event) {
   const card = event.currentTarget; // Get the clicked postCard element
+  // console.log("card is: ", card );
   const postId = card.getAttribute("data-post-id"); // Extract postId from data attribute
   const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author"s name from the data attribute
+
+
+
   // Store postId in localStorage
   localStorage.setItem("postId", postId);
   localStorage.setItem("authorName", authorName);

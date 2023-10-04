@@ -6,6 +6,7 @@ export const loggedInUser = localStorage.getItem("loggedInUser");
 export const loggedInUserData = JSON.parse(localStorage.getItem("loggedInUserData"));
 export const currentProfileName = localStorage.getItem("currentProfileName");
 export const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
+export const authorUserData = JSON.parse(localStorage.getItem("authorUserData"));
 export const isFollowing = localStorage.getItem("isFollowing");
 export const isLoggedIn = localStorage.getItem("isLoggedIn");
 export const host = "api.noroff.dev";
@@ -30,6 +31,7 @@ export const currentProfilePosts = JSON.parse(localStorage.getItem("currentProfi
 export const searchURL = `${API_BASE_URL}/social/posts?_comments=true&_author=true&_reactions=true&_count=true`;
 export const profilePostsData = JSON.parse(localStorage.getItem("profilePostsData"));
 export const postId = localStorage.getItem("postId");
+export const getSinglePostURL = `https://api.noroff.dev/api/v1/social/posts/${postId}?_comments=true&_author=true&_reactions=true`;
 export const authorName = localStorage.getItem("authorName");
 
 export const profileLinks = document.querySelectorAll(".profile-link");

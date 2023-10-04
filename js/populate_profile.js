@@ -42,27 +42,6 @@ async function getProfileData(profileURL, fetchOptions) {
       }
 
 
-      // // Check if loggedInUserData.following includes the current user's name
-      // // const currentUserData = JSON.parse(localStorage.getItem("currentUserData"));
-      // console.log("currentUserData:", currentUserData);
-
-      // if (loggedInUserData && loggedInUserData.following) {
-      //   const isCurrentUserFollowing = loggedInUserData.following.some((item) => item.name === currentUserData.name);
-      //   console.log(`isCurrentUserFollowing = ${isCurrentUserFollowing}`);
-      //   localStorage.setItem("isFollowing", isCurrentUserFollowing);
-
-      //   // const isFollowing = localStorage.getItem("isFollowing");
-      //   console.log(`isFollowing = ${isFollowing}`);
-
-      //   if (isFollowing === "true") {
-      //     followText.textContent = "Unfollow";
-      //     followButton.disabled = false;
-      //   } else {
-      //     console.log("Current user is not being followed by loggedInUser.");
-      //     followText.textContent = "Follow";
-      //     followButton.disabled = false;
-      //   }
-
 
       if (!loggedInUserData) {
         localStorage.setItem("loggedInUserData", JSON.stringify(json));
@@ -129,6 +108,25 @@ export async function getProfilePosts() {
 }
 
 async function updateProfilePage(profileData) {
+  await getProfilePosts();
+  const profileImageElement = document.querySelector(".profile-image");
+
+  if (profileImageElement) {
+    // Check if loggedInUserData is defined and contains the 'avatar' property
+    if (loggedInUserData && loggedInUserData.avatar) {
+      // Set the "src" attribute to the avatar URL from loggedInUserData
+      profileImageElement.src = loggedInUserData.avatar;
+
+    } else if (currentUserData && currentUserData.avatar) {
+      // Set a default avatar URL if loggedInUserData or 'avatar' property is missing
+
+      profileImageElement.src = currentUserData.avatar;
+
+    } else {
+      profileImageElement.src = "https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg";
+    }
+  }
+
   // Check if profileData exists
   if (profileData) {
     // console.log("profileData populate: ", profileData);

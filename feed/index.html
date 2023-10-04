@@ -18,9 +18,9 @@
   <header class="mx-auto container-fluid bg-dark">
     <nav class="navbar navbar-expand-md pt-4 bg-dark align-items-center mx-auto max-width-1200">
       <a class="navbar-brand header-logo mb-2 ms-5 ms-md-0 mx-md-auto justify-content-start" href="../index.html" alt="movieTALK Logo"><span class="visually-hidden">Home</span></a>
-      <div class="container mx-auto d-flex align-items-start justify-content-end">
+      <div class="container mx-auto d-flex align-items-start justify-content-md-end d-flex flex-nowrap">
         <div class="row align-items-center w-100">
-          <div class="col-4 justify-content-end col-sm-4 col-md-6 m-1">
+          <div class="col-4 justify-content-end col-sm-4 col-md-6 m-1 w-100">
             <button
               class="btn-outline-warning navbar-toggler bg-warning mb-2 me-3"
               type="button"
@@ -35,13 +35,13 @@
             <div class="collapse navbar-collapse text-primary w-100" id="navbarMenu">
               <ul class="navbar-nav mb-lg-2 w-100">
                 <li class="nav-item me-3 mb-2 py-0 text-warning bg-dark w-100">
-                  <a class="nav-link text-warning rounded-2 py-0 ps-2 logout-link w-100" href="../index.html">Logout</a>
+                  <a class="nav-link text-warning rounded-2 py-1 ps-2 logout-link w-100" href="../index.html">Logout</a>
                 </li>
                 <li class="nav-item me-3 mb-2 py-0 text-warning bg-dark w-100">
-                  <a class="nav-link text-dark bg-warning active rounded-2 py-0  ps-2 profile-link w-100" aria-current="page" href="../index.html">Profile</a>
+                  <a class="nav-link text-warning rounded-2 py-1 ps-2 profile-link w-100" href="../profile/index.html">Profile</a>
                 </li>
                 <li class="nav-item me-3 mb-3 py-0 text-warning bg-dark w-100">
-                  <a class="nav-link text-warning rounded-2 py-0  ps-2 w-100" href="index.html">Feed</a>
+                  <a class="nav-link text-dark bg-warning active  rounded-2 py-1 ps-3 w-100" aria-current="page" href="./index.html">Feed</a>
                 </li>
               </ul>
             </div>
@@ -92,7 +92,7 @@
                 <span class="nav-link p-1 rounded-0"><a href="#" alt="Movie News" class="text-dark text-decoration-none"><i class="me-1 bi bi-lightning"></i><span class="icons">News</span></span></a>
               </li>
               <li class="nav-item">
-                <span class="nav-link p-1 rounded-0"><a alt="View Profile" class="text-dark text-decoration-none profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><i class="me-1 bi bi-person"></i><span class="icons">Profile</span></a>
+                <span class="nav-link p-1 rounded-0"><a alt="View Profile" class="text-warning text-decoration-none profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><i class="me-1 bi bi-person"></i><span class="icons">Profile</span></a>
               </li>
               <li class="nav-item" data-bs-target="#createPostForm" id="createButtonLeft">
                 <span class="nav-link shadow p-1 p-1 rounded-0 text-decoration-none">
@@ -112,19 +112,12 @@
 
           <div class="card border-0">
             <div class="align-items-center card-body bg-info shadow rounded-top p-1">
-              <!-- <span class="nav-link p-1 rounded"><a href="#" alt="Open Menu" class="text-dark text-decoration-none"><i class="me-1 bi bi-list"></i><span class="icons d-none d-sm-inline-flex">Feed</span></span></a> -->
-              <!-- <span class="nav-link p-1 rounded"><a href="#" alt="Movie News" class="text-dark text-decoration-none"><i class="me-1 bi bi-lightning"></i><span class="icons d-none d-sm-inline-flex">News</span></span></a> -->
-              <!-- <span class="nav-link active text-danger shadow bg-warning mb-1 p-1 rounded text-decoration-none"><i class="me-1 bi bi-chat-dots"></i><span class="icons">Create Post</span><i class="ms-1 bi bi-chevron-up"></i></span> -->
-              <!-- <span class="nav-link p-1 rounded"><a alt="View Profile" class="text-dark text-decoration-none profile-link" href="/profile/"><i class="me-1 bi bi-person"></i><span class="icons d-none d-sm-inline-flex">Profile</span></a> -->
-
               <ul class="nav bg-info container-fluid justify-content-between p-0 m-auto align-items-center">
                 <li class="nav-item">
                   <a alt="rounded View Profile" class="nav-link d-flex align-items-center shadow rounded-circle p-0 mt-1 profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><span class="visually-hidden">View Profile</span><img src="../img/profile.jpg" alt="View Profile" class="img-fluid p-0 m-0 profile-image rounded-circle"></a>
-                  <!-- <a class="active bg-warning" aria-current="page" href="#">Active</a> -->
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="rounded nav-link active dropdown-toggle text-dark text-decoration-none" data-bs-toggle="dropdown" href="#" alt="Open Menu" role="button" aria-expanded="false"><i class="me-1 bi bi-list"></i><span class="icons d-none d-sm-inline-flex">Feed</span></a>
-                  <!-- <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a> -->
+                  <a class="rounded nav-link dropdown-toggle text-dark text-decoration-none" data-bs-toggle="dropdown" href="#" alt="Open Menu" role="button" aria-expanded="false"><i class="me-1 bi bi-list"></i><span class="icons d-none d-sm-inline-flex">Feed</span></a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Action</a></li>
                     <li><a class="dropdown-item" href="#">Another action</a></li>
@@ -143,7 +136,6 @@
                 </li>
                 <li class="nav-item">
                   <a href="#" alt="Movie News" class="rounded nav-link text-dark text-decoration-none"><i class="me-1 bi bi-lightning"></i><span class="icons d-none d-sm-inline-flex">News</span></a>
-                  <!-- <a class="active bg-warning" aria-current="page" href="#">Active</a> -->
                 </li>
                 <li class="nav-item">
                   <a alt="View Profile" class="rounded nav-link text-dark text-decoration-none profile-link" href="/profile/"><i class="me-1 bi bi-person"></i><span class="icons d-none d-sm-inline-flex">Profile</span></a>
