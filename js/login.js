@@ -13,8 +13,8 @@ preFillFormFields();
       const formData = new FormData(loginForm);
       const formDataObject = Object.fromEntries(formData.entries());
 
-      console.log(`formDataObject: ${formDataObject}`);
-      console.log(`loginForm: ${loginForm}`);
+      // console.log(`formDataObject: ${formDataObject}`);
+      // console.log(`loginForm: ${loginForm}`);
 
       const loginURL = `${API_BASE_URL}/social/auth/login`;
       await loginUser(loginURL, formDataObject);

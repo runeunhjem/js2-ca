@@ -27,10 +27,11 @@ export const reactionsAndCommentsURL = `${API_BASE_URL}/social/profiles/${URLPro
 export const token = localStorage.getItem("accessToken");
 // export const currentProfilePosts = JSON.parse(localStorage.getItem("currentProfilePosts"));
 export const currentProfilePosts = JSON.parse(localStorage.getItem("currentProfilePosts"));
-// export const searchURL = `${API_BASE_URL}/social/posts?&limit=10&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
+// export const searchURL = `${API_BASE_URL}/social/posts?&limit=100&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
 export const searchURL = `${API_BASE_URL}/social/posts?_comments=true&_author=true&_reactions=true&_count=true`;
 export const profilePostsData = JSON.parse(localStorage.getItem("profilePostsData"));
 export const postId = localStorage.getItem("postId");
+
 export const getSinglePostURL = `https://api.noroff.dev/api/v1/social/posts/${postId}?_comments=true&_author=true&_reactions=true`;
 export const authorName = localStorage.getItem("authorName");
 

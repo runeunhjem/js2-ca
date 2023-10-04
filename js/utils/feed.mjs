@@ -1,4 +1,4 @@
-import { currentProfileName, authorUserData, loggedInUser, postsURL, reactToPostURL, reactionOptions } from "../variables/consts.mjs";
+import { API_BASE_URL, currentProfileName, authorUserData, loggedInUser, postsURL, reactToPostURL, reactionOptions } from "../variables/consts.mjs";
 // export const urlParams = new URLSearchParams(window.location.search);
 // const URLProfilename = urlParams.get("name");
 import { deletePost } from "./delete-posts.mjs";
@@ -40,7 +40,7 @@ export function createPostCard(post) {
     // console.log(`post.media (Avatar): ${post.media}`);
   } else {
     // Use Picsum placeholder if avatar isn"t there
-    const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
+    // const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
     avatarImg.src = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
     // avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
   }
@@ -156,11 +156,18 @@ export function createPostCard(post) {
   postDate.textContent = createdDate.toLocaleString();
 
   const viewPostLink = document.createElement("a");
-  viewPostLink.classList.add("nav-link", "text-primary", "m-0", "p-2", "view-post-link", "d-block", "d-sm-flex");
+  viewPostLink.classList.add("nav-link", "text-primary", "m-0", "p-2", "view-post-link", "align-items-start");
+  if (window.location.href.includes("/profile/") || window.location.href.includes("/post.html")) {
+    viewPostLink.classList.add("d-block");
+  } else {
+    viewPostLink.classList.add("d-flex");
+  }
   viewPostLink.style.setProperty("class", "align-items-start", "important");
   const postPageURL = `../feed/post.html?postId=${post.id}`;
   viewPostLink.href = postPageURL;
-  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-1"></i> ${post.title}`;
+  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-1"></i>`;
+  viewPostLink.appendChild(document.createTextNode(post.title));
+
 
   // Check if the current page is "post.html"
   if (window.location.pathname.includes("post.html")) {
@@ -276,6 +283,9 @@ export function createPostCard(post) {
   likeButton.addEventListener("click", async () => {
     try {
       console.log(`postId: ${post.id}`);
+      // console.log(`reactToPostURL: ${reactToPostURL}`);
+      const reactToPostURL = `${API_BASE_URL}/social/posts/${post.id}/react/👍`;
+      console.log(`reactToPostURL: ${reactToPostURL}`);
       // Make an API request to add the reaction
       const response = await fetch(reactToPostURL, reactionOptions);
       // console.log("response: ", response);
@@ -294,39 +304,6 @@ export function createPostCard(post) {
       console.error("An error occurred while adding a like:", error);
     }
   });
-
-  // const moreButton = document.createElement("button");
-  // moreButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1", "dropdown-toggle", "more-button");
-  // moreButton.setAttribute("data-bs-toggle", "dropdown");
-  // moreButton.setAttribute("aria-expanded", "false");
-  // moreButton.innerHTML = `<i class="bi bi-three-dots-vertical"></i> More`;
-  // // The button dropdown menu
-
-  // // Attach event listener to the "More" button
-  // moreButton.addEventListener("click", (event) => {
-  //   event.stopPropagation(); // Prevent the event from reaching the document click event
-
-  //   const dropdownMenu = event.target.nextElementSibling; // Get the dropdown menu
-  //   dropdownMenu.classList.toggle("show"); // Toggle the dropdown menu"s visibility
-  // });
-
-  // const dropdownMenu = document.createElement("ul");
-  // dropdownMenu.classList.add("dropdown-menu", "bg-info", "shadow", "border-0");
-
-  // // Menu items
-  // const menuItems = ["Edit", "Delete", "Share"];
-
-  // menuItems.forEach((itemText) => {
-  //   const menuItem = document.createElement("li");
-  //   const button = document.createElement("button");
-  //   button.classList.add("dropdown-item");
-  //   button.type = "button";
-  //   button.textContent = itemText;
-  //   menuItem.appendChild(button);
-  //   dropdownMenu.appendChild(menuItem);
-  // });
-
-  // moreButton.appendChild(dropdownMenu);
 
   const commentButton = document.createElement("button");
   commentButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
@@ -390,7 +367,7 @@ function handleDeleteClick(event) {
     }
   }
 }
-// handleDeleteClick();
+// // handleDeleteClick();
 
 async function handlePostCardClick(event) {
   const card = event.currentTarget; // Get the clicked postCard element
@@ -416,8 +393,8 @@ function handlePostCardMouseLeave(event) {
   const postId = card.getAttribute("data-post-id"); // Extract postId from data attribute
   const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author"s name from the data attribute
   // Store postId in localStorage
-  localStorage.removeItem("postId");
-  localStorage.removeItem("authorName");
+  // localStorage.removeItem("postId");
+  // localStorage.removeItem("authorName");
 
   if (authorName !== loggedInUser) {
     localStorage.setItem("isLoggedIn", false);
