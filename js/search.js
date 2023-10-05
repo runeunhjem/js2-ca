@@ -53,7 +53,9 @@ async function fetchAllSearchResults(url, query) {
 async function handleSearch(event) {
   event.preventDefault();
   const query = document.querySelector('input[name="searchQuery"]').value;
-
+  const spinner = document.querySelector(".spinner-border");
+  spinner.classList.remove("d-none");
+  
   try {
     const searchResults = await fetchAllSearchResults(searchURL, query);
     displaySearchResults(searchResults);
@@ -61,12 +63,16 @@ async function handleSearch(event) {
     if (!error.message.includes("https://picsum.photos")) {
       console.error("Error:", error);
     }
+  } finally {
+    spinner.classList.add("d-none"); // Hide the spinner after the API call
   }
 }
 
 function displaySearchResults(results) {
   const feedPosts = document.getElementById("feed-posts");
-
+  const query = document.querySelector('input[name="searchQuery"]').value;
+  const title = query ? `${results.length} search results for ${query}` : "Search results";
+  document.title = title; // Set the document title with the total number of results
   // Clear previous search results
   feedPosts.innerHTML = "";
 
@@ -81,6 +87,7 @@ function displaySearchResults(results) {
     });
   }
 }
+
 
 // Event listener for the search form
 const searchForm = document.getElementById("searchForm");

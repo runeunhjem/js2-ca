@@ -28,6 +28,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       const card = this.getElementById("feed-posts");
       card.classList.add("card", "m-0", "p-3", "fw-bold", "text-muted", "my-1", "bg-info", "shadow-sm");
+      const spinner = document.querySelector(".spinner-border");
+      spinner.classList.add("d-none");
       card.innerHTML = "<p>No posts found.</p>";
     }
   } catch (error) {
