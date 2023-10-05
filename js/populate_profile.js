@@ -123,15 +123,17 @@ async function updateProfilePage(profileData) {
       profilePostsElement.textContent = profileData._count.posts;
     }
 
-    if (profileData.banner || profileData.avatar) {
-      bannerImageElement.style.backgroundImage = profileData.banner
-        ? `url(${profileData.banner})`
-        : 'url("../img/banner.jpg")';
-      avatarImageElement.style.backgroundImage = profileData.avatar
-        ? `url(${profileData.avatar})`
-        : 'url("https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg")';
+    if (!profileData.banner) {
+      bannerImageElement.style.backgroundImage = `url(../img/banner.jpg)`;
+    } else {
+      bannerImageElement.style.backgroundImage = `url(${profileData.banner})`;
+    }
 
-      // console.log(`1url(${profileData.avatar})`);
+    if (!profileData.avatar) {
+      // avatarImageElement.style.backgroundImage = `url("https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg")`;
+      
+    } else {
+      avatarImageElement.style.backgroundImage = `url(${profileData.avatar})`;
     }
   }
 }

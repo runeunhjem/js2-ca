@@ -87,6 +87,30 @@
             </div>
           </div>
           <div class="col-md-7">
+            <div class="d-flex justify-content-between align-items-center mt-4">
+            <h1 class="text-center text-dark main-header">Your posts</h1>
+            <div class="dropdown">
+              <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort Feed
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end flex-column ml-3">
+                <li class="dropdown-item">
+                    <a href="#" class="text-dark text-decoration-none py-0 rounded-0">By Date</a>
+                </li>
+                <li class="dropdown-item">
+                    <a href="#" class="text-dark text-decoration-none py-0 rounded-0">By Name</a>
+                </li>
+                <li class="p-0 m-0">
+                  <select class="form-select border-0 me-0" aria-label="Select Category">
+                    <option selected>By Category</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Action">Action</option>
+                    <option value="Fantasy">Fantasy</option>
+                  </select>
+                </li>
+              </ul>
+            </div>
+          </div>
             <div class="loadingIndicator" id="loadingIndicator"></div>
             <a href="#" aria-label="Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
               <div class="back-to-top-button bg-warning text-dark pt-1 px-3 pb-2"></div>

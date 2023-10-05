@@ -69,10 +69,12 @@ async function handleSearch(event) {
 }
 
 function displaySearchResults(results) {
-
+  const mainHeader = document.querySelector(".main-header");
   const query = document.querySelector('input[name="searchQuery"]').value;
+  const mainHeaderTitle = query ? `${results.length} results for ${query}` : "Search results";
   const title = query ? `${results.length} search results for ${query}` : "Search results";
-  document.title = title; // Set the document title with the total number of results
+  document.title = title;
+  mainHeader.innerHTML = mainHeaderTitle;
 
   let feedPosts;
   if (window.location.pathname.includes("/post.html")) {
