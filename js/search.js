@@ -55,7 +55,7 @@ async function handleSearch(event) {
   const query = document.querySelector('input[name="searchQuery"]').value;
   const spinner = document.querySelector(".spinner-border");
   spinner.classList.remove("d-none");
-  
+
   try {
     const searchResults = await fetchAllSearchResults(searchURL, query);
     displaySearchResults(searchResults);
@@ -69,11 +69,19 @@ async function handleSearch(event) {
 }
 
 function displaySearchResults(results) {
-  const feedPosts = document.getElementById("feed-posts");
+
   const query = document.querySelector('input[name="searchQuery"]').value;
   const title = query ? `${results.length} search results for ${query}` : "Search results";
   document.title = title; // Set the document title with the total number of results
-  // Clear previous search results
+
+  let feedPosts;
+  if (window.location.pathname.includes("/post.html")) {
+    // Set feedPosts for the post.html page
+    feedPosts = document.getElementById("view-post");
+  } else {
+    // Set feedPosts for other pages
+    feedPosts = document.getElementById("feed-posts");
+  }
   feedPosts.innerHTML = "";
 
   if (results.length === 0) {

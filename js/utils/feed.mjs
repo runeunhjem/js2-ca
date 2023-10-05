@@ -1,4 +1,11 @@
-import { API_BASE_URL, currentProfileName, authorUserData, loggedInUser, postsURL, reactionOptions } from "../variables/consts.mjs";
+import {
+  API_BASE_URL,
+  currentProfileName,
+  authorUserData,
+  loggedInUser,
+  postsURL,
+  reactionOptions,
+} from "../variables/consts.mjs";
 // export const urlParams = new URLSearchParams(window.location.search);
 // const URLProfilename = urlParams.get("name");
 import { deletePost } from "./delete-posts.mjs";
@@ -55,6 +62,7 @@ export function createPostCard(post) {
 
   const authorName = document.createElement("h6");
   authorName.classList.add("d-block", "d-sm-flex", "card-title", "mb-0", "me-1", "ps-1");
+
   authorName.setAttribute("data-authorname", post.author.name); // Set the actual author"s name as the attribute value
   authorName.textContent = post.author.name;
 
@@ -167,7 +175,6 @@ export function createPostCard(post) {
   viewPostLink.href = postPageURL;
   viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-1"></i>`;
   viewPostLink.appendChild(document.createTextNode(post.title));
-
 
   // Check if the current page is "post.html"
   if (window.location.pathname.includes("post.html")) {
@@ -367,8 +374,6 @@ async function handlePostCardClick(event) {
   const postId = card.getAttribute("data-post-id"); // Extract postId from data attribute
   const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author"s name from the data attribute
 
-
-
   // Store postId in localStorage
   localStorage.setItem("postId", postId);
   localStorage.setItem("authorName", authorName);
@@ -378,7 +383,6 @@ async function handlePostCardClick(event) {
   } else if (authorName === loggedInUser) {
     localStorage.setItem("isLoggedIn", true);
   }
-
 }
 function handlePostCardMouseLeave(event) {
   const card = event.currentTarget; // Get the clicked postCard element
@@ -393,7 +397,6 @@ function handlePostCardMouseLeave(event) {
   } else if (authorName === loggedInUser) {
     localStorage.setItem("isLoggedIn", true);
   }
-
 }
 
 // // Attach the event listener to a common parent element or document

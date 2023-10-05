@@ -18,7 +18,14 @@ export const unfollowURL = `${API_BASE_URL}/social/profiles/${currentProfileName
 export const profileFollowButton = document.getElementById("loggedInProfileFollow");
 export const followText = document.getElementById("follow-text");
 export const urlParams = new URLSearchParams(window.location.search);
-export const URLProfilename = urlParams.get("name");
+export const nameParam = urlParams.get("name");
+
+let URLProfilename = null;
+if (nameParam) {
+  URLProfilename = nameParam;
+}
+export { URLProfilename };
+
 export const profileURL = `${API_BASE_URL}/social/profiles/${URLProfilename}?_following=true&_followers=true&_posts=true`;
 export const profilePostsURL = `${API_BASE_URL}/social/profiles/${URLProfilename}/posts?_following=true&_followers=true&_posts=true&_comments=true&_author=true&_reactions=true`;
 export const reactionsAndCommentsURL = `${API_BASE_URL}/social/profiles/${URLProfilename}?_reactions=true&_comments=true&_count=true`;

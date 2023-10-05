@@ -8,26 +8,37 @@ import {
   followText,
   loggedInUserData,
   isFollowing,
+  urlParams,
+  URLProfilename,
+  isLoggedIn,
 } from "./variables/consts.mjs";
 // import { handleSearch } from "./search.js";
-const urlParams = new URLSearchParams(window.location.search);
-const URLProfilename = urlParams.get("name");
+// const urlParams = new URLSearchParams(window.location.search);
+// const URLProfilename = urlParams.get("name");
 
 async function getProfileData(profileURL, fetchOptions) {
   try {
     const response = await fetch(profileURL, fetchOptions);
     const json = await response.json();
-    console.log("profileData is:", json);
+    console.log("profileData 1 is:", json);
     const followButton = document.getElementById("loggedInProfileFollow");
     // const followText = document.getElementById("button-text");
 
     if (!json) {
       window.location.reload();
     } else {
+      // console.log("profileData 2 is:", json);
+      console.log("loggedInUser is :", loggedInUser);
+      const loggedInUserLowerCase = loggedInUser.toLowerCase();
+      const followersLowercase = json.followers.map((follower) => follower.name.toLowerCase());
+      const followedByLoggedInUser = followersLowercase.includes(loggedInUserLowerCase);
+
+      console.log("followedByLoggedInUser is ", followedByLoggedInUser);
       if (loggedInUser === URLProfilename) {
         followText.textContent = "Can't follow you...";
         followButton.disabled = true;
-      } else if (loggedInUserData && loggedInUserData.following && loggedInUserData.following.includes(URLProfilename)) {
+      } else if (followedByLoggedInUser) {
+      // } else if (loggedInUserData && loggedInUserData.following && loggedInUserData.following.includes(json.name)) {
         followText.textContent = "Unfollow";
         followButton.disabled = false;
         console.log("currentUserData.followers =", currentUserData.followers);
@@ -113,6 +124,7 @@ async function updateProfilePage(profileData) {
   const profileFollowButton = document.getElementById("loggedInProfileFollow");
   const bannerImageElement = document.getElementById("bannerImage");
   const avatarImageElement = document.getElementById("avatarImage");
+
   if (profileData) {
     // console.log("profileData populate: ", profileData);
 
@@ -142,10 +154,16 @@ async function updateProfilePage(profileData) {
       bannerImageElement.style.backgroundImage = profileData.banner
         ? `url(${profileData.banner})`
         : 'url("../img/banner.jpg")';
-      avatarImageElement.style.backgroundImage = profileData.avatar
-        ? `url(${profileData.avatar})`
-        : 'url("https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg")';
+      avatarImageElement.style.backgroundImage = `url(${profileData.avatar})`;
+      console.log(`url(${profileData.avatar})`);
+        // ? `url(${profileData.avatar})`
+        // : 'url("https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg")';
     }
+    else {
+      avatarImageElement.style.backgroundImage =
+        'url("https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg")';
+    }
+    // avatarImageElement.style.backgroundImage = `url(${profileData.avatar})`;
     // Don't need this else statement
     // else {
     //   // Handle the case where profileData is not found
@@ -170,8 +188,8 @@ getProfilePosts(profilePostsURL, fetchOptions)
     localStorage.setItem("currentProfilePosts", JSON.stringify(currentProfilePosts));
     if (!currentProfilePosts[0]) {
       const title = `${currentProfileName}'s profile`;
-        document.title = title; // Set the document title with the total number of results
-      } else {
+      document.title = title; // Set the document title with the total number of results
+    } else {
       console.log("currentProfilePosts[0].author.name: ", currentProfilePosts[0].author.name);
       localStorage.setItem("URLProfileURL", currentProfilePosts[0].author.name);
       // const title = currentProfileName
@@ -181,7 +199,7 @@ getProfilePosts(profilePostsURL, fetchOptions)
       //   : `${URLProfilename}'s profile`;
 
       // document.title = title; // Set the document title with the total number of results
-      }
+    }
 
     updateProfilePage(currentProfilePosts);
 
@@ -201,7 +219,7 @@ getProfilePosts(profilePostsURL, fetchOptions)
 initProfilePage();
 
 // Maybe handle this
-// const profileImageElement = document.querySelector(".profile-image");
+
 // if (profileImageElement) {
 //   // Check if loggedInUserData is defined and contains the 'avatar' property
 //   if (loggedInUserData && loggedInUserData.avatar) {
