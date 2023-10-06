@@ -91,21 +91,27 @@ export function createPostCard(post) {
     event.stopPropagation(); // Prevent the event from reaching the document click event
 
     const dropdownMenu = event.target.nextElementSibling; // Get the dropdown menu
-    dropdownMenu.classList.toggle("show"); // Toggle the dropdown menu"s visibility
+    if (dropdownMenu) {
+      dropdownMenu.classList.toggle("show"); // Toggle the dropdown menu's visibility if it exists
+    }
   });
 
   const dropdownMenu = document.createElement("ul");
   dropdownMenu.classList.add("dropdown-menu", "bg-info", "shadow", "border-0");
 
   // Menu items
-  const menuItems = ["Edit", "Delete", "Share"];
+  const menuItems = [
+    { text: "Edit", className: "edit-button" },
+    { text: "Delete", className: "delete-button" },
+    { text: "Share", className: "share-button" },
+  ];
 
-  menuItems.forEach((itemText) => {
+  menuItems.forEach((menuItemData) => {
     const menuItem = document.createElement("li");
     const button = document.createElement("button");
-    button.classList.add("dropdown-item");
+    button.classList.add("dropdown-item", menuItemData.className); // Add the specified class
     button.type = "button";
-    button.textContent = itemText;
+    button.textContent = menuItemData.text; // Access the 'text' property
     menuItem.appendChild(button);
     dropdownMenu.appendChild(menuItem);
   });
@@ -113,13 +119,10 @@ export function createPostCard(post) {
   moreButton.appendChild(dropdownMenu);
   card.appendChild(moreButton);
 
-  // Create an element for the post ID
   const postIdElement = document.createElement("div");
   postIdElement.setAttribute("data-post-id", post.id);
   postIdElement.classList.add("post-id", "position-absolute", "top-0", "end-0", "p-2", "text-muted", "fs-0");
   postIdElement.textContent = `ID: ${post.id}`;
-
-  // Append the post ID element to the card
   card.appendChild(postIdElement);
 
   const viewProfileLink = document.createElement("a");
@@ -164,7 +167,16 @@ export function createPostCard(post) {
   postDate.textContent = createdDate.toLocaleString();
 
   const viewPostLink = document.createElement("a");
-  viewPostLink.classList.add("nav-link", "text-primary", "m-0", "p-2", "view-post-link", "align-items-start", "flex-column", "justify-content-start");
+  viewPostLink.classList.add(
+    "nav-link",
+    "text-primary",
+    "m-0",
+    "p-2",
+    "view-post-link",
+    "align-items-start",
+    "flex-column",
+    "justify-content-start"
+  );
   if (window.location.href.includes("/profile/") || window.location.href.includes("/post.html")) {
     viewPostLink.classList.add("d-block");
   } else {
@@ -201,7 +213,17 @@ export function createPostCard(post) {
   // Create an image element
   const postMedia = document.createElement("img");
   postMedia.classList.add("card-media", "m-1", "p-2", "rounded", "shadow");
-  postMedia.src = post.media; // Set the image source URL
+
+  if (post.media) {
+    postMedia.src = post.media; // Set the image source URL if it exists
+  } else {
+    const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
+    postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+    postMedia.alt = "Post Image"; // Set the image alt attribute
+  }
+
+  // Rest of your code...
+
   // console.log(`post.media: ${post.media}`);
   postMedia.alt = "Post Image"; // Set the image alt attribute
   postMedia.style.width = "100%"; // Set the image width
@@ -352,21 +374,43 @@ document.addEventListener("click", (event) => {
   }
 });
 
+// *************** DO NOT WORK !!! FIX TOMORROW !!! ***************
+// document.addEventListener("DOMContentLoaded", function () {
+//   // Find the "Delete" button by its class
+//   const deleteButton = document.querySelector(".delete-button");
+
+//   // Check if the button element exists in the DOM
+//   if (deleteButton) {
+//     // Attach a click event listener to the "Delete" button
+//     deleteButton.addEventListener("click", function (event) {
+//       // This code will run when the "Delete" button is clicked
+//       console.log("Delete button clicked!");
+//       // You can add your delete functionality here
+//     });
+//   }
+// });
+
 // Function to handle the "Delete" action
 function handleDeleteClick(event) {
-  console.log(event);
-  const menuItem = event.target.textContent;
-  if (menuItem === "Delete") {
-    const postElement = event.target.closest(".post");
+  console.log("Delete button clicked"); // Add this line to log the click event
+  const button = event.target;
+  if (button.classList.contains("delete-button")) { // Check for the "delete-button" class
+    console.log("Delete button has 'delete-button' class"); // Add this line to log class check
+    const postElement = button.closest(".post");
     if (postElement) {
       const postId = postElement.getAttribute("data-post-id");
+      console.log(`postId: ${postId}`); // Add this line to log postId
       localStorage.setItem("postId", postId);
       // Call your deletePost function here if needed
       deletePost(postId);
+    } else {
+      console.log("No post element found"); // Add this line to log if postElement is not found
     }
   }
 }
+
 // // handleDeleteClick();
+
 
 async function handlePostCardClick(event) {
   const card = event.currentTarget; // Get the clicked postCard element
@@ -399,12 +443,14 @@ function handlePostCardMouseLeave(event) {
   }
 }
 
-// // Attach the event listener to a common parent element or document
+// Attach the event listener to a common parent element or document
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("dropdown-item")) {
     handleDeleteClick(event);
   }
 });
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
   // Check if the current page is within the /feed/ folder
