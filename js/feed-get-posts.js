@@ -121,7 +121,7 @@ document.querySelector("#sortFeedSelector").addEventListener("change", (e) => {
     sort = "created";
     sortOrder = "asc";
   }
-  // Define basePostsURL after changing the sort
+  
   basePostsURL = getBasePostsURL();
   console.log("sortFeedSelector before getfeedpostswith token basePostsURL: ", basePostsURL);
   getFeedPostsWithToken(basePostsURL, fetchOptions);

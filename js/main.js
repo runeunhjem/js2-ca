@@ -8,9 +8,17 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!accessToken) {
     const accessDeniedMessage = document.createElement("h1");
     accessDeniedMessage.textContent = "Access Denied";
+    accessDeniedMessage.classList.add("text-center", "text-danger");
 
     const additionalInfo = document.createElement("p");
     additionalInfo.textContent = "Please log in or sign up to access our site.";
+    additionalInfo.classList.add("d-flex", "flex-column", "align-items-center");
+
+    const loginLink = document.createElement("a"); // Use an anchor element for the link
+    loginLink.textContent = "Go to login.";
+    loginLink.href = "../index.html"; // Set the href attribute to specify the destination URL
+    loginLink.classList.add("text-center", "mt-3", "btn", "btn-warning"); // Add button styling to the link
+    additionalInfo.appendChild(loginLink);
 
     const mainContainer = document.querySelector("main");
     mainContainer.innerHTML = "";
@@ -18,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     mainContainer.appendChild(additionalInfo);
   }
 });
+
 
 toTopButton();
 
