@@ -201,46 +201,39 @@ export function createPostCard(post) {
   const postText = document.createElement("p");
   postText.classList.add("card-text", "my-0", "ps-2", "visible-content");
 
-  const maxWords = 4; // Adjust the maximum number of words to display
+ const maxWords = 4; // Adjust the maximum number of words to display
 
-  const words = post.body ? post.body.split(" ") : [];
-  const visibleContent = words.slice(0, maxWords).join(" ");
-  // console.log(`Visible Content: ${visibleContent}`);
-  const hiddenContent = words.slice(maxWords).join(" ");
+ const words = post.body ? post.body.split(" ") : [];
+ const visibleContent = words.slice(0, maxWords).join(" ");
+ const hiddenContent = words.slice(maxWords).join(" ");
+ postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
 
-  postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
+ // Create an image element
+ const postMedia = document.createElement("img");
+ postMedia.classList.add("card-media", "m-1", "p-2", "rounded", "shadow");
+ postMedia.alt = "Post Image"; // Set the image alt attribute
+ postMedia.style.width = "100%"; // Set the image width
 
-  // Create an image element
-  const postMedia = document.createElement("img");
-  postMedia.classList.add("card-media", "m-1", "p-2", "rounded", "shadow");
+ // Set the default placeholder image URL
+ const placeholderImage = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
 
-  if (post.media) {
-    postMedia.src = post.media; // Set the image source URL if it exists
-  } else {
-    const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
-    postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
-    postMedia.alt = "Post Image"; // Set the image alt attribute
-  }
+ // Determine the image source URL
+ const imageSource = post.media || `https://picsum.photos/id/${Math.floor(Math.random() * (500 - 200 + 1) + 100)}/200/300`;
 
-  // Rest of your code...
+ // Set the image source URL and handle errors
+ postMedia.src = imageSource;
+ postMedia.onerror = () => {
+   // Replace the failed image with the default placeholder image
+   postMedia.src = placeholderImage;
+ };
 
-  // console.log(`post.media: ${post.media}`);
-  postMedia.alt = "Post Image"; // Set the image alt attribute
-  postMedia.style.width = "100%"; // Set the image width
-  // postMedia.style.height = "50%"; // Set the image width
-  // postMedia.style.maxHeight = "200px"; // Set the image width
-  postMedia.onerror = () => {
-    // Replace the failed image with a default placeholder image
-    const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
-    postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
-  };
+ if (window.location.href.includes("/feed/index.html")) {
+   postMedia.style.width = "100px";
+   postMedia.classList.add("ms-3");
+   viewPostLink.style.setProperty("class", "align-items-start", "important");
+   viewPostLink.classList.add("align-items-start", "ps-2");
+ }
 
-  if (window.location.href.includes("/feed/index.html")) {
-    postMedia.style.width = "100px";
-    postMedia.classList.add("ms-3");
-    viewPostLink.style.setProperty("class", "align-items-start", "important");
-    viewPostLink.classList.add("align-items-start", "ps-2");
-  }
 
   const showMoreButton = document.createElement("button");
   if (words.length > maxWords) {
