@@ -218,8 +218,8 @@ export function createPostCard(post) {
   // const placeholderImage = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
 
   // postMedia.src = placeholderImage || post.media; // Use post.media if available, otherwise use the placeholder
-  postMedia.alt = "Post Image"; // Set the image alt attribute
-  postMedia.style.width = "100%"; // Set the image width
+  // postMedia.alt = "Post Image"; // Set the image alt attribute
+  // postMedia.style.width = "100%"; // Set the image width
   // postMedia.style.height = "50%"; // Set the image width
   // postMedia.style.maxHeight = "200px"; // Set the image width
   postMedia.onerror = () => {
