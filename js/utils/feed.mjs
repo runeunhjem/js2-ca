@@ -8,7 +8,7 @@ import {
 } from "../variables/consts.mjs";
 // export const urlParams = new URLSearchParams(window.location.search);
 // const URLProfilename = urlParams.get("name");
-import { deletePost } from "./delete-posts.mjs";
+// import { deletePost } from "./delete-posts.mjs"; // FORTELL HANS AT DET VAR HER DET SKJEDDE
 
 export function createPostCard(post) {
   const spinner = document.querySelector(".spinner-border");
