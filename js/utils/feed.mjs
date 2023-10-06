@@ -164,11 +164,11 @@ export function createPostCard(post) {
   postDate.textContent = createdDate.toLocaleString();
 
   const viewPostLink = document.createElement("a");
-  viewPostLink.classList.add("nav-link", "text-primary", "m-0", "p-2", "view-post-link", "align-items-start");
+  viewPostLink.classList.add("nav-link", "text-primary", "m-0", "p-2", "view-post-link", "align-items-start", "d-block");
   if (window.location.href.includes("/profile/") || window.location.href.includes("/post.html")) {
     viewPostLink.classList.add("d-block");
   } else {
-    viewPostLink.classList.add("d-flex");
+    viewPostLink.classList.add("d-sm-flex");
   }
   viewPostLink.style.setProperty("class", "align-items-start", "important");
   const postPageURL = `../feed/post.html?postId=${post.id}`;

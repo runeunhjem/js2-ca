@@ -11,7 +11,7 @@ export const isLoggedIn = localStorage.getItem("isLoggedIn");
 export const host = "api.noroff.dev";
 export const postForm = document.getElementById("postForm");
 export const createPostURL = `${API_BASE_URL}/social/posts`;
-export const postsURL = `${API_BASE_URL}/social/posts?limit=20&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
+export const postsURL = `${API_BASE_URL}/social/posts?limit=10&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
 // export const postsURL = `${API_BASE_URL}/social/posts?limit=10&offset=113&_comments=true&_author=true&_reactions=true&_count=true`;
 export const followURL = `${API_BASE_URL}/social/profiles/${currentProfileName}/follow`;
 export const unfollowURL = `${API_BASE_URL}/social/profiles/${currentProfileName}/unfollow`;
@@ -54,7 +54,7 @@ export const fetchOptions = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   },
-  // body: JSON.stringify(newPostData),
+  // body: "Test in fetch body",
 };
 
 export const addNewPostOptions = {

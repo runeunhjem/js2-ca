@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="col-8 col-sm-8 col-md-6 d-flex align-items-start justify-content-start">
-          <form class="d-flex mt-1" role="search" action="../feed/index.html" method="GET" id="searchForm">
+          <form class="d-flex mt-1" role="search" id="searchForm">
             <input class="form-control me-2 max-width-300" type="search" id="searchInput" name="searchQuery" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-warning" type="submit">Search</button>
           </form>
@@ -72,10 +72,10 @@
                   <h6 class="mx-0 align-items-center d-flex justify-content-start ms-3"><i class="justify-content-start bi-sort-down me-1"></i>Sort Feed</h6>
                   <ul class="nav flex-column ml-3">
                       <li class="nav-item">
-                          <a href="#" class="nav-link text-dark text-decoration-none ms-3 px-1 py-0 rounded-0">By Date</a>
+                          <button class="text-dark border-0 bg-white nav-link ms-3 px-1 py-0 rounded-0 sort-by-date-button">By Date</button>
                       </li>
                       <li class="nav-item">
-                          <a href="#" class="nav-link text-dark text-decoration-none ms-3 px-1 py-0 rounded-0">By Name</a>
+                          <button class="text-dark border-0 bg-white nav-link ms-3 px-1 py-0 rounded-0 sort-by-name-button">By Name</button>
                       </li>
                       <li class="p-0 m-0">
                         <select class="form-select border-0 me-0" aria-label="Select Category">
@@ -92,7 +92,7 @@
                 <span class="nav-link p-1 rounded-0"><a href="#" alt="Movie News" class="text-dark text-decoration-none"><i class="me-1 bi bi-lightning"></i><span class="icons">News</span></span></a>
               </li>
               <li class="nav-item">
-                <span class="nav-link p-1 rounded-0"><a alt="View Profile" class="text-warning text-decoration-none profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><i class="me-1 bi bi-person"></i><span class="icons">Profile</span></a>
+                <span class="nav-link p-1 rounded-0"><a alt="View Profile" class="text-dark text-decoration-none profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><i class="me-1 bi bi-person"></i><span class="icons">Profile</span></a>
               </li>
               <li class="nav-item" data-bs-target="#createPostForm" id="createButtonLeft">
                 <span class="nav-link shadow p-1 p-1 rounded-0 text-decoration-none">
@@ -112,7 +112,7 @@
 
           <div class="card border-0">
             <div class="align-items-center card-body bg-info shadow rounded-top p-1">
-              <ul class="nav bg-info container-fluid justify-content-between p-0 m-auto align-items-center">
+              <ul class="nav bg-info container-fluid justify-content-between p-0 m-auto align-items-center flex-nowrap">
                 <li class="nav-item">
                   <a alt="rounded View Profile" class="nav-link d-flex align-items-center shadow rounded-circle p-0 mt-1 profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><span class="visually-hidden">View Profile</span><img src="../img/profile.jpg" alt="View Profile" class="img-fluid p-0 m-0 profile-image rounded-circle"></a>
                 </li>
@@ -183,30 +183,32 @@
              </div>
 
           </div>
-          <div class="d-flex justify-content-between align-items-center mt-4">
+          <div class="d-flex justify-content-center align-items-center mt-1 flex-column flex-sm-row justify-content-sm-between">
+
             <h1 class="text-center text-dark main-header">Feed</h1>
-            <div class="dropdown">
-              <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Sort Feed
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end flex-column ml-3">
-                <li class="dropdown-item">
-                    <a href="#" class="text-dark text-decoration-none py-0 rounded-0">By Date</a>
-                </li>
-                <li class="dropdown-item">
-                    <a href="#" class="text-dark text-decoration-none py-0 rounded-0">By Name</a>
-                </li>
-                <li class="p-0 m-0">
-                  <select class="form-select border-0 me-0" aria-label="Select Category">
-                    <option selected>By Category</option>
-                    <option value="Sci-Fi">Sci-Fi</option>
-                    <option value="Action">Action</option>
-                    <option value="Fantasy">Fantasy</option>
-                  </select>
-                </li>
-              </ul>
+
+            <!-- Items per Page Selector with Description -->
+            <div class="form-group mb-3">
+              <label for="itemsPerPageSelector">Posts per page:</label>
+              <select class="form-select btn-warning" aria-label="Items per Page" id="itemsPerPageSelector">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+
+            <!-- Sort Feed Selector -->
+            <div class="dropdown mb-3">
+              <label for="sortFeedSelector">Get posts:</label>
+              <select class="form-select btn-warning" aria-label="Sort Feed" id="sortFeedSelector">
+                <option value="date">Newest first</option>
+                <option value="date">Oldest</option>
+              </select>
             </div>
           </div>
+
+
           <a href="#" aria-label="Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
             <div class="back-to-top-button bg-warning text-dark pt-1 pb-2 px-3 fs-3"></div>
           </a>
