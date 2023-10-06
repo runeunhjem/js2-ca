@@ -1,6 +1,12 @@
 import { createPostCard } from "./utils/feed.mjs";
 import { loggedInUserData, API_BASE_URL, fetchOptions } from "./variables/consts.mjs";
 
+
+// CONSIDER array.toSorted - check mdn
+// on profile do if statement on search that checks currentprofile and only returns results from that profile
+// on feed add currentprofile as filter
+// Switch addEventlister on search from submit to keyup
+
 const urlParams = new URLSearchParams(window.location.search);
 const postIdParam = urlParams.get("postId");
 const profileImageElement = document.querySelector(".profile-image");

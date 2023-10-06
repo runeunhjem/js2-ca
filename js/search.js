@@ -1,6 +1,8 @@
 import { fetchOptions, searchURL } from "./variables/consts.mjs";
 import { createPostCard } from "./utils/feed.mjs";
 
+
+// console.log(`queryString: ${queryString}`);
 async function fetchAllSearchResults(url, query) {
   const limit = 100;
   let allResults = [];
@@ -98,7 +100,11 @@ function displaySearchResults(results) {
   }
 }
 
+const inputElement = document.getElementById("searchInput");
+inputElement.addEventListener("keyup", (event) => {
+  handleSearch(event);
+  console.log("Key pressed:", event.key);
+});
 
-// Event listener for the search form
 const searchForm = document.getElementById("searchForm");
 searchForm.addEventListener("submit", handleSearch);

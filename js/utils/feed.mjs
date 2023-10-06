@@ -164,7 +164,7 @@ export function createPostCard(post) {
   postDate.textContent = createdDate.toLocaleString();
 
   const viewPostLink = document.createElement("a");
-  viewPostLink.classList.add("nav-link", "text-primary", "m-0", "p-2", "view-post-link", "align-items-start", "d-block");
+  viewPostLink.classList.add("nav-link", "text-primary", "m-0", "p-2", "view-post-link", "align-items-start", "flex-column", "justify-content-start");
   if (window.location.href.includes("/profile/") || window.location.href.includes("/post.html")) {
     viewPostLink.classList.add("d-block");
   } else {
