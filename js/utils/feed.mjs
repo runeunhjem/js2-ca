@@ -181,7 +181,7 @@ export function createPostCard(post) {
   if (window.location.href.includes("/profile/") || window.location.href.includes("/post.html")) {
     viewPostLink.classList.add("d-block");
   } else {
-    viewPostLink.classList.add("d-flex");
+    viewPostLink.classList.add("d-sm-flex");
   }
   viewPostLink.style.setProperty("class", "align-items-start", "important");
   const postPageURL = `../feed/post.html?postId=${post.id}`;
@@ -202,7 +202,7 @@ export function createPostCard(post) {
   const postText = document.createElement("p");
   postText.classList.add("card-text", "my-0", "ps-2", "visible-content");
 
-  const maxWords = 4; // Adjust the maximum number of words to display
+  const maxWords = 4;
 
   const words = post.body ? post.body.split(" ") : [];
   const visibleContent = words.slice(0, maxWords).join(" ");
@@ -236,7 +236,7 @@ export function createPostCard(post) {
     postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
     postMedia.alt = "Post Image"; // Set the image alt attribute
   }
-  if (window.location.href.includes("/feed/index.html")) {
+  if (window.location.href.includes("/feed/") && !window.location.href.includes("post.html")) {
     postMedia.style.width = "100px";
     postMedia.classList.add("ms-3");
     viewPostLink.style.setProperty("class", "align-items-start", "important");
