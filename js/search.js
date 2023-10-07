@@ -1,8 +1,6 @@
 import { fetchOptions, searchURL } from "./variables/consts.mjs";
 import { createPostCard } from "./utils/feed.mjs";
 
-
-// console.log(`queryString: ${queryString}`);
 async function fetchAllSearchResults(url, query) {
   const limit = 100;
   let allResults = [];
@@ -11,7 +9,7 @@ async function fetchAllSearchResults(url, query) {
 
   try {
     while (totalFetched < 1000) { // Limit the search to the first 1000 posts
-      console.log(`totalFetched: ${totalFetched}`);
+
       const response = await fetch(`${searchURL}?page=${nextPage}&limit=${limit}`, fetchOptions);
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -33,7 +31,7 @@ async function fetchAllSearchResults(url, query) {
       });
 
       allResults = allResults.concat(searchResults);
-      console.log(`allResults.length: ${allResults.length} - allResults:`, allResults);
+      // console.log(`allResults.length: ${allResults.length} - allResults:`, allResults);
       totalFetched += result.length; // Update the total count of fetched posts
 
       nextPage++;
@@ -66,7 +64,8 @@ async function handleSearch(event) {
       console.error("Error:", error);
     }
   } finally {
-    spinner.classList.add("d-none"); // Hide the spinner after the API call
+    spinner.classList.add("d-none");
+     document.querySelector('input[name="searchQuery"]').value = "";
   }
 }
 
@@ -74,25 +73,24 @@ function displaySearchResults(results) {
   const mainHeader = document.querySelector(".main-header");
   const query = document.querySelector('input[name="searchQuery"]').value;
   const mainHeaderTitle = query ? `${results.length} results for ${query}` : "Search results";
+  mainHeader.style.fontSize = "1rem";
+  mainHeader.classList.add("text-primary");
+  mainHeader.classList.remove("text-dark");
   const title = query ? `${results.length} search results for ${query}` : "Search results";
   document.title = title;
   mainHeader.innerHTML = mainHeaderTitle;
 
   let feedPosts;
   if (window.location.pathname.includes("/post.html")) {
-    // Set feedPosts for the post.html page
     feedPosts = document.getElementById("view-post");
   } else {
-    // Set feedPosts for other pages
     feedPosts = document.getElementById("feed-posts");
   }
   feedPosts.innerHTML = "";
 
   if (results.length === 0) {
-    // Display a message when there are no results
     feedPosts.innerHTML = "<p>No results found.</p>";
   } else {
-    // Create and append post cards for each search result
     results.forEach((result) => {
       const postCard = createPostCard(result);
       feedPosts.appendChild(postCard);
@@ -103,7 +101,6 @@ function displaySearchResults(results) {
 const inputElement = document.getElementById("searchInput");
 inputElement.addEventListener("keyup", (event) => {
   handleSearch(event);
-  console.log("Key pressed:", event.key);
 });
 
 const searchForm = document.getElementById("searchForm");

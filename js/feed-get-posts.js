@@ -18,7 +18,7 @@ let offset = 0;
 let sort = "created";
 let sortOrder = "desc";
 let basePostsURL = getBasePostsURL();
-console.log("basePostsURL: ", basePostsURL);
+// console.log("basePostsURL: ", basePostsURL);
 function getBasePostsURL() {
   return `${API_BASE_URL}/social/posts?limit=${limit}&offset=${offset}&_comments=true&_author=true&_reactions=true&_count=true&sort=${sort}&sortOrder=${sortOrder}`;
 }
@@ -121,7 +121,7 @@ document.querySelector("#sortFeedSelector").addEventListener("change", (e) => {
     sort = "created";
     sortOrder = "asc";
   }
-  
+
   basePostsURL = getBasePostsURL();
   console.log("sortFeedSelector before getfeedpostswith token basePostsURL: ", basePostsURL);
   getFeedPostsWithToken(basePostsURL, fetchOptions);

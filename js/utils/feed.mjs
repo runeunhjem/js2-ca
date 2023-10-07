@@ -6,15 +6,13 @@ import {
   postsURL,
   reactionOptions,
 } from "../variables/consts.mjs";
-// import { loadImageWithRetry } from "./check-if-picsum-exists.mjs";
-// export const urlParams = new URLSearchParams(window.location.search);
-// const URLProfilename = urlParams.get("name");
 import { deletePost } from "./delete-posts.mjs";
+import { editPost } from "./edit-posts.mjs";
 
 export function createPostCard(post) {
   const spinner = document.querySelector(".spinner-border");
   spinner.classList.add("d-none");
-
+  const isLoggedIn = post.author && post.author.name === loggedInUser;
   const card = document.createElement("div");
   card.classList.add("card", "mx-0", "my-3", "bg-info", "shadow-sm");
   card.setAttribute("data-post-id", post.id);
@@ -35,22 +33,13 @@ export function createPostCard(post) {
   avatarImg.classList.add("movie-poster", "img-fluid", "me-2", "mb-0", "rounded", "shadow");
 
   avatarImg.onerror = () => {
-    // Replace the failed image with a default placeholder image
-    // const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
     avatarImg.src = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
-    // avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
   };
 
-  // Check if the author"s avatar exists and set the src attribute
   if (post.author && post.author.avatar) {
-    // avatarImg.src = post.author.avatar;
     avatarImg.src = post.author.avatar;
-    // console.log(`post.media (Avatar): ${post.media}`);
   } else {
-    // Use Picsum placeholder if avatar isn"t there
-    // const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
     avatarImg.src = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
-    // avatarImg.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
   }
 
   avatarDiv.appendChild(avatarImg);
@@ -63,8 +52,7 @@ export function createPostCard(post) {
 
   const authorName = document.createElement("h6");
   authorName.classList.add("d-block", "d-sm-flex", "card-title", "mb-0", "me-1", "ps-1");
-
-  authorName.setAttribute("data-authorname", post.author.name); // Set the actual author"s name as the attribute value
+  authorName.setAttribute("data-authorname", post.author.name);
   authorName.textContent = post.author.name;
 
   const moreButton = document.createElement("button");
@@ -77,55 +65,55 @@ export function createPostCard(post) {
     "dropdown-toggle",
     "more-button",
     "justify-content-start"
-    // "position-absolute",
-    // "top-0",
-    // "start-0"
   );
   moreButton.style.textAlign = "left";
   moreButton.setAttribute("data-bs-toggle", "dropdown");
   moreButton.setAttribute("aria-expanded", "false");
-  moreButton.innerHTML = `<i class="bi bi-three-dots-vertical"></i> More`;
-  // The button dropdown menu
+  moreButton.innerHTML = `<i class="bi bi-three-dots-vertical"></i> Options`;
 
-  // Attach event listener to the "More" button
   moreButton.addEventListener("click", (event) => {
-    event.stopPropagation(); // Prevent the event from reaching the document click event
-
-    const dropdownMenu = event.target.nextElementSibling; // Get the dropdown menu
+    event.stopPropagation();
+    const dropdownMenu = event.target.nextElementSibling;
     if (dropdownMenu) {
-      dropdownMenu.classList.toggle("show"); // Toggle the dropdown menu's visibility if it exists
+      dropdownMenu.classList.toggle("show");
     }
   });
 
+
+
   const dropdownMenu = document.createElement("ul");
   dropdownMenu.classList.add("dropdown-menu", "bg-info", "shadow", "border-0");
+  dropdownMenu.setAttribute("aria-labelledby", "dropdownMenuButton1");
 
-  // Menu items
-  const menuItems = [
-    { text: "Edit", className: "edit-button" },
-    { text: "Delete", className: "delete-button" },
-    { text: "Share", className: "share-button" },
-  ];
+  const menuItems = [];
+
+  if (isLoggedIn) {
+    // Only add "Edit" and "Delete" options if the user is logged in
+    menuItems.push({ text: "Edit", className: "edit-button" }, { text: "Delete", className: "delete-button" });
+  }
+
+  // Always add the "Share" option
+  menuItems.push({ text: "Share", className: "share-button" });
 
   menuItems.forEach((menuItemData) => {
     const menuItem = document.createElement("li");
     const button = document.createElement("button");
-    button.classList.add("dropdown-item", menuItemData.className); // Add the specified class
+    button.classList.add("dropdown-item", menuItemData.className);
     button.type = "button";
-    button.textContent = menuItemData.text; // Access the 'text' property
+    button.textContent = menuItemData.text;
     menuItem.appendChild(button);
     dropdownMenu.appendChild(menuItem);
   });
-
-  // Attach a click event listener to the "Delete" button
-  const deleteButton = dropdownMenu.querySelector(".delete-button");
-  deleteButton.addEventListener("click", (event) => {
-    // This code will run when the "Delete" button is clicked
-    console.log("post.id: ", post.id);
-    deletePost(post.id);
-    console.log("Delete button clicked!");
-    // You can add your delete functionality here
-  });
+  if (isLoggedIn) {
+    const deleteButton = dropdownMenu.querySelector(".delete-button");
+    deleteButton.addEventListener("click", (event) => {
+      deletePost(post.id);
+    });
+    const editButton = dropdownMenu.querySelector(".edit-button");
+    editButton.addEventListener("click", (event) => {
+      editPost(post.id);
+    });
+  }
 
   moreButton.appendChild(dropdownMenu);
   card.appendChild(moreButton);
@@ -134,6 +122,10 @@ export function createPostCard(post) {
   postIdElement.setAttribute("data-post-id", post.id);
   postIdElement.classList.add("post-id", "position-absolute", "top-0", "end-0", "p-2", "text-muted", "fs-0");
   postIdElement.textContent = `ID: ${post.id}`;
+  if (isLoggedIn) {
+    postIdElement.classList.add("text-primary", "fw-bold");
+    postIdElement.classList.remove("text-muted");
+  }
   card.appendChild(postIdElement);
 
   const viewProfileLink = document.createElement("a");
@@ -154,18 +146,8 @@ export function createPostCard(post) {
 
   viewProfileLink.addEventListener("click", function (event) {
     event.preventDefault();
-
-    // Get author"s name in the link"s data attribute
     const authorName = viewProfileLink.dataset.authorname;
-    console.log(authorName);
-
-    // Store the author"s name in localStorage
     localStorage.setItem("currentProfileName", authorName);
-    console.log(`currentProfileName: ${authorName}`);
-
-    // Redirect to the profile page
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const URLProfilename = urlParams.get("name");
     window.location.href = `../profile/index.html?name=${encodeURIComponent(post.author.name)}`;
   });
 
@@ -186,13 +168,6 @@ export function createPostCard(post) {
     "p-2",
     "view-post-link",
     "flex-wrap",
-    // "align-items-start",
-    // "align-items-sm-start",
-    // "d-sm-flex",
-    // "flex-sm-column",
-    // "justify-content-sm-start",
-    // "flex-column",
-    // "justify-content-start"
   );
   if (window.location.href.includes("/profile/") || window.location.href.includes("/post.html")) {
     viewPostLink.classList.add("d-block");
@@ -205,7 +180,6 @@ export function createPostCard(post) {
   viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-1"></i>`;
   viewPostLink.appendChild(document.createTextNode(post.title));
 
-  // Check if the current page is "post.html"
   if (window.location.pathname.includes("post.html")) {
     viewPostLink.classList.add("disabled-link", "text-muted", "fw-bold");
     viewPostLink.removeAttribute("href");
@@ -219,10 +193,8 @@ export function createPostCard(post) {
   postText.classList.add("card-text", "my-0", "ps-2", "visible-content");
 
   const maxWords = 4;
-
   const words = post.body ? post.body.split(" ") : [];
   const visibleContent = words.slice(0, maxWords).join(" ");
-  // console.log(`Visible Content: ${visibleContent}`);
   const hiddenContent = words.slice(maxWords).join(" ");
 
   postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
@@ -230,45 +202,38 @@ export function createPostCard(post) {
   const postMedia = document.createElement("img");
   postMedia.classList.add("card-media", "m-1", "p-2", "rounded", "shadow");
 
-  // Set the default placeholder image
-  // const placeholderImage = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
-
-  // postMedia.src = placeholderImage || post.media; // Use post.media if available, otherwise use the placeholder
   postMedia.alt = "Post Image";
   postMedia.style.width = "100%";
-  // postMedia.style.width = "200px";
-  // postMedia.style.height = "300px";
   postMedia.style.maxHeight = "100%";
   postMedia.style.maxWidth = "100%";
   postMedia.onerror = () => {
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
-    postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+    if ((postMedia.src != `https://picsum.photos/id/${uniqueQueryParam}/200/300`)) {
+      postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+    }
   };
   if (post.media) {
-    postMedia.src = post.media; // Set the image source URL if it exists
+    postMedia.src = post.media;
   } else {
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
-    postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
-    postMedia.alt = "Post Image"; // Set the image alt attribute
+    if (postMedia.src != `https://picsum.photos/id/${uniqueQueryParam}/200/300`) {
+      postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+    }
   }
   if (window.location.href.includes("/feed/") && !window.location.href.includes("post.html")) {
     postMedia.style.width = "100px";
     postMedia.classList.add("ms-3");
     viewPostLink.style.setProperty("class", "align-items-start");
     viewPostLink.classList.add("align-items-start", "ps-2");
-  } else {
-    //
   }
 
   const showMoreButton = document.createElement("button");
   if (words.length > maxWords) {
-    // const showMoreButton = document.createElement("button");
     showMoreButton.classList.add(
       "btn",
       "btn-none",
       "btn-sm",
       "m-0",
-      // "shadow-sm",
       "show-more-button",
       "border-0",
       "text-primary",
@@ -323,24 +288,19 @@ export function createPostCard(post) {
   likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
   likeButton.innerHTML = `<i class="bi bi-hand-thumbs-up"></i> Like`;
 
-  // Add an event listener to the "Like" button
   likeButton.addEventListener("click", async () => {
     try {
-      console.log(`postId: ${post.id}`);
-      const reactToPostURL = `${API_BASE_URL}/social/posts/${post.id}/react/👍`; // REMEMBER the icon itself
-      console.log(`reactToPostURL: ${reactToPostURL}`);
-      // Make an API request to add the reaction
+      const reactToPostURL = `${API_BASE_URL}/social/posts/${post.id}/react/👍`;
+
       const response = await fetch(reactToPostURL, reactionOptions);
       if (response.ok) {
-        reactionsCount++; // Increment the reactions count
+        reactionsCount++;
         likesCount.innerHTML = `<i class="bi bi-hand-thumbs-up-fill text-primary"></i> ${reactionsCount} Likes`; // Update the UI
         likeButton.disabled = true;
       } else {
-        // Handle error response from the API
         console.error("Failed to add like to the post.");
       }
     } catch (error) {
-      // Handle any network or API request errors
       console.error("An error occurred while adding a like:", error);
     }
   });
@@ -381,24 +341,21 @@ export function createPostCard(post) {
   return card;
 }
 
-// Attach a click event listener to the document to handle clicks on dropdown items
 document.addEventListener("click", (event) => {
   if (!event.target.classList.contains("more-button")) {
-    // Check if the clicked element is not the "More" button
     const dropdownMenus = document.querySelectorAll(".dropdown-menu");
     dropdownMenus.forEach((menu) => {
-      menu.classList.remove("show"); // Close all open dropdown menus
+      menu.classList.remove("show");
     });
   }
 });
 
 async function handlePostCardClick(event) {
-  const card = event.currentTarget; // Get the clicked postCard element
-  // console.log("card is: ", card );
-  const postId = card.getAttribute("data-post-id"); // Extract postId from data attribute
-  const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author"s name from the data attribute
+  const card = event.currentTarget;
 
-  // Store postId in localStorage
+  const postId = card.getAttribute("data-post-id");
+  const authorName = card.querySelector(".view-profile-link").dataset.authorname;
+
   localStorage.setItem("postId", postId);
   localStorage.setItem("authorName", authorName);
 
@@ -410,12 +367,8 @@ async function handlePostCardClick(event) {
 }
 
 function handlePostCardMouseLeave(event) {
-  const card = event.currentTarget; // Get the clicked postCard element
+  const card = event.currentTarget;
   const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author"s name from the data attribute
-  // const postId = card.getAttribute("data-post-id"); // Extract postId from data attribute
-  // Remove postId in localStorage
-  // localStorage.removeItem("postId");
-  // localStorage.removeItem("authorName");
 
   if (authorName !== loggedInUser) {
     localStorage.setItem("isLoggedIn", false);
@@ -424,7 +377,6 @@ function handlePostCardMouseLeave(event) {
   }
 }
 
-// Attach the event listener to a common parent element or document
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("dropdown-item")) {
     handleDeleteClick(event);
@@ -432,7 +384,6 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Check if the current page is within the /feed/ folder
   if (window.location.pathname.includes("/feed/")) {
     const createPostForm = document.getElementById("createPostForm");
     const createPostLink = document.querySelector('[data-bs-target="#createPostForm"]');
@@ -440,12 +391,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const createButtonLeft = document.getElementById("createButtonLeft");
     const chevronUp = createPostLink.querySelector(".bi-chevron-up");
     const chevronDown = createPostLink.querySelector(".bi-chevron-down");
-
     let isFormExpanded = false;
 
-    // Toggle the collapse state when the link is clicked
     createPostLink.addEventListener("click", function (event) {
-      event.preventDefault(); // Prevent the link from navigating
+      event.preventDefault();
 
       if (isFormExpanded) {
         // Form is currently open, so hide it
@@ -465,5 +414,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       isFormExpanded = !isFormExpanded;
     });
+
   }
 });
