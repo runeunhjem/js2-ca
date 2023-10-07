@@ -6,9 +6,10 @@ import {
   postsURL,
   reactionOptions,
 } from "../variables/consts.mjs";
+// import { loadImageWithRetry } from "./check-if-picsum-exists.mjs";
 // export const urlParams = new URLSearchParams(window.location.search);
 // const URLProfilename = urlParams.get("name");
-// import { deletePost } from "./delete-posts.mjs"; // FORTELL HANS AT DET VAR HER DET
+import { deletePost } from "./delete-posts.mjs";
 
 export function createPostCard(post) {
   const spinner = document.querySelector(".spinner-border");
@@ -116,6 +117,16 @@ export function createPostCard(post) {
     dropdownMenu.appendChild(menuItem);
   });
 
+  // Attach a click event listener to the "Delete" button
+  const deleteButton = dropdownMenu.querySelector(".delete-button");
+  deleteButton.addEventListener("click", (event) => {
+    // This code will run when the "Delete" button is clicked
+    console.log("post.id: ", post.id);
+    deletePost(post.id);
+    console.log("Delete button clicked!");
+    // You can add your delete functionality here
+  });
+
   moreButton.appendChild(dropdownMenu);
   card.appendChild(moreButton);
 
@@ -168,15 +179,20 @@ export function createPostCard(post) {
 
   const viewPostLink = document.createElement("a");
   viewPostLink.classList.add(
-    // "d-flex",
+    "d-flex",
     "nav-link",
     "text-primary",
     "m-0",
     "p-2",
     "view-post-link",
-    "align-items-start",
+    "flex-wrap",
+    // "align-items-start",
+    // "align-items-sm-start",
+    // "d-sm-flex",
+    // "flex-sm-column",
+    // "justify-content-sm-start",
     // "flex-column",
-    "justify-content-start"
+    // "justify-content-start"
   );
   if (window.location.href.includes("/profile/") || window.location.href.includes("/post.html")) {
     viewPostLink.classList.add("d-block");
@@ -225,7 +241,6 @@ export function createPostCard(post) {
   postMedia.style.maxHeight = "100%";
   postMedia.style.maxWidth = "100%";
   postMedia.onerror = () => {
-    // Replace the failed image with a default placeholder image
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
     postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
   };
@@ -239,10 +254,9 @@ export function createPostCard(post) {
   if (window.location.href.includes("/feed/") && !window.location.href.includes("post.html")) {
     postMedia.style.width = "100px";
     postMedia.classList.add("ms-3");
-    viewPostLink.style.setProperty("class", "align-items-start", "important");
+    viewPostLink.style.setProperty("class", "align-items-start");
     viewPostLink.classList.add("align-items-start", "ps-2");
   } else {
-
     //
   }
 
@@ -378,44 +392,6 @@ document.addEventListener("click", (event) => {
   }
 });
 
-// *************** DO NOT WORK !!! FIX TOMORROW !!! ***************
-// document.addEventListener("DOMContentLoaded", function () {
-//   // Find the "Delete" button by its class
-//   const deleteButton = document.querySelector(".delete-button");
-
-//   // Check if the button element exists in the DOM
-//   if (deleteButton) {
-//     // Attach a click event listener to the "Delete" button
-//     deleteButton.addEventListener("click", function (event) {
-//       // This code will run when the "Delete" button is clicked
-//       console.log("Delete button clicked!");
-//       // You can add your delete functionality here
-//     });
-//   }
-// });
-
-// Function to handle the "Delete" action
-function handleDeleteClick(event) {
-  console.log("Delete button clicked"); // Add this line to log the click event
-  const button = event.target;
-  if (button.classList.contains("delete-button")) { // Check for the "delete-button" class
-    console.log("Delete button has 'delete-button' class"); // Add this line to log class check
-    const postElement = button.closest(".post");
-    if (postElement) {
-      const postId = postElement.getAttribute("data-post-id");
-      console.log(`postId: ${postId}`); // Add this line to log postId
-      localStorage.setItem("postId", postId);
-      // Call your deletePost function here if needed
-      deletePost(postId);
-    } else {
-      console.log("No post element found"); // Add this line to log if postElement is not found
-    }
-  }
-}
-
-// // handleDeleteClick();
-
-
 async function handlePostCardClick(event) {
   const card = event.currentTarget; // Get the clicked postCard element
   // console.log("card is: ", card );
@@ -432,6 +408,7 @@ async function handlePostCardClick(event) {
     localStorage.setItem("isLoggedIn", true);
   }
 }
+
 function handlePostCardMouseLeave(event) {
   const card = event.currentTarget; // Get the clicked postCard element
   const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author"s name from the data attribute
@@ -453,8 +430,6 @@ document.addEventListener("click", (event) => {
     handleDeleteClick(event);
   }
 });
-
-
 
 document.addEventListener("DOMContentLoaded", function () {
   // Check if the current page is within the /feed/ folder
