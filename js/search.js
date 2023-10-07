@@ -62,7 +62,7 @@ async function handleSearch(event) {
     if (window.location.pathname.includes("/profile/")) {
       // Gather the posts displayed on the profile page (modify this based on your page structure)
       const profilePosts = document.querySelectorAll(".post-card"); // Adjust the selector as needed
-      console.log("Profile posts:", profilePosts);
+      // console.log("Profile posts:", profilePosts);
 
       // Filter and hide cards that do not match the search query
       Array.from(profilePosts).forEach((post) => {
@@ -110,9 +110,6 @@ async function handleSearch(event) {
   }
 }
 
-
-
-
 function displaySearchResults(results, query) {
   const mainHeader = document.querySelector(".main-header");
   const mainHeaderTitle = query ? `${results.length} results for ${query}` : "Search results";
@@ -135,13 +132,8 @@ function displaySearchResults(results, query) {
     feedPosts.innerHTML = "<p>No results found.</p>";
   } else {
     results.forEach((result) => {
-      console.log("Post Data:", result);
       const postCard = createPostCard(result);
       feedPosts.appendChild(postCard);
-      const profileCards = document.querySelectorAll(".post-card");
-      profileCards.forEach((card) => {
-        card.classList.add("d-flex", "w-100");
-      });
     });
   }
 }
