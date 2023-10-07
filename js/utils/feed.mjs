@@ -8,7 +8,7 @@ import {
 } from "../variables/consts.mjs";
 // export const urlParams = new URLSearchParams(window.location.search);
 // const URLProfilename = urlParams.get("name");
-// import { deletePost } from "./delete-posts.mjs"; // FORTELL HANS AT DET VAR HER DET SKJEDDE
+// import { deletePost } from "./delete-posts.mjs"; // FORTELL HANS AT DET VAR HER DET
 
 export function createPostCard(post) {
   const spinner = document.querySelector(".spinner-border");
@@ -215,13 +215,13 @@ export function createPostCard(post) {
   postMedia.classList.add("card-media", "m-1", "p-2", "rounded", "shadow");
 
   // Set the default placeholder image
-  // const placeholderImage = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
+  const placeholderImage = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
 
-  // postMedia.src = placeholderImage || post.media; // Use post.media if available, otherwise use the placeholder
-  // postMedia.alt = "Post Image"; // Set the image alt attribute
-  // postMedia.style.width = "100%"; // Set the image width
-  // postMedia.style.height = "50%"; // Set the image width
-  // postMedia.style.maxHeight = "200px"; // Set the image width
+  postMedia.src = placeholderImage || post.media; // Use post.media if available, otherwise use the placeholder
+  postMedia.alt = "Post Image"; // Set the image alt attribute
+  postMedia.style.width = "100%"; // Set the image width
+  postMedia.style.height = "50%"; // Set the image width
+  postMedia.style.maxHeight = "200px"; // Set the image width
   postMedia.onerror = () => {
     // Replace the failed image with a default placeholder image
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
