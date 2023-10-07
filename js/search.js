@@ -52,26 +52,69 @@ async function fetchAllSearchResults(url, query) {
 
 async function handleSearch(event) {
   event.preventDefault();
-  const query = document.querySelector('input[name="searchQuery"]').value;
+  const queryInput = document.querySelector('input[name="searchQuery"]');
+  const query = queryInput.value.toLowerCase(); // Convert the query to lowercase for case-insensitive search
   const spinner = document.querySelector(".spinner-border");
   spinner.classList.remove("d-none");
 
   try {
-    const searchResults = await fetchAllSearchResults(searchURL, query);
-    displaySearchResults(searchResults);
+    // Determine whether to search in API results or displayed posts based on the page URL
+    if (window.location.pathname.includes("/profile/")) {
+      // Gather the posts displayed on the profile page (modify this based on your page structure)
+      const profilePosts = document.querySelectorAll(".post-card"); // Adjust the selector as needed
+      console.log("Profile posts:", profilePosts);
+
+      // Filter and hide cards that do not match the search query
+      Array.from(profilePosts).forEach((post) => {
+        const titleElement = post.querySelector(".card-title"); // Assuming .card-title contains the post title
+        const bodyElement = post.querySelector(".card-text"); // Assuming .card-text contains the post body
+        const tagsElement = post.querySelector(".post-tags"); // Assuming .post-tags contains the post tags
+
+        // Build the search string
+        let searchString = "";
+
+        // Add title to the search string if available
+        if (titleElement) {
+          searchString += titleElement.textContent.toLowerCase();
+        }
+
+        // Add body to the search string if available
+        if (bodyElement) {
+          searchString += bodyElement.textContent.toLowerCase();
+        }
+
+        // Add tags to the search string if available
+        if (tagsElement) {
+          searchString += tagsElement.textContent.toLowerCase();
+        }
+
+        // Check if the search query is not found in the searchString
+        if (!searchString.includes(query.toLowerCase())) {
+          post.style.display = "none"; // Hide the card
+        } else {
+          post.style.display = "block"; // Show the card
+        }
+      });
+    } else {
+      // Fetch search results from the API using your existing code
+      const searchResults = await fetchAllSearchResults(searchURL, query);
+      displaySearchResults(searchResults, query); // Pass the query and search results to the displaySearchResults function
+    }
   } catch (error) {
     if (!error.message.includes("https://picsum.photos")) {
       console.error("Error:", error);
     }
   } finally {
     spinner.classList.add("d-none");
-     document.querySelector('input[name="searchQuery"]').value = "";
+    queryInput.value = ""; // Clear the input field
   }
 }
 
-function displaySearchResults(results) {
+
+
+
+function displaySearchResults(results, query) {
   const mainHeader = document.querySelector(".main-header");
-  const query = document.querySelector('input[name="searchQuery"]').value;
   const mainHeaderTitle = query ? `${results.length} results for ${query}` : "Search results";
   mainHeader.style.fontSize = "1rem";
   mainHeader.classList.add("text-primary");
@@ -92,16 +135,16 @@ function displaySearchResults(results) {
     feedPosts.innerHTML = "<p>No results found.</p>";
   } else {
     results.forEach((result) => {
+      console.log("Post Data:", result);
       const postCard = createPostCard(result);
       feedPosts.appendChild(postCard);
+      const profileCards = document.querySelectorAll(".post-card");
+      profileCards.forEach((card) => {
+        card.classList.add("d-flex", "w-100");
+      });
     });
   }
 }
-
-const inputElement = document.getElementById("searchInput");
-inputElement.addEventListener("keyup", (event) => {
-  handleSearch(event);
-});
 
 const searchForm = document.getElementById("searchForm");
 searchForm.addEventListener("submit", handleSearch);

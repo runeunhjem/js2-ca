@@ -14,7 +14,7 @@ export function createPostCard(post) {
   spinner.classList.add("d-none");
   const isLoggedIn = post.author && post.author.name === loggedInUser;
   const card = document.createElement("div");
-  card.classList.add("card", "mx-0", "my-3", "bg-info", "shadow-sm");
+  card.classList.add("card", "post-card", "mx-0", "my-3", "bg-info", "shadow-sm", "d-md-flex");
   card.setAttribute("data-post-id", post.id);
   card.addEventListener("mouseover", handlePostCardClick);
   card.addEventListener("mouseleave", handlePostCardMouseLeave);
