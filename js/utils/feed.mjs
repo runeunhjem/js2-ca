@@ -168,19 +168,20 @@ export function createPostCard(post) {
 
   const viewPostLink = document.createElement("a");
   viewPostLink.classList.add(
+    // "d-flex",
     "nav-link",
     "text-primary",
     "m-0",
     "p-2",
     "view-post-link",
     "align-items-start",
-    "flex-column",
+    // "flex-column",
     "justify-content-start"
   );
   if (window.location.href.includes("/profile/") || window.location.href.includes("/post.html")) {
     viewPostLink.classList.add("d-block");
   } else {
-    viewPostLink.classList.add("d-sm-flex");
+    viewPostLink.classList.add("d-flex");
   }
   viewPostLink.style.setProperty("class", "align-items-start", "important");
   const postPageURL = `../feed/post.html?postId=${post.id}`;
@@ -214,9 +215,9 @@ export function createPostCard(post) {
   postMedia.classList.add("card-media", "m-1", "p-2", "rounded", "shadow");
 
   // Set the default placeholder image
-  const placeholderImage = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
+  // const placeholderImage = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
 
-  postMedia.src = placeholderImage || post.media; // Use post.media if available, otherwise use the placeholder
+  // postMedia.src = placeholderImage || post.media; // Use post.media if available, otherwise use the placeholder
   postMedia.alt = "Post Image";
   postMedia.style.width = "100%";
   // postMedia.style.width = "200px";
@@ -235,12 +236,14 @@ export function createPostCard(post) {
     postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
     postMedia.alt = "Post Image"; // Set the image alt attribute
   }
-
   if (window.location.href.includes("/feed/index.html")) {
     postMedia.style.width = "100px";
     postMedia.classList.add("ms-3");
     viewPostLink.style.setProperty("class", "align-items-start", "important");
     viewPostLink.classList.add("align-items-start", "ps-2");
+  } else {
+
+    //
   }
 
   const showMoreButton = document.createElement("button");
