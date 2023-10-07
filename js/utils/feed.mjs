@@ -210,18 +210,19 @@ export function createPostCard(post) {
 
   postText.innerHTML = `${visibleContent} <span class="hidden-content">${hiddenContent}</span>`;
 
-  // Create an image element
   const postMedia = document.createElement("img");
-  postMedia.classList.add("card-media", "m-1", "p-2", "rounded", "shadow", "image-fluid");
+  postMedia.classList.add("card-media", "m-1", "p-2", "rounded", "shadow");
 
   // Set the default placeholder image
   const placeholderImage = `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
 
   postMedia.src = placeholderImage || post.media; // Use post.media if available, otherwise use the placeholder
-  postMedia.alt = "Post Image"; // Set the image alt attribute
-  postMedia.style.width = "100%"; // Set the image width
-  // postMedia.style.height = "50%"; // Set the image width
-  postMedia.style.maxHeight = "200px"; // Set the image width
+  postMedia.alt = "Post Image";
+  postMedia.style.width = "100%";
+  // postMedia.style.width = "200px";
+  // postMedia.style.height = "300px";
+  postMedia.style.maxHeight = "100%";
+  postMedia.style.maxWidth = "100%";
   postMedia.onerror = () => {
     // Replace the failed image with a default placeholder image
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
