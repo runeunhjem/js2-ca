@@ -1,6 +1,8 @@
 import { fetchOptions, searchURL } from "./variables/consts.mjs";
 import { createPostCard } from "./utils/feed.mjs";
 
+let postsLeft = 0;
+
 async function fetchAllSearchResults(url, query) {
   const limit = 100;
   let allResults = [];
@@ -48,7 +50,10 @@ async function fetchAllSearchResults(url, query) {
   }
 }
 
-
+//***********************************************************
+// I SEEM TO GET ONLY ONE RESULT NO MATTER WHAT I SEARCH FOR
+// ON PROFILE - TAGS ARE NOT DISPLAYED/SEARCHED?
+//***********************************************************
 
 async function handleSearch(event) {
   event.preventDefault();
@@ -58,11 +63,13 @@ async function handleSearch(event) {
   spinner.classList.remove("d-none");
 
   try {
+    // Reset the postsLeft counter to zero for a new search
+    let postsLeft = 0;
+
     // Determine whether to search in API results or displayed posts based on the page URL
     if (window.location.pathname.includes("/profile/")) {
       // Gather the posts displayed on the profile page (modify this based on your page structure)
       const profilePosts = document.querySelectorAll(".post-card"); // Adjust the selector as needed
-      // console.log("Profile posts:", profilePosts);
 
       // Filter and hide cards that do not match the search query
       Array.from(profilePosts).forEach((post) => {
@@ -93,6 +100,11 @@ async function handleSearch(event) {
           post.style.display = "none"; // Hide the card
         } else {
           post.style.display = "block"; // Show the card
+          postsLeft++; // Increment the postsLeft counter
+          console.log(`query: ${query}`);
+          console.log("looks fine: ", postsLeft, " match your search ", searchString);
+          console.log("Boom ");
+
         }
       });
     } else {
@@ -110,7 +122,9 @@ async function handleSearch(event) {
   }
 }
 
+
 function displaySearchResults(results, query) {
+  console.log(`postsLeft: ${postsLeft}`);
   const mainHeader = document.querySelector(".main-header");
   const mainHeaderTitle = query ? `${results.length} results for ${query}` : "Search results";
   mainHeader.style.fontSize = "1rem";
@@ -127,8 +141,8 @@ function displaySearchResults(results, query) {
     feedPosts = document.getElementById("feed-posts");
   }
   feedPosts.innerHTML = "";
-
-  if (results.length === 0) {
+  console.log(`postsLeft: ${postsLeft}`);
+  if (results.length === 0 || postsLeft === 0) {
     feedPosts.innerHTML = "<p>No results found.</p>";
   } else {
     results.forEach((result) => {
@@ -136,6 +150,8 @@ function displaySearchResults(results, query) {
       feedPosts.appendChild(postCard);
     });
   }
+
+
 }
 
 const searchForm = document.getElementById("searchForm");
