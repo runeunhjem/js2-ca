@@ -7,7 +7,7 @@ import {
   reactionOptions,
 } from "../variables/consts.mjs";
 import { deletePost } from "./delete-posts.mjs";
-import { editPost } from "./edit-posts.mjs";
+import { editPost } from "./do-edit-posts.mjs";
 
 export function createPostCard(post) {
   const spinner = document.querySelector(".spinner-border");
@@ -80,8 +80,6 @@ export function createPostCard(post) {
       dropdownMenu.classList.toggle("show");
     }
   });
-
-
 
   const dropdownMenu = document.createElement("ul");
   dropdownMenu.classList.add("dropdown-menu", "bg-info", "shadow", "border-0");
@@ -168,14 +166,17 @@ export function createPostCard(post) {
     "text-primary",
     "m-0",
     "p-2",
+    // "ps-0",
     "view-post-link",
     "flex-wrap",
+    "align-items-center"
   );
   if (window.location.href.includes("/profile/") || window.location.href.includes("/post.html")) {
-    viewPostLink.classList.add("d-block");
+    viewPostLink.classList.add("d-block", "d-sm-flex");
   } else {
-    viewPostLink.classList.add("d-sm-flex");
+    viewPostLink.classList.add("d-block", "d-sm-flex");
   }
+
   viewPostLink.style.setProperty("class", "align-items-start", "important");
   const postPageURL = `../feed/post.html?postId=${post.id}`;
   viewPostLink.href = postPageURL;
@@ -183,13 +184,32 @@ export function createPostCard(post) {
   viewPostLink.appendChild(document.createTextNode(post.title));
 
   if (window.location.pathname.includes("post.html")) {
-    viewPostLink.classList.add("disabled-link", "text-muted", "fw-bold");
+    viewPostLink.classList.add("disabled-link", "text-success", "fw-bold");
     viewPostLink.removeAttribute("href");
     viewPostLink.addEventListener("click", (event) => {
       event.preventDefault();
       console.log("You are already on the post page.");
     });
   }
+
+  // Create a new element for displaying categories (tags)
+  const categoriesElement = document.createElement("p");
+  categoriesElement.classList.add("my-0", "ps-1", "text-white", "bg-dark", "visible-content");
+
+  if (post.tags && post.tags.length > 0) {
+    // Create a string containing the tags with commas
+    const tagsString = post.tags.join(", ");
+    const categoriesText = document.createElement("strong");
+    categoriesText.classList.add("text-white", "ps-0");
+    categoriesText.textContent = "Categories:";
+    categoriesElement.appendChild(categoriesText);
+    categoriesElement.appendChild(document.createTextNode(` ${tagsString}`));
+    // viewPostLink.appendChild(document.createTextNode(categoriesElement));
+  } else {
+    // Handle the case when there are no tags
+    categoriesElement.innerHTML = "<strong>Categories:</strong> No categories available";
+  }
+
 
   const postText = document.createElement("p");
   postText.classList.add("card-text", "my-0", "ps-2", "visible-content");
@@ -210,7 +230,7 @@ export function createPostCard(post) {
   postMedia.style.maxWidth = "100%";
   postMedia.onerror = () => {
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
-    if ((postMedia.src != `https://picsum.photos/id/${uniqueQueryParam}/200/300`)) {
+    if (postMedia.src != `https://picsum.photos/id/${uniqueQueryParam}/200/300`) {
       postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
     }
   };
@@ -269,6 +289,8 @@ export function createPostCard(post) {
   postContentDiv.appendChild(postText);
 
   const hr = document.createElement("hr");
+  hr.classList.add("p-0");
+  hr.appendChild(categoriesElement);
 
   const reactionCountElement = document.createElement("div");
   reactionCountElement.classList.add("reaction-count", "text-primary", "ms-1", "pb-1");

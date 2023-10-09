@@ -51,7 +51,6 @@ async function fetchAllSearchResults(url, query) {
 }
 
 //***********************************************************
-// I SEEM TO GET ONLY ONE RESULT NO MATTER WHAT I SEARCH FOR
 // ON PROFILE - TAGS ARE NOT DISPLAYED/SEARCHED?
 //***********************************************************
 
@@ -61,56 +60,21 @@ async function handleSearch(event) {
   const query = queryInput.value.toLowerCase(); // Convert the query to lowercase for case-insensitive search
   const spinner = document.querySelector(".spinner-border");
   spinner.classList.remove("d-none");
+  const showSearching = document.querySelector(".searching");
+  showSearching.classList.remove("d-none");
 
   try {
     // Reset the postsLeft counter to zero for a new search
-    let postsLeft = 0;
+    postsLeft = 0; // Update the outer variable
 
-    // Determine whether to search in API results or displayed posts based on the page URL
     if (window.location.pathname.includes("/profile/")) {
-      // Gather the posts displayed on the profile page (modify this based on your page structure)
-      const profilePosts = document.querySelectorAll(".post-card"); // Adjust the selector as needed
-
-      // Filter and hide cards that do not match the search query
-      Array.from(profilePosts).forEach((post) => {
-        const titleElement = post.querySelector(".card-title"); // Assuming .card-title contains the post title
-        const bodyElement = post.querySelector(".card-text"); // Assuming .card-text contains the post body
-        const tagsElement = post.querySelector(".post-tags"); // Assuming .post-tags contains the post tags
-
-        // Build the search string
-        let searchString = "";
-
-        // Add title to the search string if available
-        if (titleElement) {
-          searchString += titleElement.textContent.toLowerCase();
-        }
-
-        // Add body to the search string if available
-        if (bodyElement) {
-          searchString += bodyElement.textContent.toLowerCase();
-        }
-
-        // Add tags to the search string if available
-        if (tagsElement) {
-          searchString += tagsElement.textContent.toLowerCase();
-        }
-
-        // Check if the search query is not found in the searchString
-        if (!searchString.includes(query.toLowerCase())) {
-          post.style.display = "none"; // Hide the card
-        } else {
-          post.style.display = "block"; // Show the card
-          postsLeft++; // Increment the postsLeft counter
-          console.log(`query: ${query}`);
-          console.log("looks fine: ", postsLeft, " match your search ", searchString);
-          console.log("Boom ");
-
-        }
-      });
+      // Search is on the profile page
+      filterProfilePosts(query);
     } else {
-      // Fetch search results from the API using your existing code
+      // Search is on other pages
+      console.log(`Search is on feed page: ${query.value}`);
       const searchResults = await fetchAllSearchResults(searchURL, query);
-      displaySearchResults(searchResults, query); // Pass the query and search results to the displaySearchResults function
+      displaySearchResults(searchResults, query);
     }
   } catch (error) {
     if (!error.message.includes("https://picsum.photos")) {
@@ -119,39 +83,82 @@ async function handleSearch(event) {
   } finally {
     spinner.classList.add("d-none");
     queryInput.value = ""; // Clear the input field
+    showSearching.classList.add("d-none");
   }
 }
 
+function filterProfilePosts(query) {
+  const profilePosts = document.querySelectorAll(".post-card"); // Adjust the selector as needed
 
-function displaySearchResults(results, query) {
-  console.log(`postsLeft: ${postsLeft}`);
-  const mainHeader = document.querySelector(".main-header");
-  const mainHeaderTitle = query ? `${results.length} results for ${query}` : "Search results";
-  mainHeader.style.fontSize = "1rem";
-  mainHeader.classList.add("text-primary");
-  mainHeader.classList.remove("text-dark");
-  const title = query ? `${results.length} search results for ${query}` : "Search results";
-  document.title = title;
-  mainHeader.innerHTML = mainHeaderTitle;
+  // Filter and hide cards that do not match the search query
+  Array.from(profilePosts).forEach((post) => {
+    const titleElement = post.querySelector(".card-title"); // Assuming .card-title contains the post title
+    const bodyElement = post.querySelector(".card-text"); // Assuming .card-text contains the post body
+    const tagsElement = post.querySelector(".post-tags"); // Assuming .post-tags contains the post tags
+
+    // Build the search string
+    let searchString = "";
+
+    // Add title to the search string if available
+    if (titleElement) {
+      searchString += titleElement.textContent.toLowerCase();
+    }
+
+    // Add body to the search string if available
+    if (bodyElement) {
+      searchString += bodyElement.textContent.toLowerCase();
+    }
+
+    // Add tags to the search string if available
+    if (tagsElement) {
+      // Assuming tags is an array, join them into a space-separated string
+      searchString += tagsElement.textContent.toLowerCase().split(", ").join(" ");
+    }
+
+    // Check if the search query is not found in the searchString
+    if (!searchString.includes(query.toLowerCase())) {
+      post.style.display = "none"; // Hide the card
+    } else {
+      post.style.display = "block"; // Show the card
+      postsLeft++; // Increment the postsLeft counter
+
+      const mainHeader = document.querySelector(".main-header");
+      const query = document.querySelector('input[name="searchQuery"]').value;
+      const mainHeaderTitle = query ? `${postsLeft} results for ${query}` : "Search results";
+      const title = query ? `${postsLeft} search results for ${query}` : "Search results";
+      document.title = title;
+      mainHeader.innerHTML = mainHeaderTitle;
+
+      console.log(`query: ${query}`);
+      console.log("looks fine: ", postsLeft, " match your search ", searchString);
+      console.log("Boom ");
+
+    }
+  });
+}
+
+function displaySearchResults(results) {
 
   let feedPosts;
   if (window.location.pathname.includes("/post.html")) {
+    // Set feedPosts for the post.html page
     feedPosts = document.getElementById("view-post");
   } else {
+    // Set feedPosts for other pages
     feedPosts = document.getElementById("feed-posts");
   }
   feedPosts.innerHTML = "";
-  console.log(`postsLeft: ${postsLeft}`);
-  if (results.length === 0 || postsLeft === 0) {
+
+  if (results.length === 0) {
+    // Display a message when there are no results
     feedPosts.innerHTML = "<p>No results found.</p>";
   } else {
+    // Create and append post cards for each search result
     results.forEach((result) => {
       const postCard = createPostCard(result);
       feedPosts.appendChild(postCard);
     });
   }
-
-
 }
 
 const searchForm = document.getElementById("searchForm");
