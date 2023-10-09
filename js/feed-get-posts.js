@@ -112,10 +112,10 @@ function togglesortOrder() {
 
 document.querySelector("#sortFeedSelector").addEventListener("change", (e) => {
   const selectedValue = e.target.value;
-  if (selectedValue === "date") {
+  if (selectedValue === "newest") {
     // Update the sorting field for newest first
     sort = "created";
-    togglesortOrder();
+    sortOrder = "desc";
   } else if (selectedValue === "oldest") {
     // Update the sorting field for oldest first
     sort = "created";
@@ -123,9 +123,39 @@ document.querySelector("#sortFeedSelector").addEventListener("change", (e) => {
   }
 
   basePostsURL = getBasePostsURL();
-  console.log("sortFeedSelector before getfeedpostswith token basePostsURL: ", basePostsURL);
+  console.log("sortFeedSelector before getfeedpostswithtoken basePostsURL: ", basePostsURL);
   getFeedPostsWithToken(basePostsURL, fetchOptions);
   console.log("sortFeedSelector basePostsURL: ", basePostsURL);
 });
 
 getFeedPostsWithToken(basePostsURL, fetchOptions);
+
+
+// document.querySelector("#filterFeedSelector").addEventListener("change", (e) => {
+//   const selectedValue = e.target.value;
+
+//   // Update the basePostsURL based on the selected filter
+//   switch (selectedValue) {
+//     case "following":
+//       // Add logic to filter by following
+
+//       // Filter posts by whether the logged-in user is following the author
+//       const filteredPosts = posts.filter((post) => loggedInUserData.following.includes(post.author.name));
+//       displayFilteredPosts(filteredPosts);
+
+//       break;
+//     case "avatar":
+//       // Add logic to filter by posts with profile image
+//       break;
+//     case "banner":
+//       // Add logic to filter by posts with profile banner
+//       break;
+//     default:
+//       // Handle other cases or reset filters
+//       break;
+//   }
+
+//   // Call getFeedPostsWithToken with the updated basePostsURL
+//   getFeedPostsWithToken(basePostsURL, fetchOptions);
+// });
+

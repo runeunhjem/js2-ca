@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (profilePostsData && Array.isArray(profilePostsData) && profilePostsData.length > 0) {
       const profilePosts = document.getElementById("feed-posts");
       // const profilePosts = document.getElementById("profilePosts");
-
+      const mainHeader = document.querySelector(".main-header");
+      mainHeader.innerHTML = `${currentUserName}'s ${profilePostsData.length} posts`;
       profilePostsData.forEach((post) => {
         const card = createPostCard(post);
         profilePosts.appendChild(card);

@@ -2,6 +2,8 @@ import { togglePostContent } from "./utils/show-more-post-text.mjs";
 import { toTopButton } from "./utils/back-to-top-button.js";
 import { clickHandler, profileLinks } from "./variables/consts.mjs";
 
+
+
 document.addEventListener("DOMContentLoaded", function () {
   const accessToken = localStorage.getItem("accessToken");
 

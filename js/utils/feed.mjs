@@ -61,8 +61,10 @@ export function createPostCard(post) {
     "btn",
     "btn-warning",
     "btn-sm",
-    "my-1",
-    "mx-1",
+    "mt-0",
+    "pb-2",
+    "align-items-center",
+    "mx-auto",
     "dropdown-toggle",
     "more-button",
     "justify-content-start",
@@ -120,10 +122,10 @@ export function createPostCard(post) {
 
   const postIdElement = document.createElement("div");
   postIdElement.setAttribute("data-post-id", post.id);
-  postIdElement.classList.add("post-id", "position-absolute", "top-0", "end-0", "p-2", "text-muted", "fs-0");
+  postIdElement.classList.add("post-id", "position-absolute", "top-0", "end-0", "p-2", "pt-1", "text-muted", "fs-0");
   postIdElement.textContent = `ID: ${post.id}`;
   if (isLoggedIn) {
-    postIdElement.classList.add("text-primary", "fw-bold");
+    postIdElement.classList.add("text-success", "fw-bold");
     postIdElement.classList.remove("text-muted");
   }
   card.appendChild(postIdElement);
@@ -169,7 +171,7 @@ export function createPostCard(post) {
     // "ps-0",
     "view-post-link",
     "flex-wrap",
-    "align-items-center"
+    "align-items-start"
   );
   if (window.location.href.includes("/profile/") || window.location.href.includes("/post.html")) {
     viewPostLink.classList.add("d-block", "d-sm-flex");
@@ -180,7 +182,7 @@ export function createPostCard(post) {
   viewPostLink.style.setProperty("class", "align-items-start", "important");
   const postPageURL = `../feed/post.html?postId=${post.id}`;
   viewPostLink.href = postPageURL;
-  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-1"></i>`;
+  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-0"></i>`;
   viewPostLink.appendChild(document.createTextNode(post.title));
 
   if (window.location.pathname.includes("post.html")) {
@@ -194,7 +196,7 @@ export function createPostCard(post) {
 
   // Create a new element for displaying categories (tags)
   const categoriesElement = document.createElement("p");
-  categoriesElement.classList.add("my-0", "ps-1", "text-white", "bg-dark", "visible-content");
+  categoriesElement.classList.add("post-tags", "my-0", "ps-1", "text-white", "bg-dark", "visible-content");
 
   if (post.tags && post.tags.length > 0) {
     // Create a string containing the tags with commas
@@ -209,7 +211,6 @@ export function createPostCard(post) {
     // Handle the case when there are no tags
     categoriesElement.innerHTML = "<strong>Categories:</strong> No categories available";
   }
-
 
   const postText = document.createElement("p");
   postText.classList.add("card-text", "my-0", "ps-2", "visible-content");
@@ -438,6 +439,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
       isFormExpanded = !isFormExpanded;
     });
-
   }
 });

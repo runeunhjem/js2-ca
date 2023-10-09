@@ -10,7 +10,8 @@ async function fetchAllSearchResults(url, query) {
   let totalFetched = 0; // Track the total number of posts fetched
 
   try {
-    while (totalFetched < 1000) { // Limit the search to the first 1000 posts
+    while (totalFetched < 500) {
+      // Limit the search to the first 1000 posts
 
       const response = await fetch(`${searchURL}?page=${nextPage}&limit=${limit}`, fetchOptions);
       if (!response.ok) {
@@ -42,6 +43,15 @@ async function fetchAllSearchResults(url, query) {
         break; // No more matching results to fetch
       }
     }
+    // Show the number of results in the main header
+    const mainHeader = document.querySelector(".main-header");
+    mainHeader.classList.add("text-success", "fs-5");
+    mainHeader.classList.remove("text-dark");
+    const filterWrapper = document.querySelector(".filter-wrapper");
+    filterWrapper.classList.add("flex-sm-column", "align-items-sm-center");
+    const buttonWrapper = document.querySelector(".button-wrapper");
+    buttonWrapper.classList.add("justify-content-sm-center");
+    mainHeader.innerHTML = `${allResults.length} results for ${query}`;
 
     return allResults;
   } catch (error) {
@@ -50,17 +60,15 @@ async function fetchAllSearchResults(url, query) {
   }
 }
 
-//***********************************************************
-// ON PROFILE - TAGS ARE NOT DISPLAYED/SEARCHED?
-//***********************************************************
-
 async function handleSearch(event) {
   event.preventDefault();
   const queryInput = document.querySelector('input[name="searchQuery"]');
   const query = queryInput.value.toLowerCase(); // Convert the query to lowercase for case-insensitive search
   const spinner = document.querySelector(".spinner-border");
   spinner.classList.remove("d-none");
-  const showSearching = document.querySelector(".searching");
+  spinner.classList.add("mt-4");
+  const showSearching = document.getElementById("searching");
+  showSearching.classList.add("d-block", "mt-3");
   showSearching.classList.remove("d-none");
 
   try {
@@ -72,7 +80,8 @@ async function handleSearch(event) {
       filterProfilePosts(query);
     } else {
       // Search is on other pages
-      console.log(`Search is on feed page: ${query.value}`);
+      console.log(`Search is on feed page: ${query}`);
+
       const searchResults = await fetchAllSearchResults(searchURL, query);
       displaySearchResults(searchResults, query);
     }
@@ -82,21 +91,20 @@ async function handleSearch(event) {
     }
   } finally {
     spinner.classList.add("d-none");
-    queryInput.value = ""; // Clear the input field
+    queryInput.value = "";
     showSearching.classList.add("d-none");
   }
 }
 
 function filterProfilePosts(query) {
-  const profilePosts = document.querySelectorAll(".post-card"); // Adjust the selector as needed
+  const profilePosts = document.querySelectorAll(".post-card");
 
-  // Filter and hide cards that do not match the search query
+  // Filter and hide cards that do not match my search query
   Array.from(profilePosts).forEach((post) => {
-    const titleElement = post.querySelector(".card-title"); // Assuming .card-title contains the post title
-    const bodyElement = post.querySelector(".card-text"); // Assuming .card-text contains the post body
-    const tagsElement = post.querySelector(".post-tags"); // Assuming .post-tags contains the post tags
+    const titleElement = post.querySelector(".card-title");
+    const bodyElement = post.querySelector(".card-text");
+    const tagsElement = post.querySelector(".post-tags");
 
-    // Build the search string
     let searchString = "";
 
     // Add title to the search string if available
@@ -125,6 +133,7 @@ function filterProfilePosts(query) {
       const mainHeader = document.querySelector(".main-header");
       const query = document.querySelector('input[name="searchQuery"]').value;
       const mainHeaderTitle = query ? `${postsLeft} results for ${query}` : "Search results";
+      console.log("mainHeaderTitle:", mainHeaderTitle);
       const title = query ? `${postsLeft} search results for ${query}` : "Search results";
       document.title = title;
       mainHeader.innerHTML = mainHeaderTitle;
@@ -132,13 +141,11 @@ function filterProfilePosts(query) {
       console.log(`query: ${query}`);
       console.log("looks fine: ", postsLeft, " match your search ", searchString);
       console.log("Boom ");
-
     }
   });
 }
 
 function displaySearchResults(results) {
-
   let feedPosts;
   if (window.location.pathname.includes("/post.html")) {
     // Set feedPosts for the post.html page
