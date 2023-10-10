@@ -1,4 +1,4 @@
-// import { updateLimitAndRefresh } from "./feed-get-posts.js";
+import { populateTagsSelector } from "./feed-get-posts.js";
 import { fetchOptions, searchURL } from "./variables/consts.mjs";
 import { createPostCard } from "./utils/feed.mjs";
 
@@ -27,17 +27,20 @@ async function fetchAllSearchResults(url, query, limit, offset) {
         return (
           searchString.toLowerCase().includes(query.toLowerCase()) &&
           !allResults.some((existingPost) => existingPost.id === post.id) // Check for duplicates
-        );
-      });
+          );
+        });
 
-      allResults = allResults.concat(searchResults);
-      totalFetched += result.length; // Update the total count of fetched posts
+        allResults = allResults.concat(searchResults);
+        totalFetched += result.length; // Update the total count of fetched posts
 
-      offset += limit; // Increment the offset for the next page
+        offset += limit; // Increment the offset for the next page
 
-      if (result.length < limit) {
-        break; // No more matching results to fetch
+        if (result.length < limit) {
+          break; // No more matching results to fetch
       }
+      const filterUserTagsSelector = document.getElementById("filterUserTagsSelector");
+      localStorage.setItem("currentPagePosts", JSON.stringify(allResults));
+      populateTagsSelector(allResults, filterUserTagsSelector);
     }
 
     // Show the number of results in the main header
@@ -47,7 +50,7 @@ async function fetchAllSearchResults(url, query, limit, offset) {
     mainHeader.innerHTML = `${allResults.length} results for ${query}`;
 
     displaySearchResults(allResults, query); // Call displaySearchResults once after fetching all results
-    document.addEventListener("DOMContentLoaded", captureCurrentPagePosts);
+    // document.addEventListener("DOMContentLoaded", captureCurrentPagePosts);
     return allResults;
   } catch (error) {
     console.error("Error fetching search results:", error);
@@ -94,10 +97,6 @@ async function handleSearch(event) {
   const showSearching = document.getElementById("searching");
   showSearching.classList.add("d-block", "mt-3");
   showSearching.classList.remove("d-none");
-
-  // Update breadcrumbs content based on the current search query
-  // const breadcrumbs = document.querySelector(".search-breadcrumbs");
-  // breadcrumbs.textContent = `Search Results for "${query}"`;
 
   try {
     // Reset the postsLeft counter and offset for a new search

@@ -1,9 +1,9 @@
 import { togglePostContent } from "./utils/show-more-post-text.mjs";
 import { toTopButton } from "./utils/back-to-top-button.js";
 import { clickHandler, profileLinks } from "./variables/consts.mjs";
-import { captureCurrentPagePosts, waitForPosts } from "./utils/current-page-posts.mjs";
+// import { captureCurrentPagePosts } from "./utils/current-page-posts.mjs";
 
-document.addEventListener("DOMContentLoaded", captureCurrentPagePosts);
+// document.addEventListener("DOMContentLoaded", captureCurrentPagePosts);
 // document.addEventListener("DOMContentLoaded", waitForPosts);
 // Add an event listener to capture posts whenever any change occurs within the document
 // document.addEventListener("change", () => {

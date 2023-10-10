@@ -10856,4 +10856,9 @@ body {
 
 .searching {
   display: none;
+}
+
+.rounded-bottom-2 {
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }/*# sourceMappingURL=index.css.map */
