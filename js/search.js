@@ -1,28 +1,25 @@
+import { updateLimitAndRefresh } from "./feed-get-posts.js";
 import { fetchOptions, searchURL } from "./variables/consts.mjs";
 import { createPostCard } from "./utils/feed.mjs";
 
 let postsLeft = 0;
+let limit = 100; // Get max 100 from API
+let offset = 0; // Initialize the offset to 0
+let query = ""; // Initialize the query variable
+// let nextPage = 1; // Initialize the nextPage variable
 
-async function fetchAllSearchResults(url, query) {
-  const limit = 100;
+async function fetchAllSearchResults(url, query, limit, offset) {
   let allResults = [];
-  let nextPage = 1;
   let totalFetched = 0; // Track the total number of posts fetched
 
   try {
-    while (totalFetched < 500) {
-      // Limit the search to the first 1000 posts
-
-      const response = await fetch(`${searchURL}?page=${nextPage}&limit=${limit}`, fetchOptions);
+    while (totalFetched < 1500) {
+      const response = await fetch(`${url}?limit=${limit}&offset=${offset}`, fetchOptions);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
 
       const result = await response.json();
-
-      if (!result || result.length === 0) {
-        break; // No more results to fetch
-      }
 
       // Filter and append results that match the query and are not duplicates
       const searchResults = result.filter((post) => {
@@ -34,25 +31,22 @@ async function fetchAllSearchResults(url, query) {
       });
 
       allResults = allResults.concat(searchResults);
-      // console.log(`allResults.length: ${allResults.length} - allResults:`, allResults);
       totalFetched += result.length; // Update the total count of fetched posts
 
-      nextPage++;
+      offset += limit; // Increment the offset for the next page
 
       if (result.length < limit) {
         break; // No more matching results to fetch
       }
     }
+
     // Show the number of results in the main header
     const mainHeader = document.querySelector(".main-header");
     mainHeader.classList.add("text-success", "fs-5");
     mainHeader.classList.remove("text-dark");
-    const filterWrapper = document.querySelector(".filter-wrapper");
-    filterWrapper.classList.add("flex-sm-column", "align-items-sm-center");
-    const buttonWrapper = document.querySelector(".button-wrapper");
-    buttonWrapper.classList.add("justify-content-sm-center");
     mainHeader.innerHTML = `${allResults.length} results for ${query}`;
 
+    displaySearchResults(allResults, query); // Call displaySearchResults once after fetching all results
     return allResults;
   } catch (error) {
     console.error("Error fetching search results:", error);
@@ -60,10 +54,39 @@ async function fetchAllSearchResults(url, query) {
   }
 }
 
+
+function displaySearchResults(results, query) {
+  let feedPosts;
+  if (window.location.pathname.includes("/post.html")) {
+    // Set feedPosts for the post.html page
+    feedPosts = document.getElementById("view-post");
+  } else {
+    // Set feedPosts for other pages
+    feedPosts = document.getElementById("feed-posts");
+  }
+  feedPosts.innerHTML = "";
+
+  if (results.length === 0) {
+    displayNoResults();
+  } else {
+    // Create and append post cards for each search result
+    results.forEach((result) => {
+      const postCard = createPostCard(result);
+      feedPosts.appendChild(postCard);
+    });
+
+    // Update the postsLeft count after processing all results
+    postsLeft = results.length;
+    updateMainHeader(query);
+  }
+}
+
+
+
 async function handleSearch(event) {
   event.preventDefault();
   const queryInput = document.querySelector('input[name="searchQuery"]');
-  const query = queryInput.value.toLowerCase(); // Convert the query to lowercase for case-insensitive search
+  query = queryInput.value.toLowerCase(); // Update the query variable
   const spinner = document.querySelector(".spinner-border");
   spinner.classList.remove("d-none");
   spinner.classList.add("mt-4");
@@ -71,9 +94,14 @@ async function handleSearch(event) {
   showSearching.classList.add("d-block", "mt-3");
   showSearching.classList.remove("d-none");
 
+  // Update breadcrumbs content based on the current search query
+  // const breadcrumbs = document.querySelector(".search-breadcrumbs");
+  // breadcrumbs.textContent = `Search Results for "${query}"`;
+
   try {
-    // Reset the postsLeft counter to zero for a new search
-    postsLeft = 0; // Update the outer variable
+    // Reset the postsLeft counter and offset for a new search
+    postsLeft = 0;
+    offset = 0;
 
     if (window.location.pathname.includes("/profile/")) {
       // Search is on the profile page
@@ -81,9 +109,7 @@ async function handleSearch(event) {
     } else {
       // Search is on other pages
       console.log(`Search is on feed page: ${query}`);
-
-      const searchResults = await fetchAllSearchResults(searchURL, query);
-      displaySearchResults(searchResults, query);
+      await fetchAllSearchResults(searchURL, query, limit, offset);
     }
   } catch (error) {
     if (!error.message.includes("https://picsum.photos")) {
@@ -128,45 +154,55 @@ function filterProfilePosts(query) {
       post.style.display = "none"; // Hide the card
     } else {
       post.style.display = "block"; // Show the card
-      postsLeft++; // Increment the postsLeft counter
-
-      const mainHeader = document.querySelector(".main-header");
-      const query = document.querySelector('input[name="searchQuery"]').value;
-      const mainHeaderTitle = query ? `${postsLeft} results for ${query}` : "Search results";
-      console.log("mainHeaderTitle:", mainHeaderTitle);
-      const title = query ? `${postsLeft} search results for ${query}` : "Search results";
-      document.title = title;
-      mainHeader.innerHTML = mainHeaderTitle;
-
-      console.log(`query: ${query}`);
-      console.log("looks fine: ", postsLeft, " match your search ", searchString);
-      console.log("Boom ");
+      postsLeft++;
+      updateMainHeader(query);
     }
   });
 }
 
-function displaySearchResults(results) {
-  let feedPosts;
-  if (window.location.pathname.includes("/post.html")) {
-    // Set feedPosts for the post.html page
-    feedPosts = document.getElementById("view-post");
-  } else {
-    // Set feedPosts for other pages
-    feedPosts = document.getElementById("feed-posts");
-  }
-  feedPosts.innerHTML = "";
-
-  if (results.length === 0) {
-    // Display a message when there are no results
-    feedPosts.innerHTML = "<p>No results found.</p>";
-  } else {
-    // Create and append post cards for each search result
-    results.forEach((result) => {
-      const postCard = createPostCard(result);
-      feedPosts.appendChild(postCard);
-    });
-  }
+function updateMainHeader(query) {
+  const mainHeader = document.querySelector(".main-header");
+  const mainHeaderTitle = query ? `${postsLeft} results for ${query}` : "Search results";
+  mainHeader.innerHTML = mainHeaderTitle;
+  mainHeader.classList.add("text-success", "fs-5");
+  mainHeader.classList.remove("text-dark", "fs-3");
 }
+
+function displayNoResults() {
+  const feedPosts = document.getElementById("feed-posts");
+  feedPosts.innerHTML = "<p>No results found.</p>";
+  updateMainHeader(query);
+}
+
+// function displaySearchResults(results, query) {
+//   let feedPosts;
+//   if (window.location.pathname.includes("/post.html")) {
+//     // Set feedPosts for the post.html page
+//     feedPosts = document.getElementById("view-post");
+//   } else {
+//     // Set feedPosts for other pages
+//     feedPosts = document.getElementById("feed-posts");
+//   }
+//   feedPosts.innerHTML = "";
+
+//   if (results.length === 0) {
+//     displayNoResults();
+//   } else {
+//     // Create and append post cards for each search result
+//     results.forEach((result) => {
+//       const postCard = createPostCard(result);
+//       feedPosts.appendChild(postCard);
+//     });
+//     postsLeft = results.length;
+//     updateMainHeader(query);
+//   }
+// }
+
+// document.querySelector("#itemsPerPageSelector").addEventListener("change", (e) => {
+//   const selectedValue = e.target.value;
+//   updateLimitAndRefresh(selectedValue);
+// });
 
 const searchForm = document.getElementById("searchForm");
 searchForm.addEventListener("submit", handleSearch);
+

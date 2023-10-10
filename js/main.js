@@ -52,4 +52,34 @@ showMoreButtons.forEach((button) => {
   button.addEventListener("click", togglePostContent);
 });
 
+const mainContainer = document.querySelector(".accordion");
+const navLinks = mainContainer.querySelectorAll(".nav-link");
+// const navLinks = document.querySelectorAll(".nav-link");
+
+navLinks.forEach((navLink) => {
+  navLink.addEventListener("click", () => {
+    const isActive = navLink.classList.contains("bg-warning");
+    navLinks.forEach((link) => {
+      link.classList.remove("bg-warning");
+    });
+    if (!isActive || navLink.classList.contains("collapsed")) {
+      navLink.classList.add("bg-warning");
+    }
+  });
+});
+
+
+navLinks.forEach((navLink) => {
+  navLink.addEventListener("click", () => {
+    navLinks.forEach((link) => {
+      link.classList.remove("bg-warning");
+      if (navLink === link || navLink.classList.contains("active")) {
+        navLink.classList.remove("bg-warning");
+      }
+    });
+    navLink.classList.add("bg-warning");
+  });
+});
+
+
 

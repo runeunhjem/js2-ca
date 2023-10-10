@@ -125,7 +125,7 @@
                 </li>
                 <li class="nav-item">
                   <a href="#" class="rounded nav-link rounded text-dark text-decoration-none create-button" id="createButton" data-bs-toggle="collapse" data-bs-target="#createPostForm" aria-expanded="false">
-                    <i class="me-1 bi bi-chat-dots"></i><span class="icons">New Post</span>
+                    <i class="me-1 bi bi-plus-square"></i><span class="icons">Post</span>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -162,62 +162,63 @@
               </div>
              </div>
           </div>
-          <!-- Filters and sort -->
-          <div class="d-flex justify-content-center align-items-center align-items-sm-start mt-1 flex-column flex-sm-row justify-content-sm-around filter-wrapper">
+          <h1 class="text-center flex-wrap fs-3 text-dark main-header">Feed</h1>
+          <!-- Sort and filter section -->
+          <div class="accordion" id="myAccordion">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" id="myTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link border border-1" id="getPosts-tab" data-bs-toggle="collapse" href="#getPostsContent" role="button" aria-expanded="true" aria-controls="getPostsContent">Get posts</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link border border-1" id="filterPosts-tab" data-bs-toggle="collapse" href="#filterPostsContent" role="button" aria-expanded="false" aria-controls="filterPostsContent">Filter posts</a>
+              </li>
+            </ul>
 
-            <h1 class="text-center text-dark main-header m-0 p-0">Feed</h1>
-
-            <div class="menu-wrapper d-flex flex-column w-100 justify-content-between">
-              <p class="d-flex gap-3 justify-content-between justify-content-sm-start ms-sm-3 mt-1 mb-3 align-items-center pt-1 button-wrapper">
-                <a class="btn btn-warning p-1" data-bs-toggle="collapse" href="#getPost" role="button" aria-expanded="false" aria-controls="getPost">Get posts</a>
-                <button class="btn btn-warning p-1" type="button" data-bs-toggle="collapse" data-bs-target="#filterPosts" aria-expanded="false" aria-controls="filterPosts">Filter posts</button>
-                <button class="btn btn-warning p-1" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="getPost filterPosts">Toggle show</button>
-              </p>
-              <div class="row w-100">
-                <div class="col w-100 ms-3">
-                  <div class="collapse multi-collapse" id="getPost">
-                    <div class="card card-body d-inline-flex flex-column w-100 justify-content-between">
-                      <!-- Items per Page Selector with Description -->
-                      <div class="form-group mb-3">
-                        <!-- <label for="itemsPerPageSelector">Posts per page:</label> -->
-                        <select class="form-select btn-warning" aria-label="Items per Page" id="itemsPerPageSelector" aria-placeholder="Posts per page:">
-                          <option value="">Posts per page:</option>
-                          <option value="10">10</option>
-                          <option value="20">20</option>
-                          <option value="50">50</option>
-                          <option value="100">100</option>
-                        </select>
-                      </div>
-                      <!-- Sort Feed Selector -->
-                      <div class="dropdown mb-3">
-                        <!-- <label for="sortFeedSelector">Get posts:</label> -->
-                        <select class="form-select" aria-label="Sort Feed" id="sortFeedSelector" aria-placeholder="Get posts:">
-                          <option value="">Get posts:</option>
-                          <option value="newest">Newest first</option>
-                          <option value="oldest">Oldest first</option>
-                        </select>
-                      </div>
-                    </div>
+            <!-- Tab content -->
+            <div class="accordion-item">
+              <div class="collapse bg-warning" id="getPostsContent" data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                  <!-- Items per Page Selector with Description -->
+                  <div class="form-group mb-3">
+                    <select class="form-select btn-warning" aria-label="Items per Page" id="itemsPerPageSelector" aria-placeholder="Posts per page:">
+                      <option value="">Posts per page:</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
                   </div>
-                </div>
-                <div class="col w-100">
-                  <!-- Filter Posts Selector -->
-                  <div class="collapse multi-collapse" id="filterPosts">
-                    <div class="card card-body d-inline-flex flex-column">
-                      <div class="dropdown mb-3">
-                        <label for="filterFeedSelector">Filters:</label>
-                        <select class="form-select" aria-label="Sort Feed" id="filterFeedSelector">
-                          <option value="following">Following</option>
-                          <option value="avatar">Has Profile Image</option>
-                          <option value="banner">Has Profile Banner</option>
-                        </select>
-                      </div>
-                    </div>
+                  <!-- Sort Feed Selector -->
+                  <div class="form-group mb-3">
+                    <select class="form-select" aria-label="Sort Feed" id="sortFeedSelector" aria-placeholder="Get posts:">
+                      <option value="">Get posts:</option>
+                      <option value="newest">Newest first</option>
+                      <option value="oldest">Oldest first</option>
+                    </select>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+
+            <div class="accordion-item">
+              <div class="collapse bg-warning" id="filterPostsContent" data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                  <!-- Filter Posts Selector -->
+                  <div class="form-group mb-3">
+                    <select class="form-select" aria-label="Sort Feed" id="filterFeedSelector">
+                      <option value="following">Following</option>
+                      <option value="avatar">Has Profile Image</option>
+                      <option value="banner">Has Profile Banner</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- End of Sort and filter section -->
+
+
           <!-- Content section -->
           <a href="#" aria-label="Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
             <div class="back-to-top-button bg-warning text-dark pt-1 pb-2 px-3 fs-3"></div>
@@ -229,8 +230,15 @@
             <h2 class="searching text-center d-none" id="searching">Searching...</h2>
           </div>
           <div class="searching"></div>
+          <div class="get-next mt-3 d-flex justify-content-between">
+          <a href="#" id="prevPageLink" class="text-primary text-decoration-none"><i class="bi bi-chevron-left"></i> Previous Page</a>
+          <div id="currentPageInfo">Page 1</div>
+          <a href="#" id="nextPageLink" class="text-primary text-decoration-none">Next Page <i class="bi bi-chevron-right"></i></a>
+          </div>
           <div class="feed-posts" id="feed-posts"></div>
           <hr class="my-5 pb-5">
+        </div>
+
         </div>
         <!-- News section -->
         <div class="d-none d-lg-block col-lg-4">

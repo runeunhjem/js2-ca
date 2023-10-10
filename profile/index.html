@@ -87,35 +87,67 @@
             </div>
           </div>
           <div class="col-md-7">
-            <div class="d-flex justify-content-between align-items-center mt-4">
-              <h1 class="text-center text-dark main-header">Your posts</h1>
-              <div class="dropdown">
-                <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Sort Feed
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end flex-column ml-3">
-                  <li class="dropdown-item">
-                    <a href="#" class="text-dark text-decoration-none py-0 rounded-0">By Date</a>
-                  </li>
-                  <li class="dropdown-item">
-                    <a href="#" class="text-dark text-decoration-none py-0 rounded-0">By Name</a>
-                  </li>
-                  <li class="p-0 m-0">
-                    <select class="form-select border-0 me-0" aria-label="Select Category">
-                      <option selected>By Category</option>
-                      <option value="Sci-Fi">Sci-Fi</option>
-                      <option value="Action">Action</option>
-                      <option value="Fantasy">Fantasy</option>
+            <h1 class="text-center flex-wrap fs-3 text-dark main-header">Your posts</h1>
+            <hr>
+            <!-- Sort and filter section -->
+          <div class="accordion" id="myAccordion">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs border-dark borderb-0 px-0" id="myTabs" role="tablist">
+              <li class="nav-item border-dark" role="presentation">
+                <a class="nav-link rounded-2 border-dark text-dark bg-info" id="getPosts-tab" data-bs-toggle="collapse" href="#getPostsContent" role="button" aria-expanded="true" aria-controls="getPostsContent">Get posts</a>
+              </li>
+              <li class="nav-item border-dark" role="presentation">
+                <a class="nav-link rounded-2 border-dark text-dark" id="filterPosts-tab" data-bs-toggle="collapse" href="#filterPostsContent" role="button" aria-expanded="false" aria-controls="filterPostsContent">Filter posts</a>
+              </li>
+            </ul>
+
+            <!-- Tab content -->
+            <div class="accordion-item bg-warning border-0">
+              <div class="collapse" id="getPostsContent" data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                  <!-- Items per Page Selector with Description -->
+                  <div class="form-group mb-3">
+                    <select class="form-select btn-warning" aria-label="Items per Page" id="itemsPerPageSelector" aria-placeholder="Posts per page:">
+                      <option value="">Posts per page:</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
                     </select>
-                  </li>
-                </ul>
+                  </div>
+                  <!-- Sort Feed Selector -->
+                  <div class="form-group mb-3">
+                    <select class="form-select" aria-label="Sort Feed" id="sortFeedSelector" aria-placeholder="Get posts:">
+                      <option value="">Get posts:</option>
+                      <option value="newest">Newest first</option>
+                      <option value="oldest">Oldest first</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
-              <div class="loadingIndicator" id="loadingIndicator"></div>
-              <a href="#" aria-label="Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
-                <div class="back-to-top-button bg-warning text-dark pt-1 px-3 pb-2"></div>
-              </a>
-              <div class="d-flex flex-column mb-1 align-items-center">
+
+            <div class="accordion-item bg-warning border-0">
+              <div class="collapse" id="filterPostsContent" data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                  <!-- Filter Posts Selector -->
+                  <div class="form-group mb-3">
+                    <select class="form-select" aria-label="Sort Feed" id="filterFeedSelector">
+                      <option value="following">Following</option>
+                      <option value="avatar">Has Profile Image</option>
+                      <option value="banner">Has Profile Banner</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End of Sort and filter section -->
+          </div>
+            <div class="loadingIndicator" id="loadingIndicator"></div>
+            <a href="#" aria-label="  Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
+              <div class="back-to-top-button bg-warning text-dark pt-1 px-3 pb-2"></div>
+            </a>
+            <div class="d-flex flex-column mb-1 align-items-center">
               <div class="spinner-border text-warning text-center" role="status">
                 <span class="visually-hidden">Loading...</span>
               </div>
@@ -127,6 +159,8 @@
           </div>
         </div>
       </div>
+    </div>
+
     </main>
     <footer class="mt-3 fixed-bottom">
       <div class="container-fluid bg-dark mt-3">

@@ -206,9 +206,7 @@ export function createPostCard(post) {
     categoriesText.textContent = "Categories:";
     categoriesElement.appendChild(categoriesText);
     categoriesElement.appendChild(document.createTextNode(` ${tagsString}`));
-    // viewPostLink.appendChild(document.createTextNode(categoriesElement));
   } else {
-    // Handle the case when there are no tags
     categoriesElement.innerHTML = "<strong>Categories:</strong> No categories available";
   }
 

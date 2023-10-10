@@ -6,7 +6,7 @@ import { loggedInUserData, API_BASE_URL, fetchOptions } from "./variables/consts
 // on profile do if statement on search that checks currentprofile and only returns results from that profile
 // on feed add currentprofile as filter
 // Switch addEventlister on search from submit to keyup
-
+let currentPage = 1;
 const urlParams = new URLSearchParams(window.location.search);
 const postIdParam = urlParams.get("postId");
 const profileImageElement = document.querySelector(".profile-image");
@@ -39,8 +39,12 @@ document.querySelector(".sort-by-name-button").addEventListener("click", () => {
   console.log("sort by name basePostsURL: ", basePostsURL);
 });
 
-function updateLimitAndRefresh(value) {
+export async function updateLimitAndRefresh(value) {
+  console.log("updateLimitAndRefresh called"); // Add this line for debugging
+
   limit = parseInt(value, 10);
+  const itemsPerPageSelector = document.getElementById("itemsPerPageSelector");
+  limit = parseInt(itemsPerPageSelector.value);
   offset = 0; // Reset the offset when changing the limit
   basePostsURL = getBasePostsURL(); // Define basePostsURL after updating limit and offset
   getFeedPostsWithToken(basePostsURL, fetchOptions);
@@ -49,6 +53,7 @@ function updateLimitAndRefresh(value) {
 
 document.querySelector("#itemsPerPageSelector").addEventListener("change", (e) => {
   const selectedValue = e.target.value;
+  console.log(`selectedValue: ${selectedValue}`);
   updateLimitAndRefresh(selectedValue);
 });
 
@@ -123,12 +128,40 @@ document.querySelector("#sortFeedSelector").addEventListener("change", (e) => {
   }
 
   basePostsURL = getBasePostsURL();
-  console.log("sortFeedSelector before getfeedpostswithtoken basePostsURL: ", basePostsURL);
+  // console.log("sortFeedSelector before getfeedpostswithtoken basePostsURL: ", basePostsURL);
   getFeedPostsWithToken(basePostsURL, fetchOptions);
-  console.log("sortFeedSelector basePostsURL: ", basePostsURL);
+  // console.log("sortFeedSelector basePostsURL: ", basePostsURL);
 });
 
 getFeedPostsWithToken(basePostsURL, fetchOptions);
+
+// Next & Previous links
+// Update the current page number based on the offset
+function updateCurrentPage() {
+  const currentPageElement = document.getElementById("currentPageInfo");
+  currentPage = `Page ${Math.floor(offset / limit) + 1}`;
+  currentPageElement.textContent = currentPage;
+}
+
+// Previous Page link click event
+document.querySelector("#prevPageLink").addEventListener("click", () => {
+  if (offset >= limit) {
+    offset -= limit;
+    updateCurrentPage();
+    basePostsURL = getBasePostsURL();
+    getFeedPostsWithToken(basePostsURL, fetchOptions);
+  }
+});
+
+// Next Page link click event
+document.querySelector("#nextPageLink").addEventListener("click", () => {
+  offset += limit;
+  updateCurrentPage();
+  basePostsURL = getBasePostsURL();
+  getFeedPostsWithToken(basePostsURL, fetchOptions);
+});
+
+
 
 
 // document.querySelector("#filterFeedSelector").addEventListener("change", (e) => {
