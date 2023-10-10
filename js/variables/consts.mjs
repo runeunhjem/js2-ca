@@ -38,6 +38,7 @@ export const postId = localStorage.getItem("postId");
 export const getSinglePostURL = `https://api.noroff.dev/api/v1/social/posts/${postId}?_comments=true&_author=true&_reactions=true`;
 export const authorName = localStorage.getItem("authorName");
 export const profileLinks = document.querySelectorAll(".profile-link");
+
 export const clickHandler = (event) => {
   event.preventDefault();
   const originalHref = `../profile/index.html?name=${loggedInUser}`;

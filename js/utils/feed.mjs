@@ -186,7 +186,9 @@ export function createPostCard(post) {
   viewPostLink.appendChild(document.createTextNode(post.title));
 
   if (window.location.pathname.includes("post.html")) {
-    viewPostLink.classList.add("disabled-link", "text-success", "fw-bold");
+    viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
+    viewPostLink.appendChild(document.createTextNode(post.title));
+    viewPostLink.classList.add("disabled-link", "text-muted", "fw-bold", "pt-0");
     viewPostLink.removeAttribute("href");
     viewPostLink.addEventListener("click", (event) => {
       event.preventDefault();

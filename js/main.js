@@ -1,8 +1,16 @@
 import { togglePostContent } from "./utils/show-more-post-text.mjs";
 import { toTopButton } from "./utils/back-to-top-button.js";
 import { clickHandler, profileLinks } from "./variables/consts.mjs";
+import { captureCurrentPagePosts, waitForPosts } from "./utils/current-page-posts.mjs";
 
+document.addEventListener("DOMContentLoaded", captureCurrentPagePosts);
+// document.addEventListener("DOMContentLoaded", waitForPosts);
+// Add an event listener to capture posts whenever any change occurs within the document
+// document.addEventListener("change", () => {
+//   waitForPosts();
+// });
 
+toTopButton();
 
 document.addEventListener("DOMContentLoaded", function () {
   const accessToken = localStorage.getItem("accessToken");
@@ -16,10 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
     additionalInfo.textContent = "Please log in or sign up to access our site.";
     additionalInfo.classList.add("d-flex", "flex-column", "align-items-center");
 
-    const loginLink = document.createElement("a"); // Use an anchor element for the link
+    const loginLink = document.createElement("a");
     loginLink.textContent = "Go to login.";
-    loginLink.href = "../index.html"; // Set the href attribute to specify the destination URL
-    loginLink.classList.add("text-center", "mt-3", "btn", "btn-warning"); // Add button styling to the link
+    loginLink.href = "../index.html";
+    loginLink.classList.add("text-center", "mt-3", "btn", "btn-warning");
     additionalInfo.appendChild(loginLink);
 
     const mainContainer = document.querySelector("main");
@@ -29,15 +37,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-
-toTopButton();
-
 profileLinks.forEach((link) => {
   link.addEventListener("click", clickHandler);
 });
 
 const logoutLinks = document.querySelectorAll(".logout-link");
-
 logoutLinks.forEach(function (logoutLink) {
   logoutLink.addEventListener("click", function (logout) {
     logout.preventDefault();
@@ -54,7 +58,6 @@ showMoreButtons.forEach((button) => {
 
 const mainContainer = document.querySelector(".accordion");
 const navLinks = mainContainer.querySelectorAll(".nav-link");
-// const navLinks = document.querySelectorAll(".nav-link");
 
 navLinks.forEach((navLink) => {
   navLink.addEventListener("click", () => {
@@ -68,7 +71,6 @@ navLinks.forEach((navLink) => {
   });
 });
 
-
 navLinks.forEach((navLink) => {
   navLink.addEventListener("click", () => {
     navLinks.forEach((link) => {
@@ -81,5 +83,7 @@ navLinks.forEach((navLink) => {
   });
 });
 
-
-
+if (window.location.href.includes("/post") || window.location.href.includes("/profile/")) {
+  const hideNextPreviousLinks = document.querySelector(".get-next");
+  hideNextPreviousLinks.classList.add("d-none");
+}

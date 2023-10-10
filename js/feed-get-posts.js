@@ -1,18 +1,14 @@
 import { createPostCard } from "./utils/feed.mjs";
 import { loggedInUserData, API_BASE_URL, fetchOptions } from "./variables/consts.mjs";
 
-
-// CONSIDER array.toSorted - check mdn
-// on profile do if statement on search that checks currentprofile and only returns results from that profile
-// on feed add currentprofile as filter
-// Switch addEventlister on search from submit to keyup
-let currentPage = 1;
 const urlParams = new URLSearchParams(window.location.search);
 const postIdParam = urlParams.get("postId");
 const profileImageElement = document.querySelector(".profile-image");
 profileImageElement.src = loggedInUserData.avatar
-  ? loggedInUserData.avatar
-  : `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
+? loggedInUserData.avatar
+: `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
+
+let currentPage = 1;
 let limit = 10;
 let offset = 0;
 let sort = "created";
@@ -161,34 +157,4 @@ document.querySelector("#nextPageLink").addEventListener("click", () => {
   getFeedPostsWithToken(basePostsURL, fetchOptions);
 });
 
-
-
-
-// document.querySelector("#filterFeedSelector").addEventListener("change", (e) => {
-//   const selectedValue = e.target.value;
-
-//   // Update the basePostsURL based on the selected filter
-//   switch (selectedValue) {
-//     case "following":
-//       // Add logic to filter by following
-
-//       // Filter posts by whether the logged-in user is following the author
-//       const filteredPosts = posts.filter((post) => loggedInUserData.following.includes(post.author.name));
-//       displayFilteredPosts(filteredPosts);
-
-//       break;
-//     case "avatar":
-//       // Add logic to filter by posts with profile image
-//       break;
-//     case "banner":
-//       // Add logic to filter by posts with profile banner
-//       break;
-//     default:
-//       // Handle other cases or reset filters
-//       break;
-//   }
-
-//   // Call getFeedPostsWithToken with the updated basePostsURL
-//   getFeedPostsWithToken(basePostsURL, fetchOptions);
-// });
 

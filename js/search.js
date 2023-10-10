@@ -1,4 +1,4 @@
-import { updateLimitAndRefresh } from "./feed-get-posts.js";
+// import { updateLimitAndRefresh } from "./feed-get-posts.js";
 import { fetchOptions, searchURL } from "./variables/consts.mjs";
 import { createPostCard } from "./utils/feed.mjs";
 
@@ -47,6 +47,7 @@ async function fetchAllSearchResults(url, query, limit, offset) {
     mainHeader.innerHTML = `${allResults.length} results for ${query}`;
 
     displaySearchResults(allResults, query); // Call displaySearchResults once after fetching all results
+    document.addEventListener("DOMContentLoaded", captureCurrentPagePosts);
     return allResults;
   } catch (error) {
     console.error("Error fetching search results:", error);
@@ -105,6 +106,7 @@ async function handleSearch(event) {
 
     if (window.location.pathname.includes("/profile/")) {
       // Search is on the profile page
+      console.log(`Search is on profile page: ${query}`);
       filterProfilePosts(query);
     } else {
       // Search is on other pages
@@ -122,13 +124,13 @@ async function handleSearch(event) {
   }
 }
 
-function filterProfilePosts(query) {
+export async function filterProfilePosts(query) {
   const profilePosts = document.querySelectorAll(".post-card");
 
   // Filter and hide cards that do not match my search query
   Array.from(profilePosts).forEach((post) => {
     const titleElement = post.querySelector(".card-title");
-    const bodyElement = post.querySelector(".card-text");
+    const bodyElement = post.querySelectorAll(".card-text");
     const tagsElement = post.querySelector(".post-tags");
 
     let searchString = "";
@@ -140,7 +142,9 @@ function filterProfilePosts(query) {
 
     // Add body to the search string if available
     if (bodyElement) {
-      searchString += bodyElement.textContent.toLowerCase();
+     bodyElement.forEach((bodyElement) => {
+       searchString += bodyElement.textContent.toLowerCase();
+     });
     }
 
     // Add tags to the search string if available
@@ -158,6 +162,8 @@ function filterProfilePosts(query) {
       updateMainHeader(query);
     }
   });
+
+
 }
 
 function updateMainHeader(query) {
@@ -173,35 +179,6 @@ function displayNoResults() {
   feedPosts.innerHTML = "<p>No results found.</p>";
   updateMainHeader(query);
 }
-
-// function displaySearchResults(results, query) {
-//   let feedPosts;
-//   if (window.location.pathname.includes("/post.html")) {
-//     // Set feedPosts for the post.html page
-//     feedPosts = document.getElementById("view-post");
-//   } else {
-//     // Set feedPosts for other pages
-//     feedPosts = document.getElementById("feed-posts");
-//   }
-//   feedPosts.innerHTML = "";
-
-//   if (results.length === 0) {
-//     displayNoResults();
-//   } else {
-//     // Create and append post cards for each search result
-//     results.forEach((result) => {
-//       const postCard = createPostCard(result);
-//       feedPosts.appendChild(postCard);
-//     });
-//     postsLeft = results.length;
-//     updateMainHeader(query);
-//   }
-// }
-
-// document.querySelector("#itemsPerPageSelector").addEventListener("change", (e) => {
-//   const selectedValue = e.target.value;
-//   updateLimitAndRefresh(selectedValue);
-// });
 
 const searchForm = document.getElementById("searchForm");
 searchForm.addEventListener("submit", handleSearch);
