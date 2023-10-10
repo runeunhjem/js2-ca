@@ -5,10 +5,11 @@ const allPostsTags = [];
 const urlParams = new URLSearchParams(window.location.search);
 const postIdParam = urlParams.get("postId");
 const profileImageElement = document.querySelector(".profile-image");
-profileImageElement.src = loggedInUserData.avatar
-  ? loggedInUserData.avatar
-  : `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
-
+if (profileImageElement) {
+  profileImageElement.src = loggedInUserData.avatar
+    ? loggedInUserData.avatar
+    : `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
+}
 let currentPage = 1;
 let limit = 10;
 let offset = 0;
@@ -19,22 +20,41 @@ let basePostsURL = getBasePostsURL();
 function getBasePostsURL() {
   return `${API_BASE_URL}/social/posts?limit=${limit}&offset=${offset}&_comments=true&_author=true&_reactions=true&_count=true&sort=${sort}&sortOrder=${sortOrder}`;
 }
+if (!window.location.href.includes("/profile/")) {
+  document.querySelector(".sort-by-date-button").addEventListener("click", () => {
+    sort = "created";
+    togglesortOrder();
+    basePostsURL = getBasePostsURL();
+    getFeedPostsWithToken(basePostsURL, fetchOptions);
+    console.log("sort by date button basePostsURL: ", basePostsURL);
+  });
 
-document.querySelector(".sort-by-date-button").addEventListener("click", () => {
-  sort = "created";
-  togglesortOrder();
-  basePostsURL = getBasePostsURL();
-  getFeedPostsWithToken(basePostsURL, fetchOptions);
-  console.log("sort by date button basePostsURL: ", basePostsURL);
-});
+  document.querySelector(".sort-by-name-button").addEventListener("click", () => {
+    sort = "owner";
+    togglesortOrder();
+    basePostsURL = getBasePostsURL();
+    getFeedPostsWithToken(basePostsURL, fetchOptions);
+    console.log("sort by name basePostsURL: ", basePostsURL);
+  });
 
-document.querySelector(".sort-by-name-button").addEventListener("click", () => {
-  sort = "owner";
-  togglesortOrder();
-  basePostsURL = getBasePostsURL();
-  getFeedPostsWithToken(basePostsURL, fetchOptions);
-  console.log("sort by name basePostsURL: ", basePostsURL);
-});
+  document.querySelector("#sortFeedSelector").addEventListener("change", (e) => {
+    const selectedValue = e.target.value;
+    if (selectedValue === "newest") {
+      // Update the sorting field for newest first
+      sort = "created";
+      sortOrder = "desc";
+    } else if (selectedValue === "oldest") {
+      // Update the sorting field for oldest first
+      sort = "created";
+      sortOrder = "asc";
+    }
+
+    basePostsURL = getBasePostsURL();
+    // console.log("sortFeedSelector before getfeedpostswithtoken basePostsURL: ", basePostsURL);
+    getFeedPostsWithToken(basePostsURL, fetchOptions);
+    // console.log("sortFeedSelector basePostsURL: ", basePostsURL);
+  });
+}
 
 export async function updateLimitAndRefresh(value) {
   console.log("updateLimitAndRefresh called"); // Add this line for debugging
@@ -175,23 +195,7 @@ function togglesortOrder() {
   sortOrder = sortOrder === "asc" ? "desc" : "asc";
 }
 
-document.querySelector("#sortFeedSelector").addEventListener("change", (e) => {
-  const selectedValue = e.target.value;
-  if (selectedValue === "newest") {
-    // Update the sorting field for newest first
-    sort = "created";
-    sortOrder = "desc";
-  } else if (selectedValue === "oldest") {
-    // Update the sorting field for oldest first
-    sort = "created";
-    sortOrder = "asc";
-  }
 
-  basePostsURL = getBasePostsURL();
-  // console.log("sortFeedSelector before getfeedpostswithtoken basePostsURL: ", basePostsURL);
-  getFeedPostsWithToken(basePostsURL, fetchOptions);
-  // console.log("sortFeedSelector basePostsURL: ", basePostsURL);
-});
 
 getFeedPostsWithToken(basePostsURL, fetchOptions);
 
