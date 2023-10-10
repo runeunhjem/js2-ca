@@ -182,7 +182,7 @@ export function createPostCard(post) {
   viewPostLink.style.setProperty("class", "align-items-start", "important");
   const postPageURL = `../feed/post.html?postId=${post.id}`;
   viewPostLink.href = postPageURL;
-  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-0"></i>`;
+  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
   viewPostLink.appendChild(document.createTextNode(post.title));
 
   if (window.location.pathname.includes("post.html")) {
