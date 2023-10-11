@@ -1,5 +1,5 @@
-import { populateTagsSelector } from "./feed-get-posts.js";
-import { fetchOptions, searchURL } from "./variables/consts.mjs";
+import { populateTags, populateTagsSelector } from "./feed-get-posts.js";
+import { fetchOptions, searchURL, allPostsTags } from "./variables/consts.mjs";
 import { createPostCard } from "./utils/feed.mjs";
 
 let postsLeft = 0;
@@ -21,6 +21,7 @@ async function fetchAllSearchResults(url, query, limit, offset) {
 
       const result = await response.json();
 
+
       // Filter and append results that match the query and are not duplicates
       const searchResults = result.filter((post) => {
         const searchString = post.title + post.body + post.tags.join(" ") + post.author.name;
@@ -38,9 +39,10 @@ async function fetchAllSearchResults(url, query, limit, offset) {
         if (result.length < limit) {
           break; // No more matching results to fetch
       }
-      const filterUserTagsSelector = document.getElementById("filterUserTagsSelector");
-      localStorage.setItem("currentPagePosts", JSON.stringify(allResults));
-      populateTagsSelector(allResults, filterUserTagsSelector);
+
+      // const filterUserTagsSelector = document.getElementById("filterUserTagsSelector");
+      // localStorage.setItem("currentPagePosts", JSON.stringify(allResults));
+      // populateTagsSelector(allResults, filterUserTagsSelector);
     }
 
     // Show the number of results in the main header
@@ -77,6 +79,21 @@ function displaySearchResults(results, query) {
     results.forEach((result) => {
       const postCard = createPostCard(result);
       feedPosts.appendChild(postCard);
+      allPostsTags.length = 0; // Clear the allPostsTags array
+
+      results.forEach((post) => {
+        const tags = post.tags || [];
+        // Loop through the tags in the current post
+        tags.forEach((tag) => {
+          // Check if the tag is not already in the allPostsTags array
+          if (!allPostsTags.includes(tag)) {
+            // Add the tag to the allPostsTags array
+            allPostsTags.push(tag);
+          }
+        });
+      });
+      populateTags(results); // Populate the allPostsTags array with tags from the fetched posts
+      console.log("allPostsTags from search is:", allPostsTags);
     });
 
     // Update the postsLeft count after processing all results
