@@ -98,7 +98,9 @@ export async function getFeedPostsWithToken(url, options) {
           console.log("Current page Posts: ", posts);
           localStorage.setItem("currentPagePosts", JSON.stringify(posts));
 
+          // populateTags(); // Update the tags selector
           if (Array.isArray(posts)) {
+            allPostsTags.length = 0; // Clear the allPostsTags array
             let feedPosts = document.getElementById("feed-posts");
 
             // Clear the existing content
@@ -149,6 +151,7 @@ export async function getFeedPostsWithToken(url, options) {
                 }
               }
             });
+            populateTags(posts);
           } else {
             console.error("Data is not in the expected format.");
           }
@@ -208,6 +211,7 @@ export async function populateTagsSelector(tags, selectorElement) {
     option.text = tag;
     selectorElement.appendChild(option);
   });
+  return Promise.resolve(); // Resolve the Promise when done
 }
 
 console.log("All Posts Tags Array: ", allPostsTags);
@@ -217,8 +221,14 @@ console.log("All Posts Tags Array: ", allPostsTags);
 // Common code
 export const filterUserTagsSelector = document.getElementById("filterUserTagsSelector");
 export const populateTags = () => {
-  populateTagsSelector(allPostsTags, filterUserTagsSelector);
+  if (Array.isArray(allPostsTags)) {
+    const filterUserTagsSelector = document.getElementById("filterUserTagsSelector");
+    filterUserTagsSelector.innerHTML = ""; // Clear the existing options
+    populateTagsSelector(allPostsTags, filterUserTagsSelector);
+  }
 };
+
+
 
 // Determine the page type
 if (
@@ -253,6 +263,7 @@ function updateCurrentPage() {
   const currentPageElement = document.getElementById("currentPageInfo");
   currentPage = `Page ${Math.floor(offset / limit) + 1}`;
   currentPageElement.textContent = currentPage;
+  populateTags(); // Update the tags selector
 }
 
 // Previous Page link click event
@@ -262,6 +273,7 @@ document.querySelector("#prevPageLink").addEventListener("click", () => {
     updateCurrentPage();
     basePostsURL = getBasePostsURL();
     getFeedPostsWithToken(basePostsURL, fetchOptions);
+    populateTags(); // Update the tags selector
   }
 });
 
@@ -271,4 +283,5 @@ document.querySelector("#nextPageLink").addEventListener("click", () => {
   updateCurrentPage();
   basePostsURL = getBasePostsURL();
   getFeedPostsWithToken(basePostsURL, fetchOptions);
+  populateTags(); // Update the tags selector
 });

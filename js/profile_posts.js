@@ -1,6 +1,7 @@
 import { urlParams } from "./variables/consts.mjs";
 import { getProfilePosts } from "./populate_profile.js";
 import { createPostCard } from "./utils/feed.mjs";
+import { populateTags } from "./feed-get-posts.js";
 
 // import { loggedInUserPosts } from "./variables/consts.mjs";
 const currentUserName = urlParams.get("name");
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // console.log(profilePostsData.length);
     // Check if data is available and has posts
     if (profilePostsData && Array.isArray(profilePostsData) && profilePostsData.length > 0) {
+      populateTags(profilePostsData);
       const profilePosts = document.getElementById("feed-posts");
       // const profilePosts = document.getElementById("profilePosts");
       const mainHeader = document.querySelector(".main-header");

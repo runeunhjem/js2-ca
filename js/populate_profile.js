@@ -1,3 +1,4 @@
+// import { populateTags } from "./feed-get-posts";
 import {
   loggedInUser,
   currentProfileName,
@@ -9,14 +10,17 @@ import {
   loggedInUserData,
   URLProfilename,
 } from "./variables/consts.mjs";
+import { populateTags } from "./feed-get-posts.js";
 
 export async function getProfileData(profileURL, fetchOptions) {
   try {
     const response = await fetch(profileURL, fetchOptions);
     const json = await response.json();
+    
     console.log("profileData 1 is:", json);
     const followButton = document.getElementById("loggedInProfileFollow");
-
+    const result = populateTags(json.posts);
+    console.log("populateTags is:", result);
     if (!json) {
       window.location.reload();
     } else {
