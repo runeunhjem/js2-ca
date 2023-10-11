@@ -125,10 +125,12 @@ async function handleSearch(event) {
 
 export async function filterProfilePosts(query) {
   const profilePosts = document.querySelectorAll(".post-card");
+  let postsLeft = 0;
 
   // Filter and hide cards that do not match my search query
   Array.from(profilePosts).forEach((post) => {
     const titleElement = post.querySelector(".card-title");
+    const movieTitleElement = post.querySelector(".movie-title");
     const bodyElement = post.querySelectorAll(".card-text");
     const tagsElement = post.querySelector(".post-tags");
 
@@ -138,12 +140,15 @@ export async function filterProfilePosts(query) {
     if (titleElement) {
       searchString += titleElement.textContent.toLowerCase();
     }
+    if (movieTitleElement) {
+      searchString += movieTitleElement.textContent.toLowerCase();
+    }
 
     // Add body to the search string if available
     if (bodyElement) {
-     bodyElement.forEach((bodyElement) => {
-       searchString += bodyElement.textContent.toLowerCase();
-     });
+      bodyElement.forEach((bodyElement) => {
+        searchString += bodyElement.textContent.toLowerCase();
+      });
     }
 
     // Add tags to the search string if available
@@ -153,17 +158,18 @@ export async function filterProfilePosts(query) {
     }
 
     // Check if the search query is not found in the searchString
-    if (!searchString.includes(query.toLowerCase())) {
+    if (!searchString.toLowerCase().includes(query.toLowerCase())) {
       post.style.display = "none"; // Hide the card
     } else {
       post.style.display = "block"; // Show the card
       postsLeft++;
-      updateMainHeader(query);
     }
   });
 
-
+  console.log(postsLeft + " posts left after filtering for query: " + query);
 }
+
+
 
 function updateMainHeader(query) {
   const mainHeader = document.querySelector(".main-header");

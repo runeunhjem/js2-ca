@@ -161,48 +161,44 @@ export function createPostCard(post) {
   const createdDate = new Date(post.created);
   postDate.textContent = createdDate.toLocaleString();
 
-  const viewPostLink = document.createElement("a");
-  viewPostLink.classList.add(
-    "d-flex",
-    "nav-link",
-    "text-primary",
-    "m-0",
-    "p-2",
-    // "ps-0",
-    "view-post-link",
-    "flex-wrap",
-    "align-items-start"
-  );
-  if (window.location.href.includes("/profile/")) {
-    viewPostLink.classList.add("d-block", "d-sm-flex", "align-items-center");
-    viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
-  }
+const viewPostLink = document.createElement("a");
+viewPostLink.classList.add("d-flex", "nav-link", "text-primary", "m-0", "p-2", "flex-wrap", "align-items-start");
 
-  viewPostLink.style.setProperty("class", "align-items-start", "important");
-  const postPageURL = `../feed/post.html?postId=${post.id}`;
-  viewPostLink.href = postPageURL;
-  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-1 m-sm-1 mt-sm-1"></i>`;
-  viewPostLink.appendChild(document.createTextNode(post.title));
+// If the page is a profile page, add these classes
+if (window.location.href.includes("/profile/")) {
+  viewPostLink.classList.add("d-block", "d-sm-flex", "align-items-center");
+  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
+}
 
-  if (window.location.pathname.includes("post.html")) {
-    viewPostLink.classList.add(
-      "d-block",
-      "d-sm-flex",
-      "align-items-center",
-      "disabled-link",
-      "text-muted",
-      "fw-bold",
-      "pt-0"
-    );
-    viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
-    viewPostLink.appendChild(document.createTextNode(post.title));
-    // viewPostLink.classList.add("disabled-link", "text-muted", "fw-bold", "pt-0");
-    viewPostLink.removeAttribute("href");
-    viewPostLink.addEventListener("click", (event) => {
-      event.preventDefault();
-      console.log("You are already on the post page.");
-    });
-  }
+const postPageURL = `../feed/post.html?postId=${post.id}`;
+viewPostLink.href = postPageURL;
+
+// Create a span for the post title with a custom class
+const titleSpan = document.createElement("span");
+titleSpan.classList.add("movie-title"); // Add your custom class here
+titleSpan.appendChild(document.createTextNode(post.title));
+
+// Append the titleSpan to the viewPostLink
+viewPostLink.appendChild(titleSpan);
+
+if (window.location.pathname.includes("post.html")) {
+  viewPostLink.classList.add("d-block", "d-sm-flex", "align-items-center", "disabled-link", "text-muted", "fw-bold", "pt-0");
+  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
+  // Create a span for the post title with a custom class
+  const disabledTitleSpan = document.createElement("span");
+  disabledTitleSpan.classList.add("movie-title", "text-muted"); // Add your custom class and text-muted
+  disabledTitleSpan.appendChild(document.createTextNode(post.title));
+
+  // Append the disabledTitleSpan to the viewPostLink
+  viewPostLink.appendChild(disabledTitleSpan);
+
+  viewPostLink.removeAttribute("href");
+  viewPostLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    console.log("You are already on the post page.");
+  });
+}
+
 
   // Create a new element for displaying categories (tags)
   const categoriesElement = document.createElement("p");
