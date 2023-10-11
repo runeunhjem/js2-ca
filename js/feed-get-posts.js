@@ -1,8 +1,13 @@
 import { createPostCard } from "./utils/feed.mjs";
-import { loggedInUserData, API_BASE_URL, fetchOptions, profilePostsURL, createPostURL, allPostsTags } from "./variables/consts.mjs";
+import {
+  loggedInUserData,
+  API_BASE_URL,
+  fetchOptions,
+  profilePostsURL,
+  createPostURL,
+  allPostsTags,
+} from "./variables/consts.mjs";
 import { getSinglePost } from "./feed-view-post.js";
-
-
 
 const urlParams = new URLSearchParams(window.location.search);
 const postIdParam = urlParams.get("postId");
@@ -77,77 +82,83 @@ document.querySelector("#itemsPerPageSelector").addEventListener("change", (e) =
   updateLimitAndRefresh(selectedValue);
 });
 
+let shouldFetchAndPopulateTags = true;
+if (window.location.href.includes("/profile") || window.location.href.includes("/post.html")) {
+  shouldFetchAndPopulateTags = false; // Don't fetch and populate tags on the profile page
+}
+
 export async function getFeedPostsWithToken(url, options) {
+  if (shouldFetchAndPopulateTags) {
+    try {
+      if (!window.location.href.includes("post.html")) {
+        const response = await fetch(url, options);
 
-  try {
-    if (!window.location.href.includes("post.html")) {
-      const response = await fetch(url, options);
+        if (response.ok) {
+          const posts = await response.json();
+          console.log("Current page Posts: ", posts);
+          localStorage.setItem("currentPagePosts", JSON.stringify(posts));
 
-      if (response.ok) {
-        const posts = await response.json();
-        console.log("Current page Posts: ", posts);
-        localStorage.setItem("currentPagePosts", JSON.stringify(posts));
+          if (Array.isArray(posts)) {
+            let feedPosts = document.getElementById("feed-posts");
 
-        if (Array.isArray(posts)) {
-          let feedPosts = document.getElementById("feed-posts");
+            // Clear the existing content
+            if (feedPosts) {
+              feedPosts.innerHTML = "";
+            }
+            const singlePostContainer = document.getElementById("view-post");
 
-          // Clear the existing content
-          if (feedPosts) {
-            feedPosts.innerHTML = "";
-          }
-          const singlePostContainer = document.getElementById("view-post");
+            // Get the tags from each post and add them to the allPostsTags array
+            posts.forEach((post) => {
+              const tags = post.tags || [];
+              // Loop through the tags in the current post
+              tags.forEach((tag) => {
+                // Check if the tag is not already in the allPostsTags array
+                if (!allPostsTags.includes(tag)) {
+                  // Add the tag to the allPostsTags array
+                  allPostsTags.push(tag);
+                }
+              });
+            });
 
-          // Get the tags from each post and add them to the allPostsTags array
-          posts.forEach((post) => {
-            const tags = post.tags || [];
-            // Loop through the tags in the current post
-            tags.forEach((tag) => {
-              // Check if the tag is not already in the allPostsTags array
-              if (!allPostsTags.includes(tag)) {
-                // Add the tag to the allPostsTags array
-                allPostsTags.push(tag);
+            // Now, allPostsTags will contain all unique tags from the posts
+            console.log("All Posts Tags: ", allPostsTags);
+
+            posts.forEach((post) => {
+              if (postIdParam && post.id === postIdParam) {
+                const postCard = createPostCard(post);
+                if (singlePostContainer) {
+                  singlePostContainer.appendChild(postCard);
+                } else {
+                  feedPosts.appendChild(postCard);
+                }
+              }
+
+              if (post.reactions && post.reactions.length > 0) {
+                const postCard = createPostCard(post);
+                if (singlePostContainer) {
+                  singlePostContainer.appendChild(postCard);
+                } else {
+                  feedPosts.appendChild(postCard);
+                }
+              } else {
+                const postCard = createPostCard(post);
+                if (singlePostContainer) {
+                  singlePostContainer.appendChild(postCard);
+                } else {
+                  feedPosts.appendChild(postCard);
+                }
               }
             });
-          });
-
-          // Now, allPostsTags will contain all unique tags from the posts
-          console.log("All Posts Tags: ", allPostsTags);
-
-          posts.forEach((post) => {
-            if (postIdParam && post.id === postIdParam) {
-              const postCard = createPostCard(post);
-              if (singlePostContainer) {
-                singlePostContainer.appendChild(postCard);
-              } else {
-                feedPosts.appendChild(postCard);
-              }
-            }
-
-            if (post.reactions && post.reactions.length > 0) {
-              const postCard = createPostCard(post);
-              if (singlePostContainer) {
-                singlePostContainer.appendChild(postCard);
-              } else {
-                feedPosts.appendChild(postCard);
-              }
-            } else {
-              const postCard = createPostCard(post);
-              if (singlePostContainer) {
-                singlePostContainer.appendChild(postCard);
-              } else {
-                feedPosts.appendChild(postCard);
-              }
-            }
-          });
+          } else {
+            console.error("Data is not in the expected format.");
+          }
         } else {
-          console.error("Data is not in the expected format.");
+          console.error("Failed to fetch data");
         }
-      } else {
-        console.error("Failed to fetch data");
       }
+    } catch (error) {
+      console.error("Catch error is", error);
     }
-  } catch (error) {
-    console.error("Catch error is", error);
   }
 }
 
@@ -210,21 +221,29 @@ export const populateTags = () => {
 };
 
 // Determine the page type
-if (window.location.href.includes("/feed/") && !window.location.href.includes("/post.html") && !window.location.href.includes("/profile/")) {
+if (
+  window.location.href.includes("/feed/") &&
+  !window.location.href.includes("/post.html") &&
+  !window.location.href.includes("/profile/")
+) {
   getFeedPostsWithToken(basePostsURL, fetchOptions).then(populateTags);
-} else if (!window.location.href.includes("/feed/") && window.location.href.includes("/post.html") && !window.location.href.includes("/profile/")) {
+} else if (
+  !window.location.href.includes("/feed/") &&
+  window.location.href.includes("/post.html") &&
+  !window.location.href.includes("/profile/")
+) {
   getSinglePost(createPostURL, fetchOptions, postIdParam).then(populateTags);
-} else if (!window.location.href.includes("/feed/") && !window.location.href.includes("/post.html") && window.location.href.includes("/profile/")) {
+} else if (
+  !window.location.href.includes("/feed/") &&
+  !window.location.href.includes("/post.html") &&
+  window.location.href.includes("/profile/")
+) {
   getFeedPostsWithToken(profilePostsURL, fetchOptions).then(populateTags);
 }
-
-
 
 function togglesortOrder() {
   sortOrder = sortOrder === "asc" ? "desc" : "asc";
 }
-
-
 
 getFeedPostsWithToken(basePostsURL, fetchOptions);
 
