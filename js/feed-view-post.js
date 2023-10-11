@@ -1,8 +1,8 @@
 import { createPostCard } from "./utils/feed.mjs";
-import { createPostURL, fetchOptions } from "./variables/consts.mjs";
-
+import { createPostURL, fetchOptions, allPostsTags } from "./variables/consts.mjs";
+import { populateTagsSelector, filterUserTagsSelector } from "./feed-get-posts.js";
 const urlParams = new URLSearchParams(window.location.search);
-const postIdToDisplay = urlParams.get("postId");
+export const postIdParam = urlParams.get("postId");
 
 export async function getSinglePost(url, options, id) {
   try {
@@ -16,13 +16,31 @@ export async function getSinglePost(url, options, id) {
       if (post) {
         const singlePostContainer = document.getElementById("view-post");
         const singlePostCard = createPostCard(post);
-        singlePostContainer.innerHTML = "";
-        singlePostContainer.appendChild(singlePostCard);
+        // Get the tags from each post and add them to the allPostsTags array
+
+          const tags = post.tags || [];
+          // Loop through the tags in the current post
+          tags.forEach((tag) => {
+            // Check if the tag is not already in the allPostsTags array
+            if (!allPostsTags.includes(tag)) {
+              // Add the tag to the allPostsTags array
+              allPostsTags.push(tag);
+            }
+          });
+        populateTagsSelector(allPostsTags, filterUserTagsSelector);
+
+        // Check if there's content in the singlePostContainer and feedPosts container
+        if (singlePostContainer && singlePostContainer.hasChildNodes()) {
+          singlePostContainer.innerHTML = "";
+        }
 
         const feedPosts = document.getElementById("feed-posts");
         if (feedPosts) {
           feedPosts.innerHTML = "";
+          feedPosts.classList.add("d-none");
         }
+
+        singlePostContainer.appendChild(singlePostCard);
       } else {
         console.error("Post with ID not found.");
       }
@@ -36,4 +54,5 @@ export async function getSinglePost(url, options, id) {
   }
 }
 
-getSinglePost(createPostURL, fetchOptions, postIdToDisplay);
+// getSinglePost(createPostURL, fetchOptions, postIdParam).then(populateTags);
+getSinglePost(createPostURL, fetchOptions, postIdParam);

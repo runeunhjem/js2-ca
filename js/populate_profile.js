@@ -10,11 +10,11 @@ import {
   URLProfilename,
 } from "./variables/consts.mjs";
 
-async function getProfileData(profileURL, fetchOptions) {
+export async function getProfileData(profileURL, fetchOptions) {
   try {
     const response = await fetch(profileURL, fetchOptions);
     const json = await response.json();
-    // console.log("profileData 1 is:", json);
+    console.log("profileData 1 is:", json);
     const followButton = document.getElementById("loggedInProfileFollow");
 
     if (!json) {
@@ -131,7 +131,7 @@ async function updateProfilePage(profileData) {
 
     if (!profileData.avatar) {
       // avatarImageElement.style.backgroundImage = `url("https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg")`;
-      
+
     } else {
       avatarImageElement.style.backgroundImage = `url(${profileData.avatar})`;
     }

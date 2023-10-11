@@ -17,7 +17,7 @@
 <body>
   <header class="mx-auto container-fluid bg-dark">
     <nav class="navbar navbar-expand-md pt-4 bg-dark align-items-center mx-auto max-width-1200">
-      <a class="navbar-brand header-logo mb-2 mx-auto ms-md-0 mx-md-auto justify-content-start" href="../index.html" alt="movieTALK Logo"><span class="visually-hidden">Home</span></a>
+      <a class="navbar-brand header-logo mb-2 mx-auto ms-md-0 mx-md-auto justify-content-start" href="./index.html" alt="movieTALK Logo"><span class="visually-hidden">Home</span></a>
       <div class="container mx-auto d-flex align-items-start justify-content-md-end d-flex flex-nowrap">
         <div class="row align-items-center w-100">
           <div class="col-4 justify-content-end col-sm-4 col-md-6 m-1 w-100">
@@ -64,26 +64,18 @@
             <ul class="nav flex-column">
               <li class="nav-item">
                 <span class="nav-link p-1 rounded-0">
-                  <a href="#" alt="Open Menu" class="text-dark text-decoration-none">
+                  <a href="./index.html" alt="Feed" class="text-dark text-decoration-none">
                     <i class="me-1 bi bi-list"></i>
                     <span class="icons">Feed</span>
                   </a>
                 </span>
-                <h6 class="mx-0 align-items-center d-flex justify-content-start ms-3"><i class="justify-content-start bi-sort-down me-1"></i>Sort Feed</h6>
+                <h6 class="mx-0 align-items-center d-flex justify-content-start ms-3"><i class="justify-content-start bi-sort-down me-1"></i>Get Posts</h6>
                 <ul class="nav flex-column ml-3">
                   <li class="nav-item">
                     <button class="text-dark border-0 bg-white nav-link ms-3 px-1 py-0 rounded-0 sort-by-date-button">By Date</button>
                   </li>
                   <li class="nav-item">
                     <button class="text-dark border-0 bg-white nav-link ms-3 px-1 py-0 rounded-0 sort-by-name-button">By Name</button>
-                  </li>
-                  <li class="p-0 m-0">
-                    <select class="form-select border-0 me-0" aria-label="Select Category">
-                      <option selected>By Category</option>
-                      <option value="Sci-Fi">Sci-Fi</option>
-                      <option value="Action">Action</option>
-                      <option value="Fantasy">Fantasy</option>
-                    </select>
                   </li>
                   <hr>
                 </ul>
@@ -97,7 +89,7 @@
               <li class="nav-item" data-bs-target="#createPostForm" id="createButtonLeft">
                 <span class="nav-link shadow p-1 p-1 rounded-0 text-decoration-none">
                 <a href="#" class="nav-link p-1 p-1 rounded text-dark text-decoration-none create-button" data-bs-toggle="collapse" data-bs-target="#createPostForm" aria-expanded="false">
-                  <i class="me-1 bi bi-chat-dots"></i><span class="icons">New Post</span>
+                  <i class="me-1 bi bi-plus-square"></i><span class="icons">New Post</span>
                   <i class="ms-1 bi bi-chevron-down"></i>
                   <i class="ms-1 bi bi-chevron-up"></i>
                   </a>
@@ -113,15 +105,8 @@
                 <li class="nav-item">
                   <a alt="rounded View Profile" class="nav-link d-flex align-items-center shadow rounded-circle p-0 mt-1 profile-link" data-original-href="../profile/index.html" href="../profile/index.html"><span class="visually-hidden">View Profile</span><img src="../img/profile.jpg" alt="View Profile" class="img-fluid p-0 m-0 profile-image rounded-circle"></a>
                 </li>
-                <li class="nav-item dropdown">
-                  <a class="rounded nav-link dropdown-toggle text-dark text-decoration-none" data-bs-toggle="dropdown" href="#" alt="Open Menu" role="button" aria-expanded="false"><i class="me-1 bi bi-list"></i><span class="icons d-none d-sm-inline-flex">Feed</span></a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Separated link</a></li>
-                  </ul>
+                <li class="nav-item">
+                  <a class="rounded nav-link text-dark text-decoration-none" href="./index.html" alt="Feed" role="button" ><i class="me-1 bi bi-list"></i><span class="icons d-none d-sm-inline-flex">Feed</span></a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="rounded nav-link rounded text-dark text-decoration-none create-button" id="createButton" data-bs-toggle="collapse" data-bs-target="#createPostForm" aria-expanded="false">

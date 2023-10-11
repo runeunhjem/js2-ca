@@ -173,22 +173,30 @@ export function createPostCard(post) {
     "flex-wrap",
     "align-items-start"
   );
-  if (window.location.href.includes("/profile/") || window.location.href.includes("/post.html")) {
-    viewPostLink.classList.add("d-block", "d-sm-flex");
-  } else {
-    viewPostLink.classList.add("d-block", "d-sm-flex");
+  if (window.location.href.includes("/profile/")) {
+    viewPostLink.classList.add("d-block", "d-sm-flex", "align-items-center");
+    viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
   }
 
   viewPostLink.style.setProperty("class", "align-items-start", "important");
   const postPageURL = `../feed/post.html?postId=${post.id}`;
   viewPostLink.href = postPageURL;
-  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
+  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-1 m-sm-1 mt-sm-1"></i>`;
   viewPostLink.appendChild(document.createTextNode(post.title));
 
   if (window.location.pathname.includes("post.html")) {
+    viewPostLink.classList.add(
+      "d-block",
+      "d-sm-flex",
+      "align-items-center",
+      "disabled-link",
+      "text-muted",
+      "fw-bold",
+      "pt-0"
+    );
     viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
     viewPostLink.appendChild(document.createTextNode(post.title));
-    viewPostLink.classList.add("disabled-link", "text-muted", "fw-bold", "pt-0");
+    // viewPostLink.classList.add("disabled-link", "text-muted", "fw-bold", "pt-0");
     viewPostLink.removeAttribute("href");
     viewPostLink.addEventListener("click", (event) => {
       event.preventDefault();

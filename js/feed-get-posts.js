@@ -1,9 +1,12 @@
 import { createPostCard } from "./utils/feed.mjs";
-import { loggedInUserData, API_BASE_URL, fetchOptions } from "./variables/consts.mjs";
+import { loggedInUserData, API_BASE_URL, fetchOptions, profilePostsURL, createPostURL, allPostsTags } from "./variables/consts.mjs";
+import { getSinglePost } from "./feed-view-post.js";
 
-const allPostsTags = [];
+
+
 const urlParams = new URLSearchParams(window.location.search);
 const postIdParam = urlParams.get("postId");
+
 const profileImageElement = document.querySelector(".profile-image");
 if (profileImageElement) {
   profileImageElement.src = loggedInUserData.avatar
@@ -77,7 +80,7 @@ document.querySelector("#itemsPerPageSelector").addEventListener("change", (e) =
 export async function getFeedPostsWithToken(url, options) {
 
   try {
-    if (!window.location.href.includes("post.html")) {
+    // if (!window.location.href.includes("post.html")) {
       const response = await fetch(url, options);
 
       if (response.ok) {
@@ -86,16 +89,17 @@ export async function getFeedPostsWithToken(url, options) {
         localStorage.setItem("currentPagePosts", JSON.stringify(posts));
 
         if (Array.isArray(posts)) {
-          const feedPosts = document.getElementById("feed-posts");
-          const singlePostContainer = document.getElementById("view-post");
+          let feedPosts = document.getElementById("feed-posts");
+
           // Clear the existing content
-          feedPosts.innerHTML = "";
+          if (feedPosts) {
+            feedPosts.innerHTML = "";
+          }
+          const singlePostContainer = document.getElementById("view-post");
 
           // Get the tags from each post and add them to the allPostsTags array
           posts.forEach((post) => {
-
-            const tags = post.tags || []; // Assuming tags is an array in each post
-
+            const tags = post.tags || [];
             // Loop through the tags in the current post
             tags.forEach((tag) => {
               // Check if the tag is not already in the allPostsTags array
@@ -141,7 +145,7 @@ export async function getFeedPostsWithToken(url, options) {
       } else {
         console.error("Failed to fetch data");
       }
-    }
+    // }
   } catch (error) {
     console.error("Catch error is", error);
   }
@@ -182,13 +186,24 @@ export async function populateTagsSelector(tags, selectorElement) {
 }
 
 console.log("All Posts Tags Array: ", allPostsTags);
+
 // Call the populateTagsSelector function with allPostsTags and filterUserTagsSelector
 // Fetch and populate allPostsTags
-getFeedPostsWithToken(basePostsURL, fetchOptions).then(() => {
-  // Now that allPostsTags is populated, call populateTagsSelector
-  const filterUserTagsSelector = document.getElementById("filterUserTagsSelector");
+// Common code
+export const filterUserTagsSelector = document.getElementById("filterUserTagsSelector");
+export const populateTags = () => {
   populateTagsSelector(allPostsTags, filterUserTagsSelector);
-});
+};
+
+// Determine the page type
+if (window.location.href.includes("/feed/") && !window.location.href.includes("/post.html") && !window.location.href.includes("/profile/")) {
+  getFeedPostsWithToken(basePostsURL, fetchOptions).then(populateTags);
+} else if (!window.location.href.includes("/feed/") && window.location.href.includes("/post.html") && !window.location.href.includes("/profile/")) {
+  getSinglePost(createPostURL, fetchOptions, postIdParam).then(populateTags);
+} else if (!window.location.href.includes("/feed/") && !window.location.href.includes("/post.html") && window.location.href.includes("/profile/")) {
+  getFeedPostsWithToken(profilePostsURL, fetchOptions).then(populateTags);
+}
+
 
 
 function togglesortOrder() {
