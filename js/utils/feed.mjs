@@ -5,6 +5,11 @@ import {
   loggedInUser,
   postsURL,
   reactionOptions,
+  // addNewCommentURL,
+  // newCommentOptions,
+  token,
+  // postId,
+  // token
 } from "../variables/consts.mjs";
 import { deletePost } from "./delete-posts.mjs";
 import { editPost } from "./do-edit-posts.mjs";
@@ -309,7 +314,7 @@ if (window.location.pathname.includes("post.html")) {
 
   const reactionCountElement = document.createElement("div");
   reactionCountElement.classList.add("reaction-count", "text-primary", "ms-1", "pb-1");
-  const commentsCount = post._count.comments;
+  let commentsCount = post._count.comments;
   let reactionsCount = 0;
   if (post.reactions && post.reactions.length > 0) {
     reactionsCount = post.reactions[0].count;
@@ -374,6 +379,67 @@ if (window.location.pathname.includes("post.html")) {
   cardBody.appendChild(buttonLikesRow);
   buttonLikesRow.appendChild(buttonContainer);
   buttonLikesRow.appendChild(likesRepliesContainer);
+
+  const commentForm = document.createElement("div");
+  commentForm.classList.add("comment-form");
+  commentForm.style.display = "none"; // Initially hide the form
+
+  // Create the form elements inside the comment form
+  const commentTextArea = document.createElement("textarea");
+  commentTextArea.classList.add("form-control", "mb-2");
+  commentTextArea.placeholder = "Write a comment...";
+
+  const submitButton = document.createElement("button");
+  submitButton.classList.add("btn", "btn-primary", "btn-sm");
+  submitButton.textContent = "Submit";
+
+  commentForm.appendChild(commentTextArea);
+  commentForm.appendChild(submitButton);
+
+  // Append the comment form to the card
+  cardBody.appendChild(commentForm);
+
+  commentButton.addEventListener("click", () => {
+    if (commentForm.style.display === "none") {
+      commentForm.style.display = "block"; // Show the comment form
+    } else {
+      commentForm.style.display = "none"; // Hide the comment form
+    }
+  });
+
+  submitButton.addEventListener("click", async () => {
+    const commentText = commentTextArea.value; // Get the comment text
+
+    try {
+
+      const postId = card.getAttribute("data-post-id");
+      console.log(`postId: ${postId}`);
+      const addNewCommentURL = `${API_BASE_URL}/social/posts/${postId}/comment`; // Replace postId with the actual post ID
+      console.log(`addNewCommentURL: ${addNewCommentURL}`);
+      const newCommentOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Replace token with the actual user token
+        },
+        body: JSON.stringify({ body: commentText }), // Send the comment text in the request body
+      };
+
+      const response = await fetch(addNewCommentURL, newCommentOptions);
+
+      if (response.ok) {
+        // Comment submitted successfully
+        commentTextArea.value = ""; // Clear the text area
+        commentForm.style.display = "none"; // Hide the comment form
+        commentsCount++; // Increment the comments count
+      } else {
+        console.error("Failed to add a new comment.");
+      }
+    } catch (error) {
+      console.error("An error occurred while adding a comment:", error);
+    }
+  });
+
 
   card.appendChild(cardBody);
 

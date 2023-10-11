@@ -1,3 +1,4 @@
+
 export const API_BASE_URL = "https://api.noroff.dev/api/v1";
 export const registerURL = `${API_BASE_URL}/social/auth/register`;
 export const loginURL = `${API_BASE_URL}/social/auth/login`;
@@ -19,6 +20,7 @@ export const profileFollowButton = document.getElementById("loggedInProfileFollo
 export const followText = document.getElementById("follow-text");
 export const urlParams = new URLSearchParams(window.location.search);
 export const nameParam = urlParams.get("name");
+export const postId = localStorage.getItem("postId");
 
 let URLProfilename = null;
 if (nameParam) {
@@ -34,7 +36,7 @@ export const currentProfilePosts = JSON.parse(localStorage.getItem("currentProfi
 // export const searchURL = `${API_BASE_URL}/social/posts?&limit=100&offset=0&_comments=true&_author=true&_reactions=true&_count=true`;
 export const searchURL = `${API_BASE_URL}/social/posts?_comments=true&_author=true&_reactions=true&_count=true`;
 export const profilePostsData = JSON.parse(localStorage.getItem("profilePostsData"));
-export const postId = localStorage.getItem("postId");
+
 export const getSinglePostURL = `https://api.noroff.dev/api/v1/social/posts/${postId}?_comments=true&_author=true&_reactions=true`;
 export const authorName = localStorage.getItem("authorName");
 export const profileLinks = document.querySelectorAll(".profile-link");
@@ -69,6 +71,8 @@ export const addNewPostOptions = {
   // body: JSON.stringify(newPostData),
 };
 
+
+let commentText = null;
 export const addNewCommentURL = `${API_BASE_URL}/social/posts/${postId}/comment`;
 export const newCommentOptions = {
   method: "POST",
@@ -76,7 +80,8 @@ export const newCommentOptions = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   },
-  body: "What an awesome movie! Recommended", // Required
+  body: JSON.stringify({ body: commentText }), // Send the comment text in the request body
+  // body: JSON.stringify({ text: commentText }), // Send the comment text in the request body
   // "replyToId": 0 // Optional - Only required if replying to another comment
 };
 
