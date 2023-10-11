@@ -71,23 +71,19 @@ body {
   bottom: 100px;
   right: 30px;
   z-index: 9;
-  // background-color: var(--color-burgundy);
-  color: var(--color-gold);
-  border: var(--border-1px-gold);
   cursor: pointer;
-  // padding: 15px;
   border-radius: 10px;
-  // font-size: 1.5rem;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .back-to-top-button::before {
   content: "\25B2";
 }
 .back-to-top-button:hover {
-  background-color: var(--color-gold);
-  color: var(--color-burgundy);
+  background-color: rgb(94, 67, 32) !important;
+  color: white !important;
 }
 
 .back-to-top-button-show {
@@ -102,8 +98,12 @@ body {
   display: none;
 }
 
-.hidden-content {
-  display: none;
+.hidden-content, .hidden {
+  display: none !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .searching {
@@ -113,4 +113,25 @@ body {
 .rounded-bottom-2 {
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
+}
+
+.comments-container::-webkit-scrollbar {
+  width: 12px; /* Adjust the scrollbar width as needed */
+  border-radius: 0.5rem; /* Roundness of the scrollbar track */
+}
+
+.comments-container::-webkit-scrollbar-track {
+  // width: 10px;
+  background: #4747478c; /* Color of the scrollbar track */
+  border-radius: 0.5rem; /* Roundness of the scrollbar track */
+}
+
+.comments-container::-webkit-scrollbar-thumb {
+  width: 10px; /* Adjust the thumb width as needed */
+  background: #ffc73b; /* Background color of the scrollbar thumb */
+  border-radius: 0.5rem; /* Roundness of the scrollbar thumb */
+}
+
+.comments-container::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
 }

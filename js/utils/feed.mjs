@@ -8,11 +8,13 @@ import {
   // addNewCommentURL,
   // newCommentOptions,
   token,
+  fetchOptions,
   // postId,
   // token
 } from "../variables/consts.mjs";
 import { deletePost } from "./delete-posts.mjs";
 import { editPost } from "./do-edit-posts.mjs";
+
 
 export function createPostCard(post) {
   const spinner = document.querySelector(".spinner-border");
@@ -25,6 +27,7 @@ export function createPostCard(post) {
   card.addEventListener("mouseover", handlePostCardClick);
   card.addEventListener("mouseleave", handlePostCardMouseLeave);
   card.addEventListener("click", handlePostCardClick);
+
 
   const cardBody = document.createElement("div");
   cardBody.classList.add("card-body", "container");
@@ -134,6 +137,8 @@ export function createPostCard(post) {
     postIdElement.classList.remove("text-muted");
   }
   card.appendChild(postIdElement);
+
+  const postId = card.getAttribute("data-post-id");
 
   const viewProfileLink = document.createElement("a");
   viewProfileLink.classList.add(
@@ -364,11 +369,116 @@ if (window.location.pathname.includes("post.html")) {
 
   const likesCount = document.createElement("div");
   likesCount.classList.add("card-text", "text-muted", "py-0");
-  likesCount.innerHTML = `<i class="bi bi-hand-thumbs-up-fill text-primary"></i> ${reactionsCount} likes`;
+  likesCount.innerHTML = `<i class="bi bi-hand-thumbs-up-fill text-primary "></i> ${reactionsCount} likes`;
 
   const repliesCount = document.createElement("div");
-  repliesCount.classList.add("card-text", "text-muted", "py-0");
+  repliesCount.classList.add("card-text", "text-muted", "py-0", "cursor-pointer");
   repliesCount.innerHTML = `<i class="bi bi-chat-dots text-primary"></i> ${commentsCount} comments`;
+  repliesCount.addEventListener("click", async () => {
+    repliesCount.classList.add("d-none");
+    try {
+      const getSinglePostURL = `${API_BASE_URL}/social/posts/${postId}/?_comments=true&_author=true&_reactions=true`;
+      const commentsResponse = await fetch(getSinglePostURL, fetchOptions);
+
+      if (commentsResponse.ok) {
+        const singlePost = await commentsResponse.json();
+        console.log("comments for post:", singlePost);
+
+        const comments = singlePost.comments;
+        console.log("comments:", comments);
+        // Create a container for comments
+        const commentsContainer = document.createElement("div");
+        commentsContainer.classList.add(
+          "comments-container",
+          "mt-3",
+          "bg-warning",
+          "p-2",
+          "text-dark",
+          "rounded-3",
+          "h-100"
+        );
+        commentsContainer.style.display = "none"; // Initially hide the comments container
+        // commentsContainer.style.height = "50px";
+        commentsContainer.style.maxHeight = "500px";
+        commentsContainer.style.transition = "max-height 0.5s ease-in-out";
+        commentsContainer.style.overflowY = "scroll";
+        commentsContainer.style.overflowY = "auto";
+        commentsContainer.style.position = "relative";
+
+        // Create a close button with the Bootstrap X icon in the top right corner
+        const closeButton = document.createElement("div");
+        closeButton.classList.add("position-absolute", "text-danger", "p-1", "cursor-pointer");
+        closeButton.style.top = "10px"; // Set top to "0" for the top edge
+        closeButton.style.right = "10px"; // Adjust the right value to add a right margin
+
+        // Create a Bootstrap X icon
+        const closeIcon = document.createElement("i");
+        closeIcon.classList.add("bi", "bi-x", "fs-3", "cursor-pointer", "shadow", "rounded-circle", "px-2", "py-1", "bg-warning");
+
+        // Append the close icon to the close button
+        closeButton.appendChild(closeIcon);
+
+        // Add an event listener to close the comments container when the close button is clicked
+        // closeButton.addEventListener("click", () => {
+        //   commentsContainer.style.display = "none";
+        // });
+
+        // Append the close button to the comments container
+        commentsContainer.appendChild(closeButton);
+
+        // Iterate through the comments and create elements to display them
+        comments.forEach((comment) => {
+          const commentCard = document.createElement("div");
+          commentCard.classList.add("comment-card", "bg-info", "p-2", "mb-2", "text-dark");
+          commentCard.setAttribute("data-comment-id", comment.id); // Attach comment ID to the card
+
+          const commentOwner = document.createElement("div");
+          commentOwner.classList.add("text-muted"); // Add text-muted class for owner
+          commentOwner.textContent = `Comment by: ${comment.owner}`; // Display the owner's name
+
+          const commentText = document.createElement("div");
+          commentText.classList.add("comment-text");
+          commentText.textContent = comment.body;
+
+          const commentLink = document.createElement("a");
+          commentLink.classList.add("text-primary", "d-block"); // Add text-primary class for the link and d-block for block-level display
+          commentLink.href = "#"; // You can specify the link destination
+          commentLink.textContent = "Reply"; // Display "Comment" link
+
+          // Append the comment ID, comment owner, comment text, and comment link to the comment card
+          commentCard.appendChild(commentOwner);
+          commentCard.appendChild(commentText);
+          commentCard.appendChild(commentLink);
+
+          // Append the comment card to the comments container
+          commentsContainer.appendChild(commentCard);
+        });
+
+        // Append the comments container to the cardBody
+        cardBody.appendChild(commentsContainer);
+
+        closeButton.addEventListener("click", () => {
+          if (commentsContainer.style.display === "none") {
+            commentsContainer.style.display = "block"; // Show the comment form
+          } else {
+            commentsContainer.innerHTML;
+            commentsContainer.style.display = "none"; // Hide the comment form
+            repliesCount.classList.remove("d-none");
+          }
+        });
+
+        // Show the comments container (which now includes the comments)
+        commentsContainer.style.display = "block";
+      } else {
+        console.error("Failed to fetch comments for the post.");
+      }
+    } catch (error) {
+      console.error("An error occurred while fetching comments:", error);
+    }
+  });
+
+
+
 
   likesRepliesDiv.appendChild(likesCount);
   likesRepliesDiv.appendChild(repliesCount);
@@ -386,12 +496,12 @@ if (window.location.pathname.includes("post.html")) {
 
   // Create the form elements inside the comment form
   const commentTextArea = document.createElement("textarea");
-  commentTextArea.classList.add("form-control", "mb-2");
+  commentTextArea.classList.add("form-control", "my-2");
   commentTextArea.placeholder = "Write a comment...";
 
   const submitButton = document.createElement("button");
-  submitButton.classList.add("btn", "btn-primary", "btn-sm");
-  submitButton.textContent = "Submit";
+  submitButton.classList.add("btn", "btn-warning", "btn-sm");
+  submitButton.textContent = "Send it!";
 
   commentForm.appendChild(commentTextArea);
   commentForm.appendChild(submitButton);
@@ -412,7 +522,7 @@ if (window.location.pathname.includes("post.html")) {
 
     try {
 
-      const postId = card.getAttribute("data-post-id");
+      // const postId = card.getAttribute("data-post-id");
       console.log(`postId: ${postId}`);
       const addNewCommentURL = `${API_BASE_URL}/social/posts/${postId}/comment`; // Replace postId with the actual post ID
       console.log(`addNewCommentURL: ${addNewCommentURL}`);
