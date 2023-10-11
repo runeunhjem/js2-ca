@@ -80,7 +80,7 @@ document.querySelector("#itemsPerPageSelector").addEventListener("change", (e) =
 export async function getFeedPostsWithToken(url, options) {
 
   try {
-    // if (!window.location.href.includes("post.html")) {
+    if (!window.location.href.includes("post.html")) {
       const response = await fetch(url, options);
 
       if (response.ok) {
@@ -145,7 +145,7 @@ export async function getFeedPostsWithToken(url, options) {
       } else {
         console.error("Failed to fetch data");
       }
-    // }
+    }
   } catch (error) {
     console.error("Catch error is", error);
   }
@@ -168,10 +168,24 @@ export async function populateTagsSelector(tags, selectorElement) {
   selectorElement.appendChild(noTagOption);
 
   // Clean and format the tags
-  const validTags = tags.map((tag) => {
-    // Remove leading spaces, convert to lowercase, and capitalize the first letter or number
-    return tag.replace(/^[\s#]+/, '').toLowerCase().replace(/^[a-z0-9]/, (match) => match.toUpperCase());
-  });
+  const validTags = tags
+    .map((tag) => {
+      // Check if tag is a string before applying replace
+      if (typeof tag === "string") {
+        // Remove leading spaces, convert to lowercase, and capitalize the first letter or number
+        return tag
+          .replace(/^[\s#]+/, "")
+          .toLowerCase()
+          .replace(/^[a-z0-9]/, (match) => match.toUpperCase());
+      } else {
+        // Handle the case where tag is not a string, for example, by returning an empty string
+        return "";
+      }
+    })
+    .filter((tag) => tag); // Remove empty strings
+
+  // Sort the tags alphabetically
+  validTags.sort();
 
   // Remove duplicates
   const uniqueValidTags = [...new Set(validTags)];

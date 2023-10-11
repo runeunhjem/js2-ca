@@ -232,25 +232,35 @@ export function createPostCard(post) {
 
   const postMedia = document.createElement("img");
   postMedia.classList.add("card-media", "m-1", "p-2", "rounded", "shadow");
-
   postMedia.alt = "Post Image";
   postMedia.style.width = "100%";
   postMedia.style.maxHeight = "100%";
   postMedia.style.maxWidth = "100%";
-  postMedia.onerror = () => {
+
+  postMedia.onload = () => {
+    // Image loaded successfully, you can optionally add any handling here
+  };
+
+  postMedia.onerror = (event) => {
+    event.preventDefault();
+    // Image failed to load, load a fallback image
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
-    if (postMedia.src != `https://picsum.photos/id/${uniqueQueryParam}/200/300`) {
+    if (postMedia.src !== `https://picsum.photos/id/${uniqueQueryParam}/200/300`) {
       postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+    } else if (postMedia.src !== `https://picsum.photos/id/${uniqueQueryParam}/200/300`) {
+      postMedia.src = `https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80.jpg`;
     }
   };
+
   if (post.media) {
     postMedia.src = post.media;
   } else {
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
-    if (postMedia.src != `https://picsum.photos/id/${uniqueQueryParam}/200/300`) {
+    if (postMedia.src !== `https://picsum.photos/id/${uniqueQueryParam}/200/300`) {
       postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
     }
   }
+
   if (window.location.href.includes("/feed/") && !window.location.href.includes("post.html")) {
     postMedia.style.width = "100px";
     postMedia.classList.add("ms-3");

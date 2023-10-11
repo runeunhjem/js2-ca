@@ -6,17 +6,20 @@ export const postIdParam = urlParams.get("postId");
 
 export async function getSinglePost(url, options, id) {
   try {
-    const fetchURL = `${url}/${id}?_comments=true&_author=true&_reactions=true`;
-    console.log("fetchURL is:", fetchURL);
-    const response = await fetch(fetchURL, options);
+    if (!id) {
+      return;
+    } else {
+      const fetchURL = `${url}/${id}?_comments=true&_author=true&_reactions=true`;
+      console.log("fetchURL is:", fetchURL);
+      const response = await fetch(fetchURL, options);
 
-    if (response.ok) {
-      const post = await response.json();
+      if (response.ok) {
+        const post = await response.json();
 
-      if (post) {
-        const singlePostContainer = document.getElementById("view-post");
-        const singlePostCard = createPostCard(post);
-        // Get the tags from each post and add them to the allPostsTags array
+        if (post) {
+          const singlePostContainer = document.getElementById("view-post");
+          const singlePostCard = createPostCard(post);
+          // Get the tags from each post and add them to the allPostsTags array
 
           const tags = post.tags || [];
           // Loop through the tags in the current post
@@ -27,25 +30,26 @@ export async function getSinglePost(url, options, id) {
               allPostsTags.push(tag);
             }
           });
-        populateTagsSelector(allPostsTags, filterUserTagsSelector);
+          populateTagsSelector(allPostsTags, filterUserTagsSelector);
 
-        // Check if there's content in the singlePostContainer and feedPosts container
-        if (singlePostContainer && singlePostContainer.hasChildNodes()) {
-          singlePostContainer.innerHTML = "";
+          // Check if there's content in the singlePostContainer and feedPosts container
+          if (singlePostContainer && singlePostContainer.hasChildNodes()) {
+            singlePostContainer.innerHTML = "";
+          }
+
+          const feedPosts = document.getElementById("feed-posts");
+          if (feedPosts) {
+            feedPosts.innerHTML = "";
+            feedPosts.classList.add("d-none");
+          }
+
+          singlePostContainer.appendChild(singlePostCard);
+        } else {
+          console.error("Post with ID not found.");
         }
-
-        const feedPosts = document.getElementById("feed-posts");
-        if (feedPosts) {
-          feedPosts.innerHTML = "";
-          feedPosts.classList.add("d-none");
-        }
-
-        singlePostContainer.appendChild(singlePostCard);
       } else {
-        console.error("Post with ID not found.");
+        console.error("Failed to fetch data");
       }
-    } else {
-      console.error("Failed to fetch data");
     }
   } catch (error) {
     if (!error.message.includes("https://picsum.photos")) {
