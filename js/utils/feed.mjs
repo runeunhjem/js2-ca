@@ -337,7 +337,7 @@ export function createPostCard(post) {
   buttonLikesRow.classList.add("d-flex", "justify-content-between");
 
   const buttonContainer = document.createElement("div");
-  buttonContainer.classList.add("card-text");
+  buttonContainer.classList.add("card-text", "col-sm-5");
 
   const likeButton = document.createElement("button");
   likeButton.classList.add("btn", "btn-warning", "btn-sm", "my-1", "mx-1");
@@ -368,7 +368,7 @@ export function createPostCard(post) {
   buttonContainer.appendChild(commentButton);
 
   const likesRepliesContainer = document.createElement("div");
-  likesRepliesContainer.classList.add("col-sm-5", "d-flex", "ps-0", "justify-content-sm-end");
+  likesRepliesContainer.classList.add("col-sm-5", "d-flex", "ps-0", "col-sm-7", "justify-content-sm-end");
 
   const likesRepliesDiv = document.createElement("div");
   likesRepliesDiv.classList.add("d-flex", "gap-3", "ms-3", "pt-2", "align-items-center");

@@ -10815,6 +10815,10 @@ body {
   background-position: right center;
 }
 
+.news {
+  max-width: 100%;
+}
+
 .back-to-top-button {
   position: fixed;
   bottom: 100px;
