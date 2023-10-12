@@ -131,7 +131,7 @@ export function createPostCard(post) {
 
   // Create an empty div with the default classes and hide it
   const editPostForm = document.createElement("div");
-  editPostForm.classList.add("edit-post", "d-none", "smooth");
+  editPostForm.classList.add("edit-post", "d-none", "smooth", "w-75", "mx-auto", "border-bottom", "border-1", "border-secondary");
   editPostForm.setAttribute("id", "editPostForm");
   // Add content or elements as needed within this div
 
