@@ -4,9 +4,12 @@ const filterUserTagsSelector = document.getElementById("filterUserTagsSelector")
 const postsContainer = document.getElementById("feed-posts"); // Container for posts
 
 // Function to filter posts based on the selected tag and selector
+// Function to filter posts based on the selected tag and selector
 function filterPosts(selectedTag, selector) {
   // Convert the selected tag to lowercase for case-insensitive comparison
   selectedTag = selectedTag.toLowerCase();
+  let postsLeft = 0;
+  let noTagsCount = 0;
 
   // Get all the post cards
   const postCards = postsContainer.querySelectorAll(".post-card");
@@ -29,6 +32,7 @@ function filterPosts(selectedTag, selector) {
       if (selectedTag === "notags") {
         if (postTags.length === 1 && postTags[0] === "no categories available") {
           postCard.style.display = "block"; // Show the post
+          noTagsCount++;
         } else {
           postCard.style.display = "none"; // Hide the post
         }
@@ -36,13 +40,24 @@ function filterPosts(selectedTag, selector) {
         // Check if the post has the selected tag (case-insensitive)
         if (postTags.includes(selectedTag)) {
           postCard.style.display = "block"; // Show the post
+          postsLeft++;
         } else {
           postCard.style.display = "none"; // Hide the post
         }
       }
     }
   });
+  const mainHeader = document.querySelector(".main-header");
+  mainHeader.classList.add("text-success", "fs-5");
+  mainHeader.classList.remove("text-dark", "fs-3");
+
+  if (selectedTag === "notags") {
+    mainHeader.innerHTML = `${noTagsCount} posts with no tags`;
+  } else {
+    mainHeader.innerHTML = `${postsLeft} results for ${selectedTag}`;
+  }
 }
+
 
 
 // Add event listeners to both filter selectors

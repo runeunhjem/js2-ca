@@ -2,7 +2,6 @@
 import {
   loggedInUser,
   currentProfileName,
-  currentUserData,
   profilePostsURL,
   fetchOptions,
   profileURL,
@@ -10,17 +9,40 @@ import {
   loggedInUserData,
   URLProfilename,
 } from "./variables/consts.mjs";
-import { populateTags } from "./feed-get-posts.js";
+import { populateTagsSelector, filterUserTagsSelector } from "./feed-get-posts.js";
 
 export async function getProfileData(profileURL, fetchOptions) {
   try {
+    const followButton = document.getElementById("loggedInProfileFollow");
     const response = await fetch(profileURL, fetchOptions);
     const json = await response.json();
-    
+
     console.log("profileData 1 is:", json);
-    const followButton = document.getElementById("loggedInProfileFollow");
-    const result = populateTags(json.posts);
-    console.log("populateTags is:", result);
+
+    if (json.posts && Array.isArray(json.posts)) {
+      console.log("profileData 1-posts is an array:", json.posts);
+
+      const allPostsTags = [];
+
+      json.posts.forEach((post) => {
+        if (post && Array.isArray(post.tags)) {
+          console.log("Tags for post", post.id, "are:", post.tags);
+          // Concatenate post tags with allPostsTags
+          allPostsTags.push(...post.tags);
+        } else {
+          console.log("Tags for post", post.id, "are undefined or not an array.");
+        }
+      });
+
+      console.log("All valid tags:", allPostsTags);
+      await populateTagsSelector(allPostsTags, filterUserTagsSelector);
+      // console.log("filterUserTagsSelector is:", filterUserTagsSelector);
+
+    } else {
+      console.log("json.posts is undefined or not an array.");
+    }
+
+
     if (!json) {
       window.location.reload();
     } else {

@@ -182,7 +182,10 @@ export async function filterProfilePosts(query) {
       postsLeft++;
     }
   });
-
+  const mainHeader = document.querySelector(".main-header");
+  mainHeader.classList.add("text-success", "fs-5");
+  mainHeader.classList.remove("text-dark", "fs-3");
+  mainHeader.innerHTML = `${postsLeft} results for ${query}`;
   console.log(postsLeft + " posts left after filtering for query: " + query);
 }
 

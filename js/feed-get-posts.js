@@ -171,13 +171,13 @@ export async function populateTagsSelector(tags, selectorElement) {
 
   // Create the "By user tags" default option
   const defaultOption = document.createElement("option");
-  defaultOption.value = "";
+  defaultOption.value = "usertags";
   defaultOption.text = "By user tag";
   selectorElement.appendChild(defaultOption);
 
   // Create an option for posts with no tags
   const noTagOption = document.createElement("option");
-  noTagOption.value = "NoTags";
+  noTagOption.value = "notags";
   noTagOption.text = "Posts with No Tags";
   selectorElement.appendChild(noTagOption);
 
@@ -193,7 +193,7 @@ export async function populateTagsSelector(tags, selectorElement) {
           .replace(/^[a-z0-9]/, (match) => match.toUpperCase());
       } else {
         // Handle the case where tag is not a string, for example, by returning an empty string
-        return "";
+        return "notags";
       }
     })
     .filter((tag) => tag); // Remove empty strings

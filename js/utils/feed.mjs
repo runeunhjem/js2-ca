@@ -28,7 +28,6 @@ export function createPostCard(post) {
   card.addEventListener("mouseleave", handlePostCardMouseLeave);
   card.addEventListener("click", handlePostCardClick);
 
-
   const cardBody = document.createElement("div");
   cardBody.classList.add("card-body", "container");
 
@@ -171,44 +170,51 @@ export function createPostCard(post) {
   const createdDate = new Date(post.created);
   postDate.textContent = createdDate.toLocaleString();
 
-const viewPostLink = document.createElement("a");
-viewPostLink.classList.add("d-flex", "nav-link", "text-primary", "m-0", "p-2", "flex-wrap", "align-items-start");
+  const viewPostLink = document.createElement("a");
+  viewPostLink.classList.add("d-flex", "nav-link", "text-primary", "m-0", "p-2", "flex-wrap", "align-items-start");
 
-// If the page is a profile page, add these classes
-if (window.location.href.includes("/profile/")) {
-  viewPostLink.classList.add("d-block", "d-sm-flex", "align-items-center");
-  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
-}
+  // If the page is a profile page, add these classes
+  if (window.location.href.includes("/profile/")) {
+    viewPostLink.classList.add("d-block", "d-sm-flex", "align-items-center");
+    viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
+  }
 
-const postPageURL = `../feed/post.html?postId=${post.id}`;
-viewPostLink.href = postPageURL;
+  const postPageURL = `../feed/post.html?postId=${post.id}`;
+  viewPostLink.href = postPageURL;
 
-// Create a span for the post title with a custom class
-const titleSpan = document.createElement("span");
-titleSpan.classList.add("movie-title"); // Add your custom class here
-titleSpan.appendChild(document.createTextNode(post.title));
-
-// Append the titleSpan to the viewPostLink
-viewPostLink.appendChild(titleSpan);
-
-if (window.location.pathname.includes("post.html")) {
-  viewPostLink.classList.add("d-block", "d-sm-flex", "align-items-center", "disabled-link", "text-muted", "fw-bold", "pt-0");
-  viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
   // Create a span for the post title with a custom class
-  const disabledTitleSpan = document.createElement("span");
-  disabledTitleSpan.classList.add("movie-title", "text-muted"); // Add your custom class and text-muted
-  disabledTitleSpan.appendChild(document.createTextNode(post.title));
+  const titleSpan = document.createElement("span");
+  titleSpan.classList.add("movie-title"); // Add your custom class here
+  titleSpan.appendChild(document.createTextNode(post.title));
 
-  // Append the disabledTitleSpan to the viewPostLink
-  viewPostLink.appendChild(disabledTitleSpan);
+  // Append the titleSpan to the viewPostLink
+  viewPostLink.appendChild(titleSpan);
 
-  viewPostLink.removeAttribute("href");
-  viewPostLink.addEventListener("click", (event) => {
-    event.preventDefault();
-    console.log("You are already on the post page.");
-  });
-}
+  if (window.location.pathname.includes("post.html")) {
+    viewPostLink.classList.add(
+      "d-block",
+      "d-sm-flex",
+      "align-items-center",
+      "disabled-link",
+      "text-muted",
+      "fw-bold",
+      "pt-0"
+    );
+    viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
+    // Create a span for the post title with a custom class
+    const disabledTitleSpan = document.createElement("span");
+    disabledTitleSpan.classList.add("movie-title", "text-muted"); // Add your custom class and text-muted
+    disabledTitleSpan.appendChild(document.createTextNode(post.title));
 
+    // Append the disabledTitleSpan to the viewPostLink
+    viewPostLink.appendChild(disabledTitleSpan);
+
+    viewPostLink.removeAttribute("href");
+    viewPostLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      console.log("You are already on the post page.");
+    });
+  }
 
   // Create a new element for displaying categories (tags)
   const categoriesElement = document.createElement("p");
@@ -407,13 +413,23 @@ if (window.location.pathname.includes("post.html")) {
 
         // Create a close button with the Bootstrap X icon in the top right corner
         const closeButton = document.createElement("div");
-        closeButton.classList.add("position-absolute", "text-danger", "p-1", "cursor-pointer");
+        closeButton.classList.add("text-danger", "p-1", "cursor-pointer", "d-block");
         closeButton.style.top = "10px"; // Set top to "0" for the top edge
         closeButton.style.right = "10px"; // Adjust the right value to add a right margin
 
         // Create a Bootstrap X icon
         const closeIcon = document.createElement("i");
-        closeIcon.classList.add("bi", "bi-x", "fs-3", "cursor-pointer", "shadow", "rounded-circle", "px-2", "py-1", "bg-warning");
+        closeIcon.classList.add(
+          "bi",
+          "bi-x",
+          "fs-3",
+          "cursor-pointer",
+          "shadow",
+          "rounded-circle",
+          "px-2",
+          "py-1",
+          "bg-warning",
+        );
 
         // Append the close icon to the close button
         closeButton.appendChild(closeIcon);
@@ -424,7 +440,7 @@ if (window.location.pathname.includes("post.html")) {
         // });
 
         // Append the close button to the comments container
-        commentsContainer.appendChild(closeButton);
+        likesCount.appendChild(closeButton);
 
         // Iterate through the comments and create elements to display them
         comments.forEach((comment) => {
@@ -441,9 +457,10 @@ if (window.location.pathname.includes("post.html")) {
           commentText.textContent = comment.body;
 
           const commentLink = document.createElement("a");
-          commentLink.classList.add("text-primary", "d-block"); // Add text-primary class for the link and d-block for block-level display
-          commentLink.href = "#"; // You can specify the link destination
-          commentLink.textContent = "Reply"; // Display "Comment" link
+          commentLink.classList.add("text-primary", "d-block", "disabled-link", "text-decoration-none");
+          commentLink.href = "#";
+          commentLink.textContent = "Reply (Coming soon)";
+          commentLink.style.pointerEvents = "none";
 
           // Append the comment ID, comment owner, comment text, and comment link to the comment card
           commentCard.appendChild(commentOwner);
@@ -459,11 +476,12 @@ if (window.location.pathname.includes("post.html")) {
 
         closeButton.addEventListener("click", () => {
           if (commentsContainer.style.display === "none") {
-            commentsContainer.style.display = "block"; // Show the comment form
+            commentsContainer.style.display = "block";
           } else {
-            commentsContainer.innerHTML;
-            commentsContainer.style.display = "none"; // Hide the comment form
+            commentsContainer.innerHTML = "";
+            commentsContainer.style.display = "none";
             repliesCount.classList.remove("d-none");
+            closeButton.classList.add("d-none");
           }
         });
 
@@ -476,9 +494,6 @@ if (window.location.pathname.includes("post.html")) {
       console.error("An error occurred while fetching comments:", error);
     }
   });
-
-
-
 
   likesRepliesDiv.appendChild(likesCount);
   likesRepliesDiv.appendChild(repliesCount);
@@ -521,7 +536,6 @@ if (window.location.pathname.includes("post.html")) {
     const commentText = commentTextArea.value; // Get the comment text
 
     try {
-
       // const postId = card.getAttribute("data-post-id");
       console.log(`postId: ${postId}`);
       const addNewCommentURL = `${API_BASE_URL}/social/posts/${postId}/comment`; // Replace postId with the actual post ID
@@ -549,7 +563,6 @@ if (window.location.pathname.includes("post.html")) {
       console.error("An error occurred while adding a comment:", error);
     }
   });
-
 
   card.appendChild(cardBody);
 
