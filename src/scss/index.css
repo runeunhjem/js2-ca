@@ -10849,7 +10849,11 @@ body {
   display: none;
 }
 
-.hidden-content, .hidden {
+.hidden-content {
+  display: none;
+}
+
+.hidden {
   display: none !important;
 }
 

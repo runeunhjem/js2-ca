@@ -6,6 +6,9 @@ import {
   profilePostsURL,
   createPostURL,
   allPostsTags,
+  sortFeedSelector,
+  followingURL,
+  followingButtons
 } from "./variables/consts.mjs";
 import { getSinglePost } from "./feed-view-post.js";
 
@@ -228,8 +231,6 @@ export const populateTags = () => {
   }
 };
 
-
-
 // Determine the page type
 if (
   window.location.href.includes("/feed/") &&
@@ -285,3 +286,39 @@ document.querySelector("#nextPageLink").addEventListener("click", () => {
   getFeedPostsWithToken(basePostsURL, fetchOptions);
   populateTags(); // Update the tags selector
 });
+
+// Attach the event listener to each "following-button"
+followingButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    getFeedPostsWithToken(followingURL, fetchOptions);
+    updateCurrentPage();
+    // populateTags(); // Update the tags selector
+  });
+});
+
+
+if (sortFeedSelector) {
+  sortFeedSelector.addEventListener("change", async (event) => {
+    const selectedValue = event.target.value;
+
+    if (selectedValue === "following") {
+      try {
+        const response = await fetch(followingURL, fetchOptions);
+
+        if (response.ok) {
+          const posts = await response.json();
+
+          // Process and display the fetched posts (you can use your existing code here)
+          console.log("Posts from Following: ", posts);
+        } else {
+          console.error("Failed to fetch posts from Following.");
+        }
+      } catch (error) {
+        console.error("An error occurred while fetching posts:", error);
+      }
+    } else {
+      // Handle other selected options (e.g., "newest," "oldest") as needed
+      // You can use your existing code to fetch and display posts for other options.
+    }
+  });
+}

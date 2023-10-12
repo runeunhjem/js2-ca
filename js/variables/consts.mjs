@@ -27,6 +27,9 @@ if (nameParam) {
   URLProfilename = nameParam;
 }
 export { URLProfilename };
+export const sortFeedSelector = document.getElementById("sortFeedSelector");
+export const followingURL = `${API_BASE_URL}/social/posts/following?_author=true&_comments=true&_reactions=true&sort=owner&sortOrder=desc`;
+export const followingButtons = document.querySelectorAll(".following-button");
 
 export const profileURL = `${API_BASE_URL}/social/profiles/${URLProfilename}?_following=true&_followers=true&_posts=true`;
 export const profilePostsURL = `${API_BASE_URL}/social/profiles/${URLProfilename}/posts?_following=true&_followers=true&_posts=true&_comments=true&_author=true&_reactions=true`;

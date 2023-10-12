@@ -37,8 +37,8 @@ function filterPosts(selectedTag, selector) {
           postCard.style.display = "none"; // Hide the post
         }
       } else {
-        // Check if the post has the selected tag (case-insensitive)
-        if (postTags.includes(selectedTag)) {
+        // Check if the post has the selected tag (case-insensitive), considering the "#" symbol
+        if (postTags.some((tag) => (tag.startsWith("#") ? tag.slice(1) === selectedTag : tag === selectedTag))) {
           postCard.style.display = "block"; // Show the post
           postsLeft++;
         } else {
@@ -57,6 +57,7 @@ function filterPosts(selectedTag, selector) {
     mainHeader.innerHTML = `${postsLeft} results for ${selectedTag}`;
   }
 }
+
 
 
 
