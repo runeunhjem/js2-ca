@@ -10819,6 +10819,11 @@ body {
   max-width: 100%;
 }
 
+.smooth {
+  transition: all 0.3s ease;
+  scroll-behavior: smooth;
+}
+
 .back-to-top-button {
   position: fixed;
   bottom: 100px;

@@ -71,13 +71,10 @@ body {
   max-width: 100%;
 }
 
-// .edit-post.slide-down {
-//   height: auto;
-//   max-height: 100%;
-//   overflow: hidden;
-//   transition: height 0.5s ease;
-//   scroll-behavior: smooth;
-// }
+.smooth {
+  transition: all 0.3s ease;
+  scroll-behavior: smooth;
+}
 
 .back-to-top-button {
   position: fixed;

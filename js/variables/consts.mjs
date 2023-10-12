@@ -88,7 +88,7 @@ export const newCommentOptions = {
   // "replyToId": 0 // Optional - Only required if replying to another comment
 };
 
-export const editURL = `${API_BASE_URL}/social/posts/${postId}`;
+export const editURL = `${API_BASE_URL}/social/posts/${postId}?_comments=true&_author=true&_reactions=true`;
 export const editPostOptions = {
   method: "PUT",
   headers: {
