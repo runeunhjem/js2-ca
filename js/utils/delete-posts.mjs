@@ -1,4 +1,5 @@
 import { API_BASE_URL, loggedInUser, currentProfileName, deletePostOptions } from "../variables/consts.mjs";
+
 // Function to delete a post
 export async function deletePost(postId) {
   // const postId = localStorage.getItem("postId");

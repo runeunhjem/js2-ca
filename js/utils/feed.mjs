@@ -15,7 +15,7 @@ import {
 import { deletePost } from "./delete-posts.mjs";
 import { editPost } from "./do-edit-posts.mjs";
 
-
+let postId;
 export function createPostCard(post) {
   const spinner = document.querySelector(".spinner-border");
   spinner.classList.add("d-none");
@@ -120,12 +120,96 @@ export function createPostCard(post) {
     });
     const editButton = dropdownMenu.querySelector(".edit-button");
     editButton.addEventListener("click", (event) => {
-      editPost(post.id);
+      editPostForm.classList.remove("d-none");
+      editPostForm.scrollIntoView({ behavior: "smooth" });
+      // editPost(post.id);
     });
   }
 
   moreButton.appendChild(dropdownMenu);
+
+  // Create an empty div with the default classes and hide it
+  const editPostForm = document.createElement("div");
+  editPostForm.classList.add("edit-post", "d-none");
+  editPostForm.setAttribute("id", "editPostForm");
+  // Add content or elements as needed within this div
+
+  // const postId = card.getAttribute("data-post-id");
+  const editHeader = document.createElement("h6");
+  postId = post.id;
+  editHeader.classList.add("edit-title", "mt-4", "text-center");
+  editHeader.textContent = "Edit Post # " + postId;
+
+  // Create an input field for movie title
+  const movieTitleInput = document.createElement("input");
+  movieTitleInput.setAttribute("type", "text");
+  movieTitleInput.setAttribute("placeholder", "Movie Title");
+  movieTitleInput.classList.add("form-control", "my-2");
+  movieTitleInput.value = post.title; // Set the initial value
+
+  // Create an input field for movie cover
+  const movieCoverInput = document.createElement("input");
+  movieCoverInput.setAttribute("type", "text");
+  movieCoverInput.setAttribute("placeholder", "Movie Cover URL");
+  movieCoverInput.classList.add("form-control", "my-2");
+  movieCoverInput.value = post.media; // Set the initial value
+
+  // Create an input field for tags
+  const tagsInput = document.createElement("input");
+  tagsInput.setAttribute("type", "text");
+  tagsInput.setAttribute("placeholder", "Tags (Comma-separated)");
+  tagsInput.classList.add("form-control", "my-2");
+  tagsInput.value = post.tags.join(", "); // Set the initial value
+
+  // Create a textarea for the new post body
+  const newPostBodyTextarea = document.createElement("textarea");
+  newPostBodyTextarea.setAttribute("placeholder", "Post Body");
+  newPostBodyTextarea.classList.add("form-control", "my-2");
+  newPostBodyTextarea.value = post.body; // Set the initial value
+
+  // Create a submit button
+  const doEditButton = document.createElement("button");
+  doEditButton.setAttribute("type", "button");
+  doEditButton.classList.add("btn", "btn-warning", "btn-sm", "my-2", "ms-3");
+  doEditButton.textContent = "Submit";
+  // Create a submit button
+  const closeEditButton = document.createElement("button");
+  closeEditButton.setAttribute("type", "button");
+  closeEditButton.classList.add("btn", "btn-warning", "btn-sm", "my-2", "ms-3");
+  closeEditButton.textContent = "Close";
+
+  // Append input fields and submit button to the editPostForm
+  editPostForm.appendChild(editHeader);
+  editPostForm.appendChild(movieTitleInput);
+  editPostForm.appendChild(movieCoverInput);
+  editPostForm.appendChild(tagsInput);
+  editPostForm.appendChild(newPostBodyTextarea);
+  editPostForm.appendChild(doEditButton);
+  editPostForm.appendChild(closeEditButton);
+
+  // Add event listeners for the submit button
+  doEditButton.addEventListener("click", async () => {
+    // Get the values from the input fields
+    const movieTitle = movieTitleInput.value;
+    const movieCover = movieCoverInput.value;
+    const tags = tagsInput.value;
+    const newPostBody = newPostBodyTextarea.value;
+
+    // Perform the update/PUT operation with these values
+    editPost(postId);
+
+    // After the update is complete, you may want to hide the edit form again
+    editPostForm.classList.add("d-none");
+  });
+
+  closeEditButton.addEventListener("click", () => {
+    editPostForm.classList.add("d-none");
+    card.scrollIntoView({ behavior: "smooth" });
+  });
+
   card.appendChild(moreButton);
+  // Add the editPostForm div below the dropdown menu
+  card.appendChild(editPostForm);
 
   const postIdElement = document.createElement("div");
   postIdElement.setAttribute("data-post-id", post.id);
@@ -137,7 +221,7 @@ export function createPostCard(post) {
   }
   card.appendChild(postIdElement);
 
-  const postId = card.getAttribute("data-post-id");
+  postId = card.getAttribute("data-post-id");
 
   const viewProfileLink = document.createElement("a");
   viewProfileLink.classList.add(
@@ -428,7 +512,7 @@ export function createPostCard(post) {
           "rounded-circle",
           "px-2",
           "py-1",
-          "bg-warning",
+          "bg-warning"
         );
 
         // Append the close icon to the close button
