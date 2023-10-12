@@ -93,7 +93,7 @@ function displaySearchResults(results, query) {
         });
       });
       populateTags(results); // Populate the allPostsTags array with tags from the fetched posts
-      console.log("allPostsTags from search is:", allPostsTags);
+      // console.log("allPostsTags from search is:", allPostsTags);
     });
 
     // Update the postsLeft count after processing all results

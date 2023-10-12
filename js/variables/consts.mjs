@@ -88,7 +88,7 @@ export const newCommentOptions = {
   // "replyToId": 0 // Optional - Only required if replying to another comment
 };
 
-export const editURL = `${API_BASE_URL}/social/posts/${postId}?_comments=true&_author=true&_reactions=true`;
+export const editURL = `${API_BASE_URL}/social/posts/${postId}`;
 export const editPostOptions = {
   method: "PUT",
   headers: {
@@ -96,6 +96,7 @@ export const editPostOptions = {
     Authorization: `Bearer ${token}`,
   },
   body: {
+
     //Get these values from the form (postForm? edit in addNewPost?)
     // title: "string",
     // body: "string",

@@ -132,7 +132,7 @@ export function createPostCard(post) {
   // Create an empty div with the default classes and hide it
   const editPostForm = document.createElement("div");
   editPostForm.classList.add("edit-post", "d-none", "smooth", "w-75", "mx-auto", "border-bottom", "border-1", "border-secondary");
-  editPostForm.setAttribute("id", "editPostForm");
+  // editPostForm.setAttribute("id", "editPostForm");
   // Add content or elements as needed within this div
 
   // const postId = card.getAttribute("data-post-id");
@@ -145,38 +145,38 @@ export function createPostCard(post) {
   const movieTitleInput = document.createElement("input");
   movieTitleInput.setAttribute("type", "text");
   movieTitleInput.setAttribute("placeholder", "Movie Title");
-  movieTitleInput.classList.add("form-control", "my-2");
+  movieTitleInput.classList.add("form-control", "my-2", "movie-title-input");
   movieTitleInput.value = post.title; // Set the initial value
 
   // Create an input field for movie cover
   const movieCoverInput = document.createElement("input");
   movieCoverInput.setAttribute("type", "text");
   movieCoverInput.setAttribute("placeholder", "Movie Cover URL");
-  movieCoverInput.classList.add("form-control", "my-2");
+  movieCoverInput.classList.add("form-control", "my-2", "movie-cover-input");
   movieCoverInput.value = post.media; // Set the initial value
 
   // Create an input field for tags
   const tagsInput = document.createElement("input");
   tagsInput.setAttribute("type", "text");
   tagsInput.setAttribute("placeholder", "Tags (Comma-separated)");
-  tagsInput.classList.add("form-control", "my-2");
+  tagsInput.classList.add("form-control", "my-2", "tags-input");
   tagsInput.value = post.tags.join(", "); // Set the initial value
 
   // Create a textarea for the new post body
   const newPostBodyTextarea = document.createElement("textarea");
   newPostBodyTextarea.setAttribute("placeholder", "Post Body");
-  newPostBodyTextarea.classList.add("form-control", "my-2");
+  newPostBodyTextarea.classList.add("form-control", "my-2", "new-post-body-textarea");
   newPostBodyTextarea.value = post.body; // Set the initial value
 
   // Create a submit button
   const doEditButton = document.createElement("button");
   doEditButton.setAttribute("type", "button");
-  doEditButton.classList.add("btn", "btn-warning", "btn-sm", "my-2", "ms-3");
+  doEditButton.classList.add("btn", "btn-warning", "btn-sm", "my-2", "ms-3", "do-edit-button");
   doEditButton.textContent = "Submit";
   // Create a submit button
   const closeEditButton = document.createElement("button");
   closeEditButton.setAttribute("type", "button");
-  closeEditButton.classList.add("btn", "btn-warning", "btn-sm", "my-2", "ms-3");
+  closeEditButton.classList.add("btn", "btn-warning", "btn-sm", "my-2", "ms-3", "close-edit-button");
   closeEditButton.textContent = "Close";
 
   // Append input fields and submit button to the editPostForm
@@ -197,7 +197,9 @@ export function createPostCard(post) {
     const newPostBody = newPostBodyTextarea.value;
 
     // Perform the update/PUT operation with these values
-    editPost(postId);
+    const postId = editPostForm.getAttribute("data-post-id");
+    const authorName = editPostForm.getAttribute("data-authorname");
+    editPost(editPostForm, postId, movieTitle, movieCover, tags, newPostBody, authorName);
 
     // After the update is complete, you may want to hide the edit form again
     editPostForm.classList.add("d-none");

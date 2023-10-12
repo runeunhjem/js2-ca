@@ -26,11 +26,11 @@ export async function getProfileData(profileURL, fetchOptions) {
 
       json.posts.forEach((post) => {
         if (post && Array.isArray(post.tags)) {
-          console.log("Tags for post", post.id, "are:", post.tags);
+          // console.log("Tags for post", post.id, "are:", post.tags);
           // Concatenate post tags with allPostsTags
           allPostsTags.push(...post.tags);
         } else {
-          console.log("Tags for post", post.id, "are undefined or not an array.");
+          // console.log("Tags for post", post.id, "are undefined or not an array.");
         }
       });
 
