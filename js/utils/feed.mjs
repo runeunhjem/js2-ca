@@ -465,7 +465,7 @@ export function createPostCard(post) {
   likesCount.innerHTML = `<i class="bi bi-hand-thumbs-up-fill text-primary "></i> ${reactionsCount} likes`;
 
   const repliesCount = document.createElement("div");
-  repliesCount.classList.add("card-text", "text-muted", "py-0", "cursor-pointer");
+  repliesCount.classList.add("card-text", "text-muted", "py-0", "cursor-pointer", "comments-count");
   repliesCount.innerHTML = `<i class="bi bi-chat-dots text-primary"></i> ${commentsCount} comments`;
 
     repliesCount.addEventListener("click", async () => {
@@ -666,6 +666,13 @@ export function createPostCard(post) {
         commentTextArea.value = ""; // Clear the text area
         commentForm.style.display = "none"; // Hide the comment form
         commentsCount++; // Increment the comments count
+        console.log(`commentsCount: ${commentsCount}`);
+
+        // Update the comments count within the post
+        const commentsCountElement = card.querySelector(".comments-count");
+        if (commentsCountElement) {
+          commentsCountElement.textContent = `${commentsCount} Comments`;
+        }
       } else {
         console.error("Failed to add a new comment.");
       }
