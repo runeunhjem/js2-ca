@@ -224,11 +224,7 @@ export function createPostCard(post) {
 
     // Perform the update/PUT operation with these values
     const postId = localStorage.getItem("postId");
-    // const postId = card.getAttribute("data-post-id");
-    console.log("Clicked edit on Post ID: ", postId);
     const authorName = localStorage.getItem("authorName");
-    // const authorName = card.getAttribute("data-authorname");
-    console.log("Clicked edit - authorName is: ", authorName);
     editPost(editPostForm, postId, movieTitle, movieCover, tags, newPostBody, authorName);
 
     // After the update is complete, you may want to hide the edit form again
@@ -503,17 +499,13 @@ export function createPostCard(post) {
     const postId = post.id;
     if (commentsCount > 0) {
       try {
-        console.log(`postId in creatPostCard: ${postId}`);
         const getSinglePostURL = `${API_BASE_URL}/social/posts/${postId}?_comments=true&_author=true&_reactions=true`;
-        console.log(`getSinglePostURL in creatPostCard: ${getSinglePostURL}`);
         const commentsResponse = await fetch(getSinglePostURL, fetchOptions);
 
         if (commentsResponse.ok) {
           const singlePost = await commentsResponse.json();
-          console.log("comments for post:", singlePost);
-
           const comments = singlePost.comments;
-          console.log("comments:", comments);
+
           // Create a container for comments
           const commentsContainer = document.createElement("div");
           commentsContainer.classList.add(
@@ -525,21 +517,18 @@ export function createPostCard(post) {
             "rounded-3",
             "h-100"
           );
-          commentsContainer.style.display = "none"; // Initially hide the comments container
-          // commentsContainer.style.height = "50px";
+          commentsContainer.style.display = "none";
           commentsContainer.style.maxHeight = "500px";
           commentsContainer.style.transition = "max-height 0.5s ease-in-out";
           commentsContainer.style.overflowY = "scroll";
           commentsContainer.style.overflowY = "auto";
           commentsContainer.style.position = "relative";
 
-          // Create a close button with the Bootstrap X icon in the top right corner
           const closeButton = document.createElement("div");
           closeButton.classList.add("text-danger", "p-1", "cursor-pointer", "d-block");
-          closeButton.style.top = "10px"; // Set top to "0" for the top edge
-          closeButton.style.right = "10px"; // Adjust the right value to add a right margin
+          closeButton.style.top = "10px";
+          closeButton.style.right = "10px";
 
-          // Create a Bootstrap X icon
           const closeIcon = document.createElement("i");
           closeIcon.classList.add(
             "bi",
@@ -554,13 +543,7 @@ export function createPostCard(post) {
             "bg-warning"
           );
 
-          // Append the close icon to the close button
           closeButton.appendChild(closeIcon);
-
-          // Add an event listener to close the comments container when the close button is clicked
-          // closeButton.addEventListener("click", () => {
-          //   commentsContainer.style.display = "none";
-          // });
 
           // Append the close button to the comments container
           likesCount.appendChild(closeButton);
@@ -569,11 +552,11 @@ export function createPostCard(post) {
           comments.forEach((comment) => {
             const commentCard = document.createElement("div");
             commentCard.classList.add("comment-card", "bg-info", "p-2", "mb-2", "text-dark");
-            commentCard.setAttribute("data-comment-id", comment.id); // Attach comment ID to the card
+            commentCard.setAttribute("data-comment-id", comment.id); // Attach comment ID to the card so i can reply to it
 
             const commentOwner = document.createElement("div");
-            commentOwner.classList.add("text-muted"); // Add text-muted class for owner
-            commentOwner.textContent = `Comment by: ${comment.owner}`; // Display the owner's name
+            commentOwner.classList.add("text-muted");
+            commentOwner.textContent = `User: ${comment.owner}`; // Display the owner's name
 
             const commentText = document.createElement("div");
             commentText.classList.add("comment-text");
@@ -676,10 +659,7 @@ export function createPostCard(post) {
     const commentText = commentTextArea.value; // Get the comment text
 
     try {
-      // const postId = card.getAttribute("data-post-id");
-      console.log(`postId: ${postId}`);
       const addNewCommentURL = `${API_BASE_URL}/social/posts/${postId}/comment`; // Replace postId with the actual post ID
-      console.log(`addNewCommentURL: ${addNewCommentURL}`);
       const newCommentOptions = {
         method: "POST",
         headers: {
@@ -696,7 +676,6 @@ export function createPostCard(post) {
         commentTextArea.value = ""; // Clear the text area
         commentForm.style.display = "none"; // Hide the comment form
         commentsCount++; // Increment the comments count
-        console.log(`commentsCount: ${commentsCount}`);
 
         // Update the comments count within the post
         const commentsCountElement = card.querySelector(".comments-count");

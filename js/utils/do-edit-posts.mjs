@@ -5,11 +5,9 @@ import { populateTagsSelector, filterUserTagsSelector } from "../feed-get-posts.
 export async function editPost(editPostForm, postId, movieTitle, movieCover, tags, newPostBody, authorName) {
 
   if (editPostForm) {
-    console.log("Edit form exists.");
     const authorName = localStorage.getItem("authorName");
 
     if (loggedInUser === authorName) {
-      console.log("User is authorized to edit.");
       try {
         const editPostData = {
           title: movieTitle,
@@ -18,7 +16,6 @@ export async function editPost(editPostForm, postId, movieTitle, movieCover, tag
           tags: tags.split(",").map((tag) => tag.trim()),
           media: movieCover,
         };
-        console.log("Edit Post Data: ", editPostData);
 
         const response = await fetch(editURL, {
           method: "PUT",
@@ -29,12 +26,9 @@ export async function editPost(editPostForm, postId, movieTitle, movieCover, tag
           body: JSON.stringify(editPostData),
         });
 
-        console.log("Edit Response Status: ", response.status);
-
        if (response.status >= 200 && response.status <= 299) {
 
          await populateTagsSelector(allPostsTags, filterUserTagsSelector);
-         console.log("Post successfully edited!");
          window.location.reload();
        } else {
          console.error("Edit Post failed. You can only edit your own posts.");

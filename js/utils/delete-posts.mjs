@@ -1,4 +1,4 @@
-import { API_BASE_URL, allPostsTags, loggedInUser, currentProfileName, deletePostOptions } from "../variables/consts.mjs";
+import { API_BASE_URL, allPostsTags, loggedInUser, deletePostOptions } from "../variables/consts.mjs";
 import { populateTagsSelector, filterUserTagsSelector } from "../feed-get-posts.js";
 // Function to delete a post
 export async function deletePost(postId) {
@@ -6,17 +6,12 @@ export async function deletePost(postId) {
   const authorName = localStorage.getItem("authorName");
   // Check if the logged-in user matches the username from the URL
   if (loggedInUser === authorName) {
-    console.log(`postId: ${postId}`);
-    console.log(`authorName: ${authorName}`);
     const deleteURL = `${API_BASE_URL}/social/posts/${postId}`; // Include postId in the URL
-    console.log(`deleteURL: ${deleteURL}`);
     try {
       const response = await fetch(deleteURL, deletePostOptions);
       const json = await response.json();
-      // console.log("profileData is:", JSON.stringify(json, null, 2));
 
       if (response.status >= 200 && response.status <= 299) {
-        console.log("Post successfully deleted!");
         populateTagsSelector(allPostsTags, filterUserTagsSelector);
         window.location.reload();
 

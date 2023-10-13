@@ -112,11 +112,9 @@ async function handleSearch(event) {
 
     if (window.location.pathname.includes("/profile/")) {
       // Search is on the profile page
-      console.log(`Search is on profile page: ${query}`);
       filterProfilePosts(query);
     } else {
-      // Search is on other pages
-      console.log(`Search is on feed page: ${query}`);
+      // Search is on feed or post page
       await fetchAllSearchResults(searchURL, query, limit, offset);
     }
   } catch (error) {
@@ -180,7 +178,6 @@ export async function filterProfilePosts(query) {
   mainHeader.classList.add("text-success", "fs-5");
   mainHeader.classList.remove("text-dark", "fs-3");
   mainHeader.innerHTML = `${postsLeft} results for ${query}`;
-  console.log(postsLeft + " posts left after filtering for query: " + query);
 }
 
 function updateMainHeader(query) {

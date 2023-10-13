@@ -23,14 +23,10 @@ async function handleSubmit(event) {
 
   const userData = { name: nameValue, email: emailValue, password: passwordValue };
 
-  console.log(userData);
   const options = { method: "POST", body: JSON.stringify(userData) };
   const data = await doFetch(API_LOGIN_URL, options);
-
-  console.log(data);
 }
 loginForm.addEventListener("submit", handleSubmit);
-
 
 // Hansemann :
 async function apiFetch(url, fetchMethod, body = null) {

@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
         userData[key] = value;
       });
 
-      console.log("userData:", userData);
       const response = await fetch(registerURL, {
         method: "POST",
         headers: {
@@ -28,10 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const json = await response.json();
       if (response.status >= 200 && response.status <= 299) {
-        console.log("Registration successful!");
         localStorage.setItem("loggedInUser", json.name);
-        console.log("Registration successful!");
-        console.log(`Name: ${localStorage.getItem("loggedInUser")}`);
         const registerButton = document.getElementById("registerButton");
         registerButton.classList.remove("btn-warning");
         registerButton.textContent = "Registration successful!";
@@ -41,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 2000);
       } else {
         console.log("Registration failed!");
+        alert("Registration failed! Please try again.");
       }
     } catch (error) {
       console.error(error);

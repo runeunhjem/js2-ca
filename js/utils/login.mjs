@@ -21,16 +21,11 @@ export async function loginUser(url, userData) {
       body: JSON.stringify(userData),
     };
     const response = await fetch(url, postData);
-    console.log(response);
     const json = await response.json();
-    console.log(json);
 
     if (response.status >= 200 && response.status <= 299) {
-      console.log("Login successful!");
-
       const accessToken = json.accessToken;
       localStorage.setItem("accessToken", accessToken);
-      // let loggedInUser = json.name;
       localStorage.setItem("loggedInUser", json.name);
       localStorage.setItem("currentProfileName", json.name);
       localStorage.setItem("authorName", json.name);
@@ -38,7 +33,6 @@ export async function loginUser(url, userData) {
       localStorage.setItem("isFollowing", false);
       localStorage.setItem("isLoggedIn", true);
 
-      console.log(`Name: ${localStorage.getItem("loggedInUser")}`);
       const URLProfilename = json.name;
       const currentProfileURL = `../profile/index.html?name=${encodeURIComponent(URLProfilename)}`;
 
