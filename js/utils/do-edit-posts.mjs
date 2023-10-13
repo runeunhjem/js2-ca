@@ -1,7 +1,8 @@
-import { API_BASE_URL, allPostsTags, loggedInUser, token, currentProfileName, editURL, postId } from "../variables/consts.mjs";
+import { API_BASE_URL, allPostsTags, loggedInUser, token, currentProfileName, authorName, postId } from "../variables/consts.mjs";
 import { populateTagsSelector, filterUserTagsSelector } from "../feed-get-posts.js";
 
-
+// const postId = localStorage.getItem("postId");
+const editURL = `${API_BASE_URL}/social/posts/${postId}`;
 export async function editPost(editPostForm, postId, movieTitle, movieCover, tags, newPostBody, authorName) {
 
   if (editPostForm) {
@@ -16,7 +17,6 @@ export async function editPost(editPostForm, postId, movieTitle, movieCover, tag
           tags: tags.split(",").map((tag) => tag.trim()),
           media: movieCover,
         };
-
         const response = await fetch(editURL, {
           method: "PUT",
           headers: {
@@ -26,6 +26,7 @@ export async function editPost(editPostForm, postId, movieTitle, movieCover, tag
           body: JSON.stringify(editPostData),
         });
 
+        console.log("editURL:", editURL);
        if (response.status >= 200 && response.status <= 299) {
 
          await populateTagsSelector(allPostsTags, filterUserTagsSelector);

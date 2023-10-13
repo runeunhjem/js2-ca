@@ -214,6 +214,11 @@ export function createPostCard(post) {
   editPostForm.appendChild(doEditButton);
   editPostForm.appendChild(closeEditButton);
 
+
+  closeEditButton.addEventListener("click", () => {
+    editPostForm.classList.add("d-none");
+    card.scrollIntoView({ behavior: "smooth" });
+  });
   // Add event listeners for the submit button
   doEditButton.addEventListener("click", async () => {
     // Get the values from the input fields
@@ -223,17 +228,21 @@ export function createPostCard(post) {
     const newPostBody = newPostBodyTextarea.value;
 
     // Perform the update/PUT operation with these values
-    const postId = localStorage.getItem("postId");
+    const postId = post.id;
+    console.log("postId", postId);
+    // const postId = localStorage.getItem("postId");
     const authorName = localStorage.getItem("authorName");
     editPost(editPostForm, postId, movieTitle, movieCover, tags, newPostBody, authorName);
+    console.log("editPostForm", editPostForm);
+    console.log("postId", postId);
+    console.log("movieTitle", movieTitle);
+    console.log("movieCover", movieCover);
+    console.log("tags", tags);
+    console.log("newPostBody", newPostBody);
+    console.log("authorName", authorName);
 
     // After the update is complete, you may want to hide the edit form again
     editPostForm.classList.add("d-none");
-  });
-
-  closeEditButton.addEventListener("click", () => {
-    editPostForm.classList.add("d-none");
-    card.scrollIntoView({ behavior: "smooth" });
   });
 
   card.appendChild(moreButton);

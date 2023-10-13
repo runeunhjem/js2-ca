@@ -100,6 +100,19 @@ export function validateLoginForm() {
   registerPassword.addEventListener("input", validateForm);
   registerButton.addEventListener("click", validateForm);
 
+  function successMessage() {
+    const confirmSuccess = document.getElementById("register-success");
+    confirmSuccess.style.display = "block";
+    confirmSuccess.innerHTML = `
+    <p class="success">Your message was sent successfully</p>
+    `;
+    setTimeout(closeSuccessMessage, 4000);
+  }
+
+  function closeSuccessMessage() {
+    location.reload();
+  }
+  
   function checkLength(value, len) {
     if (value.trim().length > len) {
       return true;
