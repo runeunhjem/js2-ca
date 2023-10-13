@@ -23,7 +23,7 @@ export async function editPost(editPostForm, postId, movieTitle, movieCover, tag
           body: JSON.stringify(editPostData),
         });
         if (response.status >= 200 && response.status <= 299) {
-          await populateTagsSelector(allPostsTags, filterUserTagsSelector);
+          populateTagsSelector(allPostsTags, filterUserTagsSelector);
           window.location.reload();
         } else {
           console.error("Edit Post failed. You can only edit your own posts.");

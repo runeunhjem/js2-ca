@@ -164,6 +164,9 @@ initProfilePage();
 
 document.addEventListener("DOMContentLoaded", function () {
   const editProfileButton = document.getElementById("edit-profile");
+  if ((loggedInUser !== currentProfileName) || (loggedInUser !== URLProfilename)) {
+    editProfileButton.classList.add("d-none");
+  }
   const profileEditForm = document.querySelector(".profile-edit-form");
   const avatarInput = document.getElementById("avatarInput");
   const bannerInput = document.getElementById("bannerInput");
