@@ -1,6 +1,5 @@
 @import "variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
-// @import "../../node_modules/bootstrap-icons/font/bootstrap-icons";
 
 html,
 body {
@@ -13,7 +12,6 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   width: 100%;
-  // max-width: 320px;
   height: 100px;
 }
 
@@ -29,10 +27,6 @@ body {
 
 .movie-poster {
   max-width: 75px;
-  // transition: all 0.3s ease-in-out;
-  // &:hover {
-  //   max-width: 150px;
-  // }
 }
 .profile-image {
   width: 50px;
@@ -67,7 +61,6 @@ body {
 }
 
 .news {
-  // height: 100px;
   max-width: 100%;
 }
 
@@ -130,22 +123,21 @@ body {
 }
 
 .comments-container::-webkit-scrollbar {
-  width: 12px; /* Adjust the scrollbar width as needed */
-  border-radius: 0.5rem; /* Roundness of the scrollbar track */
+  width: 12px;
+  border-radius: 0.5rem;
 }
 
 .comments-container::-webkit-scrollbar-track {
-  // width: 10px;
-  background: #4747478c; /* Color of the scrollbar track */
-  border-radius: 0.5rem; /* Roundness of the scrollbar track */
+  background: #4747478c;
+  border-radius: 0.5rem;
 }
 
 .comments-container::-webkit-scrollbar-thumb {
-  width: 10px; /* Adjust the thumb width as needed */
-  background: #ffc73b; /* Background color of the scrollbar thumb */
-  border-radius: 0.5rem; /* Roundness of the scrollbar thumb */
+  width: 10px;
+  background: #ffc73b;
+  border-radius: 0.5rem;
 }
 
 .comments-container::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color of the scrollbar thumb on hover */
+  background: #555;
 }

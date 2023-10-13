@@ -1,4 +1,4 @@
-import { populateTags, populateTagsSelector } from "./feed-get-posts.js";
+import { populateTags } from "./feed-get-posts.js";
 import { fetchOptions, searchURL, allPostsTags } from "./variables/consts.mjs";
 import { createPostCard } from "./utils/feed.mjs";
 
@@ -6,13 +6,13 @@ let postsLeft = 0;
 let limit = 100; // Get max 100 from API
 let offset = 0; // Initialize the offset to 0
 let query = ""; // Initialize the query variable
-// let nextPage = 1; // Initialize the nextPage variable
 
 async function fetchAllSearchResults(url, query, limit, offset) {
   let allResults = [];
   let totalFetched = 0; // Track the total number of posts fetched
 
   try {
+    // Fetch max 1500 posts
     while (totalFetched < 1500) {
       const response = await fetch(`${url}?limit=${limit}&offset=${offset}`, fetchOptions);
       if (!response.ok) {
@@ -21,28 +21,23 @@ async function fetchAllSearchResults(url, query, limit, offset) {
 
       const result = await response.json();
 
-
       // Filter and append results that match the query and are not duplicates
       const searchResults = result.filter((post) => {
         const searchString = post.title + post.body + post.tags.join(" ") + post.author.name;
         return (
           searchString.toLowerCase().includes(query.toLowerCase()) &&
           !allResults.some((existingPost) => existingPost.id === post.id) // Check for duplicates
-          );
-        });
+        );
+      });
 
-        allResults = allResults.concat(searchResults);
-        totalFetched += result.length; // Update the total count of fetched posts
+      allResults = allResults.concat(searchResults);
+      totalFetched += result.length; // Update the total count of fetched posts
 
-        offset += limit; // Increment the offset for the next page
+      offset += limit; // Increment the offset for the next page
 
-        if (result.length < limit) {
-          break; // No more matching results to fetch
+      if (result.length < limit) {
+        break; // No more matching results to fetch
       }
-
-      // const filterUserTagsSelector = document.getElementById("filterUserTagsSelector");
-      // localStorage.setItem("currentPagePosts", JSON.stringify(allResults));
-      // populateTagsSelector(allResults, filterUserTagsSelector);
     }
 
     // Show the number of results in the main header
@@ -52,14 +47,12 @@ async function fetchAllSearchResults(url, query, limit, offset) {
     mainHeader.innerHTML = `${allResults.length} results for ${query}`;
 
     displaySearchResults(allResults, query); // Call displaySearchResults once after fetching all results
-    // document.addEventListener("DOMContentLoaded", captureCurrentPagePosts);
     return allResults;
   } catch (error) {
     console.error("Error fetching search results:", error);
     throw error;
   }
 }
-
 
 function displaySearchResults(results, query) {
   let feedPosts;
@@ -93,7 +86,6 @@ function displaySearchResults(results, query) {
         });
       });
       populateTags(results); // Populate the allPostsTags array with tags from the fetched posts
-      // console.log("allPostsTags from search is:", allPostsTags);
     });
 
     // Update the postsLeft count after processing all results
@@ -101,8 +93,6 @@ function displaySearchResults(results, query) {
     updateMainHeader(query);
   }
 }
-
-
 
 async function handleSearch(event) {
   event.preventDefault();
@@ -157,6 +147,8 @@ export async function filterProfilePosts(query) {
     if (titleElement) {
       searchString += titleElement.textContent.toLowerCase();
     }
+
+    // Add movie title to the search string if available
     if (movieTitleElement) {
       searchString += movieTitleElement.textContent.toLowerCase();
     }
@@ -170,7 +162,7 @@ export async function filterProfilePosts(query) {
 
     // Add tags to the search string if available
     if (tagsElement) {
-      // Assuming tags is an array, join them into a space-separated string
+      // Join them into a space-separated string
       searchString += tagsElement.textContent.toLowerCase().split(", ").join(" ");
     }
 
@@ -182,14 +174,14 @@ export async function filterProfilePosts(query) {
       postsLeft++;
     }
   });
+
+  // Update the main header
   const mainHeader = document.querySelector(".main-header");
   mainHeader.classList.add("text-success", "fs-5");
   mainHeader.classList.remove("text-dark", "fs-3");
   mainHeader.innerHTML = `${postsLeft} results for ${query}`;
   console.log(postsLeft + " posts left after filtering for query: " + query);
 }
-
-
 
 function updateMainHeader(query) {
   const mainHeader = document.querySelector(".main-header");
@@ -207,4 +199,3 @@ function displayNoResults() {
 
 const searchForm = document.getElementById("searchForm");
 searchForm.addEventListener("submit", handleSearch);
-

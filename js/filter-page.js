@@ -1,11 +1,9 @@
-// Get references to HTML elements
 const filterFeedSelector = document.getElementById("filterFeedSelector"); // Selector for filtering by movie categories
 const filterUserTagsSelector = document.getElementById("filterUserTagsSelector"); // Selector for filtering by user tags
 const postsContainer = document.getElementById("feed-posts"); // Container for posts
 
 // Function to filter posts based on the selected tag and selector
-// Function to filter posts based on the selected tag and selector
-function filterPosts(selectedTag, selector) {
+export function filterPosts(selectedTag, selector) {
   // Convert the selected tag to lowercase for case-insensitive comparison
   selectedTag = selectedTag.toLowerCase();
   let postsLeft = 0;
@@ -26,23 +24,23 @@ function filterPosts(selectedTag, selector) {
         .replace("Categories:", "")
         .trim()
         .split(", ")
-        .map((tag) => tag.trim().toLowerCase()); // Convert tags to lowercase
+        .map((tag) => tag.trim().toLowerCase());
 
       // Check if the post has no tags
       if (selectedTag === "notags") {
         if (postTags.length === 1 && postTags[0] === "no categories available") {
-          postCard.style.display = "block"; // Show the post
+          postCard.style.display = "block";
           noTagsCount++;
         } else {
-          postCard.style.display = "none"; // Hide the post
+          postCard.style.display = "none";
         }
       } else {
         // Check if the post has the selected tag (case-insensitive), considering the "#" symbol
         if (postTags.some((tag) => (tag.startsWith("#") ? tag.slice(1) === selectedTag : tag === selectedTag))) {
-          postCard.style.display = "block"; // Show the post
+          postCard.style.display = "block";
           postsLeft++;
         } else {
-          postCard.style.display = "none"; // Hide the post
+          postCard.style.display = "none";
         }
       }
     }
@@ -57,9 +55,6 @@ function filterPosts(selectedTag, selector) {
     mainHeader.innerHTML = `${postsLeft} results for ${selectedTag}`;
   }
 }
-
-
-
 
 // Add event listeners to both filter selectors
 filterFeedSelector.addEventListener("change", () => {

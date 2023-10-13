@@ -196,8 +196,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const bannerInput = document.getElementById("bannerInput");
   const changeButton = document.getElementById("changeButton");
   const closeButton = document.getElementById("closeButton");
-  avatarInput.value = loggedInUserData.avatar;
-  bannerInput.value = loggedInUserData.banner;
 
   editProfileButton.addEventListener("click", function () {
     profileEditForm.classList.toggle("d-none");

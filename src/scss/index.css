@@ -10880,21 +10880,21 @@ body {
 }
 
 .comments-container::-webkit-scrollbar {
-  width: 12px; /* Adjust the scrollbar width as needed */
-  border-radius: 0.5rem; /* Roundness of the scrollbar track */
+  width: 12px;
+  border-radius: 0.5rem;
 }
 
 .comments-container::-webkit-scrollbar-track {
-  background: rgba(71, 71, 71, 0.5490196078); /* Color of the scrollbar track */
-  border-radius: 0.5rem; /* Roundness of the scrollbar track */
+  background: rgba(71, 71, 71, 0.5490196078);
+  border-radius: 0.5rem;
 }
 
 .comments-container::-webkit-scrollbar-thumb {
-  width: 10px; /* Adjust the thumb width as needed */
-  background: #ffc73b; /* Background color of the scrollbar thumb */
-  border-radius: 0.5rem; /* Roundness of the scrollbar thumb */
+  width: 10px;
+  background: #ffc73b;
+  border-radius: 0.5rem;
 }
 
 .comments-container::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color of the scrollbar thumb on hover */
+  background: #555;
 }/*# sourceMappingURL=index.css.map */
