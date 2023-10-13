@@ -1,27 +1,13 @@
-import {
-  API_BASE_URL,
-  currentProfileName,
-  authorUserData,
-  loggedInUser,
-  postsURL,
-  reactionOptions,
-  // addNewCommentURL,
-  // newCommentOptions,
-  token,
-  fetchOptions,
-  // postId,
-  // token
-} from "../variables/consts.mjs";
+import { API_BASE_URL, loggedInUser, reactionOptions, token, fetchOptions } from "../variables/consts.mjs";
 import { deletePost } from "./delete-posts.mjs";
 import { editPost } from "./do-edit-posts.mjs";
 
-// let postId;
 export function createPostCard(post) {
   const spinner = document.querySelector(".spinner-border");
   spinner.classList.add("d-none");
   const isLoggedIn = post.author && post.author.name === loggedInUser;
+
   const card = document.createElement("div");
-  // card.classList.add("card", "post-card", "mx-0", "my-3", "bg-info", "shadow-sm", "d-md-flex");
   card.classList.add("card", "post-card", "mx-0", "my-3", "bg-info", "shadow-sm", "smooth");
   card.setAttribute("data-post-id", post.id);
   card.addEventListener("mouseover", handlePostCardClick);
@@ -114,8 +100,7 @@ export function createPostCard(post) {
       link.target = "_blank";
       link.textContent = menuItemData.text;
       link.addEventListener("click", (event) => {
-        event.preventDefault(); // Prevent the default link behavior
-        // Open a new window with the share link
+        event.preventDefault();
         window.open(link.href, "_blank");
       });
       menuItem.appendChild(link);
@@ -129,7 +114,6 @@ export function createPostCard(post) {
 
     dropdownMenu.appendChild(menuItem);
   });
-
 
   if (isLoggedIn) {
     const deleteButton = dropdownMenu.querySelector(".delete-button");
@@ -158,8 +142,6 @@ export function createPostCard(post) {
     "border-1",
     "border-secondary"
   );
-  // editPostForm.setAttribute("id", "editPostForm");
-  // Add content or elements as needed within this div
 
   // const postId = card.getAttribute("data-post-id");
   const editHeader = document.createElement("h6");
@@ -214,11 +196,11 @@ export function createPostCard(post) {
   editPostForm.appendChild(doEditButton);
   editPostForm.appendChild(closeEditButton);
 
-
   closeEditButton.addEventListener("click", () => {
     editPostForm.classList.add("d-none");
     card.scrollIntoView({ behavior: "smooth" });
   });
+
   // Add event listeners for the submit button
   doEditButton.addEventListener("click", async () => {
     // Get the values from the input fields
@@ -227,26 +209,16 @@ export function createPostCard(post) {
     const tags = tagsInput.value;
     const newPostBody = newPostBodyTextarea.value;
 
-    // Perform the update/PUT operation with these values
+    // Use the postId from the editPostForm directly
     const postId = post.id;
-    console.log("postId", postId);
-    // const postId = localStorage.getItem("postId");
     const authorName = localStorage.getItem("authorName");
     editPost(editPostForm, postId, movieTitle, movieCover, tags, newPostBody, authorName);
-    console.log("editPostForm", editPostForm);
-    console.log("postId", postId);
-    console.log("movieTitle", movieTitle);
-    console.log("movieCover", movieCover);
-    console.log("tags", tags);
-    console.log("newPostBody", newPostBody);
-    console.log("authorName", authorName);
 
     // After the update is complete, you may want to hide the edit form again
     editPostForm.classList.add("d-none");
   });
 
   card.appendChild(moreButton);
-  // Add the editPostForm div below the dropdown menu
   card.appendChild(editPostForm);
 
   const postIdElement = document.createElement("div");
@@ -258,8 +230,6 @@ export function createPostCard(post) {
     postIdElement.classList.remove("text-muted");
   }
   card.appendChild(postIdElement);
-
-  // const cardPostId = card.getAttribute("data-post-id");
 
   const viewProfileLink = document.createElement("a");
   viewProfileLink.classList.add(
