@@ -96,4 +96,3 @@ if (window.location.href.includes("/post") || window.location.href.includes("/pr
   hideNextPreviousLinks.classList.add("d-none");
 }
 
-

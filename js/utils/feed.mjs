@@ -102,17 +102,35 @@ export function createPostCard(post) {
   }
 
   // Always add the "Share" option
-  menuItems.push({ text: "Share", className: "share-button" });
+  menuItems.push({ text: "Share", className: "share-link", href: "https://www.websiteplanet.com/webtools/sharelink/" });
 
   menuItems.forEach((menuItemData) => {
     const menuItem = document.createElement("li");
-    const button = document.createElement("button");
-    button.classList.add("dropdown-item", menuItemData.className);
-    button.type = "button";
-    button.textContent = menuItemData.text;
-    menuItem.appendChild(button);
+
+    if (menuItemData.className === "share-link") {
+      const link = document.createElement("a");
+      link.classList.add("dropdown-item", "share-button");
+      link.href = menuItemData.href;
+      link.target = "_blank";
+      link.textContent = menuItemData.text;
+      link.addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent the default link behavior
+        // Open a new window with the share link
+        window.open(link.href, "_blank");
+      });
+      menuItem.appendChild(link);
+    } else {
+      const button = document.createElement("button");
+      button.classList.add("dropdown-item", menuItemData.className);
+      button.type = "button";
+      button.textContent = menuItemData.text;
+      menuItem.appendChild(button);
+    }
+
     dropdownMenu.appendChild(menuItem);
   });
+
+
   if (isLoggedIn) {
     const deleteButton = dropdownMenu.querySelector(".delete-button");
     deleteButton.addEventListener("click", (event) => {
@@ -123,7 +141,6 @@ export function createPostCard(post) {
       editPostForm.classList.remove("d-none");
       editPostForm.classList.add("smooth");
       editPostForm.scrollIntoView({ behavior: "smooth" });
-      // editPost(post.id);
     });
   }
 
@@ -131,7 +148,16 @@ export function createPostCard(post) {
 
   // Create an empty div with the default classes and hide it
   const editPostForm = document.createElement("div");
-  editPostForm.classList.add("edit-post", "d-none", "smooth", "w-75", "mx-auto", "border-bottom", "border-1", "border-secondary");
+  editPostForm.classList.add(
+    "edit-post",
+    "d-none",
+    "smooth",
+    "w-75",
+    "mx-auto",
+    "border-bottom",
+    "border-1",
+    "border-secondary"
+  );
   // editPostForm.setAttribute("id", "editPostForm");
   // Add content or elements as needed within this div
 
@@ -472,142 +498,142 @@ export function createPostCard(post) {
   repliesCount.classList.add("card-text", "text-muted", "py-0", "cursor-pointer", "comments-count");
   repliesCount.innerHTML = `<i class="bi bi-chat-dots text-primary"></i> ${commentsCount} comments`;
 
-    repliesCount.addEventListener("click", async () => {
-      repliesCount.classList.add("d-none");
-      const postId = post.id;
-      if (commentsCount > 0) {
-        try {
-          console.log(`postId in creatPostCard: ${postId}`);
-          const getSinglePostURL = `${API_BASE_URL}/social/posts/${postId}?_comments=true&_author=true&_reactions=true`;
-          console.log(`getSinglePostURL in creatPostCard: ${getSinglePostURL}`);
-          const commentsResponse = await fetch(getSinglePostURL, fetchOptions);
+  repliesCount.addEventListener("click", async () => {
+    repliesCount.classList.add("d-none");
+    const postId = post.id;
+    if (commentsCount > 0) {
+      try {
+        console.log(`postId in creatPostCard: ${postId}`);
+        const getSinglePostURL = `${API_BASE_URL}/social/posts/${postId}?_comments=true&_author=true&_reactions=true`;
+        console.log(`getSinglePostURL in creatPostCard: ${getSinglePostURL}`);
+        const commentsResponse = await fetch(getSinglePostURL, fetchOptions);
 
-          if (commentsResponse.ok) {
-            const singlePost = await commentsResponse.json();
-            console.log("comments for post:", singlePost);
+        if (commentsResponse.ok) {
+          const singlePost = await commentsResponse.json();
+          console.log("comments for post:", singlePost);
 
-            const comments = singlePost.comments;
-            console.log("comments:", comments);
-            // Create a container for comments
-            const commentsContainer = document.createElement("div");
-            commentsContainer.classList.add(
-              "comments-container",
-              "mt-3",
-              "bg-warning",
-              "p-2",
-              "text-dark",
-              "rounded-3",
-              "h-100"
-            );
-            commentsContainer.style.display = "none"; // Initially hide the comments container
-            // commentsContainer.style.height = "50px";
-            commentsContainer.style.maxHeight = "500px";
-            commentsContainer.style.transition = "max-height 0.5s ease-in-out";
-            commentsContainer.style.overflowY = "scroll";
-            commentsContainer.style.overflowY = "auto";
-            commentsContainer.style.position = "relative";
+          const comments = singlePost.comments;
+          console.log("comments:", comments);
+          // Create a container for comments
+          const commentsContainer = document.createElement("div");
+          commentsContainer.classList.add(
+            "comments-container",
+            "mt-3",
+            "bg-warning",
+            "p-2",
+            "text-dark",
+            "rounded-3",
+            "h-100"
+          );
+          commentsContainer.style.display = "none"; // Initially hide the comments container
+          // commentsContainer.style.height = "50px";
+          commentsContainer.style.maxHeight = "500px";
+          commentsContainer.style.transition = "max-height 0.5s ease-in-out";
+          commentsContainer.style.overflowY = "scroll";
+          commentsContainer.style.overflowY = "auto";
+          commentsContainer.style.position = "relative";
 
-            // Create a close button with the Bootstrap X icon in the top right corner
-            const closeButton = document.createElement("div");
-            closeButton.classList.add("text-danger", "p-1", "cursor-pointer", "d-block");
-            closeButton.style.top = "10px"; // Set top to "0" for the top edge
-            closeButton.style.right = "10px"; // Adjust the right value to add a right margin
+          // Create a close button with the Bootstrap X icon in the top right corner
+          const closeButton = document.createElement("div");
+          closeButton.classList.add("text-danger", "p-1", "cursor-pointer", "d-block");
+          closeButton.style.top = "10px"; // Set top to "0" for the top edge
+          closeButton.style.right = "10px"; // Adjust the right value to add a right margin
 
-            // Create a Bootstrap X icon
-            const closeIcon = document.createElement("i");
-            closeIcon.classList.add(
-              "bi",
-              "bi-x",
-              "fs-5",
-              "text-center",
-              "cursor-pointer",
-              "shadow",
-              "rounded-circle",
-              "px-1",
-              "py-0",
-              "bg-warning"
-            );
+          // Create a Bootstrap X icon
+          const closeIcon = document.createElement("i");
+          closeIcon.classList.add(
+            "bi",
+            "bi-x",
+            "fs-5",
+            "text-center",
+            "cursor-pointer",
+            "shadow",
+            "rounded-circle",
+            "px-1",
+            "py-0",
+            "bg-warning"
+          );
 
-            // Append the close icon to the close button
-            closeButton.appendChild(closeIcon);
+          // Append the close icon to the close button
+          closeButton.appendChild(closeIcon);
 
-            // Add an event listener to close the comments container when the close button is clicked
-            // closeButton.addEventListener("click", () => {
-            //   commentsContainer.style.display = "none";
-            // });
+          // Add an event listener to close the comments container when the close button is clicked
+          // closeButton.addEventListener("click", () => {
+          //   commentsContainer.style.display = "none";
+          // });
 
-            // Append the close button to the comments container
-            likesCount.appendChild(closeButton);
+          // Append the close button to the comments container
+          likesCount.appendChild(closeButton);
 
-            // Iterate through the comments and create elements to display them
-            comments.forEach((comment) => {
-              const commentCard = document.createElement("div");
-              commentCard.classList.add("comment-card", "bg-info", "p-2", "mb-2", "text-dark");
-              commentCard.setAttribute("data-comment-id", comment.id); // Attach comment ID to the card
+          // Iterate through the comments and create elements to display them
+          comments.forEach((comment) => {
+            const commentCard = document.createElement("div");
+            commentCard.classList.add("comment-card", "bg-info", "p-2", "mb-2", "text-dark");
+            commentCard.setAttribute("data-comment-id", comment.id); // Attach comment ID to the card
 
-              const commentOwner = document.createElement("div");
-              commentOwner.classList.add("text-muted"); // Add text-muted class for owner
-              commentOwner.textContent = `Comment by: ${comment.owner}`; // Display the owner's name
+            const commentOwner = document.createElement("div");
+            commentOwner.classList.add("text-muted"); // Add text-muted class for owner
+            commentOwner.textContent = `Comment by: ${comment.owner}`; // Display the owner's name
 
-              const commentText = document.createElement("div");
-              commentText.classList.add("comment-text");
-              commentText.textContent = comment.body;
+            const commentText = document.createElement("div");
+            commentText.classList.add("comment-text");
+            commentText.textContent = comment.body;
 
-              const commentLink = document.createElement("a");
-              commentLink.classList.add("text-primary", "d-block", "disabled-link", "text-decoration-none");
-              commentLink.href = "#";
-              commentLink.textContent = "Reply (Coming soon)";
-              commentLink.style.pointerEvents = "none";
+            const commentLink = document.createElement("a");
+            commentLink.classList.add("text-primary", "d-block", "disabled-link", "text-decoration-none");
+            commentLink.href = "#";
+            commentLink.textContent = "Reply (Coming soon)";
+            commentLink.style.pointerEvents = "none";
 
-              // Append the comment ID, comment owner, comment text, and comment link to the comment card
-              commentCard.appendChild(commentOwner);
-              commentCard.appendChild(commentText);
-              commentCard.appendChild(commentLink);
+            // Append the comment ID, comment owner, comment text, and comment link to the comment card
+            commentCard.appendChild(commentOwner);
+            commentCard.appendChild(commentText);
+            commentCard.appendChild(commentLink);
 
-              // Append the comment card to the comments container
-              commentsContainer.appendChild(commentCard);
-            });
+            // Append the comment card to the comments container
+            commentsContainer.appendChild(commentCard);
+          });
 
-            // Append the comments container to the cardBody
-            cardBody.appendChild(commentsContainer);
+          // Append the comments container to the cardBody
+          cardBody.appendChild(commentsContainer);
 
-            closeButton.addEventListener("click", () => {
-              if (commentsContainer.style.display === "none") {
-                commentsContainer.style.display = "block";
-              } else {
-                commentsContainer.innerHTML = "";
-                commentsContainer.style.display = "none";
-                repliesCount.classList.remove("d-none");
-                closeButton.classList.add("d-none");
-              }
-            });
+          closeButton.addEventListener("click", () => {
+            if (commentsContainer.style.display === "none") {
+              commentsContainer.style.display = "block";
+            } else {
+              commentsContainer.innerHTML = "";
+              commentsContainer.style.display = "none";
+              repliesCount.classList.remove("d-none");
+              closeButton.classList.add("d-none");
+            }
+          });
 
-            // Show the comments container (which now includes the comments)
-            commentsContainer.style.display = "block";
-          } else {
-            console.error("Failed to fetch comments for the post.");
-          }
-        } catch (error) {
-          console.error("An error occurred while fetching comments:", error);
+          // Show the comments container (which now includes the comments)
+          commentsContainer.style.display = "block";
+        } else {
+          console.error("Failed to fetch comments for the post.");
         }
-      } else {
-        // If there are no comments, display a message
-        const noCommentsMessage = document.createElement("p");
-        noCommentsMessage.classList.add("text-muted", "text-center", "mt-3");
-        noCommentsMessage.textContent = "No comments yet.";
-        cardBody.appendChild(noCommentsMessage);
-        likesCount.innerHTML = `<i class="bi bi-x-circle text-danger fw-bold"></i>`;
-        likesCount.addEventListener("click", () => {
-          if (noCommentsMessage.style.display === "none") {
-            noCommentsMessage.style.display = "block";
-          } else {
-            noCommentsMessage.style.display = "none";
-            repliesCount.classList.remove("d-none");
-            likesCount.innerHTML = `<i class="bi bi-hand-thumbs-up-fill text-primary "></i> ${reactionsCount} likes`;
-          }
-        });
+      } catch (error) {
+        console.error("An error occurred while fetching comments:", error);
       }
-    });
+    } else {
+      // If there are no comments, display a message
+      const noCommentsMessage = document.createElement("p");
+      noCommentsMessage.classList.add("text-muted", "text-center", "mt-3");
+      noCommentsMessage.textContent = "No comments yet.";
+      cardBody.appendChild(noCommentsMessage);
+      likesCount.innerHTML = `<i class="bi bi-x-circle text-danger fw-bold"></i>`;
+      likesCount.addEventListener("click", () => {
+        if (noCommentsMessage.style.display === "none") {
+          noCommentsMessage.style.display = "block";
+        } else {
+          noCommentsMessage.style.display = "none";
+          repliesCount.classList.remove("d-none");
+          likesCount.innerHTML = `<i class="bi bi-hand-thumbs-up-fill text-primary "></i> ${reactionsCount} likes`;
+        }
+      });
+    }
+  });
 
   likesRepliesDiv.appendChild(likesCount);
   likesRepliesDiv.appendChild(repliesCount);
