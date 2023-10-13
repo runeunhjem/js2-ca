@@ -3,10 +3,10 @@ import { getProfilePosts } from "./populate_profile.js";
 import { createPostCard } from "./utils/feed.mjs";
 import { populateTags } from "./feed-get-posts.js";
 
-// import { loggedInUserPosts } from "./variables/consts.mjs";
 const currentUserName = urlParams.get("name");
 
 document.addEventListener("DOMContentLoaded", async function () {
+
   // Display a loading indicator while data is being fetched
   const loadingIndicator = document.getElementById("loadingIndicator");
   loadingIndicator.textContent = "Loading...";
@@ -15,12 +15,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Await the data loading functions
     const profilePostsData = await getProfilePosts();
     loadingIndicator.textContent = "";
-    // console.log(profilePostsData.length);
-    // Check if data is available and has posts
+
     if (profilePostsData && Array.isArray(profilePostsData) && profilePostsData.length > 0) {
       populateTags(profilePostsData);
       const profilePosts = document.getElementById("feed-posts");
-      // const profilePosts = document.getElementById("profilePosts");
       const mainHeader = document.querySelector(".main-header");
       mainHeader.innerHTML = `${currentUserName}'s ${profilePostsData.length} posts`;
       profilePostsData.forEach((post) => {
