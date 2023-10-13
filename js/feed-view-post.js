@@ -10,7 +10,6 @@ export async function getSinglePost(url, options, id) {
       return;
     } else {
       const fetchURL = `${url}/${id}?_comments=true&_author=true&_reactions=true`;
-      console.log("fetchURL is:", fetchURL);
       const response = await fetch(fetchURL, options);
 
       if (response.ok) {

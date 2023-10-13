@@ -19,8 +19,6 @@ postForm.addEventListener("submit", async function (event) {
 
   addNewPostOptions.body = JSON.stringify(newPostData);
 
-  console.log("Form submitted!");
-
   // Wait for new post to complete before fetching posts again
   await createNewPost(createPostURL, addNewPostOptions);
 

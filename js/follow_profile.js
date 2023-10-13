@@ -13,7 +13,6 @@ profileFollowButton.addEventListener("click", () => {
     fetch(followURL, followOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log("data is:", data);
         followText.textContent = "Unfollow";
         const followName = data.name;
 
@@ -38,7 +37,6 @@ profileFollowButton.addEventListener("click", () => {
     fetch(unfollowURL, followOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         followText.textContent = "Follow";
 
         // Decrement the followers count by 1 when unfollowing
@@ -58,40 +56,3 @@ profileFollowButton.addEventListener("click", () => {
       });
   }
 });
-
-
-// profileFollowButton.addEventListener("click", () => {
-//   if (followText.textContent === "Follow") {
-//     fetch(followURL, followOptions)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         console.log(data);
-//         followText.textContent = "Unfollow";
-
-//         // Increment the followers count by 1 when following
-//         const profileFollowersElement = document.getElementById("loggedInProfileFollowers");
-//         profileFollowersElement.textContent = parseInt(profileFollowersElement.textContent) + 1;
-//       })
-//       .catch((error) => {
-//         if (!error.message.includes("https://picsum.photos")) {
-//           console.error("Error:", error);
-//         }
-//       });
-//   } else if (followText.textContent === "Unfollow") {
-//     fetch(unfollowURL, followOptions)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         console.log(data);
-//         followText.textContent = "Follow";
-
-//         // Decrement the followers count by 1 when unfollowing
-//         const profileFollowersElement = document.getElementById("loggedInProfileFollowers");
-//         profileFollowersElement.textContent = parseInt(profileFollowersElement.textContent) - 1;
-//       })
-//       .catch((error) => {
-//         if (!error.message.includes("https://picsum.photos")) {
-//           console.error("Error:", error);
-//         }
-//       });
-//   }
-// });

@@ -6,7 +6,6 @@ import {
   profilePostsURL,
   createPostURL,
   allPostsTags,
-  sortFeedSelector,
   followingURL,
   followingButtons
 } from "./variables/consts.mjs";
@@ -27,7 +26,6 @@ let offset = 0;
 let sort = "created";
 let sortOrder = "desc";
 let basePostsURL = getBasePostsURL();
-// console.log("basePostsURL: ", basePostsURL);
 function getBasePostsURL() {
   return `${API_BASE_URL}/social/posts?limit=${limit}&offset=${offset}&_comments=true&_author=true&_reactions=true&_count=true&sort=${sort}&sortOrder=${sortOrder}`;
 }
@@ -37,7 +35,6 @@ if (!window.location.href.includes("/profile/")) {
     togglesortOrder();
     basePostsURL = getBasePostsURL();
     getFeedPostsWithToken(basePostsURL, fetchOptions);
-    console.log("sort by date button basePostsURL: ", basePostsURL);
   });
 
   document.querySelector(".sort-by-name-button").addEventListener("click", () => {
@@ -45,7 +42,6 @@ if (!window.location.href.includes("/profile/")) {
     togglesortOrder();
     basePostsURL = getBasePostsURL();
     getFeedPostsWithToken(basePostsURL, fetchOptions);
-    console.log("sort by name basePostsURL: ", basePostsURL);
   });
 
   document.querySelector("#sortFeedSelector").addEventListener("change", (e) => {
@@ -61,14 +57,11 @@ if (!window.location.href.includes("/profile/")) {
     }
 
     basePostsURL = getBasePostsURL();
-    // console.log("sortFeedSelector before getfeedpostswithtoken basePostsURL: ", basePostsURL);
     getFeedPostsWithToken(basePostsURL, fetchOptions);
-    // console.log("sortFeedSelector basePostsURL: ", basePostsURL);
   });
 }
 
 export async function updateLimitAndRefresh(value) {
-  console.log("updateLimitAndRefresh called"); // Add this line for debugging
 
   limit = parseInt(value, 10);
   const itemsPerPageSelector = document.getElementById("itemsPerPageSelector");
@@ -76,12 +69,10 @@ export async function updateLimitAndRefresh(value) {
   offset = 0; // Reset the offset when changing the limit
   basePostsURL = getBasePostsURL(); // Define basePostsURL after updating limit and offset
   getFeedPostsWithToken(basePostsURL, fetchOptions);
-  console.log("updateLimitAndRefresh basePostsURL: ", basePostsURL);
 }
 
 document.querySelector("#itemsPerPageSelector").addEventListener("change", (e) => {
   const selectedValue = e.target.value;
-  console.log(`selectedValue: ${selectedValue}`);
   updateLimitAndRefresh(selectedValue);
 });
 
@@ -98,7 +89,6 @@ export async function getFeedPostsWithToken(url, options) {
 
         if (response.ok) {
           const posts = await response.json();
-          console.log("Current page Posts: ", posts);
           localStorage.setItem("currentPagePosts", JSON.stringify(posts));
 
           // populateTags(); // Update the tags selector
@@ -124,9 +114,6 @@ export async function getFeedPostsWithToken(url, options) {
                 }
               });
             });
-
-            // Now, allPostsTags will contain all unique tags from the posts
-            console.log("All Posts Tags: ", allPostsTags);
 
             posts.forEach((post) => {
               if (postIdParam && post.id === postIdParam) {
@@ -214,16 +201,12 @@ export async function populateTagsSelector(tags, selectorElement) {
     option.text = tag;
     selectorElement.appendChild(option);
   });
+
   // Without this, the selector will not show the updated options
   // But it does not work on the profile page sometimes:
   return Promise.resolve(); // Resolve the Promise when done
 }
 
-console.log("All Posts Tags Array: ", allPostsTags);
-
-// Call the populateTagsSelector function with allPostsTags and filterUserTagsSelector
-// Fetch and populate allPostsTags
-// Common code
 export const filterUserTagsSelector = document.getElementById("filterUserTagsSelector");
 export const populateTags = () => {
   if (Array.isArray(allPostsTags)) {
@@ -294,33 +277,5 @@ followingButtons.forEach((button) => {
   button.addEventListener("click", () => {
     getFeedPostsWithToken(followingURL, fetchOptions);
     updateCurrentPage();
-    // populateTags(); // Update the tags selector
   });
 });
-
-
-if (sortFeedSelector) {
-  sortFeedSelector.addEventListener("change", async (event) => {
-    const selectedValue = event.target.value;
-
-    if (selectedValue === "following") {
-      try {
-        const response = await fetch(followingURL, fetchOptions);
-
-        if (response.ok) {
-          const posts = await response.json();
-
-          // Process and display the fetched posts (you can use your existing code here)
-          console.log("Posts from Following: ", posts);
-        } else {
-          console.error("Failed to fetch posts from Following.");
-        }
-      } catch (error) {
-        console.error("An error occurred while fetching posts:", error);
-      }
-    } else {
-      // Handle other selected options (e.g., "newest," "oldest") as needed
-      // You can use your existing code to fetch and display posts for other options.
-    }
-  });
-}
