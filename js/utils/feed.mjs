@@ -197,8 +197,12 @@ export function createPostCard(post) {
     const newPostBody = newPostBodyTextarea.value;
 
     // Perform the update/PUT operation with these values
-    const postId = editPostForm.getAttribute("data-post-id");
-    const authorName = editPostForm.getAttribute("data-authorname");
+    const postId = localStorage.getItem("postId");
+    // const postId = card.getAttribute("data-post-id");
+    console.log("Clicked edit on Post ID: ", postId);
+    const authorName = localStorage.getItem("authorName");
+    // const authorName = card.getAttribute("data-authorname");
+    console.log("Clicked edit - authorName is: ", authorName);
     editPost(editPostForm, postId, movieTitle, movieCover, tags, newPostBody, authorName);
 
     // After the update is complete, you may want to hide the edit form again

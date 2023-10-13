@@ -3,11 +3,10 @@ import { toTopButton } from "./utils/back-to-top-button.js";
 import { clickHandler, profileLinks, allPostsTags } from "./variables/consts.mjs";
 import { populateTagsSelector } from "./feed-get-posts.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Run your filtering code here, e.g., populate the tags selector
-  // and set up event listeners for filtering.
-  populateTagsSelector(allPostsTags, filterUserTagsSelector);
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//   //
+//   populateTagsSelector(allPostsTags, filterUserTagsSelector);
+// });
 
 // import { captureCurrentPagePosts } from "./utils/current-page-posts.mjs";
 
@@ -43,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     mainContainer.appendChild(accessDeniedMessage);
     mainContainer.appendChild(additionalInfo);
   }
+  // populateTagsSelector(allPostsTags, filterUserTagsSelector);
 });
 
 profileLinks.forEach((link) => {

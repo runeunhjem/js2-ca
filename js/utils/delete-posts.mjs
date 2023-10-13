@@ -1,5 +1,5 @@
-import { API_BASE_URL, loggedInUser, currentProfileName, deletePostOptions } from "../variables/consts.mjs";
-
+import { API_BASE_URL, allPostsTags, loggedInUser, currentProfileName, deletePostOptions } from "../variables/consts.mjs";
+import { populateTagsSelector, filterUserTagsSelector } from "../feed-get-posts.js";
 // Function to delete a post
 export async function deletePost(postId) {
   // const postId = localStorage.getItem("postId");
@@ -17,7 +17,9 @@ export async function deletePost(postId) {
 
       if (response.status >= 200 && response.status <= 299) {
         console.log("Post successfully deleted!");
+        populateTagsSelector(allPostsTags, filterUserTagsSelector);
         window.location.reload();
+
         return json;
       } else {
         // Display a message indicating that only the post owner can delete the post

@@ -84,8 +84,29 @@
               <div class="card-body text-center">
                 <div alt="User Profile Image" class="mx-auto rounded-circle shadow border mb-3 avatarImage" id="avatarImage"></div>
                 <h2 class="card-title loggedInProfileName">Loading...</h2>
-                <button class="edit-profile btn btn-warning btn-sm">Edit Profile</button>
-                <!-- <p class="card-text">Username: <span class="loggedInProfileName">Loading...</p> -->
+
+                <div class="btn-group">
+                  <button type="button" class="edit-profile btn btn-warning btn-sm mb-2" id="edit-profile">Edit Profile</button>
+                </div>
+
+                <!-- Edit profile form -->
+                <div class="profile-edit-form d-none my-3">
+                  <form id="profile-edit-form">
+                    <div class="mb-3">
+                      <label for="avatarInput" class="form-label">Change Avatar URL:</label>
+                      <input type="text" class="form-control" id="avatarInput" placeholder="https://url.com/avatar.jpg">
+                    </div>
+                    <div class="mb-3">
+                      <label for="bannerInput" class="form-label">Change Banner URL:</label>
+                      <input type="text" class="form-control" id="bannerInput" placeholder="https://url.com/banner.jpg">
+                    </div>
+                    <button type="button" class="btn btn-sm btn-warning" id="changeButton">Change</button>
+                    <button type="button" class="btn btn-sm btn-secondary" id="closeButton">Close</button>
+                  </form>
+                </div>
+
+
+                <p class="card-text">Username: <span class="loggedInProfileName">Loading...</p>
                 <hr>
                 <p class="card-text mb-0">Followers: <span class="loggedInProfileFollowers" id="loggedInProfileFollowers">Loading...</span></p>
                 <p class="card-text mb-0">Following: <span class="loggedInProfileFollowing" id="loggedInProfileFollowing">Loading...</span></p>

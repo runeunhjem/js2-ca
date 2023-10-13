@@ -8,6 +8,8 @@ import {
   followText,
   loggedInUserData,
   URLProfilename,
+  API_BASE_URL,
+  token,
 } from "./variables/consts.mjs";
 import { populateTagsSelector, filterUserTagsSelector } from "./feed-get-posts.js";
 
@@ -35,7 +37,7 @@ export async function getProfileData(profileURL, fetchOptions) {
       });
 
       console.log("All valid tags:", allPostsTags);
-      await populateTagsSelector(allPostsTags, filterUserTagsSelector);
+      populateTagsSelector(allPostsTags, filterUserTagsSelector);
       // console.log("filterUserTagsSelector is:", filterUserTagsSelector);
 
     } else {
@@ -186,3 +188,58 @@ getProfilePosts(profilePostsURL, fetchOptions)
   });
 
 initProfilePage();
+
+document.addEventListener("DOMContentLoaded", function () {
+  const editProfileButton = document.getElementById("edit-profile");
+  const profileEditForm = document.querySelector(".profile-edit-form");
+  const avatarInput = document.getElementById("avatarInput");
+  const bannerInput = document.getElementById("bannerInput");
+  const changeButton = document.getElementById("changeButton");
+  const closeButton = document.getElementById("closeButton");
+  avatarInput.value = loggedInUserData.avatar;
+  bannerInput.value = loggedInUserData.banner;
+
+  editProfileButton.addEventListener("click", function () {
+    profileEditForm.classList.toggle("d-none");
+    console.log(`Edit Profile Button clicked.`);
+  });
+
+  closeButton.addEventListener("click", function () {
+    profileEditForm.classList.add("d-none");
+  });
+
+  changeButton.addEventListener("click", function () {
+    const avatarURL = avatarInput.value;
+    const bannerURL = bannerInput.value;
+
+    const profileEditData = {
+      avatar: avatarURL,
+      banner: bannerURL,
+    };
+    // https://portfolio1-ca.netlify.app/images/rune-profile-pic-medium.png
+    // Send a PUT request to update the profile
+    fetch(`${API_BASE_URL}/social/profiles/${loggedInUser}/media`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(profileEditData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          initProfilePage();
+          // window.location.reload();
+          console.log("Profile updated successfully!");
+          // You can add more logic here, like updating the profile image and banner on the page
+          profileEditForm.classList.add("d-none"); // Close the form
+        } else {
+          console.error("Failed to update the profile.");
+        }
+      })
+      .catch((error) => {
+        console.error("An error occurred during the profile update:", error);
+      });
+  });
+});
+

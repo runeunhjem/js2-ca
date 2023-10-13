@@ -174,7 +174,7 @@ export async function populateTagsSelector(tags, selectorElement) {
 
   // Create the "By user tags" default option
   const defaultOption = document.createElement("option");
-  defaultOption.value = "usertags";
+  defaultOption.value = "";
   defaultOption.text = "By user tag";
   selectorElement.appendChild(defaultOption);
 
@@ -214,6 +214,8 @@ export async function populateTagsSelector(tags, selectorElement) {
     option.text = tag;
     selectorElement.appendChild(option);
   });
+  // Without this, the selector will not show the updated options
+  // But it does not work on the profile page sometimes:
   return Promise.resolve(); // Resolve the Promise when done
 }
 
