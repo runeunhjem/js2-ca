@@ -1,21 +1,6 @@
 import { togglePostContent } from "./utils/show-more-post-text.mjs";
 import { toTopButton } from "./utils/back-to-top-button.js";
 import { clickHandler, profileLinks, allPostsTags } from "./variables/consts.mjs";
-import { populateTagsSelector } from "./feed-get-posts.js";
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   //
-//   populateTagsSelector(allPostsTags, filterUserTagsSelector);
-// });
-
-// import { captureCurrentPagePosts } from "./utils/current-page-posts.mjs";
-
-// document.addEventListener("DOMContentLoaded", captureCurrentPagePosts);
-// document.addEventListener("DOMContentLoaded", waitForPosts);
-// Add an event listener to capture posts whenever any change occurs within the document
-// document.addEventListener("change", () => {
-//   waitForPosts();
-// });
 
 toTopButton();
 
@@ -42,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
     mainContainer.appendChild(accessDeniedMessage);
     mainContainer.appendChild(additionalInfo);
   }
-  // populateTagsSelector(allPostsTags, filterUserTagsSelector);
 });
 
 profileLinks.forEach((link) => {

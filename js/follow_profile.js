@@ -1,5 +1,4 @@
 import {
-  API_BASE_URL,
   loggedInUserData,
   followURL,
   unfollowURL,
@@ -7,7 +6,9 @@ import {
   followText,
   followOptions,
 } from "./variables/consts.mjs";
+
 let followName;
+
 profileFollowButton.addEventListener("click", () => {
   if (followText.textContent === "Follow") {
     fetch(followURL, followOptions)
@@ -25,7 +26,7 @@ profileFollowButton.addEventListener("click", () => {
           loggedInUserData.following = [];
         }
 
-        loggedInUserData.following.push(followName); // Assuming "followName" contains the user ID of the followed user
+        loggedInUserData.following.push(followName);
         localStorage.setItem("loggedInUserData", JSON.stringify(loggedInUserData));
       })
       .catch((error) => {
@@ -45,7 +46,7 @@ profileFollowButton.addEventListener("click", () => {
 
         // Update localStorage for loggedInUserData.following
         if (loggedInUserData.following) {
-          loggedInUserData.following = loggedInUserData.following.filter((name) => name !== followName); // Assuming "followName" contains the name of the unfollowed user
+          loggedInUserData.following = loggedInUserData.following.filter((name) => name !== followName);
           localStorage.setItem("loggedInUserData", JSON.stringify(loggedInUserData));
         }
       })
