@@ -24,7 +24,6 @@ export async function getProfileData(profileURL, fetchOptions) {
 
       json.posts.forEach((post) => {
         if (post && Array.isArray(post.tags)) {
-
           // Concatenate post tags with allPostsTags
           allPostsTags.push(...post.tags);
         }
@@ -105,7 +104,6 @@ export async function getProfilePosts() {
 }
 
 async function updateProfilePage(profileData) {
-
   const profileNameElements = document.querySelectorAll(".loggedInProfileName");
   const profileFollowersElement = document.getElementById("loggedInProfileFollowers");
   const profileFollowingElement = document.getElementById("loggedInProfileFollowing");
@@ -140,31 +138,31 @@ async function updateProfilePage(profileData) {
   }
 }
 
-getProfilePosts(profilePostsURL, fetchOptions)
-  .then((currentProfilePosts) => {
-    localStorage.setItem("currentProfilePosts", JSON.stringify(currentProfilePosts));
-    if (!currentProfilePosts[0]) {
-      const title = `${currentProfileName}'s profile`;
-      document.title = title;
-    } else {
-      localStorage.setItem("URLProfileURL", currentProfilePosts[0].author.name);
-    }
+// getProfilePosts(profilePostsURL, fetchOptions)
+//   .then((currentProfilePosts) => {
+//     localStorage.setItem("currentProfilePosts", JSON.stringify(currentProfilePosts));
+//     if (!currentProfilePosts[0]) {
+//       const title = `${currentProfileName}'s profile`;
+//       document.title = title;
+//     } else {
+//       localStorage.setItem("URLProfileURL", currentProfilePosts[0].author.name);
+//     }
 
-    updateProfilePage(currentProfilePosts);
+//     updateProfilePage(currentProfilePosts);
 
-    if (URLProfilename) {
-      localStorage.setItem("currentProfileName", URLProfilename);
-    }
-  })
-  .catch((error) => {
-    console.error("Error initializing the profile page:", error);
-  });
+//     if (URLProfilename) {
+//       localStorage.setItem("currentProfileName", URLProfilename);
+//     }
+//   })
+//   .catch((error) => {
+//     console.error("Error initializing the profile page:", error);
+//   });
 
 initProfilePage();
 
 document.addEventListener("DOMContentLoaded", function () {
   const editProfileButton = document.getElementById("edit-profile");
-  if ((loggedInUser !== currentProfileName) || (loggedInUser !== URLProfilename)) {
+  if (loggedInUser !== currentProfileName || loggedInUser !== URLProfilename) {
     editProfileButton.classList.add("d-none");
   }
   const profileEditForm = document.querySelector(".profile-edit-form");
@@ -212,4 +210,3 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
-

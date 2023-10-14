@@ -1,6 +1,6 @@
 import { togglePostContent } from "./utils/show-more-post-text.mjs";
 import { toTopButton } from "./utils/back-to-top-button.js";
-import { clickHandler, profileLinks, allPostsTags } from "./variables/consts.mjs";
+import { clickHandler, profileLinks } from "./variables/consts.mjs";
 
 toTopButton();
 
@@ -79,4 +79,3 @@ if (window.location.href.includes("/post") || window.location.href.includes("/pr
   const hideNextPreviousLinks = document.querySelector(".get-next");
   hideNextPreviousLinks.classList.add("d-none");
 }
-

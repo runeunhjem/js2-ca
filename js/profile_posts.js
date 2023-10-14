@@ -17,8 +17,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     loadingIndicator.textContent = "";
 
     if (profilePostsData && Array.isArray(profilePostsData) && profilePostsData.length > 0) {
-      populateTags(profilePostsData);
       const profilePosts = document.getElementById("feed-posts");
+      profilePosts.innerHTML = "";
+      populateTags(profilePostsData);
       const mainHeader = document.querySelector(".main-header");
       mainHeader.innerHTML = `${currentUserName}'s ${profilePostsData.length} posts`;
       profilePostsData.forEach((post) => {

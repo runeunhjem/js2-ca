@@ -350,7 +350,17 @@ export function createPostCard(post) {
   const visibleContent = words.slice(0, maxWords).join(" ");
   const hiddenContent = words.slice(maxWords).join(" ");
 
-  postText.innerHTML = `${visibleContent} <span class="hidden-content smooth">${hiddenContent}</span>`;
+  // Create the visible content
+  const visibleContentElement = document.createTextNode(visibleContent);
+
+  // Create the hidden content
+  const hiddenContentElement = document.createElement("span");
+  hiddenContentElement.className = "hidden-content smooth";
+  hiddenContentElement.textContent = hiddenContent;
+
+  // Append both elements to the postText
+  postText.appendChild(visibleContentElement);
+  postText.appendChild(hiddenContentElement);
 
   const postMedia = document.createElement("img");
   postMedia.classList.add("card-media", "m-1", "p-2", "rounded", "shadow");
