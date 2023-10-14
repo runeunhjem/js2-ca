@@ -15,20 +15,24 @@ const urlParams = new URLSearchParams(window.location.search);
 const postIdParam = urlParams.get("postId");
 
 const profileImageElement = document.querySelector(".profile-image");
+
 if (profileImageElement) {
   profileImageElement.src = loggedInUserData.avatar
     ? loggedInUserData.avatar
     : `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
 }
+
 let currentPage = 1;
 let limit = 10;
 let offset = 0;
 let sort = "created";
 let sortOrder = "desc";
 let basePostsURL = getBasePostsURL();
+
 function getBasePostsURL() {
   return `${API_BASE_URL}/social/posts?limit=${limit}&offset=${offset}&_comments=true&_author=true&_reactions=true&_count=true&sort=${sort}&sortOrder=${sortOrder}`;
 }
+
 if (!window.location.href.includes("/profile/")) {
   document.querySelector(".sort-by-date-button").addEventListener("click", () => {
     sort = "created";
@@ -62,7 +66,6 @@ if (!window.location.href.includes("/profile/")) {
 }
 
 export async function updateLimitAndRefresh(value) {
-
   limit = parseInt(value, 10);
   const itemsPerPageSelector = document.getElementById("itemsPerPageSelector");
   limit = parseInt(itemsPerPageSelector.value);
@@ -77,8 +80,10 @@ document.querySelector("#itemsPerPageSelector").addEventListener("change", (e) =
 });
 
 let shouldFetchAndPopulateTags = true;
+
+// **** NOT TO SHURE IF I WANT THIS (Update - i didnt - So set to true - works better with tags on profile) ****
 if (window.location.href.includes("/profile") || window.location.href.includes("/post.html")) {
-  shouldFetchAndPopulateTags = false; // Don't fetch and populate tags on the profile page
+  shouldFetchAndPopulateTags = true; // Don't fetch and populate tags on the profile page
 }
 
 export async function getFeedPostsWithToken(url, options) {
@@ -91,7 +96,6 @@ export async function getFeedPostsWithToken(url, options) {
           const posts = await response.json();
           localStorage.setItem("currentPagePosts", JSON.stringify(posts));
 
-          // populateTags(); // Update the tags selector
           if (Array.isArray(posts)) {
             allPostsTags.length = 0; // Clear the allPostsTags array
             let feedPosts = document.getElementById("feed-posts");
@@ -161,7 +165,7 @@ export async function populateTagsSelector(tags, selectorElement) {
 
   // Create the "By user tags" default option
   const defaultOption = document.createElement("option");
-  defaultOption.value = "";
+  defaultOption.value = ""; // Also filters empty strings if selected i guess
   defaultOption.text = "By user tag";
   selectorElement.appendChild(defaultOption);
 
@@ -203,8 +207,8 @@ export async function populateTagsSelector(tags, selectorElement) {
   });
 
   // Without this, the selector will not show the updated options
-  // But it does not work on the profile page sometimes:
-  return Promise.resolve(); // Resolve the Promise when done
+  // But it does not work on the profile page, sometimes!:
+  // return Promise.resolve(); // Resolve the Promise when done (Update - i thinkk this is not nessesary anymore after setting shouldFetchAndPopulateTags to true)
 }
 
 export const filterUserTagsSelector = document.getElementById("filterUserTagsSelector");
