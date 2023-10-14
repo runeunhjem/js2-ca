@@ -1,5 +1,5 @@
+// Validate login and sign in forms
 export function validateLoginForm() {
-
   const registerForm = document.getElementById("signup-form");
   const registerButton = document.getElementById("register-button");
   const userName = document.getElementById("registerName");
@@ -112,7 +112,7 @@ export function validateLoginForm() {
   function closeSuccessMessage() {
     location.reload();
   }
-  
+
   function checkLength(value, len) {
     if (value.trim().length > len) {
       return true;
