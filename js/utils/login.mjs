@@ -1,3 +1,4 @@
+// Fill out fields with saved email if check remember me is true
 export function preFillFormFields() {
   const savedEmail = localStorage.getItem("savedEmail");
   const rememberMe = localStorage.getItem("rememberMe");
@@ -11,6 +12,7 @@ export function preFillFormFields() {
   }
 }
 
+// Login user & save my wanted options to local storage
 export async function loginUser(url, userData) {
   try {
     const postData = {
@@ -24,6 +26,7 @@ export async function loginUser(url, userData) {
     const json = await response.json();
 
     if (response.status >= 200 && response.status <= 299) {
+      // Needed for smooth sailing after login
       const accessToken = json.accessToken;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("loggedInUser", json.name);
