@@ -78,43 +78,41 @@
           <h1 class="text-center text-warning rounded py-0 m-0"><span class="loggedInProfileName">Loading...</span>'s Profile</h1>
         </div>
         <div class="row mt-5 bg-info py-3">
-          <div class="col-md-5 mb-3">
-            <div class="card">
-              <div class="card-body text-center">
-                <div alt="User Profile Image" class="mx-auto rounded-circle shadow border mb-3 avatarImage" id="avatarImage"></div>
-                <h2 class="card-title loggedInProfileName">Loading...</h2>
-                <div class="btn-group">
-                  <button type="button" class="edit-profile btn btn-warning btn-sm mb-2" id="edit-profile">Edit Profile</button>
-                </div>
-                <!-- Edit profile form -->
-                <div class="profile-edit-form d-none my-3">
-                  <form id="profile-edit-form">
-                    <div class="mb-3">
-                      <label for="avatarInput" class="form-label">Change Avatar URL:</label>
-                      <input type="text" class="form-control" id="avatarInput" placeholder="https://url.com/avatar.jpg">
-                    </div>
-                    <div class="mb-3">
-                      <label for="bannerInput" class="form-label">Change Banner URL:</label>
-                      <input type="text" class="form-control" id="bannerInput" placeholder="https://url.com/banner.jpg">
-                    </div>
-                    <button type="button" class="btn btn-sm btn-warning" id="changeButton">Change</button>
-                    <button type="button" class="btn btn-sm btn-secondary" id="closeButton">Close</button>
-                  </form>
-                </div>
-
-
-                <p class="card-text">Username: <span class="loggedInProfileName">Loading...</p>
-                <hr>
-                <p class="card-text mb-0">Followers: <span class="loggedInProfileFollowers" id="loggedInProfileFollowers">Loading...</span></p>
-                <p class="card-text mb-0">Following: <span class="loggedInProfileFollowing" id="loggedInProfileFollowing">Loading...</span></p>
-                <p class="card-text">Posts: <span class="loggedInProfilePosts" id="loggedInProfilePosts">Loading...</span></p>
-                <button class="btn btn-warning loggedInProfileFollow" id="loggedInProfileFollow"><i class="bi bi-star me-1"></i><span id="follow-text">...</span></button>
+        <div class="col-md-5 mb-3">
+          <div class="card">
+            <div class="card-body text-center">
+              <div alt="User Profile Image" class="mx-auto rounded-circle shadow border mb-3 avatarImage" id="avatarImage"></div>
+              <h2 class="card-title loggedInProfileName">Loading...</h2>
+              <div class="btn-group">
+                <button type="button" class="edit-profile btn btn-warning btn-sm mb-2" id="edit-profile">Edit Profile</button>
               </div>
+              <!-- Edit profile form -->
+              <div class="profile-edit-form d-none my-3">
+                <form id="profile-edit-form">
+                  <div class="mb-3">
+                    <label for="avatarInput" class="form-label">Change Avatar URL:</label>
+                    <input type="text" class="form-control" id="avatarInput" placeholder="https://url.com/avatar.jpg">
+                  </div>
+                  <div class="mb-3">
+                    <label for="bannerInput" class="form-label">Change Banner URL:</label>
+                    <input type="text" class="form-control" id="bannerInput" placeholder="https://url.com/banner.jpg">
+                  </div>
+                  <button type="button" class="btn btn-sm btn-warning" id="changeButton">Change</button>
+                  <button type="button" class="btn btn-sm btn-secondary" id="closeButton">Close</button>
+                </form>
+              </div>
+              <p class="card-text">Username: <span class="loggedInProfileName">Loading...</p>
+              <hr>
+              <p class="card-text mb-0">Followers: <span class="loggedInProfileFollowers" id="loggedInProfileFollowers">Loading...</span></p>
+              <p class="card-text mb-0">Following: <span class="loggedInProfileFollowing" id="loggedInProfileFollowing">Loading...</span></p>
+              <p class="card-text">Posts: <span class="loggedInProfilePosts" id="loggedInProfilePosts">Loading...</span></p>
+              <button class="btn btn-warning loggedInProfileFollow" id="loggedInProfileFollow"><i class="bi bi-star me-1"></i><span id="follow-text">...</span></button>
             </div>
           </div>
-          <div class="col-md-7">
-            <h1 class="text-center flex-wrap fs-3 text-dark main-header">Your posts</h1>
-            <hr>
+        </div>
+        <div class="col-md-7">
+          <h1 class="text-center flex-wrap fs-3 text-dark main-header">Your posts</h1>
+          <hr>
           <!-- Sort and filter section -->
           <div class="accordion" id="myAccordion">
             <!-- Nav tabs -->
@@ -126,7 +124,6 @@
                 <a class="nav-link text-dark border border-dark rounded-top-2 border-1" id="filterPosts-tab" data-bs-toggle="collapse" href="#filterPostsContent" role="button" aria-expanded="false" aria-controls="filterPostsContent">Filter posts</a>
               </li>
             </ul>
-
             <!-- Tab content -->
             <div class="accordion-item border-dark bg-warning">
               <div class="collapse bg-warning rounded-2" id="getPostsContent" data-bs-parent="#myAccordion">
@@ -144,7 +141,6 @@
                 </div>
               </div>
             </div>
-
             <div class="accordion-item border-dark bg-warning">
               <div class="collapse bg-warning rounded-2" id="filterPostsContent" data-bs-parent="#myAccordion">
                 <div class="accordion-body">
@@ -178,32 +174,31 @@
                 </div>
               </div>
             </div>
-          <!-- End of Sort and filter section -->
+            <!-- End of Sort and filter section -->
           </div>
           <!-- Content section -->
-            <div class="loadingIndicator" id="loadingIndicator"></div>
-            <a href="#" aria-label="  Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
-              <div class="back-to-top-button bg-warning text-dark pt-1 px-3 pb-2"></div>
-            </a>
-            <div class="d-flex flex-column mb-1 align-items-center">
-              <div class="spinner-border text-warning text-center" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-              <h2 class="searching text-center d-none" id="searching">Searching...</h2>
+          <div class="loadingIndicator" id="loadingIndicator"></div>
+          <a href="#" aria-label="  Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
+            <div class="back-to-top-button bg-warning text-dark pt-1 px-3 pb-2"></div>
+          </a>
+          <div class="d-flex flex-column mb-1 align-items-center">
+            <div class="spinner-border text-warning text-center" role="status">
+              <span class="visually-hidden">Loading...</span>
             </div>
-            <div class="searching"></div>
-            <div class="get-next mt-3 d-flex justify-content-between">
-              <a href="#" id="prevPageLink" class="text-primary text-decoration-none"><i class="bi bi-chevron-left"></i> Previous Page</a>
-              <div id="currentPageInfo">Page 1</div>
-              <a href="#" id="nextPageLink" class="text-primary text-decoration-none">Next Page <i class="bi bi-chevron-right"></i></a>
-            </div>
-            <div class="feed-posts" id="feed-posts"></div>
-            <hr class="my-5 pb-5">
+            <h2 class="searching text-center d-none" id="searching">Searching...</h2>
           </div>
+          <div class="searching"></div>
+          <div class="get-next mt-3 d-flex justify-content-between">
+            <a href="#" id="prevPageLink" class="text-primary text-decoration-none"><i class="bi bi-chevron-left"></i> Previous Page</a>
+            <div id="currentPageInfo">Page 1</div>
+            <a href="#" id="nextPageLink" class="text-primary text-decoration-none">Next Page <i class="bi bi-chevron-right"></i></a>
+          </div>
+          <div class="feed-posts" id="feed-posts"></div>
+          <hr class="my-5 pb-5">
+        </div>
         </div>
       </div>
     </div>
-
     </main>
     <footer class="mt-3 fixed-bottom">
       <div class="container-fluid bg-dark mt-3">

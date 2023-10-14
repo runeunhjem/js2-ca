@@ -23,7 +23,6 @@
   <script src="../js/feed-add-post.js" type="module"></script>
   <script src="../js/search.js" type="module"></script>
   <script src="../js/filter-page.js" type="module"></script>
-
   <title>movieTALK | Feed</title>
 </head>
 <body>
@@ -177,7 +176,6 @@
                 <button class="nav-link text-muted border border-muted rounded-top-2 border-1 following-button" id="following-tab" role="button">Following</button>
               </li>
             </ul>
-
             <!-- Tab content -->
             <div class="accordion-item border-muted bg-warning border-bottom-0 rounded-bottom-2">
               <div class="collapse bg-warning rounded-bottom-2" id="getPostsContent" data-bs-parent="#myAccordion">
@@ -203,7 +201,6 @@
                 </div>
               </div>
             </div>
-
             <div class="accordion-item border-muted bg-warning border-bottom-0 rounded-bottom-2">
               <div class="collapse bg-warning rounded-bottom-2" id="filterPostsContent" data-bs-parent="#myAccordion">
                 <div class="accordion-body rounded-bottom-2">
@@ -237,28 +234,25 @@
                 </div>
               </div>
             </div>
-
-
-          <!-- Content section -->
-          <a href="#" aria-label="Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
-            <div class="back-to-top-button bg-warning text-dark pt-1 pb-2 px-3 fs-3"></div>
-          </a>
-          <div class="d-flex flex-column mb-1 align-items-center">
-            <div class="spinner-border text-warning text-center" role="status">
-              <span class="visually-hidden">Loading...</span>
+            <!-- Content section -->
+            <a href="#" aria-label="Go back to the top"><span class="out-of-view-menu-text">Back to top</span>
+              <div class="back-to-top-button bg-warning text-dark pt-1 pb-2 px-3 fs-3"></div>
+            </a>
+            <div class="d-flex flex-column mb-1 align-items-center">
+              <div class="spinner-border text-warning text-center" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <h2 class="searching text-center d-none" id="searching">Searching...</h2>
             </div>
-            <h2 class="searching text-center d-none" id="searching">Searching...</h2>
+            <div class="searching"></div>
+            <div class="get-next mt-3 d-flex justify-content-between">
+              <a href="#" id="prevPageLink" class="text-primary text-decoration-none"><i class="bi bi-chevron-left"></i> Previous Page</a>
+              <div id="currentPageInfo">Page 1</div>
+              <a href="#" id="nextPageLink" class="text-primary text-decoration-none">Next Page <i class="bi bi-chevron-right"></i></a>
+            </div>
+            <div class="feed-posts" id="feed-posts"></div>
+            <hr class="my-5 pb-5">
           </div>
-          <div class="searching"></div>
-          <div class="get-next mt-3 d-flex justify-content-between">
-            <a href="#" id="prevPageLink" class="text-primary text-decoration-none"><i class="bi bi-chevron-left"></i> Previous Page</a>
-            <div id="currentPageInfo">Page 1</div>
-            <a href="#" id="nextPageLink" class="text-primary text-decoration-none">Next Page <i class="bi bi-chevron-right"></i></a>
-          </div>
-          <div class="feed-posts" id="feed-posts"></div>
-          <hr class="my-5 pb-5">
-        </div>
-
         </div>
         <!-- News section -->
         <div class="d-none d-lg-block col-lg-4">
