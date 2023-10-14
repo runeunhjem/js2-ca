@@ -1,3 +1,5 @@
+// ONLY START THIS IF I HAVE TIME !!!
+
 // MAYBE: Use a different file extension for this file (e.g. .js) to avoid CORS issues.
 // TMDB? https://developers.themoviedb.org/3/getting-started/introduction
 // https://www.themoviedb.org/documentation/api
