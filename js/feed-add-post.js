@@ -23,7 +23,7 @@ postForm.addEventListener("submit", async function (event) {
   await createNewPost(createPostURL, addNewPostOptions);
 
   // Refresh the feed posts to include the newly added postv
-  await getFeedPostsWithToken(postsURL, fetchOptions); // Fungerer ikke som jeg vil - Må gjøre om på dette - feed blir ikke refreshet
+  await getFeedPostsWithToken(postsURL, fetchOptions);
 
   postForm.reset();
 
