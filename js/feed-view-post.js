@@ -1,6 +1,7 @@
 import { createPostCard } from "./utils/feed.mjs";
 import { createPostURL, fetchOptions, allPostsTags } from "./variables/consts.mjs";
 import { populateTagsSelector, filterUserTagsSelector } from "./feed-get-posts.js";
+
 const urlParams = new URLSearchParams(window.location.search);
 export const postIdParam = urlParams.get("postId");
 
@@ -18,8 +19,8 @@ export async function getSinglePost(url, options, id) {
         if (post) {
           const singlePostContainer = document.getElementById("view-post");
           const singlePostCard = createPostCard(post);
-          // Get the tags from each post and add them to the allPostsTags array
 
+          // Get the tags from each post and add them to the allPostsTags array
           const tags = post.tags || [];
           // Loop through the tags in the current post
           tags.forEach((tag) => {

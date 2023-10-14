@@ -363,6 +363,9 @@ export function createPostCard(post) {
     if (postMedia.src !== `https://picsum.photos/id/${uniqueQueryParam}/200/300`) {
       postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
     }
+    if (postMedia.src !== `https://picsum.photos/id/${uniqueQueryParam}/200/300`) {
+      postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
+    }
   }
 
   if (window.location.href.includes("/feed/") && !window.location.href.includes("post.html")) {

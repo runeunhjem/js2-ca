@@ -17,7 +17,7 @@ profileFollowButton.addEventListener("click", () => {
         followText.textContent = "Unfollow";
         const followName = data.name;
 
-        // Increment the followers count by 1 when following
+        // Update the count
         const profileFollowersElement = document.getElementById("loggedInProfileFollowers");
         profileFollowersElement.textContent = parseInt(profileFollowersElement.textContent) + 1;
 
@@ -40,7 +40,7 @@ profileFollowButton.addEventListener("click", () => {
       .then((data) => {
         followText.textContent = "Follow";
 
-        // Decrement the followers count by 1 when unfollowing
+        // Update the count again when unfollowing
         const profileFollowersElement = document.getElementById("loggedInProfileFollowers");
         profileFollowersElement.textContent = parseInt(profileFollowersElement.textContent) - 1;
 
