@@ -4,6 +4,7 @@ export function togglePostContent(event) {
   const postContent = postCard.querySelector(".card-text .hidden-content"); // Adjust the selector
   const showMoreButton = postCard.querySelector(".show-more-button");
 
+  // Show or hide the content
   if (postContent.style.maxHeight) {
     // Content is currently hidden, so show it
     postContent.style.maxHeight = null;
