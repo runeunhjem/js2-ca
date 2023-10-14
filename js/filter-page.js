@@ -1,9 +1,10 @@
 const filterFeedSelector = document.getElementById("filterFeedSelector"); // Selector for filtering by movie categories
 const filterUserTagsSelector = document.getElementById("filterUserTagsSelector"); // Selector for filtering by user tags
-const postsContainer = document.getElementById("feed-posts"); // Container for posts
+const postsContainer = document.getElementById("feed-posts");
 
 // Function to filter posts based on the selected tag and selector
 export function filterPosts(selectedTag, selector) {
+  
   // Convert the selected tag to lowercase for case-insensitive comparison
   selectedTag = selectedTag.toLowerCase();
   let postsLeft = 0;

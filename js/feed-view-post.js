@@ -58,5 +58,4 @@ export async function getSinglePost(url, options, id) {
   }
 }
 
-// getSinglePost(createPostURL, fetchOptions, postIdParam).then(populateTags);
 getSinglePost(createPostURL, fetchOptions, postIdParam);
