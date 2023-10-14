@@ -2,24 +2,28 @@ import { API_BASE_URL, loggedInUser, reactionOptions, token, fetchOptions } from
 import { deletePost } from "./delete-posts.mjs";
 import { editPost } from "./do-edit-posts.mjs";
 
+// Create the post card and the functions and listeners inside it
 export function createPostCard(post) {
+  // Hide the spinner when the cards start loading
   const spinner = document.querySelector(".spinner-border");
   spinner.classList.add("d-none");
+  // Check if the post is created by the logged in user
   const isLoggedIn = post.author && post.author.name === loggedInUser;
 
+  // Every post card on all my pages use this same HTML structure
   const card = document.createElement("div");
   card.classList.add("card", "post-card", "mx-0", "my-3", "bg-info", "shadow-sm", "smooth");
   card.setAttribute("data-post-id", post.id);
   card.addEventListener("mouseover", handlePostCardClick);
   card.addEventListener("mouseleave", handlePostCardMouseLeave);
   card.addEventListener("click", handlePostCardClick);
-
+  // Content under the options button
   const cardBody = document.createElement("div");
   cardBody.classList.add("card-body", "container");
-
+  // Info on the creator of the post
   const authorDiv = document.createElement("div");
   authorDiv.classList.add("d-flex", "align-items-start", "justify-content-center", "smooth");
-
+  // Profile avater
   const avatarDiv = document.createElement("div");
   avatarDiv.classList.add("col-4", "col-sm-2", "position-relative", "z-3", "me-2");
   const avatarImg = document.createElement("img");
@@ -38,17 +42,21 @@ export function createPostCard(post) {
 
   avatarDiv.appendChild(avatarImg);
 
+  // Right of the avatar image - the card content
   const postContentDiv = document.createElement("div");
   postContentDiv.classList.add("col-8", "col-sm-10", "ms-sm-2", "justify-content-start");
 
+  // Name and View profile link
   const authorInfoDiv = document.createElement("div");
   authorInfoDiv.classList.add("d-block", "d-sm-flex", "align-items-center");
 
+  // Name of the author
   const authorName = document.createElement("h6");
   authorName.classList.add("d-block", "d-sm-flex", "card-title", "mb-0", "me-1", "ps-1");
   authorName.setAttribute("data-authorname", post.author.name);
   authorName.textContent = post.author.name;
 
+  // Header / options button
   const moreButton = document.createElement("button");
   moreButton.classList.add(
     "btn",
@@ -76,6 +84,7 @@ export function createPostCard(post) {
     }
   });
 
+  // Options menu
   const dropdownMenu = document.createElement("ul");
   dropdownMenu.classList.add("dropdown-menu", "bg-info", "shadow", "border-0", "smooth");
   dropdownMenu.setAttribute("aria-labelledby", "dropdownMenuButton1");
@@ -89,7 +98,7 @@ export function createPostCard(post) {
 
   // Always add the "Share" option
   menuItems.push({ text: "Share", className: "share-link", href: "https://www.websiteplanet.com/webtools/sharelink/" });
-
+  // The menu items
   menuItems.forEach((menuItemData) => {
     const menuItem = document.createElement("li");
 
@@ -114,7 +123,7 @@ export function createPostCard(post) {
 
     dropdownMenu.appendChild(menuItem);
   });
-
+  // Only fires if the logged in user is the author of the post
   if (isLoggedIn) {
     const deleteButton = dropdownMenu.querySelector(".delete-button");
     deleteButton.addEventListener("click", (event) => {
@@ -130,7 +139,7 @@ export function createPostCard(post) {
 
   moreButton.appendChild(dropdownMenu);
 
-  // Create an empty div with the default classes and hide it
+  // Create an empty div for the edit form with the default classes and hide it
   const editPostForm = document.createElement("div");
   editPostForm.classList.add(
     "edit-post",
@@ -143,7 +152,7 @@ export function createPostCard(post) {
     "border-secondary"
   );
 
-  // const postId = card.getAttribute("data-post-id");
+  // Edit post header: const postId = card.getAttribute("data-post-id");
   const editHeader = document.createElement("h6");
   const postId = post.id;
   editHeader.classList.add("edit-title", "mt-4", "text-center");
@@ -154,40 +163,40 @@ export function createPostCard(post) {
   movieTitleInput.setAttribute("type", "text");
   movieTitleInput.setAttribute("placeholder", "Movie Title");
   movieTitleInput.classList.add("form-control", "my-2", "movie-title-input");
-  movieTitleInput.value = post.title; // Set the initial value
+  movieTitleInput.value = post.title; // Get the initial value
 
   // Create an input field for movie cover
   const movieCoverInput = document.createElement("input");
   movieCoverInput.setAttribute("type", "text");
   movieCoverInput.setAttribute("placeholder", "Movie Cover URL");
   movieCoverInput.classList.add("form-control", "my-2", "movie-cover-input");
-  movieCoverInput.value = post.media; // Set the initial value
+  movieCoverInput.value = post.media; // Get the initial value
 
   // Create an input field for tags
   const tagsInput = document.createElement("input");
   tagsInput.setAttribute("type", "text");
   tagsInput.setAttribute("placeholder", "Tags (Comma-separated)");
   tagsInput.classList.add("form-control", "my-2", "tags-input");
-  tagsInput.value = post.tags.join(", "); // Set the initial value
+  tagsInput.value = post.tags.join(", "); // Get the initial value
 
   // Create a textarea for the new post body
   const newPostBodyTextarea = document.createElement("textarea");
   newPostBodyTextarea.setAttribute("placeholder", "Post Body");
   newPostBodyTextarea.classList.add("form-control", "my-2", "new-post-body-textarea");
-  newPostBodyTextarea.value = post.body; // Set the initial value
+  newPostBodyTextarea.value = post.body; // Get the initial value
 
-  // Create a submit button
+  // The submit button
   const doEditButton = document.createElement("button");
   doEditButton.setAttribute("type", "button");
   doEditButton.classList.add("btn", "btn-warning", "btn-sm", "my-2", "ms-3", "do-edit-button");
   doEditButton.textContent = "Submit";
-  // Create a submit button
+  // The close button
   const closeEditButton = document.createElement("button");
   closeEditButton.setAttribute("type", "button");
   closeEditButton.classList.add("btn", "btn-warning", "btn-sm", "my-2", "ms-3", "close-edit-button");
   closeEditButton.textContent = "Close";
 
-  // Append input fields and submit button to the editPostForm
+  // Append input fields and buttons to the editPostForm
   editPostForm.appendChild(editHeader);
   editPostForm.appendChild(movieTitleInput);
   editPostForm.appendChild(movieCoverInput);
@@ -196,12 +205,13 @@ export function createPostCard(post) {
   editPostForm.appendChild(doEditButton);
   editPostForm.appendChild(closeEditButton);
 
+  // Close the edit form
   closeEditButton.addEventListener("click", () => {
     editPostForm.classList.add("d-none");
     card.scrollIntoView({ behavior: "smooth" });
   });
 
-  // Add event listeners for the submit button
+  // Submit the form
   doEditButton.addEventListener("click", async () => {
     // Get the values from the input fields
     const movieTitle = movieTitleInput.value;
@@ -214,13 +224,15 @@ export function createPostCard(post) {
     const authorName = localStorage.getItem("authorName");
     editPost(editPostForm, postId, movieTitle, movieCover, tags, newPostBody, authorName);
 
-    // After the update is complete, you may want to hide the edit form again
+    // Hide the edit form when i submit it
     editPostForm.classList.add("d-none");
   });
 
   card.appendChild(moreButton);
+  // The form slides down under the header
   card.appendChild(editPostForm);
 
+  // Post ID always top right of card
   const postIdElement = document.createElement("div");
   postIdElement.setAttribute("data-post-id", post.id);
   postIdElement.classList.add("post-id", "position-absolute", "top-0", "end-0", "p-2", "pt-1", "text-muted", "fs-0");
@@ -231,6 +243,7 @@ export function createPostCard(post) {
   }
   card.appendChild(postIdElement);
 
+  // See post's author's profile
   const viewProfileLink = document.createElement("a");
   viewProfileLink.classList.add(
     "nav-link",
@@ -257,11 +270,13 @@ export function createPostCard(post) {
   authorInfoDiv.appendChild(authorName);
   authorInfoDiv.appendChild(viewProfileLink);
 
+  // Creation date of the post
   const postDate = document.createElement("p");
   postDate.classList.add("card-subtitle", "mb-1", "text-muted", "ps-1");
   const createdDate = new Date(post.created);
   postDate.textContent = createdDate.toLocaleString();
 
+  // View single post link
   const viewPostLink = document.createElement("a");
   viewPostLink.classList.add("d-flex", "nav-link", "text-primary", "m-0", "p-2", "flex-wrap", "align-items-start");
 
@@ -271,17 +286,19 @@ export function createPostCard(post) {
     viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
   }
 
+  // single post page URL
   const postPageURL = `../feed/post.html?postId=${post.id}`;
   viewPostLink.href = postPageURL;
 
   // Create a span for the post title with a custom class
   const titleSpan = document.createElement("span");
-  titleSpan.classList.add("movie-title"); // Add your custom class here
+  titleSpan.classList.add("movie-title");
   titleSpan.appendChild(document.createTextNode(post.title));
 
-  // Append the titleSpan to the viewPostLink
+  // Movie Title (post title)
   viewPostLink.appendChild(titleSpan);
 
+  // If the page is the single post page, Disable the link and mute the text color
   if (window.location.pathname.includes("post.html")) {
     viewPostLink.classList.add(
       "d-block",
@@ -295,7 +312,7 @@ export function createPostCard(post) {
     viewPostLink.innerHTML = `<i class="bi bi-film me-1 mt-0 m-sm-1 mt-sm-1"></i>`;
     // Create a span for the post title with a custom class
     const disabledTitleSpan = document.createElement("span");
-    disabledTitleSpan.classList.add("movie-title", "text-muted"); // Add your custom class and text-muted
+    disabledTitleSpan.classList.add("movie-title", "text-muted");
     disabledTitleSpan.appendChild(document.createTextNode(post.title));
 
     // Append the disabledTitleSpan to the viewPostLink
@@ -308,7 +325,7 @@ export function createPostCard(post) {
     });
   }
 
-  // Create a new element for displaying categories (tags)
+  // Displaying categories (tags)
   const categoriesElement = document.createElement("p");
   categoriesElement.classList.add("post-tags", "my-0", "ps-1", "text-white", "bg-dark", "visible-content");
 
@@ -324,10 +341,11 @@ export function createPostCard(post) {
     categoriesElement.innerHTML = "<strong>Categories:</strong> No categories available";
   }
 
+  // Post body text
   const postText = document.createElement("p");
   postText.classList.add("card-text", "my-0", "ps-2", "visible-content");
 
-  const maxWords = 4;
+  const maxWords = 4; // The maximum number of words to display before the "Show More" button
   const words = post.body ? post.body.split(" ") : [];
   const visibleContent = words.slice(0, maxWords).join(" ");
   const hiddenContent = words.slice(maxWords).join(" ");
@@ -340,11 +358,6 @@ export function createPostCard(post) {
   postMedia.style.width = "100%";
   postMedia.style.maxHeight = "100%";
   postMedia.style.maxWidth = "100%";
-
-  postMedia.onload = () => {
-    // Image loaded successfully, you can optionally add any handling here
-  };
-
   postMedia.onerror = (event) => {
     event.preventDefault();
     // Image failed to load, load a fallback image
@@ -355,9 +368,10 @@ export function createPostCard(post) {
       postMedia.src = `https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80.jpg`;
     }
   };
-
+  // If the post has a media property, use it as the image source
   if (post.media) {
     postMedia.src = post.media;
+    // If not, load a random image from picsum
   } else {
     const uniqueQueryParam = Math.floor(Math.random() * (500 - 200 + 1) + 100);
     if (postMedia.src !== `https://picsum.photos/id/${uniqueQueryParam}/200/300`) {
@@ -367,7 +381,7 @@ export function createPostCard(post) {
       postMedia.src = `https://picsum.photos/id/${uniqueQueryParam}/200/300`;
     }
   }
-
+  // If the page is the single post page, change the image size
   if (window.location.href.includes("/feed/") && !window.location.href.includes("post.html")) {
     postMedia.style.width = "100px";
     postMedia.classList.add("ms-3");
@@ -375,6 +389,7 @@ export function createPostCard(post) {
     viewPostLink.classList.add("align-items-start", "ps-2");
   }
 
+  // Show more button
   const showMoreButton = document.createElement("button");
   if (words.length > maxWords) {
     showMoreButton.classList.add(
@@ -404,6 +419,7 @@ export function createPostCard(post) {
     showMoreButton.classList.add("d-none");
   }
 
+  // Append the elements to the card in the right order
   authorDiv.appendChild(avatarDiv);
   authorDiv.appendChild(postContentDiv);
   postContentDiv.appendChild(authorInfoDiv);
@@ -414,10 +430,12 @@ export function createPostCard(post) {
   postText.appendChild(showMoreButton);
   postContentDiv.appendChild(postText);
 
+  // Append the categories to the divider (Same color so it looks like it's part of the categories)
   const hr = document.createElement("hr");
   hr.classList.add("p-0");
   hr.appendChild(categoriesElement);
 
+  // Likes & comments section
   const reactionCountElement = document.createElement("div");
   reactionCountElement.classList.add("reaction-count", "text-primary", "ms-1", "pb-1");
   let commentsCount = post._count.comments;
@@ -476,6 +494,7 @@ export function createPostCard(post) {
   repliesCount.classList.add("card-text", "text-muted", "py-0", "cursor-pointer", "comments-count");
   repliesCount.innerHTML = `<i class="bi bi-chat-dots text-primary"></i> ${commentsCount} comments`;
 
+  // Comments section
   repliesCount.addEventListener("click", async () => {
     repliesCount.classList.add("d-none");
     const postId = post.id;
@@ -501,16 +520,13 @@ export function createPostCard(post) {
           );
           commentsContainer.style.display = "none";
           commentsContainer.style.maxHeight = "500px";
-          commentsContainer.style.transition = "max-height 0.5s ease-in-out";
-          commentsContainer.style.overflowY = "scroll";
           commentsContainer.style.overflowY = "auto";
           commentsContainer.style.position = "relative";
-
+          // Close button
           const closeButton = document.createElement("div");
           closeButton.classList.add("text-danger", "p-1", "cursor-pointer", "d-block");
           closeButton.style.top = "10px";
           closeButton.style.right = "10px";
-
           const closeIcon = document.createElement("i");
           closeIcon.classList.add(
             "bi",
@@ -544,13 +560,14 @@ export function createPostCard(post) {
             commentText.classList.add("comment-text");
             commentText.textContent = comment.body;
 
+            // *** ADD IF TIME *** // (Added in my notebook)
             const commentLink = document.createElement("a");
             commentLink.classList.add("text-primary", "d-block", "disabled-link", "text-decoration-none");
             commentLink.href = "#";
             commentLink.textContent = "Reply (Coming soon)";
             commentLink.style.pointerEvents = "none";
 
-            // Append the comment ID, comment owner, comment text, and comment link to the comment card
+            // Append the comment owner, comment text, and comment reply link to the comment card
             commentCard.appendChild(commentOwner);
             commentCard.appendChild(commentText);
             commentCard.appendChild(commentLink);
@@ -562,6 +579,7 @@ export function createPostCard(post) {
           // Append the comments container to the cardBody
           cardBody.appendChild(commentsContainer);
 
+          // Close the comments container
           closeButton.addEventListener("click", () => {
             if (commentsContainer.style.display === "none") {
               commentsContainer.style.display = "block";
@@ -576,9 +594,11 @@ export function createPostCard(post) {
           // Show the comments container (which now includes the comments)
           commentsContainer.style.display = "block";
         } else {
+          alert("Something went wrong.");
           console.error("Failed to fetch comments for the post.");
         }
       } catch (error) {
+        alert("Something went wrong.", error);
         console.error("An error occurred while fetching comments:", error);
       }
     } else {
@@ -610,15 +630,17 @@ export function createPostCard(post) {
   buttonLikesRow.appendChild(buttonContainer);
   buttonLikesRow.appendChild(likesRepliesContainer);
 
+  // Create a comment form
   const commentForm = document.createElement("div");
   commentForm.classList.add("comment-form");
   commentForm.style.display = "none"; // Initially hide the form
 
-  // Create the form elements inside the comment form
+  // Comment body textarea
   const commentTextArea = document.createElement("textarea");
   commentTextArea.classList.add("form-control", "my-2");
   commentTextArea.placeholder = "Write a comment...";
 
+  // Send button
   const submitButton = document.createElement("button");
   submitButton.classList.add("btn", "btn-warning", "btn-sm");
   submitButton.textContent = "Send it!";
@@ -626,9 +648,10 @@ export function createPostCard(post) {
   commentForm.appendChild(commentTextArea);
   commentForm.appendChild(submitButton);
 
-  // Append the comment form to the card
+  // Append the comment form at the bottom of the card body
   cardBody.appendChild(commentForm);
 
+  // Show the comment form when the comment button is clicked
   commentButton.addEventListener("click", () => {
     if (commentForm.style.display === "none") {
       commentForm.style.display = "block"; // Show the comment form
@@ -637,6 +660,7 @@ export function createPostCard(post) {
     }
   });
 
+  // Submit the comment to the API
   submitButton.addEventListener("click", async () => {
     const commentText = commentTextArea.value; // Get the comment text
 
@@ -665,9 +689,11 @@ export function createPostCard(post) {
           commentsCountElement.textContent = `${commentsCount} Comments`;
         }
       } else {
+        alert("Failed to add a new comment.");
         console.error("Failed to add a new comment.");
       }
     } catch (error) {
+      alert("Something went wrong.", error);
       console.error("An error occurred while adding a comment:", error);
     }
   });
@@ -677,6 +703,7 @@ export function createPostCard(post) {
   return card;
 }
 
+// Options menu
 document.addEventListener("click", (event) => {
   if (!event.target.classList.contains("more-button")) {
     const dropdownMenus = document.querySelectorAll(".dropdown-menu");
@@ -686,6 +713,7 @@ document.addEventListener("click", (event) => {
   }
 });
 
+// Sets the post ID and author name in localStorage and checks if it is the logged in user when a post card is clicked
 async function handlePostCardClick(event) {
   const card = event.currentTarget;
 
@@ -702,6 +730,7 @@ async function handlePostCardClick(event) {
   }
 }
 
+// Changes the isLoggedIn value in localStorage if needed when the mouse leaves a post card
 function handlePostCardMouseLeave(event) {
   const card = event.currentTarget;
   const authorName = card.querySelector(".view-profile-link").dataset.authorname; // Get the author"s name from the data attribute
@@ -713,12 +742,14 @@ function handlePostCardMouseLeave(event) {
   }
 }
 
+// Deletes a post
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("dropdown-item")) {
     handleDeleteClick(event);
   }
 });
 
+// Opens and closes the create new post form
 document.addEventListener("DOMContentLoaded", function () {
   if (window.location.pathname.includes("/feed/")) {
     const createPostForm = document.getElementById("createPostForm");
