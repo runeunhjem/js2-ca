@@ -1,5 +1,6 @@
 const backToTopButton = document.querySelector(".back-to-top-button");
 
+// Function to show or hide the back to top button
 export function toTopButton() {
   window.addEventListener("scroll", () => {
     const desktopOffset = 400;
@@ -14,6 +15,7 @@ export function toTopButton() {
     }
   });
 
+  // Scroll me to the top baby, but smoothly
   backToTopButton.addEventListener("click", (event) => {
     event.preventDefault();
 
