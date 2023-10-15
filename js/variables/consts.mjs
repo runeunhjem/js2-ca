@@ -1,4 +1,3 @@
-
 export const API_BASE_URL = "https://api.noroff.dev/api/v1";
 export const registerURL = `${API_BASE_URL}/social/auth/register`;
 export const loginURL = `${API_BASE_URL}/social/auth/login`;
@@ -42,6 +41,11 @@ export const authorName = localStorage.getItem("authorName");
 export const profileLinks = document.querySelectorAll(".profile-link");
 export const allPostsTags = [];
 
+/**
+ * Event handler for click events. Redirects to the profile page.
+ * @param {Event} event - The click event object.
+ * @returns {void}
+ */
 export const clickHandler = (event) => {
   event.preventDefault();
   const originalHref = `../profile/index.html?name=${loggedInUser}`;
@@ -52,25 +56,28 @@ export const clickHandler = (event) => {
   window.location.href = event.target.href;
 };
 
-// ******** Keep my comments so i remember what does what of these ********
-// Default options for fetch requests
+/**
+ * Default options for fetch requests.
+ * @type {object}
+ */
 export const fetchOptions = {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   },
-  // body: "Test in fetch body",
 };
 
-// Options for adding a new post
+/**
+ * Options for adding a new post.
+ * @type {object}
+ */
 export const addNewPostOptions = {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   },
-  // body: JSON.stringify(newPostData),
 };
 
 // Options for adding a new comment
@@ -83,7 +90,6 @@ export const newCommentOptions = {
     Authorization: `Bearer ${token}`,
   },
   body: JSON.stringify({ body: commentText }), // Send the comment text in the request body
-  // body: JSON.stringify({ text: commentText }), // Send the comment text in the request body
   // "replyToId": 0 // Optional - Only required if replying to another comment
 };
 
@@ -109,15 +115,9 @@ export const reactToPostURL = `${API_BASE_URL}/social/posts/${postId}/react/👍
 export const reactionOptions = {
   method: "PUT",
   headers: {
-    // "Content-Type": "application/json", // NOT NEEDED
     host: host, // Gave error without this
     Authorization: `Bearer ${token}`,
   },
-  // EMPTY BODY here (remove "Content-Type": "application/json", from header as well)
-  // body: {
-  //   // body: "", // Required - remember the 👍 in the put url
-  //   // replyToId: 0, // Optional - Only required if replying to another comment
-  // },
 };
 
 // Options for deleting a post
@@ -125,10 +125,8 @@ export const deletePostURL = `${API_BASE_URL}/social/posts/${postId}`;
 export const deletePostOptions = {
   method: "DELETE",
   headers: {
-    // "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   },
-  // body: JSON.stringify(newPostData),
 };
 
 // Options for following/unfollowing a user
@@ -141,9 +139,7 @@ if (!authorName && currentProfileName) {
 export const followOptions = {
   method: "PUT",
   headers: {
-    host: host, // Nescessary ???
-    // "Content-Type": "application/json", // NOT NEEDED
+    host: host, // Nescessary ??? Yup! Dont work without it
     Authorization: `Bearer ${token}`,
   },
-  // body: JSON.stringify(newPostData), // NOT NEEDED
 };

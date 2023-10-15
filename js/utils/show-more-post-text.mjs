@@ -1,4 +1,8 @@
-// Function to toggle the visibility of the full post content
+/**
+ * Toggles the visibility of the full post content by expanding or collapsing it.
+ *
+ * @param {Event} event - The click event object.
+ */
 export function togglePostContent(event) {
   const postCard = event.target.closest(".card"); // Find the closest card element
   const postContent = postCard.querySelector(".card-text .hidden-content"); // Adjust the selector

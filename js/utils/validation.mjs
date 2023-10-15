@@ -1,4 +1,6 @@
-// Validate login and sign in forms
+/**
+ * Validates the login and sign-up forms, providing user feedback on input fields.
+ */
 export function validateLoginForm() {
   const registerForm = document.getElementById("signup-form");
   const registerButton = document.getElementById("register-button");
@@ -32,6 +34,11 @@ export function validateLoginForm() {
     registerPassword.placeholder = "Min 8 characters";
   });
 
+  /**
+   * Validates the form input fields and updates their states accordingly.
+   *
+   * @param {Event} event - The form submission event object.
+   */
   function validateForm(event) {
     if (checkLength(userName.value, 1)) {
       userName.classList.add("was-validated");
@@ -76,11 +83,7 @@ export function validateLoginForm() {
       passwordAfter.classList.remove("validated");
     }
 
-    if (
-      validateUserName(userName.value) &&
-      validateEmail(registerEmail.value) &&
-      checkLength(registerPassword.value, 7)
-    ) {
+    if (validateUserName(userName.value) && validateEmail(registerEmail.value) && checkLength(registerPassword.value, 7)) {
       registerButton.setAttribute("type", "submit");
       registerButton.style.cursor = "pointer";
       registerButton.innerText = "Send Message";
@@ -100,6 +103,9 @@ export function validateLoginForm() {
   registerPassword.addEventListener("input", validateForm);
   registerButton.addEventListener("click", validateForm);
 
+  /**
+   * Displays a success message and reloads the page after a delay.
+   */
   function successMessage() {
     const confirmSuccess = document.getElementById("register-success");
     confirmSuccess.style.display = "block";
@@ -109,10 +115,20 @@ export function validateLoginForm() {
     setTimeout(closeSuccessMessage, 4000);
   }
 
+  /**
+   * Closes the success message and reloads the page.
+   */
   function closeSuccessMessage() {
     location.reload();
   }
 
+  /**
+   * Checks if a string's length is greater than a specified length.
+   *
+   * @param {string} value - The string value to check.
+   * @param {number} len - The minimum length to validate against.
+   * @returns {boolean} True if the length is greater than or equal to len; otherwise, false.
+   */
   function checkLength(value, len) {
     if (value.trim().length > len) {
       return true;
@@ -121,13 +137,24 @@ export function validateLoginForm() {
     }
   }
 
-  // Use a regular expression to check for valid characters in the username and email
+  /**
+   * Validates the username using a regular expression pattern.
+   *
+   * @param {string} username - The username to validate.
+   * @returns {boolean} True if the username is valid; otherwise, false.
+   */
   function validateUserName(username) {
     const regEx = /^[a-zA-Z0-9_]+$/;
     const patternMatches = regEx.test(username);
     return patternMatches;
   }
 
+  /**
+   * Validates the email using specific patterns.
+   *
+   * @param {string} email - The email address to validate.
+   * @returns {boolean} True if the email is valid; otherwise, false.
+   */
   function validateEmail(email) {
     const noroffPattern = /@noroff\.no$/;
     const studNoroffPattern = /@stud\.noroff\.no$/;

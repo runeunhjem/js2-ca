@@ -1,4 +1,6 @@
-// Fill out fields with saved email if check remember me is true
+/**
+ * Fills out the login form fields with a saved email if "Remember Me" is enabled.
+ */
 export function preFillFormFields() {
   const savedEmail = localStorage.getItem("savedEmail");
   const rememberMe = localStorage.getItem("rememberMe");
@@ -12,7 +14,12 @@ export function preFillFormFields() {
   }
 }
 
-// Login user & save my wanted options to local storage
+/**
+ * Attempts to log in a user using the provided user data and saves relevant options to local storage.
+ * @param {string} url - The URL where the login request is sent.
+ * @param {object} userData - The user data containing email and password.
+ * @returns {Promise<object>} - A promise that resolves with the response data if the login is successful.
+ */
 export async function loginUser(url, userData) {
   try {
     const postData = {

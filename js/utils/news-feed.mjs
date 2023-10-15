@@ -24,6 +24,9 @@
 // Find RSS feeds for many websites by searching for "RSS feed" followed by the name of the website.For example, "RSS feed CNN".)
 const newsFeed = document.getElementById("news-feed");
 
+/**
+ * Asynchronously fetches and displays news data from the specified RSS feed URL.
+ */
 async function fetchAndDisplayNews() {
   try {
     const response = await fetch("YOUR_RSS_FEED_URL_HERE");
