@@ -141,3 +141,8 @@ body {
 .comments-container::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.custom-disabled {
+  pointer-events: none;
+  opacity: 0.7;
+}
