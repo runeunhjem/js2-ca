@@ -1,6 +1,8 @@
 const backToTopButton = document.querySelector(".back-to-top-button");
 
-// Function to show or hide the back to top button
+/**
+ * Function to show or hide the "Back to Top" button based on the user's scroll position and scroll smoothly to the top when clicked.
+ */
 export function toTopButton() {
   window.addEventListener("scroll", () => {
     const desktopOffset = 400;
@@ -25,5 +27,3 @@ export function toTopButton() {
     });
   });
 }
-
-

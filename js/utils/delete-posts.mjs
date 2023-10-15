@@ -1,7 +1,12 @@
 import { API_BASE_URL, allPostsTags, loggedInUser, deletePostOptions } from "../variables/consts.mjs";
 import { populateTagsSelector, filterUserTagsSelector } from "../feed-get-posts.js";
 
-// Delete a post
+/**
+ * Deletes a post if the logged-in user is authorized to do so.
+ *
+ * @param {string} postId - The unique identifier of the post to be deleted.
+ * @returns {Promise<Object|null>} A Promise that resolves with the JSON response if successful; otherwise, null.
+ */
 export async function deletePost(postId) {
   const authorName = localStorage.getItem("authorName");
 

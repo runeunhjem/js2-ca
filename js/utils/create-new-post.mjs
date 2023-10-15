@@ -1,8 +1,9 @@
 /**
- * Function to create a new post
- * @param {string} url
- * @param {object} options
+ * Creates a new post by making a POST request to the specified URL with the provided options.
  *
+ * @param {string} url - The URL to send the POST request to for creating a new post.
+ * @param {object} options - The request options, including method, headers, and body.
+ * @returns {Promise<void>} A Promise that resolves when the post is successfully created; otherwise, it rejects with an error.
  */
 export async function createNewPost(url, options) {
   try {

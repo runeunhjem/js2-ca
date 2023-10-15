@@ -2,7 +2,12 @@ import { API_BASE_URL, loggedInUser, reactionOptions, token, fetchOptions } from
 import { deletePost } from "./delete-posts.mjs";
 import { editPost } from "./do-edit-posts.mjs";
 
-// Create the post card and the functions and listeners inside it
+/**
+ * Create a post card element based on the given post data.
+ *
+ * @param {Object} post - The post data object.
+ * @returns {HTMLElement} - The post card element.
+ */
 export function createPostCard(post) {
   // Hide the spinner when the cards start loading
   const spinner = document.querySelector(".spinner-border");

@@ -1,6 +1,17 @@
 import { API_BASE_URL, allPostsTags, loggedInUser, token, postId } from "../variables/consts.mjs";
 import { populateTagsSelector, filterUserTagsSelector } from "../feed-get-posts.js";
 
+/**
+ * Edits a post if the user is authorized to do so and the edit form exists.
+ *
+ * @param {HTMLFormElement} editPostForm - The HTML form element for editing a post.
+ * @param {string} postId - The unique identifier of the post to be edited.
+ * @param {string} movieTitle - The new title for the post.
+ * @param {string} movieCover - The new media or cover for the post.
+ * @param {string} tags - A comma-separated string of tags for the post.
+ * @param {string} newPostBody - The new body content for the post.
+ * @param {string} authorName - The author's name of the post.
+ */
 export async function editPost(editPostForm, postId, movieTitle, movieCover, tags, newPostBody, authorName) {
   if (editPostForm) {
     const authorName = localStorage.getItem("authorName");
