@@ -175,7 +175,7 @@ export function createPostCard(post) {
   // Create an input field for tags
   const tagsInput = document.createElement("input");
   tagsInput.setAttribute("type", "text");
-  tagsInput.setAttribute("placeholder", "Tags (Comma-separated)");
+  tagsInput.setAttribute("placeholder", "Movie categories (Comma-separated)");
   tagsInput.classList.add("form-control", "my-2", "tags-input");
   tagsInput.value = post.tags.join(", "); // Get the initial value
 
