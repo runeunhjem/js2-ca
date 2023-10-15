@@ -1,8 +1,10 @@
-import { urlParams } from "./variables/consts.mjs";
 import { getProfilePosts } from "./populate_profile.js";
 import { createPostCard } from "./utils/feed.mjs";
 import { populateTags } from "./feed-get-posts.js";
 
+/**
+ * Initialize the profile page when the DOM content is loaded.
+ */
 document.addEventListener("DOMContentLoaded", async function () {
 
   // Display a loading indicator while data is being fetched

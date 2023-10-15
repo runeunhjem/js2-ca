@@ -7,6 +7,15 @@ let limit = 100; // Get max 100 from API
 let offset = 0; // Initialize the offset to 0
 let query = ""; // Initialize the query variable
 
+/**
+ * Fetch all search results from the API based on the provided query.
+ *
+ * @param {string} url - The URL to fetch data from.
+ * @param {string} query - The search query.
+ * @param {number} limit - The maximum number of posts to fetch.
+ * @param {number} offset - The offset for pagination.
+ * @returns {Promise<Array>} An array of search results.
+ */
 async function fetchAllSearchResults(url, query, limit, offset) {
   let allResults = [];
   let totalFetched = 0; // Track the total number of posts fetched
@@ -54,6 +63,12 @@ async function fetchAllSearchResults(url, query, limit, offset) {
   }
 }
 
+/**
+ * Display the search results in the DOM.
+ *
+ * @param {Array} results - The search results to display.
+ * @param {string} query - The search query.
+ */
 function displaySearchResults(results, query) {
   let feedPosts;
   if (window.location.pathname.includes("/post.html")) {
@@ -94,6 +109,11 @@ function displaySearchResults(results, query) {
   }
 }
 
+/**
+ * Handle the search form submission.
+ *
+ * @param {Event} event - The form submission event.
+ */
 async function handleSearch(event) {
   event.preventDefault();
   const queryInput = document.querySelector('input[name="searchQuery"]');
@@ -128,6 +148,11 @@ async function handleSearch(event) {
   }
 }
 
+/**
+ * Filter and display profile posts based on the search query.
+ *
+ * @param {string} query - The search query.
+ */
 export async function filterProfilePosts(query) {
   const profilePosts = document.querySelectorAll(".post-card");
   let postsLeft = 0;
@@ -180,6 +205,11 @@ export async function filterProfilePosts(query) {
   mainHeader.innerHTML = `${postsLeft} results for ${query}`;
 }
 
+/**
+ * Update the main header with the search results.
+ *
+ * @param {string} query - The search query.
+ */
 function updateMainHeader(query) {
   const mainHeader = document.querySelector(".main-header");
   const mainHeaderTitle = query ? `${postsLeft} results for ${query}` : "Search results";
@@ -188,6 +218,9 @@ function updateMainHeader(query) {
   mainHeader.classList.remove("text-dark", "fs-3");
 }
 
+/**
+ * Display a message when no search results are found.
+ */
 function displayNoResults() {
   const feedPosts = document.getElementById("feed-posts");
   feedPosts.innerHTML = "<p>No results found.</p>";

@@ -1,5 +1,8 @@
 import { registerURL } from "./variables/consts.mjs";
 
+/**
+ * Register a user when the DOM content is loaded.
+ */
 document.addEventListener("DOMContentLoaded", function () {
   const registerForm = document.getElementById("signup-form");
 

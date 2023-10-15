@@ -1,4 +1,3 @@
-// import { populateTags } from "./feed-get-posts";
 import {
   loggedInUser,
   currentProfileName,
@@ -13,6 +12,13 @@ import {
 } from "./variables/consts.mjs";
 import { populateTagsSelector, filterUserTagsSelector } from "./feed-get-posts.js";
 
+/**
+ * Get profile data by making a fetch request to the given URL with options.
+ *
+ * @param {string} profileURL - The URL to fetch profile data from.
+ * @param {RequestInit} fetchOptions - The options for the fetch request.
+ * @returns {Promise<any>} A promise that resolves to the fetched profile data.
+ */
 export async function getProfileData(profileURL, fetchOptions) {
   try {
     const followButton = document.getElementById("loggedInProfileFollow");
@@ -71,6 +77,9 @@ export async function getProfileData(profileURL, fetchOptions) {
   }
 }
 
+/**
+ * Initialize the profile page by fetching profile data and updating the page.
+ */
 async function initProfilePage() {
   try {
     // Fetch the profile data and await the result
@@ -87,6 +96,11 @@ async function initProfilePage() {
   }
 }
 
+/**
+ * Get profile posts by making a fetch request to the given URL with options.
+ *
+ * @returns {Promise<any>} A promise that resolves to the fetched profile posts.
+ */
 export async function getProfilePosts() {
   try {
     const response = await fetch(profilePostsURL, fetchOptions);
@@ -103,6 +117,11 @@ export async function getProfilePosts() {
   }
 }
 
+/**
+ * Update the profile page with the fetched profile data.
+ *
+ * @param {any} profileData - The fetched profile data to update the page with.
+ */
 async function updateProfilePage(profileData) {
   const profileNameElements = document.querySelectorAll(".loggedInProfileName");
   const profileFollowersElement = document.getElementById("loggedInProfileFollowers");

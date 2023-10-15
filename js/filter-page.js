@@ -3,8 +3,13 @@ const filterUserTagsSelector = document.getElementById("filterUserTagsSelector")
 const postsContainer = document.getElementById("feed-posts");
 
 // Function to filter posts based on the selected tag and selector
+/**
+ * Filter posts based on the selected tag and selector.
+ * @param {string} selectedTag - The selected tag to filter posts.
+ * @param {HTMLSelectElement} selector - The selector element used for filtering.
+ */
 export function filterPosts(selectedTag, selector) {
-  
+
   // Convert the selected tag to lowercase for case-insensitive comparison
   selectedTag = selectedTag.toLowerCase();
   let postsLeft = 0;

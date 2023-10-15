@@ -2,8 +2,14 @@ import { togglePostContent } from "./utils/show-more-post-text.mjs";
 import { toTopButton } from "./utils/back-to-top-button.js";
 import { clickHandler, profileLinks } from "./variables/consts.mjs";
 
+/**
+ * Add a "Back to Top" button to the page.
+ */
 toTopButton();
 
+/**
+ * Get the access token from localStorage and display an access denied message if it's not there.
+ */
 document.addEventListener("DOMContentLoaded", function () {
   const accessToken = localStorage.getItem("accessToken");
 
@@ -29,10 +35,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+/**
+ * Attach click event handlers to profile links.
+ */
 profileLinks.forEach((link) => {
   link.addEventListener("click", clickHandler);
 });
 
+/**
+ * Attach click event handlers to logout links.
+ */
 const logoutLinks = document.querySelectorAll(".logout-link");
 logoutLinks.forEach(function (logoutLink) {
   logoutLink.addEventListener("click", function (logout) {
@@ -43,14 +55,19 @@ logoutLinks.forEach(function (logoutLink) {
   });
 });
 
+/**
+ * Toggle the visibility of post content when the "Show More" button is clicked.
+*/
 const showMoreButtons = document.querySelectorAll(".show-more-button");
 showMoreButtons.forEach((button) => {
   button.addEventListener("click", togglePostContent);
 });
 
+/**
+   * Change background color of the active link
+   */
 const mainContainer = document.querySelector(".accordion");
 const navLinks = mainContainer.querySelectorAll(".nav-link");
-
 navLinks.forEach((navLink) => {
   navLink.addEventListener("click", () => {
     const isActive = navLink.classList.contains("bg-warning");
@@ -75,6 +92,9 @@ navLinks.forEach((navLink) => {
   });
 });
 
+/**
+   * Hide the "Next" and "Previous" links on the post.html and profile/index.html pages
+   */
 if (window.location.href.includes("/post") || window.location.href.includes("/profile/")) {
   const hideNextPreviousLinks = document.querySelector(".get-next");
   hideNextPreviousLinks.classList.add("d-none");

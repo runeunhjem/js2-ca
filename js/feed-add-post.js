@@ -2,6 +2,11 @@ import { createPostURL, postForm, addNewPostOptions, postsURL, fetchOptions } fr
 import { createNewPost } from "./utils/create-new-post.mjs";
 import { getFeedPostsWithToken } from "./feed-get-posts.js";
 
+/**
+ * Handles the submission of a new post form, creates a new post, and refreshes the feed.
+ * @param {Event} event - The submit event object.
+ * @returns {Promise<void>}
+ */
 postForm.addEventListener("submit", async function (event) {
   event.preventDefault();
 

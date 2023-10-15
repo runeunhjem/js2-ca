@@ -16,12 +16,14 @@ const postIdParam = urlParams.get("postId");
 
 const profileImageElement = document.querySelector(".profile-image");
 
+// Set the profile image
 if (profileImageElement) {
   profileImageElement.src = loggedInUserData.avatar
     ? loggedInUserData.avatar
     : `https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg`;
 }
 
+// Initialize variables
 let currentPage = 1;
 let limit = 10;
 let offset = 0;
@@ -29,10 +31,15 @@ let sort = "created";
 let sortOrder = "desc";
 let basePostsURL = getBasePostsURL();
 
+/**
+ *
+ * @returns {string} The base URL for fetching posts.
+ */
 function getBasePostsURL() {
   return `${API_BASE_URL}/social/posts?limit=${limit}&offset=${offset}&_comments=true&_author=true&_reactions=true&_count=true&sort=${sort}&sortOrder=${sortOrder}`;
 }
 
+// When not on the profile page, add event listeners to the sort buttons
 if (!window.location.href.includes("/profile/")) {
   document.querySelector(".sort-by-date-button").addEventListener("click", () => {
     sort = "created";
@@ -65,6 +72,10 @@ if (!window.location.href.includes("/profile/")) {
   });
 }
 
+/**
+ * Updates the limit and refreshes the feed.
+ * @param {string} value - The new limit value.
+ */
 export async function updateLimitAndRefresh(value) {
   limit = parseInt(value, 10);
   const itemsPerPageSelector = document.getElementById("itemsPerPageSelector");
@@ -86,6 +97,11 @@ if (window.location.href.includes("/profile") || window.location.href.includes("
   shouldFetchAndPopulateTags = true; // Don't fetch and populate tags on the profile page
 }
 
+/**
+ * Fetches and populates posts with user tags.
+ * @param {string} url - The URL for fetching posts.
+ * @param {object} options - The fetch options.
+ */
 export async function getFeedPostsWithToken(url, options) {
   if (shouldFetchAndPopulateTags) {
     try {
@@ -159,7 +175,13 @@ export async function getFeedPostsWithToken(url, options) {
   }
 }
 
-// Function to clean and populate tags in the selector, including an option for posts with no tags
+/**
+ * Cleans and populates tags in the selector, including an option for posts with no tags.
+ *
+ * @param {string[]} tags - An array of tags to populate in the selector.
+ * @param {HTMLElement} selectorElement - The HTML element to populate with tags.
+ * @returns {void}
+ */
 export async function populateTagsSelector(tags, selectorElement) {
   selectorElement.innerHTML = ""; // Clear the existing options
 
@@ -205,11 +227,8 @@ export async function populateTagsSelector(tags, selectorElement) {
     option.text = tag;
     selectorElement.appendChild(option);
   });
-
-  // Without this, the selector will not show the updated options
-  // But it does not work on the profile page, sometimes!:
-  // return Promise.resolve(); // Resolve the Promise when done (Update - i thinkk this is not nessesary anymore after setting shouldFetchAndPopulateTags to true)
 }
+
 
 export const filterUserTagsSelector = document.getElementById("filterUserTagsSelector");
 export const populateTags = () => {
@@ -241,6 +260,10 @@ if (
   getFeedPostsWithToken(profilePostsURL, fetchOptions).then(populateTags);
 }
 
+/**
+ * Toggles the sorting order between "asc" and "desc".
+ * @returns {void}
+ */
 function togglesortOrder() {
   sortOrder = sortOrder === "asc" ? "desc" : "asc";
 }
@@ -248,7 +271,10 @@ function togglesortOrder() {
 getFeedPostsWithToken(basePostsURL, fetchOptions);
 
 // Next & Previous links
-// Update the current page number based on the offset
+/**
+ * Updates the current page number based on the offset and populates tags.
+ * @returns {void}
+ */
 function updateCurrentPage() {
   const currentPageElement = document.getElementById("currentPageInfo");
   currentPage = `Page ${Math.floor(offset / limit) + 1}`;
@@ -256,7 +282,11 @@ function updateCurrentPage() {
   populateTags(); // Update the tags selector
 }
 
-// Previous Page link click event
+/**
+ * Handles the click event for the "Previous Page" link.
+ * Decreases the offset, updates the current page, and refreshes the feed.
+ * @returns {void}
+ */
 document.querySelector("#prevPageLink").addEventListener("click", () => {
   if (offset >= limit) {
     offset -= limit;
@@ -267,7 +297,11 @@ document.querySelector("#prevPageLink").addEventListener("click", () => {
   }
 });
 
-// Next Page link click event
+/**
+ * Handles the click event for the "Next Page" link.
+ * Increases the offset, updates the current page, and refreshes the feed.
+ * @returns {void}
+ */
 document.querySelector("#nextPageLink").addEventListener("click", () => {
   offset += limit;
   updateCurrentPage();
@@ -276,7 +310,10 @@ document.querySelector("#nextPageLink").addEventListener("click", () => {
   populateTags(); // Update the tags selector
 });
 
-// Attach the event listener to each "following-button"
+/**
+ * Attaches an event listener to each "following-button" to refresh the feed and update the current page.
+ * @returns {void}
+ */
 followingButtons.forEach((button) => {
   button.addEventListener("click", () => {
     getFeedPostsWithToken(followingURL, fetchOptions);

@@ -5,6 +5,12 @@ import { populateTagsSelector, filterUserTagsSelector } from "./feed-get-posts.j
 const urlParams = new URLSearchParams(window.location.search);
 export const postIdParam = urlParams.get("postId");
 
+/**
+ * Fetch a single post by ID and display it in the "view-post" container.
+ * @param {string} url - The URL for fetching the post.
+ * @param {object} options - The fetch options.
+ * @param {string} id - The ID of the post to fetch.
+ */
 export async function getSinglePost(url, options, id) {
   try {
     if (!id) {
