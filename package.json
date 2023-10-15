@@ -4,10 +4,10 @@
   "description": "JS2: Developing the CSS Frameworks CA further to work properly with full functionality",
   "scripts": {
     "test": "echo \"We will learn more about testing in the Workflow course\" && exit 1",
-    "build": "sass src/scss:dist/css",
+    "build": "sass src/scss:src/scss",
     "start": "live-server",
     "sass": "sass --watch scss:css",
-    "watch": "sass --watch src/scss:dist/css & live-server"
+    "watch": "sass --watch src/scss:src/scss & live-server"
   },
   "repository": {
     "type": "git",
