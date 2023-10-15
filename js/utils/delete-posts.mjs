@@ -1,21 +1,25 @@
-import { API_BASE_URL, loggedInUser, currentProfileName, deletePostOptions } from "../variables/consts.mjs";
-// Function to delete a post
+import { API_BASE_URL, allPostsTags, loggedInUser, deletePostOptions } from "../variables/consts.mjs";
+import { populateTagsSelector, filterUserTagsSelector } from "../feed-get-posts.js";
+
+/**
+ * Deletes a post if the logged-in user is authorized to do so.
+ *
+ * @param {string} postId - The unique identifier of the post to be deleted.
+ * @returns {Promise<Object|null>} A Promise that resolves with the JSON response if successful; otherwise, null.
+ */
 export async function deletePost(postId) {
-  // const postId = localStorage.getItem("postId");
   const authorName = localStorage.getItem("authorName");
+
   // Check if the logged-in user matches the username from the URL
   if (loggedInUser === authorName) {
-    console.log(`postId: ${postId}`);
-    console.log(`authorName: ${authorName}`);
-    const deleteURL = `${API_BASE_URL}/social/posts/${postId}`; // Include postId in the URL
-    console.log(`deleteURL: ${deleteURL}`);
+    const deleteURL = `${API_BASE_URL}/social/posts/${postId}`;
     try {
       const response = await fetch(deleteURL, deletePostOptions);
       const json = await response.json();
-      // console.log("profileData is:", JSON.stringify(json, null, 2));
 
       if (response.status >= 200 && response.status <= 299) {
-        console.log("Post successfully deleted!");
+        populateTagsSelector(allPostsTags, filterUserTagsSelector);
+        window.location.reload();
         return json;
       } else {
         // Display a message indicating that only the post owner can delete the post

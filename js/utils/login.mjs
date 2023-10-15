@@ -1,3 +1,6 @@
+/**
+ * Fills out the login form fields with a saved email if "Remember Me" is enabled.
+ */
 export function preFillFormFields() {
   const savedEmail = localStorage.getItem("savedEmail");
   const rememberMe = localStorage.getItem("rememberMe");
@@ -11,6 +14,12 @@ export function preFillFormFields() {
   }
 }
 
+/**
+ * Attempts to log in a user using the provided user data and saves relevant options to local storage.
+ * @param {string} url - The URL where the login request is sent.
+ * @param {object} userData - The user data containing email and password.
+ * @returns {Promise<object>} - A promise that resolves with the response data if the login is successful.
+ */
 export async function loginUser(url, userData) {
   try {
     const postData = {
@@ -21,16 +30,12 @@ export async function loginUser(url, userData) {
       body: JSON.stringify(userData),
     };
     const response = await fetch(url, postData);
-    console.log(response);
     const json = await response.json();
-    console.log(json);
 
     if (response.status >= 200 && response.status <= 299) {
-      console.log("Login successful!");
-
+      // Needed for smooth sailing after login
       const accessToken = json.accessToken;
       localStorage.setItem("accessToken", accessToken);
-      // let loggedInUser = json.name;
       localStorage.setItem("loggedInUser", json.name);
       localStorage.setItem("currentProfileName", json.name);
       localStorage.setItem("authorName", json.name);
@@ -38,7 +43,6 @@ export async function loginUser(url, userData) {
       localStorage.setItem("isFollowing", false);
       localStorage.setItem("isLoggedIn", true);
 
-      console.log(`Name: ${localStorage.getItem("loggedInUser")}`);
       const URLProfilename = json.name;
       const currentProfileURL = `../profile/index.html?name=${encodeURIComponent(URLProfilename)}`;
 

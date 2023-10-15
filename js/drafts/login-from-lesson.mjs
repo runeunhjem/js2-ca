@@ -23,10 +23,31 @@ async function handleSubmit(event) {
 
   const userData = { name: nameValue, email: emailValue, password: passwordValue };
 
-  console.log(userData);
   const options = { method: "POST", body: JSON.stringify(userData) };
   const data = await doFetch(API_LOGIN_URL, options);
-  
-  console.log(data);
 }
 loginForm.addEventListener("submit", handleSubmit);
+
+// Hansemann :
+async function apiFetch(url, fetchMethod, body = null) {
+  try {
+    const token = localStorage.getItem("accessToken");
+
+    const options = {
+      method: fetchMethod,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    };
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+
+    const response = await fetch(url, options);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.log(error);
+  }
+}

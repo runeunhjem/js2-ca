@@ -1,17 +1,17 @@
 {
   "name": "css-frameworks-ca",
   "version": "0.0.1",
-  "description": "A starting point for the CSS Frameworks CA project",
+  "description": "JS2: Developing the CSS Frameworks CA further to work properly with full functionality",
   "scripts": {
     "test": "echo \"We will learn more about testing in the Workflow course\" && exit 1",
-    "build": "sass src/scss:dist/css",
+    "build": "sass src/scss:src/scss",
     "start": "live-server",
     "sass": "sass --watch scss:css",
-    "watch": "sass --watch src/scss:dist/css & live-server"
+    "watch": "sass --watch src/scss:src/scss & live-server"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NoroffFEU/css-frameworks-ca.git"
+    "url": "git+https://github.com/runeunhjem/js2-ca.git"
   },
   "keywords": [
     "CSS",
@@ -21,12 +21,12 @@
     "SCSS",
     "SASS"
   ],
-  "author": "Oliver Dipple <oliver.dipple@noroff.no>",
+  "author": "Rune Unhjem <rununh17678@stud.noroff.no>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/NoroffFEU/css-frameworks-ca/issues"
+    "url": "https://github.com/runeunhjem/js2-ca/issues"
   },
-  "homepage": "https://github.com/NoroffFEU/css-frameworks-ca#readme",
+  "homepage": "https://github.com/runeunhjem/js2-ca#readme",
   "dependencies": {
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.10.5"

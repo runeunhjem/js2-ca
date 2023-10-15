@@ -10782,10 +10782,6 @@ body {
 
 .movie-poster {
   max-width: 75px;
-  transition: all 0.3s ease-in-out;
-}
-.movie-poster:hover {
-  max-width: 150px;
 }
 
 .profile-image {
@@ -10819,17 +10815,25 @@ body {
   background-position: right center;
 }
 
+.news {
+  max-width: 100%;
+}
+
+.smooth {
+  transition: all 0.3s ease;
+  scroll-behavior: smooth;
+}
+
 .back-to-top-button {
   position: fixed;
   bottom: 100px;
   right: 30px;
   z-index: 9;
-  color: var(--color-gold);
-  border: var(--border-1px-gold);
   cursor: pointer;
   border-radius: 10px;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .back-to-top-button::before {
@@ -10837,8 +10841,8 @@ body {
 }
 
 .back-to-top-button:hover {
-  background-color: var(--color-gold);
-  color: var(--color-burgundy);
+  background-color: rgb(94, 67, 32) !important;
+  color: white !important;
 }
 
 .back-to-top-button-show {
@@ -10856,4 +10860,46 @@ body {
 
 .hidden-content {
   display: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.searching {
+  display: none;
+}
+
+.rounded-bottom-2 {
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.comments-container::-webkit-scrollbar {
+  width: 12px;
+  border-radius: 0.5rem;
+}
+
+.comments-container::-webkit-scrollbar-track {
+  background: rgba(71, 71, 71, 0.5490196078);
+  border-radius: 0.5rem;
+}
+
+.comments-container::-webkit-scrollbar-thumb {
+  width: 10px;
+  background: #ffc73b;
+  border-radius: 0.5rem;
+}
+
+.comments-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.custom-disabled {
+  pointer-events: none;
+  opacity: 0.7;
 }/*# sourceMappingURL=index.css.map */

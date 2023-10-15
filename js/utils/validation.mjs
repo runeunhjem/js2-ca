@@ -1,21 +1,19 @@
+/**
+ * Validates the login and sign-up forms, providing user feedback on input fields.
+ */
 export function validateLoginForm() {
-
   const registerForm = document.getElementById("signup-form");
   const registerButton = document.getElementById("register-button");
   const userName = document.getElementById("registerName");
   const registerNameError = document.getElementById("name-input-error");
   const registerEmail = document.getElementById("registerEmail");
   const registerEmailError = document.getElementById("register-email-input-error");
-  console.log("registerEmailError is:", registerEmailError);
   const registerPassword = document.getElementById("password");
   const registerPasswordError = document.getElementById("register-password-error");
-  // const contactContent = document.getElementById("your-message");
-  // const contactContentError = document.getElementById("message-input-error");
   const confirmSuccess = document.getElementById("register-success");
   const nameAfter = document.getElementById("name-after");
   const emailAfter = document.getElementById("email-after");
   const passwordAfter = document.getElementById("password-after");
-  // const messageAfter = document.getElementById("message-after");
 
   userName.addEventListener("focus", function () {
     userName.placeholder = "Min 2 characters";
@@ -35,13 +33,12 @@ export function validateLoginForm() {
   registerPassword.addEventListener("blur", function () {
     registerPassword.placeholder = "Min 8 characters";
   });
-  // contactContent.addEventListener("focus", function () {
-  //   contactContent.placeholder = "Message goes here";
-  // });
-  // contactContent.addEventListener("blur", function () {
-  //   contactContent.placeholder = "Your Message";
-  // });
 
+  /**
+   * Validates the form input fields and updates their states accordingly.
+   *
+   * @param {Event} event - The form submission event object.
+   */
   function validateForm(event) {
     if (checkLength(userName.value, 1)) {
       userName.classList.add("was-validated");
@@ -85,24 +82,8 @@ export function validateLoginForm() {
       passwordAfter.classList.remove("show-checkmark");
       passwordAfter.classList.remove("validated");
     }
-    // if (checkLength(contactContent.value, 3)) {
-    //   // contactContent.classList.add("was-validated");
-    //   contactContent.classList.add("input-validated");
-    //   messageAfter.classList.add("show-checkmark");
-    //   messageAfter.classList.add("validated");
-    // } else {
-    //   messageAfter.innerText = contactContentError.innerText;
-    //   // contactContent.classList.remove("was-validated");
-    //   contactContent.classList.remove("input-validated");
-    //   messageAfter.classList.remove("show-checkmark");
-    //   messageAfter.classList.remove("validated");
-    // }
-    if (
-      validateUserName(userName.value) &&
-      validateEmail(registerEmail.value) &&
-      checkLength(registerPassword.value, 7) // &&
-      // checkLength(contactContent.value, 3)
-    ) {
+
+    if (validateUserName(userName.value) && validateEmail(registerEmail.value) && checkLength(registerPassword.value, 7)) {
       registerButton.setAttribute("type", "submit");
       registerButton.style.cursor = "pointer";
       registerButton.innerText = "Send Message";
@@ -120,9 +101,11 @@ export function validateLoginForm() {
   userName.addEventListener("input", validateForm);
   registerEmail.addEventListener("input", validateForm);
   registerPassword.addEventListener("input", validateForm);
-  // contactContent.addEventListener("input", validateForm);
   registerButton.addEventListener("click", validateForm);
 
+  /**
+   * Displays a success message and reloads the page after a delay.
+   */
   function successMessage() {
     const confirmSuccess = document.getElementById("register-success");
     confirmSuccess.style.display = "block";
@@ -132,9 +115,20 @@ export function validateLoginForm() {
     setTimeout(closeSuccessMessage, 4000);
   }
 
+  /**
+   * Closes the success message and reloads the page.
+   */
   function closeSuccessMessage() {
     location.reload();
   }
+
+  /**
+   * Checks if a string's length is greater than a specified length.
+   *
+   * @param {string} value - The string value to check.
+   * @param {number} len - The minimum length to validate against.
+   * @returns {boolean} True if the length is greater than or equal to len; otherwise, false.
+   */
   function checkLength(value, len) {
     if (value.trim().length > len) {
       return true;
@@ -143,18 +137,27 @@ export function validateLoginForm() {
     }
   }
 
+  /**
+   * Validates the username using a regular expression pattern.
+   *
+   * @param {string} username - The username to validate.
+   * @returns {boolean} True if the username is valid; otherwise, false.
+   */
   function validateUserName(username) {
-    // Use a regular expression to check for valid characters in the username
     const regEx = /^[a-zA-Z0-9_]+$/;
     const patternMatches = regEx.test(username);
     return patternMatches;
   }
 
+  /**
+   * Validates the email using specific patterns.
+   *
+   * @param {string} email - The email address to validate.
+   * @returns {boolean} True if the email is valid; otherwise, false.
+   */
   function validateEmail(email) {
     const noroffPattern = /@noroff\.no$/;
     const studNoroffPattern = /@stud\.noroff\.no$/;
     return noroffPattern.test(email) || studNoroffPattern.test(email);
   }
 }
-
-// export export { validateLoginForm };
