@@ -283,7 +283,7 @@ export function createPostCard(post) {
 
   // View single post link
   const viewPostLink = document.createElement("a");
-  viewPostLink.classList.add("d-flex", "nav-link", "text-primary", "m-0", "p-2", "flex-wrap", "align-items-start");
+  viewPostLink.classList.add("d-flex", "nav-link", "text-primary", "m-0", "p-2", "flex-wrap", "align-items-start", "pt-2");
 
   // If the page is a profile page, add these classes
   if (window.location.href.includes("/profile/")) {
