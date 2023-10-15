@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       profilePosts.innerHTML = "";
       populateTags(profilePostsData);
       const mainHeader = document.querySelector(".main-header");
-      mainHeader.innerHTML = `${currentUserName}'s ${profilePostsData.length} posts`;
+      mainHeader.innerHTML = `Here's your latest ${profilePostsData.length} posts`;
       profilePostsData.forEach((post) => {
         const card = createPostCard(post);
         profilePosts.appendChild(card);
