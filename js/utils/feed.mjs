@@ -353,13 +353,17 @@ export function createPostCard(post) {
   // Create the visible content
   const visibleContentElement = document.createTextNode(visibleContent);
 
+  // Create a space element
+  const spaceElement = document.createTextNode(" "); // A space
+
   // Create the hidden content
   const hiddenContentElement = document.createElement("span");
   hiddenContentElement.className = "hidden-content smooth";
   hiddenContentElement.textContent = hiddenContent;
 
-  // Append both elements to the postText
+  // Append elements to the postText
   postText.appendChild(visibleContentElement);
+  postText.appendChild(spaceElement); // Add a space between the visible and hidden content
   postText.appendChild(hiddenContentElement);
 
   const postMedia = document.createElement("img");
