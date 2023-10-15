@@ -3,8 +3,6 @@ import { getProfilePosts } from "./populate_profile.js";
 import { createPostCard } from "./utils/feed.mjs";
 import { populateTags } from "./feed-get-posts.js";
 
-const currentUserName = urlParams.get("name");
-
 document.addEventListener("DOMContentLoaded", async function () {
 
   // Display a loading indicator while data is being fetched
