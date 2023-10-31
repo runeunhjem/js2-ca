@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "description": "JS2: Developing the CSS Frameworks CA further to work properly with full functionality",
   "scripts": {
-    "test": "echo \"We will learn more about testing in the Workflow course\" && exit 1",
     "build": "sass src/scss:src/scss",
     "start": "live-server",
     "sass": "sass --watch scss:css",
-    "watch": "sass --watch src/scss:src/scss & live-server"
+    "watch": "sass --watch src/scss:src/scss & live-server",
+    "test": "npm run test-unit",
+    "test-unit": "jest"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "bootstrap-icons": "^1.10.5"
   },
   "devDependencies": {
+    "jest": "^29.2.0",
     "live-server": "^1.1.0",
     "sass": "^1.66.1"
   }
