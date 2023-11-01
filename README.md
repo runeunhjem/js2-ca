@@ -1,7 +1,9 @@
-# css-frameworks-ca
+p# js2-ca
 
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+
 <a name="readme-top"></a>
+
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
 *** that would make this better, please fork the repo and create a pull request
@@ -9,8 +11,6 @@
 *** Don't forget to give the project a star!
 *** Thanks again! Now go create something AMAZING! :D
 -->
-
-
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -20,35 +20,40 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/runeunhjem/css-frameworks-ca">
+  <a href="https://github.com/runeunhjem/js2-ca">
     <img src="img/logo-yellow.svg" alt="Logo">
   </a>
 
-<h3 align="center">CSS-Frameworks - Course Assignment</h3>
+  <h3 align="center">JavaScript 2 - Course Assignment</h3>
 
-  <p align="center">
-    Apply knowledge of Bootstrap and SASS to build a responsive front end for a social media application.
+  <p align="left">
+    You have been tasked with producing a new JavaScript front-end client for an existing social media platform. The client application must be attractive and responsive, but you have an otherwise blank slate in terms of theme design language.</p>
+
+  <p align="left">Using the provided API and API documentation, create a functioning user interface that allows for viewing, posting, editing and deleting social media content.</p>
+
+  <p align="left">Social API routes require authorisation via JWT (JSON Web Tokens). You will need to register an account and login to access your token.</p>
+
+  <p align="left">To complete the required features, you will also need to make use of GET, POST, PUT, and DELETE HTTP methods.</p>
+
+  <p align="left">Using localStorage is highly recommended, especially for storing JWT tokens.</p>
+
+  <p align="left">A finished project fulfils the requirements below with an easy to use and error-free user interface.</p>
     <br />
-    <a href="https://github.com/runeunhjem/css-frameworks-ca"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/runeunhjem/js2-ca"><strong>Explore the docs »</strong></a>
     <br />
     <br />
 
-  </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -76,16 +81,13 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://css-frameworks-ca.netlify.app/)
+[![Product Name Screen Shot][product-screenshot]](https://js2-ca-js2-branch.netlify.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 ### Tools used in the projects
 
@@ -97,9 +99,8 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 Clone the repo, load it into VSC and use Live Server to go live locally
@@ -107,14 +108,14 @@ Clone the repo, load it into VSC and use Live Server to go live locally
 ### Prerequisites
 
 In order to edit and work with the site locally, you need a code editor.
-* Visual Studio Code is highly recommended
+
+- Visual Studio Code is highly recommended
   - Recommended plugins:
     - Live Server
     - Live SASS Compiler
     - Prettier
     - Emmet-JSS
     - Web Accessability
-    - GitHub Copilot
     - ESLint
     - Auto Rename Tag
     - Lorem Ipsum
@@ -126,27 +127,24 @@ In order to edit and work with the site locally, you need a code editor.
 1. Install VSC and desired plugins
 2. Clone the repo
    ```sh
-   git clone https://github.com/runeunhjem/css-frameworks-ca.git
+   git clone https://github.com/runeunhjem/js2-ca.git
    ```
 3. Start working
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 A social media site where movielovers can share their thoughts about movies and series. The site is responsive and works on all devices.
 
-Find the latest and greatest version of the site at [https://css-frameworks-ca.netlify.app/](https://css-frameworks-ca.netlify.app/)
-
+Find the latest and greatest version of the site at [https://js2-ca-js2-branch.netlify.app/](https://js2-ca-js2-branch.netlify.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- ROADMAP -->
+
 ## Roadmap to this project
 
 - [ ] Make the Header
@@ -154,14 +152,12 @@ Find the latest and greatest version of the site at [https://css-frameworks-ca.n
 - [ ] Added Profile page
 - [ ] Added Feed page
 
-
-See the [open issues](https://github.com/runeunhjem/css-frameworks-ca/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/runeunhjem/js2-ca/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -177,52 +173,53 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTACT -->
+
 ## Contact
-Project Link: [https://github.com/runeunhjem/css-frameworks-ca](https://github.com/runeunhjem/css-frameworks-ca)
+
+Project Link: [https://github.com/runeunhjem/js2-ca](https://github.com/runeunhjem/js2-ca)
 
 Call me - [+47 93 26 76 11](tel:+4793267611)
 Mail - runeunhjem@gmail.com
+
 ##### Social media
+
 LinkedIn - [Rune Unhjem](https://www.linkedin.com/in/runeunhjem/)
 Facebook - [Rune Unhjem](https://www.facebook.com/runeunhjem/)
 Instagram - [@runeunhjem](https://www.instagram.com/runeunhjem/)
 GitHub - [runeunhjem](https://github.com/runeunhjem)
+
 ##### Other projects
+
 My music project on Spotify - [Rune Unhjem | -=ThE rUnIcOrN=-](https://open.spotify.com/user/1116127880?si=8e9e9e8f3b5c4e9d)
 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- ACKNOWLEDGMENTS -->
+
 ## Acknowledgments
 
-* [Unsplash.com](https://unsplash.com/)
-* [Iconfinder.com](https://www.iconfinder.com/)
-* [Othneil Drew | README.md template](https://github.com/othneildrew)
-* [Bootstrap Icons](https://icons.getbootstrap.com/)
-
+- [Unsplash.com](https://unsplash.com/)
+- [Iconfinder.com](https://www.iconfinder.com/)
+- [Othneil Drew | README.md template](https://github.com/othneildrew)
+- [Bootstrap Icons](https://icons.getbootstrap.com/)
+- [Lorem Picsum](https://picsum.photos/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/runeunhjem/css-frameworks-ca.svg?style=for-the-badge
-[contributors-url]: https://github.com/runeunhjem/css-frameworks-ca/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/runeunhjem/css-frameworks-ca.svg?style=for-the-badge
-[forks-url]: https://github.com/runeunhjem/css-frameworks-ca/network/members
-[stars-shield]: https://img.shields.io/github/stars/runeunhjem/css-frameworks-ca.svg?style=for-the-badge
-[stars-url]: https://github.com/runeunhjem/css-frameworks-ca/stargazers
-[issues-shield]: https://img.shields.io/github/issues/runeunhjem/css-frameworks-ca.svg?style=for-the-badge
-[issues-url]: https://github.com/runeunhjem/css-frameworks-ca/issues
-[license-shield]: https://img.shields.io/github/license/runeunhjem/css-frameworks-ca.svg?style=for-the-badge
-[license-url]: https://github.com/runeunhjem/css-frameworks-ca/blob/master/LICENSE.txt
+
+[contributors-shield]: https://img.shields.io/github/contributors/runeunhjem/js2-ca.svg?style=for-the-badge
+[contributors-url]: https://github.com/runeunhjem/js2-ca/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/runeunhjem/js2-ca.svg?style=for-the-badge
+[forks-url]: https://github.com/runeunhjem/js2-ca/network/members
+[stars-shield]: https://img.shields.io/github/stars/runeunhjem/js2-ca.svg?style=for-the-badge
+[stars-url]: https://github.com/runeunhjem/js2-ca/stargazers
+[issues-shield]: https://img.shields.io/github/issues/runeunhjem/js2-ca.svg?style=for-the-badge
+[issues-url]: https://github.com/runeunhjem/js2-ca/issues
+[license-shield]: https://img.shields.io/github/license/runeunhjem/js2-ca.svg?style=for-the-badge
+[license-url]: https://github.com/runeunhjem/js2-ca/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/runeunhjem
-[product-screenshot]: img/css-frameworks-ca.png
+[product-screenshot]: ./img/js2-ca.png

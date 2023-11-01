@@ -1,9 +1,9 @@
 @import "variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
-// @import "../../node_modules/bootstrap-icons/font/bootstrap-icons";
 
-html, body {
-    min-height: 100%;
+html,
+body {
+  min-height: 100%;
 }
 
 .header-logo {
@@ -25,18 +25,12 @@ html, body {
   max-width: 300px;
 }
 
-.profile-image {
-  max-width: 200px;
-}
 .movie-poster {
   max-width: 75px;
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    max-width: 200px;
-  }
 }
 .profile-image {
-  max-width: 30px;
+  width: 50px;
+  max-width: 100%;
 }
 
 .nav-link {
@@ -48,4 +42,107 @@ html, body {
   .active {
     color: $bg-danger;
   }
+}
+
+.bannerImage {
+  background-image: url("../../img/banner.jpg");
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.avatarImage {
+  background-image: url("https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg");
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.news {
+  max-width: 100%;
+}
+
+.smooth {
+  transition: all 0.3s ease;
+  scroll-behavior: smooth;
+}
+
+.back-to-top-button {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  z-index: 9;
+  cursor: pointer;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.back-to-top-button::before {
+  content: "\25B2";
+}
+.back-to-top-button:hover {
+  background-color: rgb(94, 67, 32) !important;
+  color: white !important;
+}
+
+.back-to-top-button-show {
+  opacity: 0.8;
+}
+.out-of-view-menu-text {
+  position: absolute;
+  left: -10000px;
+}
+
+.bi-chevron-up {
+  display: none;
+}
+
+.hidden-content {
+  display: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.searching {
+  display: none;
+}
+
+.rounded-bottom-2 {
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.comments-container::-webkit-scrollbar {
+  width: 12px;
+  border-radius: 0.5rem;
+}
+
+.comments-container::-webkit-scrollbar-track {
+  background: #4747478c;
+  border-radius: 0.5rem;
+}
+
+.comments-container::-webkit-scrollbar-thumb {
+  width: 10px;
+  background: #ffc73b;
+  border-radius: 0.5rem;
+}
+
+.comments-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.custom-disabled {
+  pointer-events: none;
+  opacity: 0.7;
 }
