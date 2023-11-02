@@ -15,3 +15,6 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: electron
+          build: yarn build
+          start: yarn start
+          wait-on: "http://localhost:5501"
