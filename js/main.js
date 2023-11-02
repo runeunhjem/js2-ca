@@ -1,6 +1,7 @@
 import { togglePostContent } from "./utils/show-more-post-text.mjs";
 import { toTopButton } from "./utils/back-to-top-button.js";
 import { clickHandler, profileLinks } from "./variables/consts.mjs";
+import { logout } from "./utils/logout.mjs";
 
 /**
  * Add a "Back to Top" button to the page.
@@ -47,25 +48,22 @@ profileLinks.forEach((link) => {
  */
 const logoutLinks = document.querySelectorAll(".logout-link");
 logoutLinks.forEach(function (logoutLink) {
-  logoutLink.addEventListener("click", function (logout) {
-    logout.preventDefault();
-    localStorage.clear();
-
-    window.location.href = "../index.html";
+  logoutLink.addEventListener("click", (e) => {
+    logout(e);
   });
 });
 
 /**
  * Toggle the visibility of post content when the "Show More" button is clicked.
-*/
+ */
 const showMoreButtons = document.querySelectorAll(".show-more-button");
 showMoreButtons.forEach((button) => {
   button.addEventListener("click", togglePostContent);
 });
 
 /**
-   * Change background color of the active link
-   */
+ * Change background color of the active link
+ */
 const mainContainer = document.querySelector(".accordion");
 const navLinks = mainContainer.querySelectorAll(".nav-link");
 navLinks.forEach((navLink) => {
@@ -93,8 +91,8 @@ navLinks.forEach((navLink) => {
 });
 
 /**
-   * Hide the "Next" and "Previous" links on the post.html and profile/index.html pages
-   */
+ * Hide the "Next" and "Previous" links on the post.html and profile/index.html pages
+ */
 if (window.location.href.includes("/post") || window.location.href.includes("/profile/")) {
   const hideNextPreviousLinks = document.querySelector(".get-next");
   hideNextPreviousLinks.classList.add("d-none");

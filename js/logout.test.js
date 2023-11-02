@@ -1,4 +1,4 @@
-import { mockLogOut } from "./mock-main.js";
+import { logout } from "./utils/logout.mjs";
 
 global.localStorage = {
   clear: jest.fn(),
@@ -6,9 +6,13 @@ global.localStorage = {
 
 describe("Logout Button Event Listener", () => {
   it("should call localStorage.clear when the Logout button is clicked", () => {
-    //simulates clicking the logout button
-    mockLogOut();
+    const mockEvent = {
+      preventDefault: jest.fn(),
+    };
 
+    logout(mockEvent);
+
+    expect(mockEvent.preventDefault).toHaveBeenCalled();
     expect(localStorage.clear).toHaveBeenCalled();
   });
 });
