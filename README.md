@@ -20,6 +20,9 @@ p# js2-ca
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+[![Automated E2E Testing](https://github.com/Tokle89/workflow-ca/actions/workflows/e2e-tests.yml/badge.svg)](https://github.com/Tokle89/workflow-ca/actions/workflows/e2e-tests.yml)
+[![Automated Unit Testing](https://github.com/Tokle89/workflow-ca/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/Tokle89/workflow-ca/actions/workflows/unit-tests.yml)
+
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
