@@ -1,6 +1,7 @@
 import { logout } from "./utils/logout.mjs";
 import { locationMock } from "./jestMock/mock.js";
 
+// eslint-disable-next-line no-undef
 global.localStorage = {
   clear: jest.fn(),
 };

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { loginUser } from "./login.mjs";
 
 const mockAccessToken = "mockAccessToken";
@@ -28,7 +29,10 @@ describe("loginUser", () => {
   it("should store the access token in local storage upon successful login", async () => {
     await loginUser();
 
-    expect(localStorage.setItem).toHaveBeenCalledWith("accessToken", mockAccessToken);
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      "accessToken",
+      mockAccessToken,
+    );
   });
 
   it("should not store the access token in local storage upon failed login", async () => {

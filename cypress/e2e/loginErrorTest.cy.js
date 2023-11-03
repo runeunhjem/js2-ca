@@ -7,7 +7,7 @@ describe("login test", () => {
     cy.wait(2000);
   });
 
-  it("User cannot submit with wrong password, and is shown error message ", () => {
+  it("User cannot submit with  password shorter than 8 letters, and is shown error message ", () => {
     cy.visit("/index.html");
     cy.get("#loginEmail").type("test@noroff.no");
     cy.get("#loginPassword").type("test");
