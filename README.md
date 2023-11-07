@@ -27,9 +27,6 @@ p# js2-ca
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-
-[![Automated E2E Testing](https://github.com/Tokle89/workflow-ca/actions/workflows/e2e-tests.yml/badge.svg)](https://github.com/Tokle89/workflow-ca/actions/workflows/e2e-tests.yml)
-[![Automated Unit Testing](https://github.com/Tokle89/workflow-ca/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/Tokle89/workflow-ca/actions/workflows/unit-tests.yml)
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -226,3 +223,48 @@ My music project on Spotify - [Rune Unhjem | -=ThE rUnIcOrN=-](https://open.spot
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/runeunhjem
 [product-screenshot]: ./img/js2-ca.png
+
+
+##Contribution 07.11.2023
+
+[![Automated E2E Testing](https://github.com/Tokle89/workflow-ca/actions/workflows/e2e-tests.yml/badge.svg)](https://github.com/Tokle89/workflow-ca/actions/workflows/e2e-tests.yml)
+[![Automated Unit Testing](https://github.com/Tokle89/workflow-ca/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/Tokle89/workflow-ca/actions/workflows/unit-tests.yml)
+
+Have installed prettier and eslint, and configured  commithooks.
+Have also installed jest adn cypress.  
+Have created 2 jest test for checcking is the JWT is stored in local storage whan a user logges in, and removed its removed from local storage when ua user loggs out.
+Created 3 Cypress tests. 
+1 :The user can log in with the login form with valid credentials
+2: The user cannot submit the login form with invalid credentials and is shown a message.
+3: The user can log out with the logout button
+
+
+Added scripts to package.json : 
+
+#Formatting scripts: 
+```bash
+Npm run format
+```
+```bash
+Npm run lint
+```
+```bash
+Npm run lint-fix
+```
+#Test scripts:
+
+```bash
+Npm run test
+```
+```bash
+Npm run test
+```
+```bash
+Npm run test-unit
+```
+```bash
+Npm run test-e2e
+```
+```bash
+Npm run test-e2e-cli
+```
