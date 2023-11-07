@@ -225,7 +225,7 @@ My music project on Spotify - [Rune Unhjem | -=ThE rUnIcOrN=-](https://open.spot
 [product-screenshot]: ./img/js2-ca.png
 
 
-##Contribution 07.11.2023
+## Contribution 07.11.2023
 
 [![Automated E2E Testing](https://github.com/Tokle89/workflow-ca/actions/workflows/e2e-tests.yml/badge.svg)](https://github.com/Tokle89/workflow-ca/actions/workflows/e2e-tests.yml)
 [![Automated Unit Testing](https://github.com/Tokle89/workflow-ca/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/Tokle89/workflow-ca/actions/workflows/unit-tests.yml)
@@ -239,9 +239,9 @@ Created 3 Cypress tests.
 3: The user can log out with the logout button
 
 
-Added scripts to package.json : 
+#v Added scripts to package.json : 
 
-#Formatting scripts: 
+# Formatting scripts: 
 ```bash
 Npm run format
 ```
@@ -251,7 +251,7 @@ Npm run lint
 ```bash
 Npm run lint-fix
 ```
-#Test scripts:
+# Test scripts:
 
 ```bash
 Npm run test
