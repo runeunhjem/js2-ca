@@ -12,7 +12,7 @@ import {
 import { getSinglePost } from "./feed-view-post.js";
 
 const urlParams = new URLSearchParams(window.location.search);
-const postIdParam = urlParams.get("postId");
+const postIdParam = urlParams.get("id");
 
 const profileImageElement = document.querySelector(".profile-image");
 
